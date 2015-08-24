@@ -6,6 +6,8 @@ namespace townsim.Data
 	{
 		public string Name { get;set; }
 		public int Population { get; set; }
+		public int Forest { get;set; }
+		public int WaterSources { get; set; }
 
 		public Town ()
 		{

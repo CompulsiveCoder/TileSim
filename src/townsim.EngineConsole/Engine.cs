@@ -14,7 +14,7 @@ namespace townsim.EngineConsole
 		{
 			Console.WriteLine ("Starting TownSim engine");
 
-			CreateTowns ();
+			//CreateTowns ();
 
 			for (int i = 0; i < 100; i++) {
 				RunCycle ();
@@ -40,8 +40,14 @@ namespace townsim.EngineConsole
 		{
 
 			var saver = new TownSaver ();
-			saver.Save (new Town ("TestTown", 1000));
-			saver.Save (new Town ("AnotherTown", 1000));
+			var smallTown = new Town ("Small Town", 120);
+			smallTown.WaterSources = 20000;
+			smallTown.Forest = 40000;
+			saver.Save (smallTown);
+			var largeTown = new Town ("Large Town", 23000);
+			smallTown.WaterSources = 30000;
+			smallTown.Forest = 5000;
+			saver.Save (largeTown);
 		}
 
 		public void RunCycle()
@@ -49,41 +55,18 @@ namespace townsim.EngineConsole
 			var indexer = new TownIndexer ();
 			var towns = indexer.Get ();
 			var saver = new TownSaver ();
+			var populationEngine = new PopulationEngine ();
+			var forestsEngine = new ForestsEngine ();
+			var waterSourcesEngine = new WaterSourcesEngine ();
 			foreach (var town in towns) {
-				UpdatePopulation (town);
+				populationEngine.Update(town);
+				waterSourcesEngine.Update (town);
+				forestsEngine.Update (town);
 				saver.Save (town);
 			}
 		}
 
-		public void UpdatePopulation(Town town)
-		{
-			UpdatePopulationBirthRate (town);
-			UpdatePopulationDeaths (town);
-			UpdatePopulationMigration (town);
-		}
 
-		public void UpdatePopulationBirthRate(Town town)
-		{
-			if (town.Population > 100)
-				town.Population += town.Population / 50;
-			else
-				town.Population += town.Population / 20;
-		}
-
-		public void UpdatePopulationDeaths(Town town)
-		{
-			town.Population = town.Population - (town.Population / 50);
-		}
-
-		public void UpdatePopulationMigration(Town town)
-		{
-			var probability = new Random ().Next (100);
-			if (probability > 90)
-			{
-				var value = new Random ().Next (5);
-				town.Population += value;
-			}
-		}
 	}
 }
 

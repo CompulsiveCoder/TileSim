@@ -1,8 +1,8 @@
 ﻿
 
-function showTownProperties()
+function showTownProperties(id)
 {
-	$( "#propInner" ).load( "Town.aspx #body" );
+	$( "#propInner" ).load( "Town.aspx?id=" + id + " #body" );
 }
 
 
