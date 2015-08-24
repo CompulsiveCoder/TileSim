@@ -40,8 +40,8 @@ namespace townsim.EngineConsole
 		{
 
 			var saver = new TownSaver ();
-			saver.Save (new Town ("TestTown", 100));
-			saver.Save (new Town ("AnotherTown", 100));
+			saver.Save (new Town ("TestTown", 1000));
+			saver.Save (new Town ("AnotherTown", 1000));
 		}
 
 		public void RunCycle()
@@ -58,6 +58,7 @@ namespace townsim.EngineConsole
 		public void UpdatePopulation(Town town)
 		{
 			UpdatePopulationBirthRate (town);
+			UpdatePopulationDeaths (town);
 			UpdatePopulationMigration (town);
 		}
 
@@ -67,6 +68,11 @@ namespace townsim.EngineConsole
 				town.Population += town.Population / 50;
 			else
 				town.Population += town.Population / 20;
+		}
+
+		public void UpdatePopulationDeaths(Town town)
+		{
+			town.Population = town.Population - (town.Population / 50);
 		}
 
 		public void UpdatePopulationMigration(Town town)

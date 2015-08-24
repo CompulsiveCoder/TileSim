@@ -23,6 +23,9 @@ namespace townsim.Data.Tests.Integration
 
 			Assert.IsNotNull (loadedTowns);
 			Assert.AreEqual (1, loadedTowns.Length);
+
+			var deleter = new TownDeleter ();
+			deleter.Delete (town);
 		}
 	}
 }

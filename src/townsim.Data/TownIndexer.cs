@@ -12,7 +12,6 @@ namespace townsim.Data
 
 		public Town[] Get()
 		{
-			Console.WriteLine ("Getting town list");
 			var idManager = new DataIdManager ();
 			var ids = idManager.GetIds(typeof(Town));
 
@@ -21,7 +20,6 @@ namespace townsim.Data
 			foreach (Guid id in ids) {
 				towns.Add (reader.Read (id));
 			}
-			Console.WriteLine ("Total: " + towns.Count);
 			return towns.ToArray();
 		}
 	}
