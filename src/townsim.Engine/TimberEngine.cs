@@ -29,17 +29,16 @@ namespace townsim.Engine
 
 			town.Forest -= amount;
 
-			town.Timber += amount;
+			//town.Timber += amount;
 		}
 
 
 		public void RefineTimber(Town town, Building building)
 		{
-			var amount = building.TimberNeeded;
+			var amount = building.TimberPending;
 
-			RefineTimber (town, building.TimberNeeded);
+			RefineTimber (town, building.TimberPending);
 
-			building.TimberNeeded -= amount;
 			building.TimberAvailable += amount;
 		}
 

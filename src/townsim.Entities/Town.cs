@@ -10,7 +10,7 @@ namespace townsim.Entities
 		public string Name { get;set; }
 		public int Population { get; set; }
 		public double Forest { get;set; }
-		public double Timber { get;set; }
+		//public double Timber { get;set; }
 		public double WaterSources { get; set; }
 		public int Builders { get; set; }
 		public int Workers { get;set; }

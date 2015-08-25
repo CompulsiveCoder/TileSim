@@ -21,7 +21,7 @@
 		<div id="body">
 			<h1><h1><%= Town.Name %></h1>
 			<div>Population: <%= Town.Population %></div>
-			<div>Forests: <%= Town.Forest %></div>
+			<div>Forests: <%= Convert.ToInt32(Town.Forest) %></div>
 			<div>Water sources: <%= Town.WaterSources %></div>
 			<div>Workers: <%= Town.Workers %></div>
 			<div>Workers (available): <%= Town.WorkersAvailable %></div>

@@ -11,18 +11,24 @@ namespace townsim.Entities
 		public double PercentComplete { get; set; }
 		public int WorkerCount { get;set; }
 		public BuildingType Type { get; set; }
-		public int TimberNeeded { get; set; }
+		public int TimberPending
+		{
+			get {
+				return TimberCost - TimberAvailable;
+			}
+		}
 		public int TimberAvailable { get; set; }
+		public int TimberCost { get; set; }
 
 		public Building ()
 		{
-			TimberNeeded = 50;
+			TimberCost = 50;
 		}
 
 		public Building (BuildingType type)
 		{
 			Type = type;
-			TimberNeeded = 50;
+			TimberCost = 50;
 		}
 	}
 }
