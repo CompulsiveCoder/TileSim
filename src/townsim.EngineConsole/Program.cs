@@ -1,5 +1,6 @@
 ﻿using System;
 using townsim.Data;
+using townsim.Engine;
 
 namespace townsim.EngineConsole
 {
@@ -7,7 +8,7 @@ namespace townsim.EngineConsole
 	{
 		public static void Main (string[] args)
 		{
-			var engine = new Engine ();
+			var engine = new townsimEngine ();
 			engine.Start ();
 		}
 	}

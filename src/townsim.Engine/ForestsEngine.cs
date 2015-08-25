@@ -1,7 +1,8 @@
 ﻿using System;
 using townsim.Data;
+using townsim.Entities;
 
-namespace townsim.EngineConsole
+namespace townsim.Engine
 {
 	public class ForestsEngine
 	{
@@ -11,16 +12,14 @@ namespace townsim.EngineConsole
 
 		public void Update(Town town)
 		{
-			if (town.Forest < 10)
-				town.Forest = 10;
-			if (town.Forest > 10000)
-				town.Forest = 1000;
+			//if (town.Forest < 1000)
+			//	town.Forest = 1000;
 			UpdateGrowth (town);
 		}
 
 		public void UpdateGrowth(Town town)
 		{
-			var growth = town.Forest / 200;
+			var growth = town.Forest / 100000;
 			town.Forest = town.Forest + growth;
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Sider;
+using townsim.Entities;
 
 namespace townsim.Data
 {
@@ -15,6 +16,10 @@ namespace townsim.Data
 			var json = client.Get (new TownKeys ().GetTownKey (townId));
 
 			var town = new Parser().Parse<Town> (json);
+
+			var buildingReader = new BuildingReader ();
+			town.Buildings = new BuildingCollection (buildingReader.Read (town.Id));
+
 
 			return town;
 		}

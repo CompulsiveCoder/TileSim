@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" %>
 <%@ Import Namespace="townsim.Data" %>
+<%@ Import Namespace="townsim.Entities" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -37,7 +38,7 @@
 			<h2>Towns</h2>
 			<div id="listInner">
 			<% foreach (Town town in Towns){ %>
-			<div class='li' onmouseover="showTownProperties('<%= town.Id.ToString() %>')" onmouseout='hideTownProperties();'><%= town.Name %> - <%= town.Population %></div>
+			<div class='li' onmouseover="showTownProperties('<%= town.Id.ToString() %>')" onmouseout='hideTownProperties();'><%= town.Name %> - <%= town.Population %> <a href="Town.aspx?id=<%= town.Id.ToString() %>">open</a></div>
 			<% } %>
 			</div>
 		</div>

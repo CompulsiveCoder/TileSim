@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace townsim.Data
 {
@@ -11,7 +12,7 @@ namespace townsim.Data
 
 		public T Parse<T>(string json)
 		{
-			return new JavaScriptSerializer ().Deserialize<T> (json);
+			return JsonConvert.DeserializeObject<T>(json);
 		}
 	}
 }

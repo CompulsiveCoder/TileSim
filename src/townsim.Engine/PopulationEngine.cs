@@ -1,7 +1,8 @@
 ﻿using System;
 using townsim.Data;
+using townsim.Entities;
 
-namespace townsim.EngineConsole
+namespace townsim.Engine
 {
 	public class PopulationEngine
 	{
@@ -31,10 +32,18 @@ namespace townsim.EngineConsole
 
 		public void UpdatePopulationMigration(Town town)
 		{
+			// Arriving
 			var probability = new Random ().Next (100);
 			if (probability > 90)
 			{
-				var value = new Random ().Next (5);
+				var value = new Random ().Next (3);
+				town.Population += value;
+			}
+
+			// Leaving
+			var leavingProbability = new Random ().Next (100);
+			if (leavingProbability < town.TotalHomelessPeople) {
+				var value = new Random ().Next (3);
 				town.Population += value;
 			}
 		}

@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using townsim.Entities;
 
 namespace townsim.Data.Tests.Integration
 {

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
-namespace townsim.Data
+namespace townsim.Entities
 {
 	public class BaseEntity
 	{
@@ -13,7 +13,7 @@ namespace townsim.Data
 
 		public string ToJson()
 		{
-			return new JavaScriptSerializer ().Serialize (this);
+			return JsonConvert.SerializeObject (this);
 		}
 	}
 }

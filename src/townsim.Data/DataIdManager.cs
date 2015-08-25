@@ -1,6 +1,7 @@
 ﻿using System;
 using Sider;
 using System.Collections.Generic;
+using townsim.Entities;
 
 namespace townsim.Data
 {
