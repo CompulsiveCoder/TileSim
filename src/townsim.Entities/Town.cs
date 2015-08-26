@@ -39,6 +39,7 @@ namespace townsim.Entities
 		{
 			Id = Guid.NewGuid ();
 			Buildings = new BuildingCollection();
+			InitializeDefaultValues ();
 		}
 
 		public Town (string name, int population)
@@ -47,7 +48,17 @@ namespace townsim.Entities
 			Buildings = new BuildingCollection();
 			Name = name;
 			Population = population;
+			InitializeDefaultValues ();
 		}
+
+		public void InitializeDefaultValues()
+		{
+			Population = 5;
+			WaterSources = 10000;
+			FoodSources = 5000;
+			Forest = 30000;
+		}
+
 	}
 }
 
