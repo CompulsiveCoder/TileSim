@@ -6,7 +6,7 @@ namespace townsim.Engine
 {
 	public class WaterSourcesEngine
 	{
-		public double ConsumptionRate = 1;
+		public double ConsumptionRate = 3;
 
 		public WaterSourcesEngine ()
 		{

@@ -12,6 +12,7 @@ namespace townsim.Entities
 		public double Forest { get;set; }
 		//public double Timber { get;set; }
 		public double WaterSources { get; set; }
+		public double FoodSources { get; set; }
 		public int Builders { get; set; }
 		public int Workers { get;set; }
 		public int WorkersAvailable {

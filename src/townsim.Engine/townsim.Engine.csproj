@@ -41,6 +41,9 @@
     <Compile Include="ConstructionWorkersEngine.cs" />
     <Compile Include="BuildingType.cs" />
     <Compile Include="TimberEngine.cs" />
+    <Compile Include="PopulationExpiredException.cs" />
+    <Compile Include="GameException.cs" />
+    <Compile Include="FoodEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -27,7 +27,15 @@ namespace townsim.Engine
 
 		public void UpdatePopulationDeaths(Town town)
 		{
+			// General deaths
 			town.Population = town.Population - (town.Population / 50);
+
+			// Thirst
+			if (town.Population > town.WaterSources) {
+				var quantity = town.Population / 20;
+				town.Population -= quantity;
+				//town.Population = town.Population - (town.Population / 50);
+			}
 		}
 
 		public void UpdatePopulationMigration(Town town)
