@@ -25,8 +25,16 @@ namespace townsim.Data
 			var idManager = new DataIdManager ();
 			idManager.Add (town);
 
+			// Buildings
 			var buildingSaver = new BuildingSaver ();
 			buildingSaver.Save (town, town.Buildings.ToArray());
+
+			// People
+			var personSaver = new PersonSaver ();
+			personSaver.Save (town, town.People);
+
+			//var townPopulation = new TownPopulation ();
+			//townPopulation.SetPopulationCount (town.Id, town.Population);
 		}
 	}
 }

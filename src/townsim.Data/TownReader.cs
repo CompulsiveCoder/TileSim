@@ -17,8 +17,15 @@ namespace townsim.Data
 
 			var town = new Parser().Parse<Town> (json);
 
+			// Buildings
 			var buildingReader = new BuildingReader ();
 			town.Buildings = new BuildingCollection (buildingReader.Read (town.Id));
+
+			// Population
+			//var townPopulation = new TownPopulation();
+			//town.Population = townPopulation.ReadPopulationCount (town.Id);
+			//var peopleReader = new PeopleReader();
+			//town.People.AddRange(peopleReader.Read (town.Id));
 
 
 			return town;

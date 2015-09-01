@@ -37,6 +37,8 @@
     <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\ConstructionEngineTestFixture.cs" />
+    <Compile Include="Integration\DehydrationAlertTestFixture.cs" />
+    <Compile Include="Integration\StarvationAlertTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -58,6 +60,10 @@
     <ProjectReference Include="..\townsim.Entities\townsim.Entities.csproj">
       <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
       <Name>townsim.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\townsim.Alerts\townsim.Alerts.csproj">
+      <Project>{85972657-52CF-4C7D-A6E4-DEF232F28C91}</Project>
+      <Name>townsim.Alerts</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

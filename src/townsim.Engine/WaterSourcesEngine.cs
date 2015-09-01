@@ -1,12 +1,13 @@
 ﻿using System;
 using townsim.Data;
 using townsim.Entities;
+using townsim.Alerts;
 
 namespace townsim.Engine
 {
 	public class WaterSourcesEngine
 	{
-		public double ConsumptionRate = 3;
+		public double WaterConsumptionRate = 3;
 
 		public WaterSourcesEngine ()
 		{
@@ -17,14 +18,18 @@ namespace townsim.Engine
 			Rain (town);
 
 			ConsumeWater (town);
+
+			DieOfThirst (town);
 		}
 
 		public void ConsumeWater(Town town)
 		{
-			var amount = town.Population * ConsumptionRate;
+			var amount = town.Population * WaterConsumptionRate;
+
+			var populationEngine = new PopulationEngine ();
 
 			if (amount > town.WaterSources)
-				town.Population -= 2;
+				populationEngine.Die(town, 2);
 			
 			town.WaterSources -= amount;
 
@@ -39,6 +44,21 @@ namespace townsim.Engine
 			{
 				var value = new Random ().Next (1000);
 				town.WaterSources += value;
+			}
+		}
+
+		public void DieOfThirst(Town town)
+		{
+			var peopleEngine = new PopulationEngine ();
+			if (town.Population > town.WaterSources) {
+				var shortage = town.Population - town.WaterSources;
+				//var numberOfPeople = (int)shortage;// (int)(shortage / 10);
+				var numberOfPeople = new Random().Next(0, (int)shortage);
+				if (numberOfPeople > 0) {
+					town.AddAlert (new DehydrationAlert ());
+					peopleEngine.Die (town, numberOfPeople);
+				} else
+					town.AddAlert (new ThirstAlert ());
 			}
 		}
 	}

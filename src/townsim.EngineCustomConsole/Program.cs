@@ -25,8 +25,14 @@ namespace townsim.EngineCustomConsole
 
 			try
 			{
-			if (!String.IsNullOrEmpty(populationEntry.Trim()))
-				town.Population = Convert.ToInt32 (populationEntry);
+				var personCreator = new PersonCreator();
+				if (!String.IsNullOrEmpty(populationEntry.Trim()))
+				{
+					for (int i = 0; i < Convert.ToInt32(populationEntry); i++)
+					{
+						town.People = personCreator.CreateAdults(Convert.ToInt32(populationEntry));
+					}
+				}
 			}
 			catch {
 				// Ignore and go with default
@@ -53,7 +59,7 @@ namespace townsim.EngineCustomConsole
 			try
 			{
 				if (!String.IsNullOrEmpty(waterEntry.Trim()))
-					town.FoodSources = Convert.ToInt32 (waterEntry);
+					town.FoodSources = Convert.ToInt32 (foodEntry);
 			}
 			catch {
 				// Ignore and go with default

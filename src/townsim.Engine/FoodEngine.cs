@@ -1,5 +1,6 @@
 ﻿using System;
 using townsim.Entities;
+using townsim.Alerts;
 
 namespace townsim.Engine
 {
@@ -18,22 +19,31 @@ namespace townsim.Engine
 
 		public void UpdateEating(Town town)
 		{
-			var amount = town.Population * EatRate;
+			var numberOfPeople = town.Population * EatRate;
 
-			town.FoodSources -= amount;
+			town.FoodSources -= numberOfPeople;
 			if (town.FoodSources < 0)
 				town.FoodSources = 0;
 
-			if (amount > town.FoodSources) {
+			if (numberOfPeople > town.FoodSources) {
 				UpdateStarvation (town);
 			}
 		}
 
 		public void UpdateStarvation(Town town)
 		{
-			var amount = town.Population * 0.05;
-			town.Population = town.Population - (int)amount;
-
+			var foodRequired = town.Population * EatRate;
+			if (foodRequired > town.FoodSources) {
+				var shortage = foodRequired - town.FoodSources;
+				//var numberOfPeople = (int)(town.Population * 0.05);
+				var numberOfPeople = new Random().Next(0, (int)shortage);
+				var populationEngine = new PopulationEngine ();
+				if (numberOfPeople > 0) {
+					town.AddAlert (new StarvationAlert ());
+					populationEngine.Die (town, numberOfPeople);
+				} else
+					town.AddAlert (new HungerAlert ());
+			}
 		}
 	}
 }

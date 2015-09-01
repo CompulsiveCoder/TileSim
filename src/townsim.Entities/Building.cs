@@ -27,8 +27,8 @@ namespace townsim.Entities
 
 		public Building (BuildingType type)
 		{
-			Type = type;
 			TimberCost = 50;
+			Type = type;
 		}
 	}
 }

@@ -5,10 +5,11 @@ namespace townsim.Entities
 {
 	public class BaseEntity
 	{
-		public Guid Id { get; set; }
+		public Guid Id = Guid.NewGuid();
 
 		public BaseEntity ()
 		{
+			Guid.NewGuid ();
 		}
 
 		public string ToJson()

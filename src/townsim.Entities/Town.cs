@@ -2,61 +2,100 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using townsim.Alerts;
 
 namespace townsim.Entities
 {
 	public class Town : BaseEntity
 	{
 		public string Name { get;set; }
-		public int Population { get; set; }
-		public double Forest { get;set; }
-		//public double Timber { get;set; }
-		public double WaterSources { get; set; }
-		public double FoodSources { get; set; }
-		public int Builders { get; set; }
-		public int Workers { get;set; }
-		public int WorkersAvailable {
-			get {
-				return Population - Workers;
-			}
+
+		[JsonIgnore]
+		public int Population
+		{
+			get { return People.Length; }
 		}
 
-		public int TotalHomelessPeople
-		{
-			get {
-				if (Population <= Buildings.TotalCompletedHouses) {
-					return 0;
-				} else {
-					return Population - Buildings.TotalCompletedHouses;
-				}
-			}
-		}
+		public int DefaultPopulation = 5;
+
+		public double Forest { get;set; }
+		public double WaterSources { get; set; }
+		public double FoodSources { get; set; }
+
+		public int TotalBirths { get;set; }
+		public int TotalDeaths { get;set; }
+		public int TotalImmigrants { get;set; }
+		public int TotalEmigrants { get;set; }
+
+		[JsonProperty]
+		public Person[] People { get;set; }
 
 		[JsonIgnore]
 		public BuildingCollection Buildings { get; set; }
 
+		[JsonIgnore]
+		public BaseAlert[] Alerts { get; set; }
+
+		[JsonIgnore]
+		public TownStatistics Statistics { get; set; }
+
 		public Town ()
 		{
 			Id = Guid.NewGuid ();
-			Buildings = new BuildingCollection();
-			InitializeDefaultValues ();
+			InitializeDefaultValues (5);
+		}
+
+		public Town (int population)
+		{
+			Id = Guid.NewGuid ();
+			InitializeDefaultValues (population);
 		}
 
 		public Town (string name, int population)
 		{
 			Id = Guid.NewGuid ();
-			Buildings = new BuildingCollection();
 			Name = name;
-			Population = population;
-			InitializeDefaultValues ();
+			InitializeDefaultValues (DefaultPopulation);
 		}
 
-		public void InitializeDefaultValues()
+		public void InitializeDefaultValues(int population)
 		{
-			Population = 5;
 			WaterSources = 10000;
 			FoodSources = 5000;
 			Forest = 30000;
+
+			Buildings = new BuildingCollection();
+
+			var people = new PersonCollection ();
+			var personCreator = new PersonCreator ();
+			for (int i = 0; i < population; i++) {
+				people.Add (personCreator.CreateAdult());
+			}
+			People = people.ToArray ();
+			Alerts = new BaseAlert[]{ };
+			Statistics = new TownStatistics (this);
+		}
+
+		public void AddAlert(BaseAlert alert)
+		{
+			var list = new List<BaseAlert> ();
+
+			if (Alerts != null)
+				list.AddRange (Alerts);
+
+			if (!AlertExists(alert))
+				list.Add (alert);
+
+			Alerts = list.ToArray ();
+		}
+
+		public bool AlertExists(BaseAlert alert)
+		{
+			foreach (var a in Alerts)
+				if (a.GetType () == alert.GetType ())
+					return true;
+
+			return false;
 		}
 
 	}

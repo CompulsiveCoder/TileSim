@@ -12,23 +12,46 @@ namespace townsim.Engine
 
 		public bool Hire(Town town, int numberOfWorkersToHire)
 		{
-			if (numberOfWorkersToHire > town.WorkersAvailable)
+			if (numberOfWorkersToHire > town.Statistics.TotalUnemployed)
 				return false;
 			else {
-				town.Workers += numberOfWorkersToHire;
+				//town.Workers += numberOfWorkersToHire;
+				int numberOfWorkersHired = 0;
+				foreach (var person in town.People) {
+					if (person.CanWork && !person.IsEmployed
+					    && numberOfWorkersHired < numberOfWorkersToHire) {
+						Hire (town, person);
+						numberOfWorkersHired++;
+					}
+				}
 				return true;
 			}
 		}
 
+		public void Hire(Town town, Person person)
+		{
+			person.IsEmployed = true;
+		}
+
 		public bool Fire(Town town, int numberOfWorkersToFire)
 		{
-			var available = town.Workers;
+			var available = town.Statistics.TotalEmployed;
 
 			if (numberOfWorkersToFire > available)
 				numberOfWorkersToFire = available;
-			
-			town.Workers -= numberOfWorkersToFire;
+
+			int numberOfWorkersFired = 0;
+			foreach (var person in town.People) {
+				if (person.IsEmployed && numberOfWorkersFired < numberOfWorkersToFire)
+					Fire (town, person);
+			}
+			//town.Workers -= numberOfWorkersToFire;
 			return true;
+		}
+
+		public void Fire(Town town, Person person)
+		{
+			person.IsEmployed = false;
 		}
 	}
 }

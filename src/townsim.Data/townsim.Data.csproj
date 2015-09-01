@@ -55,6 +55,10 @@
     <Compile Include="BuildingKeys.cs" />
     <Compile Include="BaseDataAdapter.cs" />
     <Compile Include="BuildingReader.cs" />
+    <Compile Include="PersonSaver.cs" />
+    <Compile Include="PeopleKeys.cs" />
+    <Compile Include="PeopleReader.cs" />
+    <Compile Include="PersonDeleter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

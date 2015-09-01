@@ -7,26 +7,8 @@ namespace townsim.Entities
 {
 	[Serializable]
 	[JsonObject("Buildings")]
-	public class BuildingCollection : List<Building>, IEnumerable//IList, IEnumerable
+	public class BuildingCollection : List<Building>, IEnumerable
 	{
-		//[JsonProperty("Buildings")]
-		//public Building[] Buildings { get; set; }
-
-		/*object IList.this [int index] {
-			get {
-				return Buildings[index];
-			}
-			set {
-				Buildings [index] = (Building)value; 
-			}
-		}*/
-
-		/*public Building this[int i]
-		{
-			get { return Buildings [i]; }
-			set { Buildings[i] = value; }
-		}*/
-
 		public BuildingCollection ()
 		{
 		}

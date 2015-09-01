@@ -36,7 +36,7 @@ namespace townsim.Engine
 					fractionToBuild = housesNeeded;
 
 				// Count the number of houses already under construction
-				var incompleteHouses = town.Buildings.TotalIncompleteHouses;
+				var incompleteHouses = town.Persons.TotalIncompleteHouses;
 
 				// Exclude houses already under construction
 				fractionToBuild -= incompleteHouses;
@@ -49,7 +49,7 @@ namespace townsim.Engine
 
 		public int CalculateNumberOfNewHousesToStart(Town town)
 		{
-			var housesNeeded = town.TotalHomelessPeople;
+			var housesNeeded = town.Statistics.TotalHomelessPeople;
 
 			int numberOfHousesToBuild = 0;
 
@@ -59,7 +59,7 @@ namespace townsim.Engine
 
 			numberOfHousesToBuild = LimitConstructionNumber (town, numberOfHousesToBuild);
 			// Limit the number of houses being built
-			//if (town.Buildings.TotalIncompleteHouses <= housesNeeded) {
+			//if (town.Persons.TotalIncompleteHouses <= housesNeeded) {
 				//if (town.Population > ConstructionCountLimitBase) {
 			//		numberOfHousesToBuild = (int)((double)housesNeeded * ConstructionCountLimit);
 				//} else {
@@ -67,11 +67,11 @@ namespace townsim.Engine
 				//}
 			//}//
 
-			//numberOfHousesToBuild -= town.Buildings.TotalIncompleteHouses;
+			//numberOfHousesToBuild -= town.Persons.TotalIncompleteHouses;
 
 			// Limit to the number of workers available
-			//if (numberOfHousesToBuild > town.WorkersAvailable / Workers.WorkersPerBuilding)
-			//	numberOfHousesToBuild = town.WorkersAvailable / Workers.WorkersPerBuilding;
+			//if (numberOfHousesToBuild > town.WorkersAvailable / Workers.WorkersPerPerson)
+			//	numberOfHousesToBuild = town.WorkersAvailable / Workers.WorkersPerPerson;
 
 			return numberOfHousesToBuild;
 		}
@@ -100,7 +100,7 @@ namespace townsim.Engine
 
 		public void StartBuildHouse(Town town)
 		{
-			if (town.WorkersAvailable > 0) {
+			if (town.Statistics.TotalUnemployed > 0) {
 				var house = new Building (Entities.BuildingType.House);
 				town.Buildings.Add (house);
 				Workers.Hire (town, house);
@@ -133,7 +133,7 @@ namespace townsim.Engine
 		{
 			if (Timber.IsTimberAvailable (town, building)) {
 				Timber.RefineTimber (town, building);
-				var workDone = ConstructionRate * town.Workers;
+				var workDone = ConstructionRate * town.Statistics.TotalEmployed;
 				building.PercentComplete += workDone; 
 			}
 		}

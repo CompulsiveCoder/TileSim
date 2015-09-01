@@ -39,12 +39,13 @@
     <Compile Include="WorkersEngine.cs" />
     <Compile Include="townsimEngine.cs" />
     <Compile Include="ConstructionWorkersEngine.cs" />
-    <Compile Include="BuildingType.cs" />
     <Compile Include="TimberEngine.cs" />
     <Compile Include="PopulationExpiredException.cs" />
     <Compile Include="GameException.cs" />
     <Compile Include="FoodEngine.cs" />
     <Compile Include="ClockEngine.cs" />
+    <Compile Include="PeopleEngine.cs" />
+    <Compile Include="TownlessException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -56,5 +57,12 @@
       <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
       <Name>townsim.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\townsim.Alerts\townsim.Alerts.csproj">
+      <Project>{85972657-52CF-4C7D-A6E4-DEF232F28C91}</Project>
+      <Name>townsim.Alerts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Alerts\" />
   </ItemGroup>
 </Project>
