@@ -20,7 +20,7 @@
 	</script>
 </head>
 <body>
-	<form id="form" runat="server">
+	<form id="form">
 		<link rel="stylesheet" type="text/css" href="Towns.css">
 		<div id="body">
 			<script language="javascript" type="text/javascript" src="jquery-2.1.3.min.js"></script>

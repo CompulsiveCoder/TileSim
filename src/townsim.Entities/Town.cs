@@ -57,9 +57,9 @@ namespace townsim.Entities
 
 		public void InitializeDefaultValues(int population)
 		{
-			WaterSources = 2500;
-			FoodSources = 2500;
-			Forest = 30000;
+			WaterSources = 25000;
+			FoodSources = 25000;
+			Forest = 300000;
 
 			Buildings = new BuildingCollection();
 
@@ -104,6 +104,17 @@ namespace townsim.Entities
 				FoodSources = 0;
 			if (Forest < 0)
 				Forest = 0;
+		}
+
+		public Person[] GetWorkers(int numberOfWorkers)
+		{
+			var list = new List<Person> ();
+			foreach (var person in People) {
+				if (!person.IsEmployed) {
+					list.Add (person);
+				}
+			}
+			return list.ToArray ();
 		}
 
 	}

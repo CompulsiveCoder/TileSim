@@ -10,7 +10,7 @@ namespace townsim.Engine
 		{
 		}
 
-		public bool Hire(Town town, int numberOfWorkersToHire)
+		public bool Hire(Town town, int numberOfWorkersToHire, EmploymentType employmentType)
 		{
 			if (numberOfWorkersToHire > town.TotalUnemployed)
 				return false;
@@ -20,7 +20,7 @@ namespace townsim.Engine
 				foreach (var person in town.People) {
 					if (person.CanWork && !person.IsEmployed
 					    && numberOfWorkersHired < numberOfWorkersToHire) {
-						Hire (town, person);
+						Hire (town, person, employmentType);
 						numberOfWorkersHired++;
 					}
 				}
@@ -28,9 +28,10 @@ namespace townsim.Engine
 			}
 		}
 
-		public void Hire(Town town, Person person)
+		public void Hire(Town town, Person person, EmploymentType employmentType)
 		{
 			person.IsEmployed = true;
+			person.Employment = employmentType;
 		}
 
 		public bool Fire(Town town, int numberOfWorkersToFire)
@@ -52,6 +53,7 @@ namespace townsim.Engine
 		public void Fire(Town town, Person person)
 		{
 			person.IsEmployed = false;
+			person.Employment = EmploymentType.NotSet;
 		}
 	}
 }

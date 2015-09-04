@@ -23,6 +23,8 @@ namespace townsim.Engine
 		{
 			StartBuildHouses (town);
 
+			HireWorkers (town);
+
 			DoConstruction (town);
 		}
 
@@ -45,6 +47,15 @@ namespace townsim.Engine
 					StartBuildHouse (town);
 				}
 			//}
+		}
+
+		public void HireWorkers(Town town)
+		{
+			foreach (var house in town.Buildings.Houses) {
+				if (!house.IsCompleted
+					&& house.Workers.Length < 2)
+					Workers.Hire (town, house);
+			}
 		}
 
 		public int CalculateNumberOfNewHousesToStart(Town town)
@@ -78,15 +89,15 @@ namespace townsim.Engine
 
 		public int LimitConstructionNumber(Town town, int numberOfHousesToBuild)
 		{
-			var limit = 1;
+			/*var limit = 1;
 			if (town.Population > 5
 			    && town.Population <= 10)
 				limit = town.Population / 5;
 			else if (town.Population > 10) {
 				limit = town.Population / 10;
-			}
+			}*/
 
-			return ApplyLimit (numberOfHousesToBuild, limit);
+			return numberOfHousesToBuild;//ApplyLimit (numberOfHousesToBuild, limit);
 				
 		}
 

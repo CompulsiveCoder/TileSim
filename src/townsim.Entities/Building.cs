@@ -20,6 +20,8 @@ namespace townsim.Entities
 		public int TimberAvailable { get; set; }
 		public int TimberCost { get; set; }
 
+		public Person[] Workers = new Person[]{};
+
 		public Building ()
 		{
 			TimberCost = 50;

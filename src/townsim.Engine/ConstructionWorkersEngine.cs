@@ -26,7 +26,9 @@ namespace townsim.Engine
 			else // Otherwise take what's available
 				workersToHire = availableWorkers;
 			
-			Workers.Hire (town, workersToHire);
+			Workers.Hire (town, workersToHire, EmploymentType.Builder);
+
+			building.Workers = town.GetWorkers (2);
 
 			building.WorkerCount = workersToHire;
 
@@ -37,6 +39,8 @@ namespace townsim.Engine
 			var workersToFire = building.WorkerCount;
 
 			Workers.Fire (town, workersToFire);
+
+			building.Workers = new Person[]{ };
 		}
 	}
 }

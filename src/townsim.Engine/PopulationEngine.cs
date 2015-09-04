@@ -30,18 +30,12 @@ namespace townsim.Engine
 
 		public void UpdatePopulationBirthRate(Town town)
 		{
-			var randomNumber = new Random (DateTime.Now.Millisecond).Next (1, 20);
-			var numberOfBabies = town.TotalBreedingPairs / randomNumber;
-
-			/*if (town.Population > 100)
-				amount = town.Population / 50;
-			else
-				amount += town.Population / 20;*/
-
-			if (numberOfBabies > 0) {
-				IncreasePopulation (town, new PersonCreator ().CreateBabies (numberOfBabies));
-
-				town.TotalBirths += numberOfBabies;
+			for (int i = 0; i < town.TotalBreedingPairs; i++) {
+				var randomNumber = new Random (DateTime.Now.Millisecond).Next (1, 20);
+				if (randomNumber < 2) {
+					IncreasePopulation (town, new PersonCreator ().CreateBabies (1));
+					town.TotalBirths++;
+				}
 			}
 		}
 
@@ -53,7 +47,7 @@ namespace townsim.Engine
 
 			// Old age deaths
 			foreach (var person in town.People) {
-				var randomNumber = new Random ().Next (40, 200);
+				var randomNumber = new Random ().Next (40, 400);
 				if (person.Age > randomNumber)
 					Die (town, person);
 			}
@@ -63,7 +57,7 @@ namespace townsim.Engine
 		{
 			// Arriving
 			var probability = new Random ().Next (100);
-			if (probability > 90)
+			if (probability < 2)
 			{
 				var value = new Random ().Next (3);
 				Immigrate (town, value);
@@ -77,30 +71,8 @@ namespace townsim.Engine
 			}
 		}
 
-		/*public void IncreasePopulation(Town town, int numberOfNewPeople)
-		{
-			var peopleEngine = new PeopleEngine ();
-			var newPeople = peopleEngine.NewPeople (numberOfNewPeople);
-
-			var people = new List<Person> (town.People);
-			people.AddRange (newPeople);
-
-			town.People = people.ToArray ();
-
-			var saver = new PersonSaver ();
-			for (int i = 0; i < newPeople.Length; i++)
-				saver.Save (newPeople [i]);
-			//for (int i = 0; i < numberOfNewPeople; i++) {
-				//var person = n
-			//}
-		}*/
-
-
 		public void IncreasePopulation(Town town, Person[] newPeople)
 		{
-			//var peopleEngine = new PeopleEngine ();
-			//var newPeople = peopleEngine.NewPeople (numberOfNewPeople);
-
 			var people = new List<Person> (town.People);
 			people.AddRange (newPeople);
 
@@ -109,9 +81,6 @@ namespace townsim.Engine
 			var saver = new PersonSaver ();
 			for (int i = 0; i < newPeople.Length; i++)
 				saver.Save (newPeople [i]);
-			/*for (int i = 0; i < numberOfNewPeople; i++) {
-				var person = n
-			}*/
 		}
 
 		public void ReducePopulation(Town town, int numberOfPeople)
@@ -153,13 +122,6 @@ namespace townsim.Engine
 
 		public void Immigrate(Town town, int numberOfPeople)
 		{
-			/*var peopleEngine = new PeopleEngine ();
-			var people = peopleEngine.NewPeople (numberOfPeople);
-
-			var saver = new PersonSaver ();
-			for (int i = 0; i < people.Length; i++)
-				saver.Save (people [i]);*/
-
 			// TODO: Change this so instead of creating people it moves people from other towns
 			IncreasePopulation (town, new PersonCreator().CreateAdults(numberOfPeople));
 
@@ -171,14 +133,6 @@ namespace townsim.Engine
 			ReducePopulation (town, numberOfPeople);
 
 			town.TotalEmigrants += numberOfPeople;
-			/*var personDeleter = new PersonDeleter ();
-			var list = new List<Person> (town.People);
-			for (int i = 0; i < numberOfPeople; i++)
-			{
-				list.RemoveAt (i);
-				personDeleter.Delete (town.People [i].Id);
-			}
-			town.People = list.ToArray ();*/
 		}
 	}
 }

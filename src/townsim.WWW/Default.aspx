@@ -31,8 +31,44 @@
 			padding: 4px;
 		}
 	</style>
-	<form id="form1" runat="server">
+	<script language="javascript">
+	function updateClock ( )
+ 	{
+ 	var currentTime = new Date ( );
+  	var currentHours = currentTime.getHours ( );
+  	var currentMinutes = currentTime.getMinutes ( );
+  	var currentSeconds = currentTime.getSeconds ( );
+
+  	// Pad the minutes and seconds with leading zeros, if required
+  	currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
+  	currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
+
+  	// Choose either "AM" or "PM" as appropriate
+  	var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
+
+  	// Convert the hours component to 12-hour format if needed
+  	currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+
+  	// Convert an hours component of "0" to "12"
+  	currentHours = ( currentHours == 0 ) ? 12 : currentHours;
+
+  	// Compose the string for display
+  	var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+  	
+  	
+   	$("#clock").html(currentTimeString);
+   	  	
+ }
+
+$(document).ready(function()
+{
+   setInterval('updateClock()', 1000);
+});
+	</script>
+
+	<form id="form1">
 	<h1>Town Sim</h1>
+	<div id="clock"></div>
 		<div class="pnl" id="playerCont">
 		</div>
 		<div class="pnl" id="townCont">
@@ -47,6 +83,9 @@
 			<% } %>
 			<div id="propInner">
 			</div>
+		</div>
+		<div class="pml" id="gardenCont">
+		<div>Start Garden</div>
 		</div>
 	</form>
 </body>

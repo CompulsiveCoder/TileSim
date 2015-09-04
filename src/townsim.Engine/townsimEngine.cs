@@ -134,7 +134,7 @@ namespace townsim.Engine
 				Console.WriteLine ("       Emigrants: " + town.TotalEmigrants);
 				Console.WriteLine ("       Average age: " + String.Format("{0:0.##}", town.AverageAge));
 				Console.WriteLine ("       Homeless: " + town.TotalHomelessPeople);
-				Console.WriteLine ("       Breeding pairs: " + town.TotalBreedingPairs);
+				Console.WriteLine ("       Couples: " + town.TotalBreedingPairs);
 				Console.WriteLine ();
 				Console.WriteLine ("     Employment:");
 				Console.WriteLine ("       Unemployed: " + town.TotalUnemployed);
