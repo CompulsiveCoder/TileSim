@@ -35,9 +35,15 @@ namespace townsim.Engine
 			var decider = randomiser < person.Thirst;
 
 			if (decider) {
-				var amountConsumed = person.Thirst * WaterConsumptionRate;
-				person.Location.WaterSources -= amountConsumed;
-				person.Thirst -= amountConsumed;
+				var amountConsumed = person.Hunger * WaterConsumptionRate;
+				if (person.Location.FoodSources == 0) {
+					person.Health -= 5;
+				} else {	
+					if (amountConsumed > person.Location.WaterSources)
+						amountConsumed = person.Location.WaterSources;
+					person.Location.WaterSources -= amountConsumed;
+					person.Thirst -= amountConsumed;
+				}
 			}
 
 			if (person.Thirst < 0)

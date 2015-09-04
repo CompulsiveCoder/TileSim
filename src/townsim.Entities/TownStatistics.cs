@@ -3,17 +3,14 @@ using Newtonsoft.Json;
 
 namespace townsim.Entities
 {
-	public class TownStatistics
+	public partial class Town
 	{
-		public Town Town { get;set; }
-
-
 		[JsonIgnore]
 		public int TotalUnemployed
 		{
 			get {
 				int totalUnemployed = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (!person.IsEmployed)
 						totalUnemployed++;
 				}
@@ -25,10 +22,10 @@ namespace townsim.Entities
 		public int TotalHomelessPeople
 		{
 			get {
-				if (Town.Population <= Town.Buildings.TotalCompletedHouses) {
+				if (Population <= Buildings.TotalCompletedHouses) {
 					return 0;
 				} else {
-					return Town.Population - Town.Buildings.TotalCompletedHouses;
+					return Population - Buildings.TotalCompletedHouses;
 				}
 			}
 		}
@@ -39,7 +36,7 @@ namespace townsim.Entities
 			get {
 				int totalBreedingMales = 0;
 				int totalBreedingFemales = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (person.IsAdult && person.Age <= 50) {
 						if (person.Gender == Gender.Male)
 							totalBreedingMales++;
@@ -60,7 +57,7 @@ namespace townsim.Entities
 		{
 			get {
 				int totalMales = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (person.Gender == Gender.Male) {
 						totalMales++;
 					}
@@ -75,7 +72,7 @@ namespace townsim.Entities
 		{
 			get {
 				int totalFemales = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (person.Gender == Gender.Female) {
 						totalFemales++;
 					}
@@ -90,7 +87,7 @@ namespace townsim.Entities
 		{
 			get {
 				int totalAdults = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (person.IsAdult) {
 						totalAdults++;
 					}
@@ -105,7 +102,7 @@ namespace townsim.Entities
 		{
 			get {
 				int totalChildren = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (person.IsChild) {
 						totalChildren++;
 					}
@@ -119,14 +116,14 @@ namespace townsim.Entities
 		public double AverageAge
 		{
 			get {
-				if (Town.People.Length > 0) {
+				if (People.Length > 0) {
 					double total = 0;
 
-					foreach (var person in Town.People) {
+					foreach (var person in People) {
 						total += person.Age;
 					}
 
-					return total / Town.People.Length;
+					return total / People.Length;
 				} else
 					return 0;
 			}
@@ -137,13 +134,12 @@ namespace townsim.Entities
 		{
 			get {
 				int totalBuilders = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (person.Employment == EmploymentType.Builder)
 						totalBuilders++;
 				}
 				return totalBuilders;
 			}
-
 		}
 
 		[JsonIgnore]
@@ -151,17 +147,12 @@ namespace townsim.Entities
 		{
 			get {
 				int totalEmployed = 0;
-				foreach (var person in Town.People) {
+				foreach (var person in People) {
 					if (person.IsEmployed)
 						totalEmployed++;
 				}
 				return totalEmployed;
 			}
-		}
-
-		public TownStatistics (Town town)
-		{
-			Town = town;
 		}
 	}
 }

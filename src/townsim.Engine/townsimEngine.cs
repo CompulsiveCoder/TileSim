@@ -3,10 +3,11 @@ using townsim.Data;
 using System.Threading;
 using townsim.Entities;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace townsim.Engine
 {
-	public class townsimEngine
+	public class townsimEngine : IComponent
 	{
 		public string Id { get;set; }
 
@@ -36,6 +37,8 @@ namespace townsim.Engine
 			CreateTown ();
 
 			RunCycles ();
+
+			Dispose ();
 		}
 
 		public void Start(Town town)
@@ -45,6 +48,8 @@ namespace townsim.Engine
 			AddTown (town);
 
 			RunCycles ();
+
+			Dispose ();
 		}
 
 		void Initialize()
@@ -53,6 +58,9 @@ namespace townsim.Engine
 			Id = guid.Substring (0, guid.IndexOf ("-"));
 			DataConfig.Prefix = "TownSim-" + Id;
 			GameStartTime = DateTime.Now;
+
+			var idManager = new EngineIdManager ();
+			idManager.Add (Id);
 		}
 
 		public void AddTown(Town town)
@@ -118,19 +126,19 @@ namespace townsim.Engine
 				//	Console.WriteLine ("         Age: " + Convert.ToInt32(person.Age));
 				//	Console.WriteLine ("         Gender: " + person.Gender);
 				//}
-				Console.WriteLine ("       Males: " + town.Statistics.TotalMales);
-				Console.WriteLine ("       Females: " + town.Statistics.TotalFemales);
+				Console.WriteLine ("       Males: " + town.TotalMales);
+				Console.WriteLine ("       Females: " + town.TotalFemales);
 				Console.WriteLine ("       Births: " + town.TotalBirths);
 				Console.WriteLine ("       Deaths: " + town.TotalDeaths);
 				Console.WriteLine ("       Immigrants: " + town.TotalImmigrants);
 				Console.WriteLine ("       Emigrants: " + town.TotalEmigrants);
-				Console.WriteLine ("       Average age: " + String.Format("{0:0.##}", town.Statistics.AverageAge));
-				Console.WriteLine ("       Homeless: " + town.Statistics.TotalHomelessPeople);
-				Console.WriteLine ("       Breeding pairs: " + town.Statistics.TotalBreedingPairs);
+				Console.WriteLine ("       Average age: " + String.Format("{0:0.##}", town.AverageAge));
+				Console.WriteLine ("       Homeless: " + town.TotalHomelessPeople);
+				Console.WriteLine ("       Breeding pairs: " + town.TotalBreedingPairs);
 				Console.WriteLine ();
 				Console.WriteLine ("     Employment:");
-				Console.WriteLine ("       Unemployed: " + town.Statistics.TotalUnemployed);
-				Console.WriteLine ("       Employed: " + town.Statistics.TotalEmployed);
+				Console.WriteLine ("       Unemployed: " + town.TotalUnemployed);
+				Console.WriteLine ("       Employed: " + town.TotalEmployed);
 				Console.WriteLine ();
 				Console.WriteLine ("     Resources:");
 				Console.WriteLine ("       Water sources: " + Convert.ToInt32(town.WaterSources));
@@ -139,7 +147,7 @@ namespace townsim.Engine
 				//Console.WriteLine ("     Timber: " + Convert.ToInt32(town.Timber));
 				Console.WriteLine ();
 				Console.WriteLine ("     Buildings:");
-				Console.WriteLine ("       Builders: " + town.Statistics.TotalBuilders);
+				Console.WriteLine ("       Builders: " + town.TotalBuilders);
 				Console.WriteLine ("       Houses (complete): " + town.Buildings.TotalCompletedHouses);
 				Console.WriteLine ("       Houses (under const.): " + town.Buildings.TotalIncompleteHouses);
 				/*foreach (var building in town.Buildings) {
@@ -212,7 +220,7 @@ namespace townsim.Engine
 				populationEngine.Update(town);
 
 				if (Player.Health == 0)
-					throw new PlayerDiedException ();
+					PlayerDied();
 
 				if (EnableDatabase)
 					saver.Save (town);
@@ -223,6 +231,13 @@ namespace townsim.Engine
 				Console.ReadLine ();
 				throw new PopulationExpiredException ();
 			}
+		}
+
+		public void PlayerDied()
+		{
+			ShowSummary ();
+			Console.WriteLine ("The player died.");
+			Console.WriteLine ("Game Over");
 		}
 
 		public string GetTimeString(TimeSpan timeSpan)
@@ -255,6 +270,22 @@ namespace townsim.Engine
 			return GetTimeString(DateTime.Now.Subtract (GameStartTime));
 		}
 
+		public void Dispose()
+		{
+			var idManager = new EngineIdManager ();
+			idManager.Remove (Id);
+		}
+
+		public event EventHandler Disposed;
+
+		public ISite Site {
+			get {
+				throw new NotImplementedException ();
+			}
+			set {
+				throw new NotImplementedException ();
+			}
+		}
 	}
 }
 

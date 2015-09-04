@@ -12,7 +12,7 @@ namespace townsim.Engine
 
 		public bool Hire(Town town, int numberOfWorkersToHire)
 		{
-			if (numberOfWorkersToHire > town.Statistics.TotalUnemployed)
+			if (numberOfWorkersToHire > town.TotalUnemployed)
 				return false;
 			else {
 				//town.Workers += numberOfWorkersToHire;
@@ -35,7 +35,7 @@ namespace townsim.Engine
 
 		public bool Fire(Town town, int numberOfWorkersToFire)
 		{
-			var available = town.Statistics.TotalEmployed;
+			var available = town.TotalEmployed;
 
 			if (numberOfWorkersToFire > available)
 				numberOfWorkersToFire = available;

@@ -49,7 +49,7 @@ namespace townsim.Engine
 
 		public int CalculateNumberOfNewHousesToStart(Town town)
 		{
-			var housesNeeded = town.Statistics.TotalHomelessPeople;
+			var housesNeeded = town.TotalHomelessPeople;
 
 			int numberOfHousesToBuild = 0;
 
@@ -100,7 +100,7 @@ namespace townsim.Engine
 
 		public void StartBuildHouse(Town town)
 		{
-			if (town.Statistics.TotalUnemployed > 0) {
+			if (town.TotalUnemployed > 0) {
 				var house = new Building (Entities.BuildingType.House);
 				town.Buildings.Add (house);
 				Workers.Hire (town, house);
@@ -133,7 +133,7 @@ namespace townsim.Engine
 		{
 			if (Timber.IsTimberAvailable (town, building)) {
 				Timber.RefineTimber (town, building);
-				var workDone = ConstructionRate * town.Statistics.TotalEmployed;
+				var workDone = ConstructionRate * town.TotalEmployed;
 				building.PercentComplete += workDone; 
 			}
 		}

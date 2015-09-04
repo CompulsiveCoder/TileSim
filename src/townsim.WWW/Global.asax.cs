@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Web;
 using System.Web.SessionState;
+using townsim.Engine;
 
 namespace townsim
 {
@@ -10,7 +11,6 @@ namespace townsim
 	{
 		protected void Application_Start (Object sender, EventArgs e)
 		{
-
 		}
 
 		protected void Session_Start (Object sender, EventArgs e)

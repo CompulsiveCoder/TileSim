@@ -34,8 +34,14 @@ namespace townsim.Engine
 
 			if (willEat) {
 				var amountConsumed = person.Hunger * FoodConsumptionRate;
-				person.Location.FoodSources -= amountConsumed;
-				person.Hunger -= amountConsumed;
+				if (person.Location.FoodSources == 0) {
+					person.Health -= 5;
+				} else {	
+					if (amountConsumed > person.Location.FoodSources)
+						amountConsumed = person.Location.FoodSources;
+					person.Location.FoodSources -= amountConsumed;
+					person.Hunger -= amountConsumed;
+				}
 			}
 		}
 	}

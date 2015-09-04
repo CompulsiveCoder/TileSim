@@ -31,7 +31,7 @@ namespace townsim.Engine
 		public void UpdatePopulationBirthRate(Town town)
 		{
 			var randomNumber = new Random (DateTime.Now.Millisecond).Next (1, 20);
-			var numberOfBabies = town.Statistics.TotalBreedingPairs / randomNumber;
+			var numberOfBabies = town.TotalBreedingPairs / randomNumber;
 
 			/*if (town.Population > 100)
 				amount = town.Population / 50;
@@ -71,7 +71,7 @@ namespace townsim.Engine
 
 			// Leaving
 			var leavingProbability = new Random ().Next (100);
-			if (leavingProbability < town.Statistics.TotalHomelessPeople) {
+			if (leavingProbability < town.TotalHomelessPeople) {
 				var value = new Random ().Next (3);
 				Emigrate (town, value);
 			}

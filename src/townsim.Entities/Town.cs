@@ -6,7 +6,7 @@ using townsim.Alerts;
 
 namespace townsim.Entities
 {
-	public class Town : BaseEntity
+	public partial class Town : BaseEntity
 	{
 		public string Name { get;set; }
 
@@ -36,9 +36,6 @@ namespace townsim.Entities
 		[JsonIgnore]
 		public BaseAlert[] Alerts { get; set; }
 
-		[JsonIgnore]
-		public TownStatistics Statistics { get; set; }
-
 		public Town ()
 		{
 			Id = Guid.NewGuid ();
@@ -60,8 +57,8 @@ namespace townsim.Entities
 
 		public void InitializeDefaultValues(int population)
 		{
-			WaterSources = 5000;
-			FoodSources = 1000;
+			WaterSources = 2500;
+			FoodSources = 2500;
 			Forest = 30000;
 
 			Buildings = new BuildingCollection();
@@ -75,7 +72,6 @@ namespace townsim.Entities
 			}
 			People = people.ToArray ();
 			Alerts = new BaseAlert[]{ };
-			Statistics = new TownStatistics (this);
 		}
 
 		public void AddAlert(BaseAlert alert)

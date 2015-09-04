@@ -59,6 +59,8 @@
     <Compile Include="PeopleKeys.cs" />
     <Compile Include="PeopleReader.cs" />
     <Compile Include="PersonDeleter.cs" />
+    <Compile Include="EngineIdManager.cs" />
+    <Compile Include="EngineKeys.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
