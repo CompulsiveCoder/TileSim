@@ -8,6 +8,7 @@ namespace townsim.Engine
 	public class PopulationEngine
 	{
 		public double AgingRate = 0.1;
+		public LogWriter Log = new LogWriter ();
 
 		public PopulationEngine ()
 		{
@@ -35,6 +36,7 @@ namespace townsim.Engine
 				if (randomNumber < 2) {
 					IncreasePopulation (town, new PersonCreator ().CreateBabies (1));
 					town.TotalBirths++;
+					Log.AppendLine (CurrentEngine.Id, "A baby was born.");
 				}
 			}
 		}
@@ -47,7 +49,7 @@ namespace townsim.Engine
 
 			// Old age deaths
 			foreach (var person in town.People) {
-				var randomNumber = new Random ().Next (40, 400);
+				var randomNumber = new Random ().Next (40, 1000);
 				if (person.Age > randomNumber)
 					Die (town, person);
 			}
@@ -126,6 +128,8 @@ namespace townsim.Engine
 			IncreasePopulation (town, new PersonCreator().CreateAdults(numberOfPeople));
 
 			town.TotalImmigrants += numberOfPeople;
+
+			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " new people arrived in town.");
 		}
 
 		public void Emigrate(Town town, int numberOfPeople)
@@ -133,6 +137,8 @@ namespace townsim.Engine
 			ReducePopulation (town, numberOfPeople);
 
 			town.TotalEmigrants += numberOfPeople;
+
+			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " new people left town.");
 		}
 	}
 }

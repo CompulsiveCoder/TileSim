@@ -59,7 +59,7 @@ namespace townsim.Entities
 		{
 			WaterSources = 25000;
 			FoodSources = 25000;
-			Forest = 300000;
+			Forest = 25000;
 
 			Buildings = new BuildingCollection();
 

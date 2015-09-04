@@ -5,6 +5,8 @@ namespace townsim.Entities
 {
 	public class PersonCreator
 	{
+		Random Randomiser = new Random();
+
 		public PersonCreator ()
 		{
 		}
@@ -42,13 +44,13 @@ namespace townsim.Entities
 
 		public Gender GetRandomGender()
 		{
-			var value = new Random (DateTime.Now.Millisecond).Next (0, 10);
+			var value = Randomiser.Next (0, 10);
 			return (value <= 5 ? Gender.Male : Gender.Female);
 		}
 
 		public double GetRandomAge(int minimumAge, int maximumAge)
 		{
-			var age = new Random (DateTime.Now.Millisecond).Next (minimumAge, maximumAge);
+			var age = Randomiser.Next (minimumAge, maximumAge);
 			return age;
 		}
 	}

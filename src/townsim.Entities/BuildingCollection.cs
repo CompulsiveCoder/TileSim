@@ -94,5 +94,17 @@ namespace townsim.Entities
 				return houses.ToArray();
 			}
 		}
+
+		public double AveragePercentComplete
+		{
+			get {
+				double sum = 0;
+				foreach (var building in Houses) {
+					sum += building.PercentComplete;
+
+				}
+				return sum / TotalHouses;
+			}
+		}
 	}
 }

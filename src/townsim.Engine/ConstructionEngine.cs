@@ -115,6 +115,8 @@ namespace townsim.Engine
 				var house = new Building (Entities.BuildingType.House);
 				town.Buildings.Add (house);
 				Workers.Hire (town, house);
+
+				LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
 			}
 		}
 
@@ -133,6 +135,9 @@ namespace townsim.Engine
 				// Job done, fire the workers
 				if (house.PercentComplete >= 100
 					&& !house.IsCompleted) {
+
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been compleed.");
+
 					house.PercentComplete = 100;
 					house.IsCompleted = true;
 					Workers.Fire (town, house);

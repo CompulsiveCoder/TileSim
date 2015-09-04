@@ -62,6 +62,7 @@
     <Content Include="default.css" />
     <Content Include="Player.aspx" />
     <Content Include="CurrentTown.aspx" />
+    <Content Include="Log.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -73,7 +74,6 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CurrentEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -95,6 +95,10 @@
     <ProjectReference Include="..\townsim.Engine\townsim.Engine.csproj">
       <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
       <Name>townsim.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\townsim.EngineConsole\townsim.EngineConsole.csproj">
+      <Project>{8A38BB92-4D97-4FC0-ABFC-3635D5131567}</Project>
+      <Name>townsim.EngineConsole</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -25,6 +25,8 @@ namespace townsim.Engine
 		public Person Player { get; set; }
 		public Person[] People { get; set; }
 
+		public LogWriter Log = new LogWriter ();
+
 		public townsimEngine ()
 		{
 			Initialize ();
@@ -33,6 +35,8 @@ namespace townsim.Engine
 		public void Start()
 		{
 			Console.WriteLine ("Starting TownSim engine");
+
+			Log.AppendLine (Id, "Starting engine");
 
 			CreateTown ();
 

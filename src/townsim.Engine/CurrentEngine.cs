@@ -2,15 +2,16 @@
 using townsim.Data;
 using System.Web;
 
-namespace townsim
+namespace townsim.Engine
 {
-	public class CurrentEngine
+	public static class CurrentEngine
 	{
-		static public string Id
+		static public string Id { get; set; }
+		/*static public string Id
 		{
 			get { return (string)HttpContext.Current.Session ["EngineId"]; }
 			set { HttpContext.Current.Session ["EngineId"] = value; }
-		}
+		}*/
 
 		static public void Attach(string engineId)
 		{

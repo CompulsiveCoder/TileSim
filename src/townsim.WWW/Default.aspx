@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" Inherits="townsim.Default" %>
 <%@ Import namespace="townsim.Data" %>
-<%@ Import namespace="townsim" %>
+<%@ Import namespace="townsim.Engine" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -83,6 +83,8 @@ $(document).ready(function()
 			<% } %>
 			<div id="propInner">
 			</div>
+		</div>
+		<div class="pnl" id="logCont">
 		</div>
 		<div class="pml" id="gardenCont">
 		<div>Start Garden</div>

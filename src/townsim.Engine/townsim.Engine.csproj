@@ -50,6 +50,8 @@
     <Compile Include="HungerEngine.cs" />
     <Compile Include="HealthEngine.cs" />
     <Compile Include="PlayerDiedException.cs" />
+    <Compile Include="EngineLog.cs" />
+    <Compile Include="CurrentEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

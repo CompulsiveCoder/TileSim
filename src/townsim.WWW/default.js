@@ -1,4 +1,5 @@
 ﻿$(document).ready(function(){
+	showLog();
 	showPlayer();
 	showTown();
 	showTowns();
@@ -9,6 +10,7 @@ function startLoop()
 {
     var refreshId = setInterval(function()
     {
+		showLog();
     	showPlayer();
     	showTown();
     	showTowns();
@@ -49,5 +51,17 @@ function showPlayer()
     	$result.find('style').appendTo('#playerCont');
     	$result.find('#body').appendTo('#playerCont');
     	$result.find('script').appendTo('#playerCont');
+	}, 'html');
+}
+
+function showLog()
+{
+	$.get('Log.aspx', function(result){
+    	$result = $(result);
+
+    	$('#logCont').empty();
+    	$result.find('style').appendTo('#logCont');
+    	$result.find('#body').appendTo('#logCont');
+    	$result.find('script').appendTo('#logCont');
 	}, 'html');
 }
