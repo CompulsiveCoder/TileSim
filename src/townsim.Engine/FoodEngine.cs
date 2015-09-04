@@ -14,7 +14,7 @@ namespace townsim.Engine
 
 		public void Update(Town town)
 		{
-			UpdateEating (town);
+			//UpdateEating (town);
 		}
 
 		public void UpdateEating(Town town)

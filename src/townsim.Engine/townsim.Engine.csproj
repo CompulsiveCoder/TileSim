@@ -46,6 +46,10 @@
     <Compile Include="ClockEngine.cs" />
     <Compile Include="PeopleEngine.cs" />
     <Compile Include="TownlessException.cs" />
+    <Compile Include="ThirstEngine.cs" />
+    <Compile Include="HungerEngine.cs" />
+    <Compile Include="HealthEngine.cs" />
+    <Compile Include="PlayerDiedException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

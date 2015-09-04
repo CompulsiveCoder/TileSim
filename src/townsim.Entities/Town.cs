@@ -60,8 +60,8 @@ namespace townsim.Entities
 
 		public void InitializeDefaultValues(int population)
 		{
-			WaterSources = 10000;
-			FoodSources = 5000;
+			WaterSources = 5000;
+			FoodSources = 1000;
 			Forest = 30000;
 
 			Buildings = new BuildingCollection();
@@ -69,7 +69,9 @@ namespace townsim.Entities
 			var people = new PersonCollection ();
 			var personCreator = new PersonCreator ();
 			for (int i = 0; i < population; i++) {
-				people.Add (personCreator.CreateAdult());
+				var person = personCreator.CreateAdult ();
+				person.Location = this;
+				people.Add (person);
 			}
 			People = people.ToArray ();
 			Alerts = new BaseAlert[]{ };
@@ -96,6 +98,16 @@ namespace townsim.Entities
 					return true;
 
 			return false;
+		}
+
+		public void ValidateProperties()
+		{
+			if (WaterSources < 0)
+				WaterSources = 0;
+			if (FoodSources < 0)
+				FoodSources = 0;
+			if (Forest < 0)
+				Forest = 0;
 		}
 
 	}

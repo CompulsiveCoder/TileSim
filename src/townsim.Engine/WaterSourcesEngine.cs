@@ -7,7 +7,6 @@ namespace townsim.Engine
 {
 	public class WaterSourcesEngine
 	{
-		public double WaterConsumptionRate = 3;
 
 		public WaterSourcesEngine ()
 		{
@@ -17,14 +16,18 @@ namespace townsim.Engine
 		{
 			Rain (town);
 
-			ConsumeWater (town);
+			//ConsumeWater (town);
 
-			DieOfThirst (town);
+			//DieOfThirst (town);
 		}
 
-		public void ConsumeWater(Town town)
+		/*public void ConsumeWater(Town town)
 		{
-			var amount = town.Population * WaterConsumptionRate;
+			foreach (var person in town.People) {
+				ConsumeWater (person);
+			}
+
+			//var amount = town.Population * WaterConsumptionRate;
 
 			var populationEngine = new PopulationEngine ();
 
@@ -35,7 +38,15 @@ namespace townsim.Engine
 
 			if (town.WaterSources < 0)
 				town.WaterSources = 0;
-		}
+		}*/
+
+		/*public void ConsumeWater(Town town, Person person)
+		{
+			bool isThirsty = (new Random ().Next (10) < 2);
+
+			if (isThirsty)
+				town.WaterSources -= WaterConsumptionRate;
+		}*/
 
 		public void Rain(Town town)
 		{
@@ -47,7 +58,7 @@ namespace townsim.Engine
 			}
 		}
 
-		public void DieOfThirst(Town town)
+		/*public void DieOfThirst(Town town)
 		{
 			var peopleEngine = new PopulationEngine ();
 			if (town.Population > town.WaterSources) {
@@ -60,7 +71,7 @@ namespace townsim.Engine
 				} else
 					town.AddAlert (new ThirstAlert ());
 			}
-		}
+		}*/
 	}
 }
 

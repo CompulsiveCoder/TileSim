@@ -22,6 +22,7 @@ namespace townsim.Engine
 		public bool EnableDatabase = true;
 
 		public Person Player { get; set; }
+		public Person[] People { get; set; }
 
 		public townsimEngine ()
 		{
@@ -67,6 +68,10 @@ namespace townsim.Engine
 			list.Add (town);
 			Towns = list.ToArray ();
 
+			var peopleList = new List<Person> ();
+			peopleList.AddRange (town.People);
+			People = peopleList.ToArray ();
+
 			if (EnableDatabase) {
 				var townSaver = new TownSaver ();
 				townSaver.Save (town);
@@ -78,26 +83,33 @@ namespace townsim.Engine
 			for (int i = 0; i < 1000; i++) {
 				var beforeTime = DateTime.Now;
 				RunCycle ();
-				ShowTownSummary ();
+				ShowSummary ();
 				var afterTime = DateTime.Now;
 				var duration = afterTime.Subtract (beforeTime);
 				Console.WriteLine ("Duration: " + duration.Milliseconds + " milliseconds (max " + CycleTime + ")");
-				Thread.Sleep (1000-duration.Milliseconds);
+				var sleepDuration = CycleTime - duration.Milliseconds;
+				if (sleepDuration > 0)
+					Thread.Sleep (sleepDuration);
 			}
 		}
 
-		public void ShowTownSummary()
+		public void ShowSummary()
 		{
+
+			Player.ValidateProperties ();
 			Console.Clear ();
 			Console.WriteLine ("TownSim Engine");
 			Console.WriteLine ("  Clock: " + GetTimeString());
 			Console.WriteLine ("  Player:");
-			Console.WriteLine ("    Age:" + Player.Age);
+			Console.WriteLine ("    Age:" + Convert.ToInt32(Player.Age));
 			Console.WriteLine ("    Gender:" + Player.Gender);
 			Console.WriteLine ("    Health:" + Player.Health);
+			Console.WriteLine ("    Thirst:" + Convert.ToInt32(Player.Thirst));
+			Console.WriteLine ("    Hunger:" + Convert.ToInt32(Player.Hunger));
 			Console.WriteLine ("  Towns:");
 
 			foreach (var town in Towns) {
+				town.ValidateProperties ();
 				Console.WriteLine ("    " + town.Name);
 				Console.WriteLine ("     People:");
 				Console.WriteLine ("       Pop.: " + town.Population);
@@ -165,32 +177,42 @@ namespace townsim.Engine
 		{
 			var totalPopulation = 0;
 
-			var indexer = new TownIndexer ();
 			var saver = new TownSaver ();
+			var thirstEngine = new ThirstEngine ();
+			var hungerEngine = new HungerEngine ();
 			var populationEngine = new PopulationEngine ();
 			var forestsEngine = new ForestsEngine ();
 			var waterSourcesEngine = new WaterSourcesEngine ();
 			var constructionEngine = new ConstructionEngine ();
-			var foodEngine = new FoodEngine ();
+			//var foodEngine = new FoodEngine ();
 
 			if (Towns.Length == 0)
 				throw new TownlessException ();
 
+			// Local people
+			foreach (var person in People) {
+
+				hungerEngine.Update (person);
+				thirstEngine.Update (person);
+			}
+
 			foreach (var town in Towns) {
 				totalPopulation += town.Population;
+
 
 				// Local environment
 				waterSourcesEngine.Update (town);
 				forestsEngine.Update (town);
 
-				// Local people
-				foodEngine.Update(town);
 
 				// Local civil
 				constructionEngine.Update (town);
 
 				// Global, population and migration
 				populationEngine.Update(town);
+
+				if (Player.Health == 0)
+					throw new PlayerDiedException ();
 
 				if (EnableDatabase)
 					saver.Save (town);
