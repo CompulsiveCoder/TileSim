@@ -14,10 +14,10 @@ namespace townsim.Entities
 		public int TimberPending
 		{
 			get {
-				return TimberCost - TimberAvailable;
+				return TimberCost - Timber;
 			}
 		}
-		public int TimberAvailable { get; set; }
+		public int Timber { get; set; }
 		public int TimberCost { get; set; }
 
 		public Person[] Workers { get;set; }

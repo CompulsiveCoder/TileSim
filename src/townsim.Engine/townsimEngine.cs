@@ -32,6 +32,13 @@ namespace townsim.Engine
 			Initialize ();
 		}
 
+		public townsimEngine (string engineId)
+		{
+			Id = engineId;
+
+			Initialize ();
+		}
+
 		public void Start()
 		{
 			Console.WriteLine ("Starting TownSim engine");
@@ -58,13 +65,22 @@ namespace townsim.Engine
 
 		void Initialize()
 		{
-			var guid = Guid.NewGuid ().ToString ();
-			Id = guid.Substring (0, guid.IndexOf ("-"));
+			if (String.IsNullOrEmpty (Id)) {
+				var guid = Guid.NewGuid ().ToString ();
+				Id = guid.Substring (0, guid.IndexOf ("-"));
+			}
 			DataConfig.Prefix = "TownSim-" + Id;
 			GameStartTime = DateTime.Now;
 
 			var idManager = new EngineIdManager ();
 			idManager.Add (Id);
+
+			Attach ();
+		}
+
+		void Attach()
+		{
+			CurrentEngine.Add (this);
 		}
 
 		public void AddTown(Town town)
@@ -145,10 +161,14 @@ namespace townsim.Engine
 				Console.WriteLine ("       Employed: " + town.TotalEmployed);
 				Console.WriteLine ();
 				Console.WriteLine ("     Resources:");
-				Console.WriteLine ("       Timber: " + (int)town.Timber);
 				Console.WriteLine ("       Water sources: " + (int)town.WaterSources);
 				Console.WriteLine ("       Food sources: " + (int)town.FoodSources);
-				Console.WriteLine ("       Forests: " + town.Forest.Length);
+				Console.WriteLine ("       Timber: " + (int)town.Timber);
+				Console.WriteLine ();
+				Console.WriteLine ("     Environment:");
+				Console.WriteLine ("       Trees: " + town.Trees.Length);
+				Console.WriteLine ("       Average tree size: " + (int)town.AverageTreeSize);
+				Console.WriteLine ("       Average tree age: " + (int)town.AverageTreeAge);
 				Console.WriteLine ();
 				Console.WriteLine ("     Buildings:");
 				Console.WriteLine ("       Builders: " + town.TotalBuilders);
@@ -197,6 +217,7 @@ namespace townsim.Engine
 			var forestsEngine = new ForestsEngine ();
 			var waterSourcesEngine = new WaterSourcesEngine ();
 			var constructionEngine = new ConstructionEngine ();
+			var plantEngine = new PlantEngine ();
 			//var foodEngine = new FoodEngine ();
 
 			if (Towns.Length == 0)
@@ -209,7 +230,10 @@ namespace townsim.Engine
 				thirstEngine.Update (person);
 			}
 
+			var plants = new List<Plant> ();
+
 			foreach (var town in Towns) {
+				plants.AddRange (town.Plants);
 				totalPopulation += town.Population;
 
 
@@ -229,6 +253,12 @@ namespace townsim.Engine
 
 				if (EnableDatabase)
 					saver.Save (town);
+			}
+
+			// Local people
+			foreach (var plant in plants) {
+
+				plantEngine.Update (plant);
 			}
 
 			if (totalPopulation == 0) {

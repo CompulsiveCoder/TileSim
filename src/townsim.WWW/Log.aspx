@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-	<title>Town</title>
+	<title>Log</title>
 	<script runat="server">
 	string EngineId = String.Empty;
 
@@ -17,8 +17,15 @@
 <body>
 	<form>
 		<div id="body">
+			<link rel="stylesheet" type="text/css" href="default.css">
 			<h2>Log</h2>
-			<%= LogWriter.Current.ReadAll(EngineId).Replace("\n", "<br/>") %>
+			<div id="log" style="overflow:auto;height:300px;">
+			<%= LogWriter.Current.ReadAll(EngineId).Replace("\n", "<br/>").Replace("\r", "<br/>") %>
+			</div>
+			<script language="javascript">
+				var objDiv = document.getElementById("log");
+				objDiv.scrollTop = objDiv.scrollHeight;
+			</script>
 		</div>
 	</form>
 </body>

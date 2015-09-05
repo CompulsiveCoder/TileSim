@@ -16,7 +16,7 @@ namespace townsim.Entities
 			get { return People.Length; }
 		}
 
-		public int DefaultPopulation = 5;
+		public int DefaultPopulation = 30;
 
 		public double Timber = 0;
 
@@ -97,7 +97,7 @@ namespace townsim.Entities
 
 			CreatePeople (population);
 
-			CreateTrees (10);
+			CreateTrees (100);
 
 			Alerts = new BaseAlert[]{ };
 		}
@@ -118,7 +118,7 @@ namespace townsim.Entities
 		{
 			var list = new List<Plant> ();
 			for (int i = 0; i < numberOfTrees; i++) {
-				var tree = new Plant(PlantType.Tree, 100);
+				var tree = new Plant(PlantType.Tree, 100, 100);
 				list.Add (tree);
 			}
 			Plants = list.ToArray ();

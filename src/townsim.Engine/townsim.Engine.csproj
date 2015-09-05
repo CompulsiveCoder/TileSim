@@ -53,6 +53,7 @@
     <Compile Include="EngineLog.cs" />
     <Compile Include="CurrentEngine.cs" />
     <Compile Include="PlantEngine.cs" />
+    <Compile Include="EngineLauncher.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

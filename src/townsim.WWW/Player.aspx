@@ -30,9 +30,9 @@
 			<div>Player died. Game over!</div>
 			<% } %>
 			<div>Age: <%= Convert.ToInt32(Player.Age) %></div>
-			<div>Health: <%= (int)Player.Health %>%<div style="width: <%= Player.Health*2 %>px; background-color: red;"></div></div>
-			<div>Thirst: <%= (int)Player.Thirst %>%<div style="width: <%= Player.Thirst %>px; background-color: lightblue;"></div></div>
-			<div>Hunger: <%= (int)Player.Hunger %>%<div style="width: <%= Player.Hunger %>px; background-color: lightgreen;"></div></div>
+			<div>Health: <%= (int)Player.Health %>%<div style="width: <%= Player.Health*2.5 %>px; background-color: red;"></div></div>
+			<div>Thirst: <%= (int)Player.Thirst %>%<div style="width: <%= Player.Thirst*2.5 %>px; background-color: lightblue;"></div></div>
+			<div>Hunger: <%= (int)Player.Hunger %>%<div style="width: <%= Player.Hunger*2.5 %>px; background-color: lightgreen;"></div></div>
 		</div>
 	</form>
 </body>

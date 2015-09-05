@@ -11,14 +11,14 @@
 	void Page_Load(object sender, EventArgs e)
 	{
 		EngineId = Request.QueryString["engineId"];	
-		CurrentEngine.Attach(EngineId);
+		if (!String.IsNullOrEmpty(EngineId))
+			CurrentEngine.StartThread(EngineId);
 	}
 	</script>
 	<script language="javascript" type="text/javascript" src="jquery-2.1.3.min.js"></script>
 	<script language="javascript" type="text/javascript" src="default.js"></script>
 </head>
 <body>
-	<link rel="stylesheet" type="text/css" href="default.css">
 	<style>
 		body
 		{
@@ -67,7 +67,9 @@ $(document).ready(function()
 	</script>
 
 	<form id="form1">
+	<link rel="stylesheet" type="text/css" href="default.css">
 	<h1>Town Sim</h1>
+		<div onclick="newGame();">New Game</div>
 	<div id="clock"></div>
 		<div class="pnl" id="playerCont">
 		</div>

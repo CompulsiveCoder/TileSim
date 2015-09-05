@@ -34,17 +34,20 @@
 			<div>Couples: <%= Town.TotalBreedingPairs %><div class="bar" style="width: <%= Town.TotalBreedingPairs %>px; background-color: lightgray;"></div></div>
 			<div>Homeless People: <%= Town.TotalHomelessPeople %><div class="bar" style="width: <%= Town.TotalHomelessPeople %>px; background-color: lightgray;"></div></div>
 			<h2>Resources</h2>
-			<div>Timber: <%= Town.Timber %><div class="bar" style="width: <%= Town.Timber / 10 %>px; background-color: green;"></div></div>
-			<div>Forests: <%= Town.Forest.Length %><div class="bar" style="width: <%= Town.Forest.Length %>px; background-color: green;"></div></div>
+			<div>Timber: <%= (int)Town.Timber %><div class="bar" style="width: <%= (int)Town.Timber / 10 %>px; background-color: brown;"></div></div>
 			<div>Water sources: <%= (int)Town.WaterSources %><div class="bar" style="width: <%= (int)(Town.WaterSources / 100) %>px; background-color: lightblue;"></div></div>
 			<div>Food sources: <%= (int)Town.FoodSources %><div class="bar" style="width: <%= (int)(Town.FoodSources / 100) %>px; background-color: lightgreen;"></div></div>
+			<h2>Environment</h2>
+			<div>Trees: <%= Town.Trees.Length %><div class="bar" style="width: <%= Town.Trees.Length %>px; background-color: green;"></div></div>
+			<div>Average tree size: <%= (int)Town.AverageTreeSize %><div class="bar" style="width: <%= (int)Town.AverageTreeSize %>px; background-color: green;"></div></div>
+			<div>Average tree age: <%= (int)Town.AverageTreeAge %><div class="bar" style="width: <%= (int)Town.AverageTreeAge %>px; background-color: green;"></div></div>
 			<h2>Buildings</h2>
 			<div>Houses: <%= Town.Buildings.TotalCompletedHouses %><div class="bar" style="width: <%= Town.Buildings.TotalCompletedHouses %>px; background-color: brown;"></div></div>
 			<div>Incomplete Houses: <%= Town.Buildings.TotalIncompleteHouses %><div class="bar" style="width: <%= Town.Buildings.TotalIncompleteHouses %>px; background-color: brown;"></div></div>
-			<div>Average Percent Complete: <%= (int)Town.Buildings.AveragePercentComplete %><div class="bar" style="width: <%= Town.Buildings.AveragePercentComplete %>px; background-color: brown;"></div></div>
+			<div>Average Percent Complete: <%= (int)Town.Buildings.AveragePercentComplete %><div class="bar" style="width: <%= (int)Town.Buildings.AveragePercentComplete %>px; background-color: brown;"></div></div>
 
 			<% if (false) { %>
-			<div style="float:left">
+			<div style="float:left">	
 			<% foreach (var house in Town.Buildings.IncompleteHouses){ %>
 			<div class="house" style="float:left">
 				<div>House</div>

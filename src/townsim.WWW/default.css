@@ -30,3 +30,15 @@ div
 	padding: 0px;
 	margin: 0px;
 }
+
+.logOut
+{
+    /*overflow-x:hidden;
+    overflow-y:visible;
+    height:500px;*/
+    background-color: gray;
+
+    width: 150px;
+    height: 150px;
+    overflow: scroll;
+}

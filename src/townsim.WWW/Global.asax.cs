@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.SessionState;
 using townsim.Engine;
+using System.Threading;
 
 namespace townsim
 {

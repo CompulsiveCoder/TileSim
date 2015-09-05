@@ -1,4 +1,5 @@
 ﻿$(document).ready(function(){
+
 	showLog();
 	showPlayer();
 	showTown();
@@ -64,4 +65,14 @@ function showLog()
     	$result.find('#body').appendTo('#logCont');
     	$result.find('script').appendTo('#logCont');
 	}, 'html');
+}
+
+function newGame()
+{
+	window.location.replace("NewGame.aspx");
+	//location.href='NewGame.aspx';
+/*	$.get('NewGame.aspx', function(result){
+	alert("Starting new game.");
+    	$result = $(result);
+    }*/
 }

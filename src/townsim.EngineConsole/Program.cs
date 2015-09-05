@@ -8,10 +8,17 @@ namespace townsim.EngineConsole
 	{
 		public static void Main (string[] args)
 		{
+			var engineId = String.Empty;
+
+			if (args.Length == 1)
+				engineId = args [0];
+
+			Console.WriteLine ("Engine ID: " + engineId);
+
 			townsimEngine engine = null;
 			try
 			{
-				using(engine = new townsimEngine ())
+				using(engine = new townsimEngine (engineId))
 				{
 				engine.Start ();
 				}

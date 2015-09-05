@@ -136,7 +136,7 @@ namespace townsim.Engine
 				if (house.PercentComplete >= 100
 					&& !house.IsCompleted) {
 
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been compleed.");
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed.");
 
 					house.PercentComplete = 100;
 					house.IsCompleted = true;
@@ -149,7 +149,7 @@ namespace townsim.Engine
 		{
 			if (building.TimberPending > 0) {
 				if (Timber.IsTimberAvailable (town, building)) {
-					Timber.RefineTimber (town, building);
+					Timber.MillTimber (town, building);
 				}
 			}
 

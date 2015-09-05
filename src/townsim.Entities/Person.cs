@@ -27,6 +27,8 @@ namespace townsim.Entities
 		}
 		public bool IsEmployed { get; set; }
 		public EmploymentType EmploymentType { get; set; }
+
+		[JsonIgnore]
 		public IEmploymentTarget EmploymentTarget { get;set; }
 
 		[JsonIgnore]

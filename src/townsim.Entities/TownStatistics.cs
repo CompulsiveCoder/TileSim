@@ -154,6 +154,32 @@ namespace townsim.Entities
 				return totalEmployed;
 			}
 		}
+
+		[JsonIgnore]
+		public double AverageTreeSize
+		{
+			get {
+				double sum = 0;
+				var trees = Trees;
+				foreach (var tree in trees) {
+					sum += tree.Size;
+				}
+				return sum / trees.Length;
+			}
+		}
+
+		[JsonIgnore]
+		public double AverageTreeAge
+		{
+			get {
+				double sum = 0;
+				var trees = Trees;
+				foreach (var tree in trees) {
+					sum += tree.Age;
+				}
+				return sum / trees.Length;
+			}
+		}
 	}
 }
 

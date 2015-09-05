@@ -1,6 +1,7 @@
 ﻿using System;
 using townsim.Entities;
 using System.Collections.Generic;
+using townsim.Data;
 
 namespace townsim.Engine
 {
@@ -22,20 +23,21 @@ namespace townsim.Engine
 			return town.Forest.Length > 0;
 		}
 
-		public void RefineTimber(Town town, int timberQuantity)
+		public void MillTimber(Town town, int timberQuantity)
 		{
-			var forestQuantity = timberQuantity * WasteMultiplier;
+			//var forestQuantity = timberQuantity * WasteMultiplier;
 
-			var amount = forestQuantity;
-			if (town.Forest.Length < amount)
-				amount = (int)town.Forest.Length;
+			//var numberOfTrees = forestQuantity;
+			//if (town.Forest.Length < numberOfTrees)
+			//	numberOfTrees = (int)town.Forest.Length;
 
 			double refinedTimber = 0;
 			bool timberAvailable = true;
-			while (refinedTimber < amount
+
+			while (refinedTimber < timberQuantity
 				&& timberAvailable) {
 				var amountOfTimber = MillTree (town);
-				if (amountOfTimber == 0)
+				if (amountOfTimber <= 0)
 					timberAvailable = false;
 				refinedTimber += amountOfTimber;
 			}
@@ -46,14 +48,15 @@ namespace townsim.Engine
 		}
 
 
-		public void RefineTimber(Town town, Building building)
+		public void MillTimber(Town town, Building building)
 		{
 			var amount = building.TimberPending;
 
-			RefineTimber (town, building.TimberPending);
+			MillTimber (town, building.TimberPending);
 
+			// Move the timber from the town store to the building store
 			town.Timber -= amount;
-			building.TimberAvailable += amount;
+			building.Timber += amount;
 		}
 
 		public double MillTree(Town town)
@@ -68,13 +71,15 @@ namespace townsim.Engine
 			}
 
 			if (tree != null) {
-				var timber = tree.Size * TimberRate;
+				var timber = (int)(tree.Size * TimberRate);
 
 				var list = new List<Plant> (town.Plants);
 				list.Remove (tree);
 				town.Plants = list.ToArray ();
 
 				town.Timber += timber;
+
+				LogWriter.Current.AppendLine (CurrentEngine.Id, String.Format("A tree was cut down. Age:{0} size:{1} timber:{2}", (int)tree.Age, (int)tree.Size, (int)timber));
 
 				return timber;
 			} else

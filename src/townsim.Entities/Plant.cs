@@ -12,10 +12,11 @@ namespace townsim.Entities
 		{
 		}
 
-		public Plant(PlantType type, double size)
+		public Plant(PlantType type, double age, double size)
 		{
 			Type = type;
 			Size = size;
+			Age = age;
 		}
 	}
 }

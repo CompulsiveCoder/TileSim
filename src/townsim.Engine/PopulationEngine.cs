@@ -62,13 +62,14 @@ namespace townsim.Engine
 			if (probability < 2)
 			{
 				var value = new Random ().Next (3);
-				Immigrate (town, value);
+				if (value > 0)
+					Immigrate (town, value);
 			}
 
 			// Leaving
 			var leavingProbability = new Random ().Next (100);
 			if (leavingProbability < town.TotalHomelessPeople) {
-				var value = new Random ().Next (3);
+				var value = new Random ().Next (1, 3);
 				Emigrate (town, value);
 			}
 		}
@@ -138,7 +139,7 @@ namespace townsim.Engine
 
 			town.TotalEmigrants += numberOfPeople;
 
-			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " new people left town.");
+			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " people left town.");
 		}
 	}
 }
