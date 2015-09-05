@@ -135,7 +135,7 @@ namespace townsim.Entities
 			get {
 				int totalBuilders = 0;
 				foreach (var person in People) {
-					if (person.Employment == EmploymentType.Builder)
+					if (person.EmploymentType == EmploymentType.Builder)
 						totalBuilders++;
 				}
 				return totalBuilders;

@@ -145,15 +145,16 @@ namespace townsim.Engine
 				Console.WriteLine ("       Employed: " + town.TotalEmployed);
 				Console.WriteLine ();
 				Console.WriteLine ("     Resources:");
-				Console.WriteLine ("       Water sources: " + Convert.ToInt32(town.WaterSources));
-				Console.WriteLine ("       Food sources: " + Convert.ToInt32(town.FoodSources));
-				Console.WriteLine ("       Forests: " + Convert.ToInt32(town.Forest));
-				//Console.WriteLine ("     Timber: " + Convert.ToInt32(town.Timber));
+				Console.WriteLine ("       Timber: " + (int)town.Timber);
+				Console.WriteLine ("       Water sources: " + (int)town.WaterSources);
+				Console.WriteLine ("       Food sources: " + (int)town.FoodSources);
+				Console.WriteLine ("       Forests: " + town.Forest.Length);
 				Console.WriteLine ();
 				Console.WriteLine ("     Buildings:");
 				Console.WriteLine ("       Builders: " + town.TotalBuilders);
 				Console.WriteLine ("       Houses (complete): " + town.Buildings.TotalCompletedHouses);
 				Console.WriteLine ("       Houses (under const.): " + town.Buildings.TotalIncompleteHouses);
+				Console.WriteLine ("       Average percent complete: " + (int)town.Buildings.AveragePercentComplete);
 				/*foreach (var building in town.Buildings) {
 					if (!building.IsCompleted) {
 						Console.WriteLine ("       " + building.Type);

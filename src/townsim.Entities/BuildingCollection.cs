@@ -98,6 +98,8 @@ namespace townsim.Entities
 		public double AveragePercentComplete
 		{
 			get {
+				if (IncompleteHouses.Length == 0)
+					return 0;
 				double sum = 0;
 				foreach (var building in Houses) {
 					sum += building.PercentComplete;

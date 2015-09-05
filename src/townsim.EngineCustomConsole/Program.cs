@@ -41,7 +41,7 @@ namespace townsim.EngineCustomConsole
 			try
 			{
 				if (!String.IsNullOrEmpty(forestsEntry.Trim()))
-					town.Forest = Convert.ToInt32 (forestsEntry);
+					town.CreateTrees(Convert.ToInt32(forestsEntry));
 			}
 			catch {
 				// Ignore and go with default

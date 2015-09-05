@@ -52,6 +52,7 @@
     <Compile Include="PlayerDiedException.cs" />
     <Compile Include="EngineLog.cs" />
     <Compile Include="CurrentEngine.cs" />
+    <Compile Include="PlantEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

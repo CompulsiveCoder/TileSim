@@ -5,7 +5,7 @@ namespace townsim.Entities
 {
 	[Serializable]
 	[JsonObject("Building")]
-	public class Building : BaseEntity
+	public class Building : BaseEntity, IEmploymentTarget
 	{
 		public bool IsCompleted { get; set; }
 		public double PercentComplete { get; set; }
@@ -20,7 +20,7 @@ namespace townsim.Entities
 		public int TimberAvailable { get; set; }
 		public int TimberCost { get; set; }
 
-		public Person[] Workers = new Person[]{};
+		public Person[] Workers { get;set; }
 
 		public Building ()
 		{

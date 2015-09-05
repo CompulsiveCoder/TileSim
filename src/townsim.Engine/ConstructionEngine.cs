@@ -147,11 +147,14 @@ namespace townsim.Engine
 
 		public void DoConstruction(Town town, Building building)
 		{
-			if (Timber.IsTimberAvailable (town, building)) {
-				Timber.RefineTimber (town, building);
-				var workDone = ConstructionRate * town.TotalEmployed;
-				building.PercentComplete += workDone; 
+			if (building.TimberPending > 0) {
+				if (Timber.IsTimberAvailable (town, building)) {
+					Timber.RefineTimber (town, building);
+				}
 			}
+
+			var workDone = ConstructionRate * town.TotalEmployed;
+			building.PercentComplete += workDone; 
 		}
 
 

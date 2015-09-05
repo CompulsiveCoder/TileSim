@@ -34,7 +34,8 @@
 			<div>Couples: <%= Town.TotalBreedingPairs %><div class="bar" style="width: <%= Town.TotalBreedingPairs %>px; background-color: lightgray;"></div></div>
 			<div>Homeless People: <%= Town.TotalHomelessPeople %><div class="bar" style="width: <%= Town.TotalHomelessPeople %>px; background-color: lightgray;"></div></div>
 			<h2>Resources</h2>
-			<div>Forests: <%= Convert.ToInt32(Town.Forest) %><div class="bar" style="width: <%= (int)(Town.Forest / 100) %>px; background-color: green;"></div></div>
+			<div>Timber: <%= Town.Timber %><div class="bar" style="width: <%= Town.Timber / 10 %>px; background-color: green;"></div></div>
+			<div>Forests: <%= Town.Forest.Length %><div class="bar" style="width: <%= Town.Forest.Length %>px; background-color: green;"></div></div>
 			<div>Water sources: <%= (int)Town.WaterSources %><div class="bar" style="width: <%= (int)(Town.WaterSources / 100) %>px; background-color: lightblue;"></div></div>
 			<div>Food sources: <%= (int)Town.FoodSources %><div class="bar" style="width: <%= (int)(Town.FoodSources / 100) %>px; background-color: lightgreen;"></div></div>
 			<h2>Buildings</h2>

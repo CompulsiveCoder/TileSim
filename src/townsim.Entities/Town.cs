@@ -18,7 +18,21 @@ namespace townsim.Entities
 
 		public int DefaultPopulation = 5;
 
-		public double Forest { get;set; }
+		public double Timber = 0;
+
+		public Plant[] Forest
+		{
+			get {
+				var list = new List<Plant> ();
+				foreach (var plant in Plants) {
+					if (plant.Type == PlantType.Tree) {
+						list.Add (plant);
+					}
+				}
+				return list.ToArray ();
+			}
+		}
+
 		public double WaterSources { get; set; }
 		public double FoodSources { get; set; }
 
@@ -28,7 +42,24 @@ namespace townsim.Entities
 		public int TotalEmigrants { get;set; }
 
 		[JsonProperty]
-		public Person[] People { get;set; }
+		public Person[] People = new Person[]{};
+
+		[JsonProperty]
+		public Plant[] Plants = new Plant[]{};
+
+		[JsonIgnore]
+		public Plant[] Trees
+		{
+			get{
+				var list = new List<Plant> ();
+
+				foreach (var plant in Plants)
+					if (plant.Type == PlantType.Tree)
+						list.Add (plant);
+
+				return list.ToArray ();
+			}
+		}
 
 		[JsonIgnore]
 		public BuildingCollection Buildings { get; set; }
@@ -59,19 +90,38 @@ namespace townsim.Entities
 		{
 			WaterSources = 25000;
 			FoodSources = 25000;
-			Forest = 25000;
+			//Timber = 1000;
+			//Forest = 25000;
 
 			Buildings = new BuildingCollection();
 
+			CreatePeople (population);
+
+			CreateTrees (10);
+
+			Alerts = new BaseAlert[]{ };
+		}
+
+		public void CreatePeople(int numberOfPeople)
+		{
 			var people = new PersonCollection ();
 			var personCreator = new PersonCreator ();
-			for (int i = 0; i < population; i++) {
+			for (int i = 0; i < numberOfPeople; i++) {
 				var person = personCreator.CreateAdult ();
 				person.Location = this;
 				people.Add (person);
 			}
 			People = people.ToArray ();
-			Alerts = new BaseAlert[]{ };
+		}
+
+		public void CreateTrees(int numberOfTrees)
+		{
+			var list = new List<Plant> ();
+			for (int i = 0; i < numberOfTrees; i++) {
+				var tree = new Plant(PlantType.Tree, 100);
+				list.Add (tree);
+			}
+			Plants = list.ToArray ();
 		}
 
 		public void AddAlert(BaseAlert alert)
@@ -102,8 +152,8 @@ namespace townsim.Entities
 				WaterSources = 0;
 			if (FoodSources < 0)
 				FoodSources = 0;
-			if (Forest < 0)
-				Forest = 0;
+			//if (Forest < 0)
+			//	Forest = 0;
 		}
 
 		public Person[] GetWorkers(int numberOfWorkers)

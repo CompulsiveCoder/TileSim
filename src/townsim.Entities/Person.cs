@@ -26,7 +26,8 @@ namespace townsim.Entities
 			get { return IsAdult; }
 		}
 		public bool IsEmployed { get; set; }
-		public EmploymentType Employment { get; set; }
+		public EmploymentType EmploymentType { get; set; }
+		public IEmploymentTarget EmploymentTarget { get;set; }
 
 		[JsonIgnore]
 		public Town Location { get; set; }

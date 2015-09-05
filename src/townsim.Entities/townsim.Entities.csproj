@@ -46,6 +46,9 @@
     <Compile Include="PersonCreator.cs" />
     <Compile Include="EmploymentType.cs" />
     <Compile Include="TownStatistics.cs" />
+    <Compile Include="Plant.cs" />
+    <Compile Include="PlantType.cs" />
+    <Compile Include="IEmploymentTarget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

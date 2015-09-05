@@ -19,8 +19,8 @@ namespace townsim.Engine
 
 		public void UpdateGrowth(Town town)
 		{
-			var growth = town.Forest / 100000;
-			town.Forest = town.Forest + growth;
+			//var growth = town.Forest / 100000;
+			//town.Forest = town.Forest + growth;
 		}
 	}
 }
