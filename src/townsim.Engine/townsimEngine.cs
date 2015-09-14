@@ -27,6 +27,8 @@ namespace townsim.Engine
 
 		public LogWriter Log = new LogWriter ();
 
+		public double GameSpeed = 1;
+
 		public townsimEngine ()
 		{
 			Initialize ();

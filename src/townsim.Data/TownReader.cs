@@ -21,11 +21,6 @@ namespace townsim.Data
 			var buildingReader = new BuildingReader ();
 			town.Buildings = new BuildingCollection (buildingReader.Read (town.Id));
 
-			// Population
-			//var townPopulation = new TownPopulation();
-			//town.Population = townPopulation.ReadPopulationCount (town.Id);
-			//var peopleReader = new PeopleReader();
-			//town.People.AddRange(peopleReader.Read (town.Id));
 			foreach (var person in town.People)
 				person.Location = town;
 

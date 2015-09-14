@@ -59,6 +59,9 @@
     <Content Include="CurrentTown.aspx" />
     <Content Include="Log.aspx" />
     <Content Include="NewGame.aspx" />
+    <Content Include="EngineList.aspx" />
+    <Content Include="Forestry.aspx" />
+    <Content Include="ForestrySave.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">

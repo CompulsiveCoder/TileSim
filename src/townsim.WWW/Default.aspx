@@ -17,8 +17,10 @@
 	</script>
 	<script language="javascript" type="text/javascript" src="jquery-2.1.3.min.js"></script>
 	<script language="javascript" type="text/javascript" src="default.js"></script>
+	<script language="javascript" type="text/javascript" src="jquery-ui.min.js"></script>
 </head>
 <body>
+	<link rel="stylesheet" href="jquery-ui.css">
 	<style>
 		body
 		{
@@ -77,19 +79,10 @@ $(document).ready(function()
 		</div>
 		<div class="pnl" id="listCont">
 		</div>
-		<div class="pnl" id="propCont">
-			<% if (String.IsNullOrEmpty(EngineId)){ %>
-			<% foreach (var engineId in new EngineIdManager().GetIds()){ %>
-				<div><a href="Default.aspx?engineId=<%= engineId %>"><%= engineId %></a></div>
-			<% } %>
-			<% } %>
-			<div id="propInner">
-			</div>
-		</div>
 		<div class="pnl" id="logCont">
 		</div>
 		<div class="pml" id="gardenCont">
-		<div>Start Garden</div>
+		<div><a href="Forestry.aspx">Forestry</a></div>
 		</div>
 	</form>
 </body>

@@ -61,6 +61,9 @@ namespace townsim.Entities
 			}
 		}
 
+		public int TreesToPlantPerDay { get;set; }
+		public int TotalTreesPlanted { get;set; }
+
 		[JsonIgnore]
 		public BuildingCollection Buildings { get; set; }
 

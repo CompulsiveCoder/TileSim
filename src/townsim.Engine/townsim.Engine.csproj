@@ -54,6 +54,7 @@
     <Compile Include="CurrentEngine.cs" />
     <Compile Include="PlantEngine.cs" />
     <Compile Include="EngineLauncher.cs" />
+    <Compile Include="ForestryEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

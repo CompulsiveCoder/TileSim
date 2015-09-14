@@ -20,7 +20,7 @@ namespace townsim.Engine
 
 		public bool IsTimberAvailable(Town town, Building building)
 		{
-			return town.Forest.Length > 0;
+			return town.Timber > 0;
 		}
 
 		public void MillTimber(Town town, int timberQuantity)

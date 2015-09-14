@@ -34,6 +34,8 @@ namespace townsim.Entities
 		[JsonIgnore]
 		public Town Location { get; set; }
 
+		public Job[] Jobs { get;set; }
+
 		public Person ()
 		{
 		}

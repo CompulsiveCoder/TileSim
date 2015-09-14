@@ -123,11 +123,6 @@ namespace townsim.Engine
 		public void DoConstruction(Town town)
 		{
 			foreach (var house in town.Buildings.Houses) {
-				// Hire workers
-				//if (house.PercentComplete == 0 && house.WorkerCount == 0) {
-				//	Workers.Hire (town, house);
-				//	house.PercentComplete = 1; // Indicates work has started
-				//}
 				// Do the work
 				if (!house.IsCompleted && house.WorkerCount > 0) {
 					DoConstruction (town, house);
@@ -156,25 +151,6 @@ namespace townsim.Engine
 			var workDone = ConstructionRate * town.TotalEmployed;
 			building.PercentComplete += workDone; 
 		}
-
-
-		/*public void HireBuilders(Town town, int buildersToHire)
-		{
-			var availableWorkers = town.WorkersAvailable;
-			if (buildersToHire > availableWorkers)
-				buildersToHire = availableWorkers;
-			Workers.Hire (town, buildersToHire);
-			town.Builders += buildersToHire;
-
-		}
-
-		public void FireBuilders(Town town, Building building)
-		{
-			//var workersToFire = building.Workers;
-			building.WorkerCount = 0;
-			Workers.Fire (town, building.WorkerCount);
-			//town.Builders -= workersToFire;
-		}*/
 	}
 }
 

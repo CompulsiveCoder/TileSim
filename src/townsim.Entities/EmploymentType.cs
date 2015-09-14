@@ -7,7 +7,8 @@ namespace townsim.Entities
 	public enum EmploymentType
 	{
 		NotSet,
-		Builder
+		Builder,
+		Forestry
 	}
 
 }

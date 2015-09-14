@@ -139,7 +139,11 @@ namespace townsim.Engine
 
 			town.TotalEmigrants += numberOfPeople;
 
-			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " people left town.");
+			var peopleWord = "people";
+			if (numberOfPeople == 1)
+				peopleWord = "person";
+
+			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " " + peopleWord + " left town.");
 		}
 	}
 }
