@@ -16,7 +16,7 @@ namespace townsim.Entities
 			get { return People.Length; }
 		}
 
-		public int DefaultPopulation = 30;
+		public int DefaultPopulation = 10;
 
 		public double Timber = 0;
 
@@ -73,7 +73,7 @@ namespace townsim.Entities
 		public Town ()
 		{
 			Id = Guid.NewGuid ();
-			InitializeDefaultValues (5);
+			InitializeDefaultValues ();
 		}
 
 		public Town (int population)
@@ -82,25 +82,46 @@ namespace townsim.Entities
 			InitializeDefaultValues (population);
 		}
 
+		public Town (int population, int numberOfTrees)
+		{
+			Id = Guid.NewGuid ();
+			InitializeDefaultValues (population, numberOfTrees);
+		}
+
 		public Town (string name, int population)
 		{
 			Id = Guid.NewGuid ();
 			Name = name;
-			InitializeDefaultValues (DefaultPopulation);
+			InitializeDefaultValues (population);
+		}
+
+		public void InitializeDefaultValues()
+		{
+			InitializeDefaultValues (
+				DefaultPopulation,
+				100
+			);
 		}
 
 		public void InitializeDefaultValues(int population)
+		{
+			InitializeDefaultValues (population, 100);
+		}
+
+		public void InitializeDefaultValues(int population, int numberOfTrees)
 		{
 			WaterSources = 25000;
 			FoodSources = 25000;
 			//Timber = 1000;
 			//Forest = 25000;
 
+			TreesToPlantPerDay = 1;
+
 			Buildings = new BuildingCollection();
 
 			CreatePeople (population);
 
-			CreateTrees (100);
+			CreateTrees (numberOfTrees);
 
 			Alerts = new BaseAlert[]{ };
 		}
@@ -122,6 +143,8 @@ namespace townsim.Entities
 			var list = new List<Plant> ();
 			for (int i = 0; i < numberOfTrees; i++) {
 				var tree = new Plant(PlantType.Tree, 100, 100);
+				tree.WasPlanted = false;
+				tree.PercentPlanted = 100; // TODO: Is this necessary?
 				list.Add (tree);
 			}
 			Plants = list.ToArray ();

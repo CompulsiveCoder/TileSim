@@ -9,7 +9,7 @@ namespace townsim.Entities
 
 		public BaseEntity ()
 		{
-			Guid.NewGuid ();
+			
 		}
 
 		public string ToJson()

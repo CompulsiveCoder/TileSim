@@ -143,6 +143,19 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
+		public int TotalForestryWorkers
+		{
+			get {
+				int totalForestryWorkers = 0;
+				foreach (var person in People) {
+					if (person.EmploymentType == EmploymentType.Forestry)
+						totalForestryWorkers++;
+				}
+				return totalForestryWorkers;
+			}
+		}
+
+		[JsonIgnore]
 		public int TotalEmployed
 		{
 			get {
@@ -178,6 +191,35 @@ namespace townsim.Entities
 					sum += tree.Age;
 				}
 				return sum / trees.Length;
+			}
+		}
+
+		// TODO: Is this the best way to track this?
+		public int CountTreesPlantedToday(TimeSpan gameTime)
+		{
+			int treesPlantedToday = 0;
+			foreach (var plant in Plants) {
+				if (plant.Type == PlantType.Tree
+					&& plant.WasPlanted
+					&& plant.TimePlanted.Days == gameTime.Days) {
+					treesPlantedToday++;
+				}
+			}
+			return treesPlantedToday;
+		}
+
+		public int TotalTreesBeingPlanted
+		{
+			get {
+				int totalTreesBeingPlanted = 0;
+				foreach (var plant in Plants) {
+					if (plant.Type == PlantType.Tree
+						&& plant.WasPlanted
+					    && plant.PercentPlanted < 100) {
+						totalTreesBeingPlanted++;
+					}
+				}
+				return totalTreesBeingPlanted;
 			}
 		}
 	}

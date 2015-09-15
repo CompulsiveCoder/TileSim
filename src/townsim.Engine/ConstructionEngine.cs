@@ -68,7 +68,7 @@ namespace townsim.Engine
 
 			numberOfHousesToBuild -= town.Buildings.TotalIncompleteHouses;
 
-			numberOfHousesToBuild = LimitConstructionNumber (town, numberOfHousesToBuild);
+			numberOfHousesToBuild = GetConstructionLimit (town, numberOfHousesToBuild);
 			// Limit the number of houses being built
 			//if (town.Persons.TotalIncompleteHouses <= housesNeeded) {
 				//if (town.Population > ConstructionCountLimitBase) {
@@ -87,34 +87,39 @@ namespace townsim.Engine
 			return numberOfHousesToBuild;
 		}
 
-		public int LimitConstructionNumber(Town town, int numberOfHousesToBuild)
+		public int GetConstructionLimit(Town town, int numberOfHousesToBuild)
 		{
-			/*var limit = 1;
+			var limit = numberOfHousesToBuild;
+
 			if (town.Population > 5
 			    && town.Population <= 10)
+				limit = town.Population / 2;
+			else if (town.Population > 10)
 				limit = town.Population / 5;
-			else if (town.Population > 10) {
+			else if (town.Population > 100)
 				limit = town.Population / 10;
-			}*/
+			
 
-			return numberOfHousesToBuild;//ApplyLimit (numberOfHousesToBuild, limit);
+			return ApplyLimit (numberOfHousesToBuild, limit);
 				
 		}
 
-		public int ApplyLimit(int limitedNumber, int maximumValue)
+		public int ApplyLimit(int numberToLimit, int maximumValue)
 		{
-			if (limitedNumber < maximumValue)
-				return limitedNumber;
-			else
+			if (numberToLimit > maximumValue)
 				return maximumValue;
+			else
+				return numberToLimit;
 		}
 
 		public void StartBuildHouse(Town town)
 		{
-			if (town.TotalUnemployed > 0) {
-				var house = new Building (Entities.BuildingType.House);
+			var house = new Building (Entities.BuildingType.House);
+
+			Workers.Hire (town, house);
+
+			if (house.Workers.Length > 0) {
 				town.Buildings.Add (house);
-				Workers.Hire (town, house);
 
 				LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
 			}
@@ -124,7 +129,7 @@ namespace townsim.Engine
 		{
 			foreach (var house in town.Buildings.Houses) {
 				// Do the work
-				if (!house.IsCompleted && house.WorkerCount > 0) {
+				if (!house.IsCompleted && house.Workers.Length > 0) {
 					DoConstruction (town, house);
 				}
 				// Job done, fire the workers
@@ -142,14 +147,16 @@ namespace townsim.Engine
 
 		public void DoConstruction(Town town, Building building)
 		{
-			if (building.TimberPending > 0) {
-				if (Timber.IsTimberAvailable (town, building)) {
-					Timber.MillTimber (town, building);
+			if (building.Workers.Length > 0) {
+				if (building.TimberPending > 0) {
+					if (Timber.IsTimberAvailable (town, building)) {
+						Timber.MillTimber (town, building);
+					}
 				}
-			}
 
-			var workDone = ConstructionRate * town.TotalEmployed;
-			building.PercentComplete += workDone; 
+				var workDone = ConstructionRate * building.Workers.Length;
+				building.PercentComplete += workDone; 
+			}
 		}
 	}
 }

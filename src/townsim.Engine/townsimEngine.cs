@@ -27,7 +27,9 @@ namespace townsim.Engine
 
 		public LogWriter Log = new LogWriter ();
 
-		public double GameSpeed = 1;
+		public EngineSettings Settings;
+
+		public EngineClock Clock;
 
 		public townsimEngine ()
 		{
@@ -45,7 +47,7 @@ namespace townsim.Engine
 		{
 			Console.WriteLine ("Starting TownSim engine");
 
-			Log.AppendLine (Id, "Starting engine");
+			Log.AppendLine (Id.ToString(), "Starting engine");
 
 			CreateTown ();
 
@@ -67,7 +69,10 @@ namespace townsim.Engine
 
 		void Initialize()
 		{
-			if (String.IsNullOrEmpty (Id)) {
+			Settings = new EngineSettings ();
+			Clock = new EngineClock (Settings);
+
+			if (String.IsNullOrEmpty(Id)){
 				var guid = Guid.NewGuid ().ToString ();
 				Id = guid.Substring (0, guid.IndexOf ("-"));
 			}
@@ -129,7 +134,9 @@ namespace townsim.Engine
 			Player.ValidateProperties ();
 			Console.Clear ();
 			Console.WriteLine ("TownSim Engine");
-			Console.WriteLine ("  Clock: " + GetTimeString());
+			Console.WriteLine ("  Id: " + Id);
+			Console.WriteLine ("  Real clock: " + Clock.GetRealDurationString());
+			Console.WriteLine ("  Game clock: " + Clock.GetGameDurationString());
 			Console.WriteLine ("  Player:");
 			Console.WriteLine ("    Age:" + Convert.ToInt32(Player.Age));
 			Console.WriteLine ("    Gender:" + Player.Gender);
@@ -167,6 +174,12 @@ namespace townsim.Engine
 				Console.WriteLine ("       Food sources: " + (int)town.FoodSources);
 				Console.WriteLine ("       Timber: " + (int)town.Timber);
 				Console.WriteLine ();
+				Console.WriteLine ("     Forestry:");
+				Console.WriteLine ("       Forestry workers: " + town.TotalForestryWorkers);
+				Console.WriteLine ("       Trees planted today: " + town.CountTreesPlantedToday(Clock.GameDuration));
+				Console.WriteLine ("       Trees planted: " + town.TotalTreesPlanted);
+				Console.WriteLine ("       Trees being planted: " + town.TotalTreesBeingPlanted);
+				Console.WriteLine ();
 				Console.WriteLine ("     Environment:");
 				Console.WriteLine ("       Trees: " + town.Trees.Length);
 				Console.WriteLine ("       Average tree size: " + (int)town.AverageTreeSize);
@@ -203,7 +216,7 @@ namespace townsim.Engine
 
 			if (towns.Length < 1)
 			{
-				var town = new Town ("Small Town", 3);
+				var town = new Town ("Small Town", 10);
 				AddTown (town);
 			}
 		}
@@ -217,6 +230,7 @@ namespace townsim.Engine
 			var hungerEngine = new HungerEngine ();
 			var populationEngine = new PopulationEngine ();
 			var forestsEngine = new ForestsEngine ();
+			var forestryEngine = new ForestryEngine (Settings, Clock);
 			var waterSourcesEngine = new WaterSourcesEngine ();
 			var constructionEngine = new ConstructionEngine ();
 			var plantEngine = new PlantEngine ();
@@ -247,6 +261,8 @@ namespace townsim.Engine
 				// Local civil
 				constructionEngine.Update (town);
 
+				forestryEngine.Update (town);
+
 				// Global, population and migration
 				populationEngine.Update(town);
 
@@ -275,36 +291,6 @@ namespace townsim.Engine
 			ShowSummary ();
 			Console.WriteLine ("The player died.");
 			Console.WriteLine ("Game Over");
-		}
-
-		public string GetTimeString(TimeSpan timeSpan)
-		{
-			string answer;
-			if (timeSpan.TotalMinutes < 1.0)
-			{
-				answer = String.Format("{0}s", timeSpan.Seconds);
-			}
-			else if (timeSpan.TotalHours < 1.0)
-			{
-				answer = String.Format("{0}m:{1:D2}s", timeSpan.Minutes, timeSpan.Seconds);
-			}
-			else // more than 1 hour
-			{
-				answer = String.Format("{0}h:{1:D2}m:{2:D2}s", (int)timeSpan.TotalHours, timeSpan.Minutes, timeSpan.Seconds);
-			}
-
-			return answer;
-		}
-
-		public string GetTimeString(int secs)
-		{
-			TimeSpan timeSpan = TimeSpan.FromSeconds(secs);
-			return GetTimeString (timeSpan);
-		}
-
-		public string GetTimeString()
-		{
-			return GetTimeString(DateTime.Now.Subtract (GameStartTime));
 		}
 
 		public void Dispose()

@@ -8,10 +8,6 @@ namespace townsim.Engine
 		{
 		}
 
-		public DateTime GetGameTime(DateTime gameStartTime, DateTime now)
-		{
-			return DateTime.Now;
-		}
 	}
 }
 

@@ -37,6 +37,8 @@
 			<div>Timber: <%= (int)Town.Timber %><div class="bar" style="width: <%= (int)Town.Timber / 10 %>px; background-color: brown;"></div></div>
 			<div>Water sources: <%= (int)Town.WaterSources %><div class="bar" style="width: <%= (int)(Town.WaterSources / 100) %>px; background-color: lightblue;"></div></div>
 			<div>Food sources: <%= (int)Town.FoodSources %><div class="bar" style="width: <%= (int)(Town.FoodSources / 100) %>px; background-color: lightgreen;"></div></div>
+			<h2>Forestry</h2>
+			<div>Forestry workers: <%= (int)Town.ForestryWorkers %><div class="bar" style="width: <%= (int)(Town.TotalForestryWorkers) %>px; background-color: lightgreen;"></div></div>
 			<h2>Environment</h2>
 			<div>Trees: <%= Town.Trees.Length %><div class="bar" style="width: <%= Town.Trees.Length %>px; background-color: green;"></div></div>
 			<div>Average tree size: <%= (int)Town.AverageTreeSize %><div class="bar" style="width: <%= (int)Town.AverageTreeSize %>px; background-color: green;"></div></div>

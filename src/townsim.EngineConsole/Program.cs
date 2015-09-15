@@ -12,6 +12,10 @@ namespace townsim.EngineConsole
 
 			if (args.Length == 1)
 				engineId = args [0];
+			else {
+				var id = Guid.NewGuid ().ToString ();
+				engineId = id.Substring (0, id.IndexOf ("-"));
+			}
 
 			Console.WriteLine ("Engine ID: " + engineId);
 

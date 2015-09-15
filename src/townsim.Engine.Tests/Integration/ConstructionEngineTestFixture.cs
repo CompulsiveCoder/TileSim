@@ -21,30 +21,57 @@ namespace townsim.Engine.Tests
 				constructionEngine.Update (town);
 			}
 
-			Assert.AreEqual (0, town.TotalEmployed);
+			var building = town.Buildings [0];
+
+			Assert.AreEqual (100, building.PercentComplete);
+			Assert.AreEqual (0, town.TotalBuilders);
 			Assert.AreEqual (1, town.Buildings.TotalCompleted);
 			Assert.AreEqual (1, town.Buildings.TotalCompletedHouses);
+			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
 
-
-			//population
 		}
 
 		[Test]
-		public void Test_Housing_5pop()
+		public void Test_Housing_2pop()
 		{
-			throw new NotImplementedException ();
 			var constructionEngine = new ConstructionEngine ();
-			var town = new Town (5);
+			var town = new Town (2);
 			constructionEngine.Update (town);
-			Assert.AreEqual (5, town.TotalEmployed);
+			Assert.AreEqual (2, town.TotalEmployed);
 
 			for (int i = 0; i < 100; i++) {
 				constructionEngine.Update (town);
 			}
 
-			Assert.AreEqual (0, town.TotalEmployed);
+			var building = town.Buildings [0];
+
+			Assert.AreEqual (100, building.PercentComplete);
+			Assert.AreEqual (0, town.TotalBuilders);
+			Assert.AreEqual (2, town.Buildings.TotalCompleted);
+			Assert.AreEqual (2, town.Buildings.TotalCompletedHouses);
+			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
+
+		}
+
+		[Test]
+		public void Test_Housing_5pop()
+		{
+			var constructionEngine = new ConstructionEngine ();
+			var town = new Town (5);
+			constructionEngine.Update (town);
+			Assert.AreEqual (5, town.TotalEmployed);
+
+			for (int i = 0; i < 1000; i++) {
+				constructionEngine.Update (town);
+			}
+
+			var building = town.Buildings [0];
+
+			Assert.AreEqual (100, building.PercentComplete);
+			Assert.AreEqual (0, town.TotalBuilders);
 			Assert.AreEqual (5, town.Buildings.TotalCompleted);
 			Assert.AreEqual (5, town.Buildings.TotalCompletedHouses);
+			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
 
 
 			//population

@@ -39,6 +39,7 @@
     <Compile Include="Integration\ConstructionEngineTestFixture.cs" />
     <Compile Include="Integration\DehydrationAlertTestFixture.cs" />
     <Compile Include="Integration\StarvationAlertTestFixture.cs" />
+    <Compile Include="Integration\ForestryEngineTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

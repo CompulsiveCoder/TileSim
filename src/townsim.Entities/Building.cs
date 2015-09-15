@@ -9,7 +9,6 @@ namespace townsim.Entities
 	{
 		public bool IsCompleted { get; set; }
 		public double PercentComplete { get; set; }
-		public int WorkerCount { get;set; }
 		public BuildingType Type { get; set; }
 		public int TimberPending
 		{
@@ -24,13 +23,22 @@ namespace townsim.Entities
 
 		public Building ()
 		{
+			Construct ();
+
 			TimberCost = 50;
 		}
 
 		public Building (BuildingType type)
 		{
+			Construct ();
+
 			TimberCost = 50;
 			Type = type;
+		}
+
+		public void Construct()
+		{
+			Workers = new Person[]{ };
 		}
 	}
 }

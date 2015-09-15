@@ -1,6 +1,7 @@
 ﻿using System;
 using townsim.Data;
 using townsim.Entities;
+using System.Collections.Generic;
 
 namespace townsim.Engine
 {
@@ -10,10 +11,10 @@ namespace townsim.Engine
 		{
 		}
 
-		public bool Hire(Town town, int numberOfWorkersToHire, EmploymentType employmentType, IEmploymentTarget target)
+		public int Hire(Town town, int numberOfWorkersToHire, EmploymentType employmentType, IEmploymentTarget target)
 		{
 			if (numberOfWorkersToHire > town.TotalUnemployed)
-				return false;
+				return 0;
 			else {
 				//town.Workers += numberOfWorkersToHire;
 				int numberOfWorkersHired = 0;
@@ -24,7 +25,7 @@ namespace townsim.Engine
 						numberOfWorkersHired++;
 					}
 				}
-				return true;
+				return numberOfWorkersHired;
 			}
 		}
 
@@ -33,9 +34,18 @@ namespace townsim.Engine
 			person.IsEmployed = true;
 			person.EmploymentType = employmentType;
 			person.EmploymentTarget = target;
+		
+			AddWorkerToTarget (target, person);
 		}
 
-		public bool Fire(Town town, int numberOfWorkersToFire)
+		public void AddWorkerToTarget(IEmploymentTarget target, Person person)
+		{
+			var workers = new List<Person> (target.Workers);
+			workers.Add (person);
+			target.Workers = workers.ToArray ();
+		}
+
+		/*public bool Fire(Town town, int numberOfWorkersToFire)
 		{
 			var available = town.TotalEmployed;
 
@@ -49,14 +59,28 @@ namespace townsim.Engine
 			}
 			//town.Workers -= numberOfWorkersToFire;
 			return true;
-		}
+		}*/
 
-		public void Fire(Town town, Person person)
+		public void Fire(Person person)
 		{
 			person.IsEmployed = false;
 			person.EmploymentType = EmploymentType.NotSet;
-			person.EmploymentTarget.Workers = new Person[]{ };
-			person.EmploymentTarget = null;
+
+			if (person.EmploymentTarget != null) {
+				person.EmploymentTarget.Workers = new Person[]{ };
+				person.EmploymentTarget = null;
+			}
+		}
+
+		public void Fire(IEmploymentTarget target)
+		{
+			foreach (var person in target.Workers) {
+				Fire (person);
+			}
+
+			if (target.Workers.Length > 0) {
+				target.Workers = new Person[]{ };
+			}
 		}
 	}
 }

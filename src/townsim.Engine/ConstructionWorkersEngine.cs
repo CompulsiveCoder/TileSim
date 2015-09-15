@@ -28,18 +28,16 @@ namespace townsim.Engine
 			
 			Workers.Hire (town, workersToHire, EmploymentType.Builder, building);
 
-			building.Workers = town.GetWorkers (2);
+			//building.Workers = town.GetWorkers (2);
 
-			building.WorkerCount = workersToHire;
+			//building.WorkerCount = workersToHire;
 		}
 
 		public void Fire(Town town, Building building)
 		{
-			var workersToFire = building.WorkerCount;
+			Workers.Fire (building);
 
-			Workers.Fire (town, workersToFire);
-
-			building.Workers = new Person[]{ };
+			//building.Workers = new Person[]{ };
 		}
 	}
 }
