@@ -10,14 +10,15 @@ namespace townsim.Engine.Tests
 		[Test]
 		public void Test_StarvationAlert()
 		{
-			var town = new Town (10);
+			throw new NotImplementedException ();
+			/*var town = new Town (10);
 			town.FoodSources = 5;
 
-			var engine = new FoodEngine ();
+			var engine = new HungerEngine (new EngineSettings());
 
 			engine.Update (town);
 
-			Assert.AreEqual (1, town.Alerts.Length);
+			Assert.AreEqual (1, town.Alerts.Length);*/
 		}
 	}
 }

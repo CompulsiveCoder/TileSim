@@ -13,11 +13,12 @@ namespace townsim.Engine.Tests
 			var town = new Town (10);
 			town.WaterSources = 5;
 
-			var waterSourcesEngine = new WaterSourcesEngine ();
+			var thirstEngine = new ThirstEngine (new EngineSettings(1));
 
-			waterSourcesEngine.Update (town);
+			throw new NotImplementedException ();
+			//thirstEngine.Update (town);
 
-			Assert.AreEqual (1, town.Alerts.Length);
+			//Assert.AreEqual (1, town.Alerts.Length);
 		}
 	}
 }

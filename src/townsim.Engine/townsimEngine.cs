@@ -9,7 +9,7 @@ namespace townsim.Engine
 {
 	public class townsimEngine : IComponent
 	{
-		public string Id { get;set; }
+		public Guid Id { get;set; }
 
 		/// <summary>
 		/// The max time for each engine cycle in milliseconds.
@@ -36,7 +36,7 @@ namespace townsim.Engine
 			Initialize ();
 		}
 
-		public townsimEngine (string engineId)
+		public townsimEngine (Guid engineId)
 		{
 			Id = engineId;
 
@@ -47,7 +47,7 @@ namespace townsim.Engine
 		{
 			Console.WriteLine ("Starting TownSim engine");
 
-			Log.AppendLine (Id.ToString(), "Starting engine");
+			Log.AppendLine (Id, "Starting engine");
 
 			CreateTown ();
 
@@ -72,15 +72,17 @@ namespace townsim.Engine
 			Settings = new EngineSettings ();
 			Clock = new EngineClock (Settings);
 
-			if (String.IsNullOrEmpty(Id)){
-				var guid = Guid.NewGuid ().ToString ();
-				Id = guid.Substring (0, guid.IndexOf ("-"));
+			if (Id == Guid.Empty){
+				Id = Guid.NewGuid ();
 			}
+
 			DataConfig.Prefix = "TownSim-" + Id;
 			GameStartTime = DateTime.Now;
 
 			var idManager = new EngineIdManager ();
 			idManager.Add (Id);
+
+			SaveInfo ();
 
 			Attach ();
 		}
@@ -88,6 +90,18 @@ namespace townsim.Engine
 		void Attach()
 		{
 			CurrentEngine.Add (this);
+
+			var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings);
+
+			CurrentEngine.Attach (engineInfo);
+		}
+
+		public void SaveInfo()
+		{
+			var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings);
+
+			var saver = new EngineInfoSaver ();
+			saver.Save (engineInfo);
 		}
 
 		public void AddTown(Town town)
@@ -170,8 +184,8 @@ namespace townsim.Engine
 				Console.WriteLine ("       Employed: " + town.TotalEmployed);
 				Console.WriteLine ();
 				Console.WriteLine ("     Resources:");
-				Console.WriteLine ("       Water sources: " + (int)town.WaterSources);
-				Console.WriteLine ("       Food sources: " + (int)town.FoodSources);
+				Console.WriteLine ("       Water sources: " + (int)town.WaterSources + " litres");
+				Console.WriteLine ("       Food sources: " + (int)town.FoodSources + " kgs");
 				Console.WriteLine ("       Timber: " + (int)town.Timber);
 				Console.WriteLine ();
 				Console.WriteLine ("     Forestry:");
@@ -226,14 +240,15 @@ namespace townsim.Engine
 			var totalPopulation = 0;
 
 			var saver = new TownSaver ();
-			var thirstEngine = new ThirstEngine ();
-			var hungerEngine = new HungerEngine ();
+			var thirstEngine = new ThirstEngine (Settings);
+			var hungerEngine = new HungerEngine (Settings);
 			var populationEngine = new PopulationEngine ();
-			var forestsEngine = new ForestsEngine ();
+			var forestsEngine = new ForestsEngine (Settings);
 			var forestryEngine = new ForestryEngine (Settings, Clock);
-			var waterSourcesEngine = new WaterSourcesEngine ();
-			var constructionEngine = new ConstructionEngine ();
+			var waterSourcesEngine = new WaterSourcesEngine (Settings);
+			var constructionEngine = new ConstructionEngine (Settings);
 			var plantEngine = new PlantEngine ();
+			var healthEngine = new HealthEngine ();
 			//var foodEngine = new FoodEngine ();
 
 			if (Towns.Length == 0)
@@ -244,6 +259,7 @@ namespace townsim.Engine
 
 				hungerEngine.Update (person);
 				thirstEngine.Update (person);
+				healthEngine.Update (person);
 			}
 
 			var plants = new List<Plant> ();

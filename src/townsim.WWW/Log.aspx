@@ -6,7 +6,7 @@
 <head runat="server">
 	<title>Log</title>
 	<script runat="server">
-	string EngineId = String.Empty;
+	Guid EngineId;
 
 	void Page_Load()
 	{

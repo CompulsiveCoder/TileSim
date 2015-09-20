@@ -5,18 +5,6 @@ namespace townsim.Entities
 {
 	public partial class Town
 	{
-		[JsonIgnore]
-		public int TotalUnemployed
-		{
-			get {
-				int totalUnemployed = 0;
-				foreach (var person in People) {
-					if (!person.IsEmployed)
-						totalUnemployed++;
-				}
-				return totalUnemployed;
-			}
-		}
 
 		[JsonIgnore]
 		public int TotalHomelessPeople
@@ -165,6 +153,19 @@ namespace townsim.Entities
 						totalEmployed++;
 				}
 				return totalEmployed;
+			}
+		}
+
+		[JsonIgnore]
+		public int TotalUnemployed
+		{
+			get {
+				int totalUnemployed = 0;
+				foreach (var person in People) {
+					if (!person.IsEmployed)
+						totalUnemployed++;
+				}
+				return totalUnemployed;
 			}
 		}
 

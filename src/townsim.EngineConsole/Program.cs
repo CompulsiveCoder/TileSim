@@ -8,14 +8,12 @@ namespace townsim.EngineConsole
 	{
 		public static void Main (string[] args)
 		{
-			var engineId = String.Empty;
+			var engineId = Guid.Empty;
 
 			if (args.Length == 1)
-				engineId = args [0];
-			else {
-				var id = Guid.NewGuid ().ToString ();
-				engineId = id.Substring (0, id.IndexOf ("-"));
-			}
+				engineId = Guid.Parse (args [0]);
+			else
+				engineId = Guid.NewGuid ();
 
 			Console.WriteLine ("Engine ID: " + engineId);
 

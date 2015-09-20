@@ -33,8 +33,8 @@ namespace townsim.Entities
 			}
 		}
 
-		public double WaterSources { get; set; }
-		public double FoodSources { get; set; }
+		public decimal WaterSources { get; set; }
+		public decimal FoodSources { get; set; }
 
 		public int TotalBirths { get;set; }
 		public int TotalDeaths { get;set; }

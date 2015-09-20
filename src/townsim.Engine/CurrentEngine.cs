@@ -3,42 +3,65 @@ using townsim.Data;
 using System.Web;
 using System.Collections.Generic;
 using System.Threading;
+using townsim.Entities;
 
 namespace townsim.Engine
 {
 	public static class CurrentEngine
 	{
-		static public string Id { get; set; }
+		static public Guid Id { get; set; }
+
+		static public EngineInfo Info { get;set; }
+
+		static public EngineClock Clock { get;set; }
 
 		static public townsimEngine[] CurrentEngines = new townsimEngine[]{ };
 
 		static public Thread[] EngineThreads;
 
-		static public void StartThread(string engineId)
+		static public void StartThread(Guid engineId)
 		{
 			Console.WriteLine ("Launching engine thread " + engineId);
+
+			var startTime = DateTime.MinValue;
+			EngineSettings settings = null;
 
 			System.Threading.ThreadStart threadStart = delegate {
 				var engine = new townsimEngine(engineId);
 				engine.CreateTown();
 				engine.Start();
+				startTime = engine.Clock.StartTime;
+				settings = engine.Settings;
 			};
 			var engineThread = new System.Threading.Thread(threadStart);
 			engineThread.IsBackground = true;
 			engineThread.Start();
 
-			Attach (engineId);
+
+			var info = new EngineInfo (engineId, startTime, settings);
+
+			Attach (info);
 		}
 
 		static public void StartGame()
 		{
-			StartThread("");
+			StartThread(Guid.NewGuid());
 		}
 
-		static public void Attach(string engineId)
+		static public void Attach(Guid engineId)
 		{
 			Id = engineId;
-			DataConfig.Prefix = "TownSim-" + engineId;
+			DataConfig.Prefix = "TownSim-" + engineId.ToString();
+			Info = new EngineInfoReader ().Read (Id);
+			Clock = new EngineClock (Info.StartTime, Info.Settings);
+		}
+
+		static public void Attach(EngineInfo info)
+		{
+			Id = info.Id;
+			DataConfig.Prefix = "TownSim-" + info.Id.ToString();
+			Info = info;
+			Clock = new EngineClock (Info.StartTime, Info.Settings);
 		}
 
 		static public void Add(townsimEngine engine)

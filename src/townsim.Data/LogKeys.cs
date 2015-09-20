@@ -8,9 +8,9 @@ namespace townsim.Data
 		{
 		}
 
-		public string GetLogKey(string engineId)
+		public string GetLogKey(Guid engineId)
 		{
-			return DataConfig.Prefix + "-Log-" + engineId;
+			return DataConfig.Prefix + "-Log-" + engineId.ToString();
 		}
 	}
 }

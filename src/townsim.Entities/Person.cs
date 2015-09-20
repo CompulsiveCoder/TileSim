@@ -10,9 +10,10 @@ namespace townsim.Entities
 	{
 		public double Age { get; set; }
 		public Gender Gender { get; set; }
-		public double Thirst = 20;
-		public double Hunger = 20;
-		public double Health = 100;
+		public decimal Thirst = 0;
+		public decimal Hunger = 0;
+		public decimal Health = 100;
+		public bool IsAlive = true;
 		public bool IsAdult
 		{
 			get { return Age >= 18; }

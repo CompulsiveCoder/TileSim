@@ -42,8 +42,6 @@
     <Compile Include="TimberEngine.cs" />
     <Compile Include="PopulationExpiredException.cs" />
     <Compile Include="GameException.cs" />
-    <Compile Include="FoodEngine.cs" />
-    <Compile Include="ClockEngine.cs" />
     <Compile Include="PeopleEngine.cs" />
     <Compile Include="TownlessException.cs" />
     <Compile Include="ThirstEngine.cs" />
@@ -55,7 +53,6 @@
     <Compile Include="PlantEngine.cs" />
     <Compile Include="EngineLauncher.cs" />
     <Compile Include="ForestryEngine.cs" />
-    <Compile Include="EngineSettings.cs" />
     <Compile Include="EngineClock.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

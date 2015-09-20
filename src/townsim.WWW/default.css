@@ -1,13 +1,29 @@
-﻿body
+﻿
+#leftCol, #midCol, #rightCol
+{
+	float: left;
+	width: 320px;
+}
+
+.bar
+{
+	height: 5px;
+	border: solid 1px lightgray;
+}
+
+body
 {
 	font-size: 11px;
+	font-family: Verdana;
 }
+
 
 .pnl
 {
-	float:left;
 	width: 300px;
-	border: solid 1px gray;
+	border: solid 1px lightgray;
+	padding: 5px;
+	margin: 4px;
 }
 
 h1
@@ -20,14 +36,9 @@ h2
 	font-size: 12px;
 ]
 
-.bar
-{
-	height: 5px;
-}
-
 div
 {
-	padding: 0px;
+	padding: 4px;
 	margin: 0px;
 }
 

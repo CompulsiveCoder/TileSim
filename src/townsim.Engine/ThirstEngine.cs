@@ -5,24 +5,30 @@ namespace townsim.Engine
 {
 	public class ThirstEngine
 	{
-		public double WaterConsumptionRate = 1;
-		public double ThirstRate = 1.5;
+		public decimal WaterConsumptionRate = 0.3m; // liters
+		public decimal ThirstSatisfactionRate = 1; // The rate at which thirst is reduced
 
-		public ThirstEngine ()
+		public decimal ThirstRate = 100m / (24*60*60) * 5m; // 100% / seconds in a day * drinks per day
+
+		public EngineSettings Settings { get;set; }
+
+		public ThirstEngine (EngineSettings settings)
 		{
+			Settings = settings;
 		}
 
 		public void Update(Person person)
 		{
-			//foreach (var person in town.People) {
+			if (person.IsAlive)
+			{
 				UpdateThirst (person);
 				UpdateWaterConsumption (person);
-			//}
+			}
 		}
 
 		public void UpdateThirst(Person person)
 		{
-			person.Thirst += ThirstRate;
+			person.Thirst += ThirstRate * Settings.GameSpeed;
 
 			if (person.Thirst > 100)
 				person.Thirst = 100;
@@ -33,16 +39,21 @@ namespace townsim.Engine
 			var randomiser = new Random ().Next (200);
 
 			var decider = randomiser < person.Thirst;
+			if (person.Thirst >= 99)
+				decider = true;
 
 			if (decider) {
-				var amountConsumed = person.Hunger * WaterConsumptionRate;
-				if (person.Location.FoodSources == 0) {
-					person.Health -= 5;
-				} else {	
+				var amountOfWaterRequired = person.Thirst / ThirstSatisfactionRate;
+
+				var amountConsumed = amountOfWaterRequired * WaterConsumptionRate * Settings.GameSpeed;
+				if (person.Location.WaterSources > 0) {
 					if (amountConsumed > person.Location.WaterSources)
 						amountConsumed = person.Location.WaterSources;
+					if (amountConsumed > person.Thirst)
+						amountConsumed = person.Thirst / ThirstSatisfactionRate;
+					
 					person.Location.WaterSources -= amountConsumed;
-					person.Thirst -= amountConsumed;
+					person.Thirst -= amountConsumed * ThirstSatisfactionRate;
 				}
 			}
 

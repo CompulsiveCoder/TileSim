@@ -10,12 +10,12 @@ namespace townsim.Data
 		{
 		}
 
-		public void Add(string id)
+		public void Add(Guid id)
 		{
 			var client = new RedisClient ();
 			var key = new EngineKeys().GetEngineIdsKey();
 			var ids = GetIds ();
-			var list = new List<string>();
+			var list = new List<Guid>();
 
 			if (ids.Length > 0)
 				list.AddRange (ids);
@@ -27,25 +27,33 @@ namespace townsim.Data
 
 		}
 
-		public string[] GetIds()
+		public Guid[] GetIds()
 		{
 			var client = new RedisClient ();
 			var key = new EngineKeys().GetEngineIdsKey();
 			if (client.Exists (key)) {
 				var data = client.Get (key);
 
-				return data.Split (',');
+				var idStrings = data.Split (',');
+
+				var ids = new List<Guid> ();
+
+				foreach (var idString in idStrings) {
+					ids.Add (Guid.Parse (idString));
+				}
+
+				return ids.ToArray ();
 			} else {
-				return new string[]{ };
+				return new Guid[]{ };
 			}
 		}
 
-		public void Remove(string id)
+		public void Remove(Guid id)
 		{
 			var client = new RedisClient ();
 			var key = new EngineKeys().GetEngineIdsKey();
 			var ids = GetIds ();
-			var list = new List<string>();
+			var list = new List<Guid>();
 
 			if (ids.Length > 0)
 				list.AddRange (ids);

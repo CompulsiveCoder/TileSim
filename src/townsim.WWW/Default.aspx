@@ -4,85 +4,56 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-	<title>Default</title>
+	<title>Town Sim</title>
 	<script runat="server">
-	string EngineId = String.Empty;
+	Guid EngineId = Guid.Empty;
 
 	void Page_Load(object sender, EventArgs e)
 	{
-		EngineId = Request.QueryString["engineId"];	
-		if (!String.IsNullOrEmpty(EngineId))
-			CurrentEngine.StartThread(EngineId);
+		var idString = Request.QueryString["engineId"];
+		if (!String.IsNullOrEmpty(idString))
+		{
+			EngineId = Guid.Parse(idString);	
+			if (EngineId != Guid.Empty)
+				CurrentEngine.StartThread(EngineId);
+		}
+		else
+		{
+			if (CurrentEngine.Id != Guid.Empty)
+				EngineId = CurrentEngine.Id;
+		}
 	}
 	</script>
 	<script language="javascript" type="text/javascript" src="jquery-2.1.3.min.js"></script>
 	<script language="javascript" type="text/javascript" src="default.js"></script>
 	<script language="javascript" type="text/javascript" src="jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="default.css">
 </head>
 <body>
-	<link rel="stylesheet" href="jquery-ui.css">
-	<style>
-		body
-		{
-			font-family: Verdana;
-			font-size: 11px;
-		}
-
-		div
-		{
-			padding: 4px;
-		}
-	</style>
-	<script language="javascript">
-	function updateClock ( )
- 	{
- 	var currentTime = new Date ( );
-  	var currentHours = currentTime.getHours ( );
-  	var currentMinutes = currentTime.getMinutes ( );
-  	var currentSeconds = currentTime.getSeconds ( );
-
-  	// Pad the minutes and seconds with leading zeros, if required
-  	currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
-  	currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
-
-  	// Choose either "AM" or "PM" as appropriate
-  	var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
-
-  	// Convert the hours component to 12-hour format if needed
-  	currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
-
-  	// Convert an hours component of "0" to "12"
-  	currentHours = ( currentHours == 0 ) ? 12 : currentHours;
-
-  	// Compose the string for display
-  	var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
-  	
-  	
-   	$("#clock").html(currentTimeString);
-   	  	
- }
-
-$(document).ready(function()
-{
-   setInterval('updateClock()', 1000);
-});
-	</script>
-
 	<form id="form1">
-	<link rel="stylesheet" type="text/css" href="default.css">
+	<link rel="stylesheet" href="jquery-ui.css">
+	<script language="javascript">
+	<% if (EngineId != Guid.Empty){ %>
+		$(document).ready(function(){
+			loadGame();
+		});
+	<% } %>
+	</script>
 	<h1>Town Sim</h1>
-		<div onclick="newGame();">New Game</div>
-	<div id="clock"></div>
-		<div class="pnl" id="playerCont">
+		<div id="newGame" onclick="newGame();">New Game</div>
+		<div id="leftCol">
+			<div class="pnl" id="gameCont" style="visibility:hidden;"></div>
+			<div class="pnl" id="playerCont" style="visibility:hidden;"></div>
 		</div>
-		<div class="pnl" id="townCont">
+		<div id="midCol">
+			<div class="pnl" id="townCont" style="visibility:hidden;"></div>
+			<div class="pnl" id="listCont" style="visibility:hidden;"></div>
 		</div>
-		<div class="pnl" id="listCont">
-		</div>
-		<div class="pnl" id="logCont">
-		</div>
-		<div class="pml" id="gardenCont">
-		<div><a href="Forestry.aspx">Forestry</a></div>
+		<div id="rightCol">
+			<div class="pnl" id="logCont" style="visibility:hidden;"></div>
+			<div class="pml" id="gardenCont" style="visibility:hidden;">
+				<div><a href="Forestry.aspx">Forestry</a></div>
+			</div>
 		</div>
 	</form>
 </body>

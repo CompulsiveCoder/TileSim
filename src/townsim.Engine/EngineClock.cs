@@ -1,4 +1,5 @@
 ﻿using System;
+using townsim.Entities;
 
 namespace townsim.Engine
 {
@@ -17,6 +18,12 @@ namespace townsim.Engine
 		}
 
 		public EngineSettings Settings { get; set; }
+
+		public EngineClock (DateTime startTime, EngineSettings settings)
+		{
+			Settings = settings;
+			StartTime = startTime;
+		}
 
 		public EngineClock (EngineSettings settings)
 		{

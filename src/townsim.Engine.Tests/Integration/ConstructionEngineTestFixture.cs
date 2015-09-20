@@ -12,7 +12,7 @@ namespace townsim.Engine.Tests
 		[Test]
 		public void Test_Housing_1pop()
 		{
-			var constructionEngine = new ConstructionEngine ();
+			var constructionEngine = new ConstructionEngine (new EngineSettings(1));
 			var town = new Town (1);
 			constructionEngine.Update (town);
 			Assert.AreEqual (1, town.TotalEmployed);
@@ -34,7 +34,7 @@ namespace townsim.Engine.Tests
 		[Test]
 		public void Test_Housing_2pop()
 		{
-			var constructionEngine = new ConstructionEngine ();
+			var constructionEngine = new ConstructionEngine (new EngineSettings(1));
 			var town = new Town (2);
 			constructionEngine.Update (town);
 			Assert.AreEqual (2, town.TotalEmployed);
@@ -56,7 +56,7 @@ namespace townsim.Engine.Tests
 		[Test]
 		public void Test_Housing_5pop()
 		{
-			var constructionEngine = new ConstructionEngine ();
+			var constructionEngine = new ConstructionEngine (new EngineSettings(1));
 			var town = new Town (5);
 			constructionEngine.Update (town);
 			Assert.AreEqual (5, town.TotalEmployed);

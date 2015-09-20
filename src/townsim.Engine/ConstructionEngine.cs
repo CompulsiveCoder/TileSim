@@ -15,8 +15,11 @@ namespace townsim.Engine
 		public ConstructionWorkersEngine Workers = new ConstructionWorkersEngine();
 		public TimberEngine Timber = new TimberEngine ();
 
-		public ConstructionEngine ()
+		public EngineSettings Settings { get;set; }
+
+		public ConstructionEngine (EngineSettings settings)
 		{
+			Settings = settings;
 		}
 
 		public void Update(Town town)
@@ -114,14 +117,16 @@ namespace townsim.Engine
 
 		public void StartBuildHouse(Town town)
 		{
-			var house = new Building (Entities.BuildingType.House);
+			if (town.TotalUnemployed > 0) {
+				var house = new Building (Entities.BuildingType.House);
 
-			Workers.Hire (town, house);
+				Workers.Hire (town, house);
 
-			if (house.Workers.Length > 0) {
-				town.Buildings.Add (house);
+				if (house.Workers.Length > 0) {
+					town.Buildings.Add (house);
 
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
+				}
 			}
 		}
 
@@ -154,7 +159,7 @@ namespace townsim.Engine
 					}
 				}
 
-				var workDone = ConstructionRate * building.Workers.Length;
+				var workDone = ConstructionRate * building.Workers.Length * Settings.GameSpeed;
 				building.PercentComplete += workDone; 
 			}
 		}

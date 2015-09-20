@@ -1,6 +1,7 @@
 ﻿using System;
 using townsim.Entities;
 using System.Collections.Generic;
+using townsim.Data;
 
 namespace townsim.Engine
 {
@@ -8,7 +9,7 @@ namespace townsim.Engine
 	{
 		public WorkersEngine Workers = new WorkersEngine();
 
-		public double PlantingTimeCost = 60; // Seconds
+		public double PlantingTimeCost = 2;
 
 		public EngineSettings Settings;
 
@@ -28,35 +29,27 @@ namespace townsim.Engine
 				HireWorkers (town);
 
 			DoPlanting (town);
-
-			//var plantsPerWorker = 10;
-
-			//if (treesToPlant > plantsPerWorker)
-			//	workersNeeded = 
-
-			//var workersEngine = new WorkersEngine ();
-			//workersEngine.Hire (town, workersNeeded, EmploymentType.Forestry, null);
-
-
 		}
 
 		public void HireWorkers(Town town)
 		{
-			var treesToPlant = town.TreesToPlantPerDay;
+			if (town.TotalUnemployed > 0) {
+				var treesToPlant = town.TreesToPlantPerDay;
 
-			var workersNeeded = treesToPlant;
+				var workersNeeded = treesToPlant;
 
-			for (int i = 0; i < workersNeeded; i++) {
-				var plant = new Plant (PlantType.Tree);
-				plant.TimePlanted = Clock.GameDuration;
-				plant.WasPlanted = true;
+				for (int i = 0; i < workersNeeded; i++) {
+					var plant = new Plant (PlantType.Tree);
+					plant.TimePlanted = Clock.GameDuration;
+					plant.WasPlanted = true;
 
-				Workers.Hire (town, 1, EmploymentType.Forestry, plant);
+					Workers.Hire (town, 1, EmploymentType.Forestry, plant);
 
-				if (plant.Workers.Length > 0) {
-					var plants = new List<Plant> (town.Plants);
-					plants.Add (plant);
-					town.Plants = plants.ToArray ();
+					if (plant.Workers.Length > 0) {
+						var plants = new List<Plant> (town.Plants);
+						plants.Add (plant);
+						town.Plants = plants.ToArray ();
+					}
 				}
 			}
 		}
@@ -71,6 +64,8 @@ namespace townsim.Engine
 					if (plant.PercentPlanted >= 100) {
 						town.TotalTreesPlanted++;
 						Workers.Fire (person);	
+
+						LogWriter.Current.AppendLine (CurrentEngine.Id, "A tree has been planted.");
 					} else {
 						DoPlanting (plant);
 					}

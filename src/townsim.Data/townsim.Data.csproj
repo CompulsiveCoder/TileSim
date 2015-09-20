@@ -63,6 +63,8 @@
     <Compile Include="EngineKeys.cs" />
     <Compile Include="LogWriter.cs" />
     <Compile Include="LogKeys.cs" />
+    <Compile Include="EngineInfoSaver.cs" />
+    <Compile Include="EngineInfoReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

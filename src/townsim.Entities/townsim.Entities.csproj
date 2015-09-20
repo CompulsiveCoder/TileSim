@@ -50,6 +50,8 @@
     <Compile Include="PlantType.cs" />
     <Compile Include="IEmploymentTarget.cs" />
     <Compile Include="Job.cs" />
+    <Compile Include="EngineInfo.cs" />
+    <Compile Include="EngineSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
