@@ -52,6 +52,8 @@
     <Compile Include="Job.cs" />
     <Compile Include="EngineInfo.cs" />
     <Compile Include="EngineSettings.cs" />
+    <Compile Include="EditInstruction.cs" />
+    <Compile Include="BaseInstruction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

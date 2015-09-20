@@ -6,16 +6,6 @@
 <html>
 <head runat="server">
 	<title>Game Info</title>
-	<script runat="server">
-	EngineInfo Engine;
-	EngineClock Clock;
-
-	void Page_Load()
-	{
-		//Engine = new EngineInfoReader().Read(CurrentEngine.Id);
-		//Clock = new EngineClock(Engine.StartTime, Engine.Settings);
-	}
-	</script>
 </head>
 <body>
 	<form id="form">

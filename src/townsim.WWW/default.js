@@ -1,13 +1,8 @@
-﻿var panelRefreshRate = 5000;
-
-$(document).ready(function(){
-	
-});
+﻿var panelRefreshRate = 10000;
 
 function loadGame()
 {
 	show();
-	//startLoop();
 }
 
 function show()
@@ -17,15 +12,6 @@ function show()
 	showLog();
 	showTown();
 	showTowns();
-	startLoop();
-}
-
-function startLoop()
-{
-    var refreshId = setInterval(function()
-    {
-    	show();
-    }, panelRefreshRate);
 }
 
 function showGameInfo()
@@ -39,9 +25,10 @@ function showGameInfo()
 	$.get('GameInfo.aspx', function(result){
     	$result = $(result);
 
-    	$result.find('style').html('#gameCont');
+    	$('#gameCont').empty();
+    	//$result.find('style').html('#gameCont');
     	$result.find('#body').appendTo('#gameCont');
-    	$result.find('script').appendTo('#gameCont');
+    	//$result.find('script').appendTo('#gameCont');
 	}, 'html');
 
 	setInterval(function()
@@ -68,7 +55,9 @@ function showTown()
 	$.get('CurrentTown.aspx', function(result){
     	$result = $(result);
 
-    	$result.find('style').html('#townCont');
+    	$('#townCont').empty();
+
+    	//$result.find('style').html('#townCont');
     	$result.find('#body').appendTo('#townCont');
     	$result.find('script').appendTo('#townCont');
 	}, 'html');
@@ -87,9 +76,11 @@ function showPlayer()
 	$.get('Player.aspx', function(result){
     	$result = $(result);
 
-    	$result.find('style').html('#playerCont');
+    	$('#playerCont').empty();
+
+    	//$result.find('style').html('#playerCont');
     	$result.find('#body').appendTo('#playerCont');
-    	$result.find('script').appendTo('#playerCont');
+    	//$result.find('script').appendTo('#playerCont');
 	}, 'html');
 
 	setInterval(function()
@@ -106,7 +97,9 @@ function showLog()
 	$.get('Log.aspx', function(result){
     	$result = $(result);
 
-    	$result.find('style').html('#logCont');
+    	$('#logCont').empty();
+
+    	//$result.find('style').html('#logCont');
     	$result.find('#body').appendTo('#logCont');
     	$result.find('script').appendTo('#logCont');
 	}, 'html');
@@ -117,7 +110,25 @@ function showLog()
     }, panelRefreshRate);
 }
 
+function showForestry()
+{
+	$('#forestryCont').css("visibility", "visible");
+
+	$.get('Forestry.aspx', function(result){
+    	$result = $(result);
+
+    	//$result.find('style').html('#forestryCont');
+    	$result.find('#body').appendTo('#forestryCont');
+    	$result.find('script').appendTo('#forestryCont');
+	}, 'html');
+}
+
 function newGame()
 {
 	window.location.replace("NewGame.aspx");
+}
+
+function editTreesToPlantPerDay()
+{
+	showForestry();
 }

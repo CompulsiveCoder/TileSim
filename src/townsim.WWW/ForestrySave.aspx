@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" %>
 <%@ Import Namespace="townsim.Data" %>
 <%@ Import Namespace="townsim.Entities" %>
 <!DOCTYPE html>
@@ -8,20 +8,15 @@
 	<script runat="server">
 	Town Town;
 
-	void Page_Load()
+	void Page_Load(object sender, EventArgs e)
 	{
-		// TOOD: Use a query string to specify the town
 		var townId = new Guid(Request.QueryString["town"]);
 
 		var treesPerDay = Convert.ToInt32(Request.QueryString["treesPerDay"]);
 
-		Town = new TownReader().Read(townId);
+		var instruction = new EditInstruction(typeof(Town), townId, "TreesToPlantPerDay", treesPerDay);
 
-		Town.TreesToPlantPerDay = treesPerDay;
-
-		// TODO: Instead of directly editing the town, log a message with the engine to perform the update
-		new TownSaver().Save(Town);
-
+		new InstructionSaver().Save(instruction);
 	}
 	</script>
 </head>

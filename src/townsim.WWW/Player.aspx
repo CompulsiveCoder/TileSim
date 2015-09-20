@@ -23,8 +23,6 @@
 	<form id="form">
 		<link rel="stylesheet" type="text/css" href="Towns.css">
 		<div id="body">
-			<script language="javascript" type="text/javascript" src="jquery-2.1.3.min.js"></script>
-			<script language="javascript" type="text/javascript" src="player.js"></script>
 			<h2>Player</h2>
 			<% if (Player.Health == 0){ %>
 			<div>Player died. Game over!</div>

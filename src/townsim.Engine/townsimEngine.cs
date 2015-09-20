@@ -240,6 +240,8 @@ namespace townsim.Engine
 			var totalPopulation = 0;
 
 			var saver = new TownSaver ();
+
+			var instructionEngine = new InstructionEngine ();
 			var thirstEngine = new ThirstEngine (Settings);
 			var hungerEngine = new HungerEngine (Settings);
 			var populationEngine = new PopulationEngine ();
@@ -265,6 +267,8 @@ namespace townsim.Engine
 			var plants = new List<Plant> ();
 
 			foreach (var town in Towns) {
+				instructionEngine.Update (town);
+
 				plants.AddRange (town.Plants);
 				totalPopulation += town.Population;
 

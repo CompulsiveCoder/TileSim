@@ -44,16 +44,14 @@
 		<div id="leftCol">
 			<div class="pnl" id="gameCont" style="visibility:hidden;"></div>
 			<div class="pnl" id="playerCont" style="visibility:hidden;"></div>
+			<div class="pnl" id="logCont" style="visibility:hidden;"></div>
 		</div>
 		<div id="midCol">
 			<div class="pnl" id="townCont" style="visibility:hidden;"></div>
 			<div class="pnl" id="listCont" style="visibility:hidden;"></div>
 		</div>
 		<div id="rightCol">
-			<div class="pnl" id="logCont" style="visibility:hidden;"></div>
-			<div class="pml" id="gardenCont" style="visibility:hidden;">
-				<div><a href="Forestry.aspx">Forestry</a></div>
-			</div>
+			<div class="pnl" id="forestryCont" style="visibility:hidden;"></div>
 		</div>
 	</form>
 </body>

@@ -65,6 +65,11 @@
     <Compile Include="LogKeys.cs" />
     <Compile Include="EngineInfoSaver.cs" />
     <Compile Include="EngineInfoReader.cs" />
+    <Compile Include="InstructionSaver.cs" />
+    <Compile Include="InstructionKeys.cs" />
+    <Compile Include="EditInstructionReader.cs" />
+    <Compile Include="InstructionApplier.cs" />
+    <Compile Include="InstructionIdManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

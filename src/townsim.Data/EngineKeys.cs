@@ -10,12 +10,12 @@ namespace townsim.Data
 
 		public string GetEngineIdsKey()
 		{
-			return "TownSim-Engines-Ids";
+			return DataConfig.Prefix + "-Engines-Ids";
 		}
 
 		public string GetInfoKey(Guid engineId)
 		{
-			return "TownSim-Engine-" + engineId.ToString();
+			return DataConfig.Prefix + "-Engine-" + engineId.ToString();
 		}
 	}
 }

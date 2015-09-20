@@ -37,6 +37,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\TownsTestFixture.cs" />
     <Compile Include="BaseTestFixture.cs" />
+    <Compile Include="Unit\InstructionApplierTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -44,16 +45,17 @@
       <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
       <Name>townsim.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\townsim.Entities\townsim.Entities.csproj">
-      <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
-      <Name>townsim.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\townsim.Engine\townsim.Engine.csproj">
       <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
       <Name>townsim.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\townsim.Entities\townsim.Entities.csproj">
+      <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
+      <Name>townsim.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Integration\" />
+    <Folder Include="Unit\" />
   </ItemGroup>
 </Project>

@@ -22,9 +22,9 @@
 		<div id="body">
 			<h1><%= Town.Name %></h1>
 			<h2>People</h2>
-			<div>Population: <%= Town.Population %></div>
-			<div>Males: <%= Town.TotalMales %></div>
-			<div>Females: <%= Town.TotalFemales %></div>
+			<div>Population: <%= Town.Population %><div class="bar" style="width: <%= Town.Population %>px; background-color: lightgray;"></div></div>
+			<div>Males: <%= Town.TotalMales %><div class="bar" style="width: <%= Town.TotalMales %>px; background-color: lightgray;"></div></div>
+			<div>Females: <%= Town.TotalFemales %><div class="bar" style="width: <%= Town.TotalFemales %>px; background-color: lightgray;"></div></div>
 			<div>Workers (employed): <%= Town.TotalEmployed %><div class="bar" style="width: <%= Town.TotalEmployed %>px; background-color: lightgray;"></div></div>
 			<div>Workers (unemployed): <%= Town.TotalUnemployed %><div class="bar" style="width: <%= Town.TotalUnemployed %>px; background-color: lightgray;"></div></div>
 			<div>Builders: <%= Town.TotalBuilders %><div class="bar" style="width: <%= Town.TotalBuilders %>px; background-color: lightgray;"></div></div>
@@ -40,6 +40,7 @@
 			<div>Food sources: <%= (int)Town.FoodSources %> kgs<div class="bar" style="width: <%= (int)(Town.FoodSources / 100) %>px; background-color: lightgreen;"></div></div>
 			<h2>Forestry</h2>
 			<div>Forestry workers: <%= Town.TotalForestryWorkers %><div class="bar" style="width: <%= Town.TotalForestryWorkers %>px; background-color: lightgreen;"></div></div>
+			<div><a href="javascript:void(0);" onclick="editTreesToPlantPerDay();">Trees to plant per day: <%= Town.TreesToPlantPerDay %></a><div class="bar" style="width: <%= Town.TreesToPlantPerDay %>px; background-color: lightgreen;"></div></div>
 			<div>Trees planted today: <%= Town.CountTreesPlantedToday(CurrentEngine.Clock.GameDuration) %><div class="bar" style="width: <%= Town.CountTreesPlantedToday(CurrentEngine.Clock.GameDuration) %>px; background-color: lightgreen;"></div></div>
 			<div>Trees planted: <%= Town.TotalTreesPlanted %><div class="bar" style="width: <%= Town.TotalTreesPlanted %>px; background-color: lightgreen;"></div></div>
 			<div>Trees being planted: <%= Town.TotalTreesBeingPlanted %><div class="bar" style="width: <%= Town.TotalTreesBeingPlanted %>px; background-color: lightgreen;"></div></div>
