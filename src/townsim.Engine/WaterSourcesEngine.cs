@@ -9,7 +9,7 @@ namespace townsim.Engine
 	{
 		public EngineSettings Settings { get;set; }
 
-		public decimal RainRate = 0.01m;
+		public decimal RainRate = 0.05m;
 
 		public WaterSourcesEngine (EngineSettings settings)
 		{
@@ -30,7 +30,7 @@ namespace townsim.Engine
 				var actualValue = (decimal)randomValue * RainRate;
 				town.WaterSources += actualValue * Settings.GameSpeed;
 
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "It rained.");
+        LogWriter.Current.AppendLine (CurrentEngine.Id, "It rained " + actualValue + "litres");
 			}
 		}
 	}

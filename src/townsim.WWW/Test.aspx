@@ -1,15 +1,17 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Register TagPrefix="uc" TagName="Log" Src="~/Panels/LogPanel.ascx" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
-	<title>Log</title>
+	<title>Test</title>
 	<script runat="server">
+	
 	</script>
 </head>
 <body>
-	<form>
-		<uc:Log id="Log" runat="server" />
+	<form id="form1" runat="server">
+		<div id="body">
+		hello world
+		</div>
 	</form>
 </body>
 </html>

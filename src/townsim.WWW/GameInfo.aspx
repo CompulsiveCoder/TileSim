@@ -1,7 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Import Namespace="townsim.Data" %>
-<%@ Import Namespace="townsim.Engine" %>
-<%@ Import Namespace="townsim.Entities" %>
+<%@ Register TagPrefix="uc" TagName="GameInfo" Src="~/Panels/GameInfoPanel.ascx" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -9,13 +7,7 @@
 </head>
 <body>
 	<form id="form">
-		<div id="body">
-			<h2>Game</h2>
-			<div>Start Time: <%= CurrentEngine.Clock.StartTime %></div>
-			<div>Real Time: <%= CurrentEngine.Clock.GetRealDurationString() %></div>
-			<div>Game Time: <%= CurrentEngine.Clock.GetGameDurationString() %></div>
-			<div>Game speed: <%= CurrentEngine.Info.Settings.GameSpeed %>x</div>
-		</div>
+		<uc:GameInfo id="GameInfo" runat="server" />
 	</form>
 </body>
 </html>

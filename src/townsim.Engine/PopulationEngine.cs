@@ -9,6 +9,7 @@ namespace townsim.Engine
 	{
 		public double AgingRate = 0.1;
 		public LogWriter Log = new LogWriter ();
+    public int BirthOdds = 25; // 1 in 25
 
 		public PopulationEngine ()
 		{
@@ -31,9 +32,10 @@ namespace townsim.Engine
 
 		public void UpdatePopulationBirthRate(Town town)
 		{
+      var random = new Random ();
 			for (int i = 0; i < town.TotalBreedingPairs; i++) {
-				var randomNumber = new Random (DateTime.Now.Millisecond).Next (1, 20);
-				if (randomNumber < 2) {
+        var randomNumber = random.Next (1, BirthOdds);
+				if (randomNumber < 1) {
 					IncreasePopulation (town, new PersonCreator ().CreateBabies (1));
 					town.TotalBirths++;
 					Log.AppendLine (CurrentEngine.Id, "A baby was born.");
@@ -130,7 +132,11 @@ namespace townsim.Engine
 
 			town.TotalImmigrants += numberOfPeople;
 
-			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " new people arrived in town.");
+      var peopleWord = "people";
+      if (numberOfPeople == 1)
+        peopleWord = "person";
+
+      LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " new " + peopleWord + " arrived in town.");
 		}
 
 		public void Emigrate(Town town, int numberOfPeople)

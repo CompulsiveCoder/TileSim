@@ -41,10 +41,12 @@
     <Compile Include="Integration\StarvationAlertTestFixture.cs" />
     <Compile Include="Integration\ForestryEngineTestFixture.cs" />
     <Compile Include="Integration\InstructionEngineTestFixture.cs" />
+    <Compile Include="Unit\HealthEngineTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Integration\" />
+    <Folder Include="Unit\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\townsim.Engine\townsim.Engine.csproj">

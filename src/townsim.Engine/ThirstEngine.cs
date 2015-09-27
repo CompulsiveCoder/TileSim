@@ -1,5 +1,6 @@
 ﻿using System;
 using townsim.Entities;
+using townsim.Data;
 
 namespace townsim.Engine
 {
@@ -43,14 +44,17 @@ namespace townsim.Engine
 				decider = true;
 
 			if (decider) {
-				var amountOfWaterRequired = person.Thirst / ThirstSatisfactionRate;
+				var amountOfWaterRequired = person.Thirst;
 
 				var amountConsumed = amountOfWaterRequired * WaterConsumptionRate * Settings.GameSpeed;
 				if (person.Location.WaterSources > 0) {
 					if (amountConsumed > person.Location.WaterSources)
 						amountConsumed = person.Location.WaterSources;
 					if (amountConsumed > person.Thirst)
-						amountConsumed = person.Thirst / ThirstSatisfactionRate;
+						amountConsumed = person.Thirst;
+
+          if (CurrentEngine.PlayerId == person.Id)
+            LogWriter.Current.AppendLine (CurrentEngine.Id, "Player consumed " + Convert.ToInt32(amountConsumed) + "ml water.");
 					
 					person.Location.WaterSources -= amountConsumed;
 					person.Thirst -= amountConsumed * ThirstSatisfactionRate;

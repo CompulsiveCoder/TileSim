@@ -1,22 +1,14 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Import Namespace="townsim.Data" %>
+<%@ Import Namespace="townsim.Engine" %>
+<%@ Register TagPrefix="uc" TagName="Town" Src="~/Panels/Town.ascx" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
-	<title>CurrentTown</title>
-	<script runat="server">
-	void Page_Load(object sender, EventArgs e)
-	{
-		var townIndexer = new TownIndexer();
-		var towns = townIndexer.Get();
-		var town = towns[0];
-		Response.Redirect("Town.aspx?id=" + town.Id);
-	}
-	</script>
+	<title>Current Town</title>
 </head>
 <body>
 	<form id="form1" runat="server">
-	
+		<uc:Town id="CurrentTown" runat="server" />
 	</form>
 </body>
 </html>

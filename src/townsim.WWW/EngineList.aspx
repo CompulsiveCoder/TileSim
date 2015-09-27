@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="townsim.Default" %>
+﻿<%@ Page Language="C#"  %>
 <%@ Import namespace="townsim.Data" %>
 <%@ Import namespace="townsim.Engine" %>
 <!DOCTYPE html>

@@ -49,7 +49,10 @@ namespace townsim.Engine
 
 			Log.AppendLine (Id, "Starting engine");
 
-			CreateTown ();
+      CreateTown ();
+
+      Attach ();
+      SaveInfo ();
 
 			RunCycles ();
 
@@ -60,7 +63,10 @@ namespace townsim.Engine
 		{
 			Console.WriteLine ("Starting TownSim engine");
 
-			AddTown (town);
+      AddTown (town);
+
+      Attach ();
+      SaveInfo ();
 
 			RunCycles ();
 
@@ -82,23 +88,20 @@ namespace townsim.Engine
 			var idManager = new EngineIdManager ();
 			idManager.Add (Id);
 
-			SaveInfo ();
-
-			Attach ();
 		}
 
 		void Attach()
 		{
 			CurrentEngine.Add (this);
 
-			var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings);
-
+      var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
+ 
 			CurrentEngine.Attach (engineInfo);
 		}
 
 		public void SaveInfo()
 		{
-			var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings);
+      var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
 
 			var saver = new EngineInfoSaver ();
 			saver.Save (engineInfo);

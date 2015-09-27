@@ -1,11 +1,12 @@
 ﻿using System;
 using townsim.Entities;
+using townsim.Data;
 
 namespace townsim.Engine
 {
 	public class HungerEngine
 	{
-		public decimal FoodConsumptionRate = 0.5m; // kgs
+		public decimal FoodConsumptionRate = 0.7m; // kgs
 		public decimal FoodSatisfactionRate = 1; // The rate at which hunger is reduced upon consumption
 
 		public decimal HungerRate = 100m / (24*60*60) * 3m; // 100% / seconds in a day * meals per day
@@ -45,14 +46,17 @@ namespace townsim.Engine
 				willEat = true;
 
 			if (willEat) {
-				var amountOfFoodRequired = person.Hunger / FoodSatisfactionRate;
+				var amountOfFoodRequired = person.Hunger;
 				var amountConsumed = amountOfFoodRequired * FoodConsumptionRate * Settings.GameSpeed;
 				if (person.Location.FoodSources >= 0) {
 					if (amountConsumed > person.Location.FoodSources)
 						amountConsumed = person.Location.FoodSources;
 					if (amountConsumed > person.Hunger)
-						amountConsumed = person.Hunger / FoodSatisfactionRate;
-					
+						amountConsumed = person.Hunger;
+
+          if (CurrentEngine.PlayerId == person.Id)
+            LogWriter.Current.AppendLine (CurrentEngine.Id, "Player ate " + (int)amountConsumed + "grams of food.");
+
 					person.Location.FoodSources -= amountConsumed;
 					person.Hunger -= amountConsumed * FoodSatisfactionRate;
 				}

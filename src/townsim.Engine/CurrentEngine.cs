@@ -19,6 +19,8 @@ namespace townsim.Engine
 
 		static public Thread[] EngineThreads;
 
+    static public Guid PlayerId { get; set; }
+
 		static public void StartThread(Guid engineId)
 		{
 			Console.WriteLine ("Launching engine thread " + engineId);
@@ -32,15 +34,14 @@ namespace townsim.Engine
 				engine.Start();
 				startTime = engine.Clock.StartTime;
 				settings = engine.Settings;
+        Attach( new EngineInfo (engineId, startTime, settings, engine.Player.Id));
+
 			};
 			var engineThread = new System.Threading.Thread(threadStart);
 			engineThread.IsBackground = true;
 			engineThread.Start();
 
 
-			var info = new EngineInfo (engineId, startTime, settings);
-
-			Attach (info);
 		}
 
 		static public void StartGame()
@@ -53,7 +54,8 @@ namespace townsim.Engine
 			Id = engineId;
 			DataConfig.Prefix = "TownSim-" + engineId.ToString();
 			Info = new EngineInfoReader ().Read (Id);
-			Clock = new EngineClock (Info.StartTime, Info.Settings);
+      Clock = new EngineClock (Info.StartTime, Info.Settings);
+      PlayerId = Info.PlayerId;
 		}
 
 		static public void Attach(EngineInfo info)
@@ -62,6 +64,7 @@ namespace townsim.Engine
 			DataConfig.Prefix = "TownSim-" + info.Id.ToString();
 			Info = info;
 			Clock = new EngineClock (Info.StartTime, Info.Settings);
+      PlayerId = info.PlayerId;
 		}
 
 		static public void Add(townsimEngine engine)

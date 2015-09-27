@@ -3,7 +3,7 @@ using townsim.Data.Tests;
 using NUnit.Framework;
 using townsim.Entities;
 
-namespace townsim.Engine.Tests
+namespace townsim.Engine.Tests.Integration
 {
 	[TestFixture]
 	public class ForestryEngineTestFixture : BaseTestFixture

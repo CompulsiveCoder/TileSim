@@ -4,7 +4,7 @@ using townsim.Data;
 using townsim.Data.Tests;
 using townsim.Entities;
 
-namespace townsim.Engine.Tests
+namespace townsim.Engine.Tests.Integration
 {
 	[TestFixture]
 	public class ConstructionEngineTestFixture : BaseTestFixture

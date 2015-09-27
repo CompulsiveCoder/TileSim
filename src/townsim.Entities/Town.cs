@@ -110,8 +110,8 @@ namespace townsim.Entities
 
 		public void InitializeDefaultValues(int population, int numberOfTrees)
 		{
-			WaterSources = 25000;
-			FoodSources = 25000;
+			WaterSources = 250000;
+			FoodSources = 250000;
 			//Timber = 1000;
 			//Forest = 25000;
 

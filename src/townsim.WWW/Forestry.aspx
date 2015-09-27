@@ -41,8 +41,6 @@
 			}
 			</script>
 			<h2>Forestry</h2>
-			<div>Forests: <%= Convert.ToInt32(Town.Forest.Length) %></div>
-			<div>Trees planted: <%= Town.TotalTreesPlanted %></div>
 			<div>Trees to plant per day:<br/>
 				<input id="treesToPlant" value='<%= Town.TreesToPlantPerDay %>'><input type="button" value="Update" onclick="save();"/></div>
 			<div id="ForestryResult"></div>

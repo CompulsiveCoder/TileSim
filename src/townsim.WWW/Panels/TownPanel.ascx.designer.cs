@@ -11,6 +11,6 @@
 namespace townsim {
 	
 	
-	public partial class Default {
+	public partial class TownPanel {
 	}
 }

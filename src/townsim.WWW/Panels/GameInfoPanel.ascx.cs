@@ -4,8 +4,8 @@ using System.Web.UI;
 
 namespace townsim
 {
-	
-	public partial class Default : System.Web.UI.Page
+
+	public partial class GameInfoPanel : System.Web.UI.UserControl
 	{
 	}
 }
