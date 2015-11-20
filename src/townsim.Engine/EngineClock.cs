@@ -52,7 +52,7 @@ namespace townsim.Engine
       }
       else 
       {
-        answer = String.Format("{0}months, {1}days, {2}h:{3:D2}m:{4:D2}s", timeSpan.TotalDays/30, timeSpan.TotalDays, (int)timeSpan.TotalHours, timeSpan.Minutes, timeSpan.Seconds);
+        answer = String.Format("{0}months, {1}days, {2}h:{3:D2}m:{4:D2}s", (int)(timeSpan.TotalDays/30), timeSpan.TotalDays, (int)timeSpan.TotalHours, timeSpan.Minutes, timeSpan.Seconds);
       }
 
 			return answer;
