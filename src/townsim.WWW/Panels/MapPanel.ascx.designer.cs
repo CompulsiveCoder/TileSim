@@ -11,18 +11,6 @@
 namespace townsim {
 	
 	
-	public partial class Game {
-		
-		protected System.Web.UI.HtmlControls.HtmlForm form1;
-		
-		protected townsim.GameInfoPanel GameInfo;
-		
-		protected townsim.PlayerPanel Player;
-		
-		protected townsim.LogPanel Log;
-		
-		protected townsim.MapPanel Map;
-		
-		protected townsim.TownPanel CurrentTown;
+	public partial class MapPanel {
 	}
 }

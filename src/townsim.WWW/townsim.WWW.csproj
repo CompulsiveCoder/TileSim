@@ -57,7 +57,6 @@
     <Content Include="ForestrySave.aspx" />
     <Content Include="GameInfo.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Game2.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="default2.js" />
     <Content Include="default.js" />
@@ -66,6 +65,7 @@
     <Content Include="Panels\TownPanel.ascx" />
     <Content Include="Panels\GameInfoPanel.ascx" />
     <Content Include="Panels\LogPanel.ascx" />
+    <Content Include="Panels\MapPanel.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -100,6 +100,12 @@
     </Compile>
     <Compile Include="Panels\LogPanel.ascx.designer.cs">
       <DependentUpon>LogPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\MapPanel.ascx.cs">
+      <DependentUpon>MapPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\MapPanel.ascx.designer.cs">
+      <DependentUpon>MapPanel.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

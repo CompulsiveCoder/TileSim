@@ -26,6 +26,11 @@ body
 	margin: 4px;
 }
 
+#midCol
+{
+	width: 800px;
+}
+
 h1
 {
 	font-size: 13px;
@@ -52,4 +57,11 @@ div
     width: 150px;
     height: 150px;
     overflow: scroll;
+}
+
+
+#map
+{
+    width: 100%;
+    border: solid 1px black;
 }

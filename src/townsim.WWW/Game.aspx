@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" Inherits="townsim.Game" %>
+﻿<%@ Page Language="C#" Inherits="townsim.Game" EnableViewState="false" %>
 <%@ Import namespace="townsim.Engine" %>
 <%@ Register TagPrefix="uc" TagName="GameInfo" Src="~/Panels/GameInfoPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Player" Src="~/Panels/PlayerPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Town" Src="~/Panels/TownPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Log" Src="~/Panels/LogPanel.ascx" %>
+<%@ Register TagPrefix="uc" TagName="Map" Src="~/Panels/MapPanel.ascx" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -21,9 +22,11 @@
 					<uc:Log id="Log" runat="server" />
 				</div>
 				<div id="midCol">
+					<uc:Map id="Map" runat="server" />
+				</div>
+				<div id="rightCol">
 					<uc:Town id="CurrentTown" runat="server" />
 				</div>
-
 			<% } else { %>
 				<div>A game hasn't been started yet. Click "New Game" to begin.</div>
 			<% } %>
