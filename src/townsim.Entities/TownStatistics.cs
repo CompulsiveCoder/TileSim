@@ -123,7 +123,7 @@ namespace townsim.Entities
 			get {
 				int totalBuilders = 0;
 				foreach (var person in People) {
-					if (person.EmploymentType == EmploymentType.Builder)
+					if (person.Activity == ActivityType.Builder)
 						totalBuilders++;
 				}
 				return totalBuilders;
@@ -136,7 +136,7 @@ namespace townsim.Entities
 			get {
 				int totalForestryWorkers = 0;
 				foreach (var person in People) {
-					if (person.EmploymentType == EmploymentType.Forestry)
+					if (person.Activity == ActivityType.Forestry)
 						totalForestryWorkers++;
 				}
 				return totalForestryWorkers;
@@ -221,6 +221,90 @@ namespace townsim.Entities
 					}
 				}
 				return totalTreesBeingPlanted;
+			}
+		}
+
+		// TODO: Is this the best way to track this?
+		public int CountVegetablesPlantedToday(TimeSpan gameTime)
+		{
+			int vegetablesPlantedToday = 0;
+			foreach (var plant in Plants) {
+				if (plant.Type == PlantType.Vegetable
+					&& plant.WasPlanted
+					&& plant.TimePlanted.Days == gameTime.Days) {
+					vegetablesPlantedToday++;
+				}
+			}
+			return vegetablesPlantedToday;
+		}
+
+		public int TotalVegetablesBeingPlanted
+		{
+			get {
+				int totalVegetablesBeingPlanted = 0;
+				foreach (var plant in Plants) {
+					if (plant.Type == PlantType.Vegetable
+						&& plant.WasPlanted
+						&& plant.PercentPlanted < 100) {
+						totalVegetablesBeingPlanted++;
+					}
+				}
+				return totalVegetablesBeingPlanted;
+			}
+		}
+
+		[JsonIgnore]
+		public double AverageVegetableSize
+		{
+			get {
+				double sum = 0;
+				var vegetables = Vegetables;
+				foreach (var vegetable in vegetables) {
+					sum += vegetable.Size;
+				}
+				return sum / vegetables.Length;
+			}
+		}
+
+		[JsonIgnore]
+		public double AverageVegetableAge
+		{
+			get {
+				double sum = 0;
+				var vegetables = Vegetables;
+				foreach (var vegetable in vegetables) {
+					sum += vegetable.Age;
+				}
+				return sum / vegetables.Length;
+			}
+		}
+
+		// TODO: Is this the best way to track this?
+		public int CountVegetablesHarvestedToday(TimeSpan gameTime)
+		{
+			int vegetablesHarvestedToday = 0;
+			foreach (var plant in Plants) {
+				if (plant.Type == PlantType.Vegetable
+					&& plant.WasHarvested
+					&& plant.TimeHarvested.Days == gameTime.Days) {
+					vegetablesHarvestedToday++;
+				}
+			}
+			return vegetablesHarvestedToday;
+		}
+
+		public int TotalVegetablesBeingHarvested
+		{
+			get {
+				int totalVegetablesBeingHarvested = 0;
+				foreach (var plant in Plants) {
+					if (plant.Type == PlantType.Vegetable
+						&& plant.WasHarvested
+						&& plant.PercentHarvested < 100) {
+						totalVegetablesBeingHarvested++;
+					}
+				}
+				return totalVegetablesBeingHarvested;
 			}
 		}
 	}

@@ -4,11 +4,13 @@ using Newtonsoft.Json;
 
 namespace townsim.Entities
 {
-	public enum EmploymentType
+	public enum ActivityType
 	{
-		NotSet,
+		Inactive = 0,
 		Builder,
-		Forestry
+		Forestry,
+		Gardening,
+		Harvesting
 	}
 
 }

@@ -5,17 +5,17 @@ using townsim.Data;
 
 namespace townsim.Engine
 {
-	public class ForestryEngine
+	public class GardeningEngine
 	{
 		public WorkersEngine Workers = new WorkersEngine();
 
-		public double PlantingTimeCost = 2;
+		public double PlantingTimeCost = 70;
 
 		public EngineSettings Settings;
 
 		public EngineClock Clock;
-		
-		public ForestryEngine (EngineSettings settings, EngineClock clock)
+
+		public GardeningEngine (EngineSettings settings, EngineClock clock)
 		{
 			Settings = settings;
 			Clock = clock;
@@ -23,10 +23,10 @@ namespace townsim.Engine
 
 		public void Update(Town town)
 		{
-			var treesPlantedToday = town.CountTreesPlantedToday (Clock.GameDuration);
+			//var treesPlantedToday = town.CountVegetablesPlantedToday (Clock.GameDuration);
 
-			if (treesPlantedToday < town.TreesToPlantPerDay)
-				HireWorkers (town);
+			//if (treesPlantedToday < town.VegetablesToPlantPerDay)
+			//	HireWorkers (town);
 
 			DoPlanting (town);
 		}
@@ -34,16 +34,16 @@ namespace townsim.Engine
 		public void HireWorkers(Town town)
 		{
 			if (town.TotalUnemployed > 0) {
-				var treesToPlant = town.TreesToPlantPerDay;
+				var treesToPlant = town.VegetablesToPlantPerDay;
 
 				var workersNeeded = treesToPlant;
 
 				for (int i = 0; i < workersNeeded; i++) {
-					var plant = new Plant (PlantType.Tree);
+					var plant = new Plant (PlantType.Vegetable);
 					plant.TimePlanted = Clock.GameDuration;
 					plant.WasPlanted = true;
 
-					Workers.Hire (town, 1, ActivityType.Forestry, plant);
+					Workers.Hire (town, 1, ActivityType.Gardening, plant);
 
 					if (plant.Workers.Length > 0) {
 						var plants = new List<Plant> (town.Plants);
@@ -57,15 +57,26 @@ namespace townsim.Engine
 		public void DoPlanting(Town town)
 		{
 			foreach (var person in town.People) {
-				if (person.IsEmployed
-				    && person.Activity == ActivityType.Forestry) {
+				if (person.Activity == ActivityType.Gardening) {
 					var plant = (Plant)person.EmploymentTarget;
 
-					if (plant.PercentPlanted >= 100) {
-						town.TotalTreesPlanted++;
-						Workers.Fire (person);	
+					if (plant == null) {
+						plant = new Plant (PlantType.Vegetable);
+						plant.TimePlanted = Clock.GameDuration;
+						plant.WasPlanted = true;
 
-						LogWriter.Current.AppendLine (CurrentEngine.Id, "A tree has been planted.");
+						var plants = new List<Plant> (town.Plants);
+						plants.Add (plant);
+						town.Plants = plants.ToArray ();
+					}
+
+					DoPlanting (plant);
+
+					if (plant.PercentPlanted >= 100) {
+						town.TotalVegetablesPlanted++;
+						person.Finish ();
+
+						LogWriter.Current.AppendLine (CurrentEngine.Id, "A vegetable seedling has been planted.");
 					} else {
 						DoPlanting (plant);
 					}
@@ -75,10 +86,15 @@ namespace townsim.Engine
 
 		public void DoPlanting(Plant plant)
 		{
-			plant.PercentPlanted += GetPlantingCompletionIncrement ();
+			if (plant.PercentPlanted < 100) {
+				var increment = GetPlantingCompletionIncrement ();
+				plant.PercentPlanted += increment;
+			}
 
-			if (plant.PercentPlanted > 100)
+			if (plant.PercentPlanted > 100) {
 				plant.PercentPlanted = 100;
+				plant.WasPlanted = true;
+			}
 		}
 
 		public double GetPlantingCompletionIncrement()

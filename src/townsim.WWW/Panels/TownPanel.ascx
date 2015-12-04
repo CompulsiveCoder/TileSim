@@ -37,6 +37,16 @@ function editTreesToPlantPerDay()
 	<div>Timber: <%= (int)Town.Timber %><div class="bar" style="width: <%= (int)Town.Timber / 10 %>px; background-color: brown;"></div></div>
 	<div>Water sources: <%= (int)Town.WaterSources/1000 %>kl<div class="bar" style="width: <%= (int)(Town.WaterSources / 1000) %>px; background-color: lightblue;"></div></div>
 	<div>Food sources: <%= (int)Town.FoodSources %> kgs<div class="bar" style="width: <%= (int)(Town.FoodSources / 1000) %>px; background-color: lightgreen;"></div></div>
+	<h2>Gardening</h2>
+	<div>Gardeners: <%= Town.TotalGardeners %><div class="bar" style="width: <%= Town.TotalGardeners %>px; background-color: lightgreen;"></div></div>
+	<div>Vegetables planted today: <%= Town.CountVegetablesPlantedToday(CurrentEngine.Clock.GameDuration) %><div class="bar" style="width: <%= Town.CountVegetablesPlantedToday(CurrentEngine.Clock.GameDuration) %>px; background-color: lightgreen;"></div></div>
+	<div>Vegetables planted: <%= Town.TotalVegetablesPlanted %><div class="bar" style="width: <%= Town.TotalVegetablesPlanted/5 %>px; background-color: lightgreen;"></div></div>
+	<div>Vegetables being planted: <%= (int)Town.TotalVegetablesBeingPlanted %><div class="bar" style="width: <%= (int)Town.TotalVegetablesBeingPlanted/5 %>px; background-color: lightgreen;"></div></div>
+	<div>Average vegetable size: <%= (int)Town.AverageVegetableSize %><div class="bar" style="width: <%= (int)Town.AverageVegetableSize %>px; background-color: lightgreen;"></div></div>
+	<div>Average vegetable age: <%= (int)Town.AverageVegetableAge %><div class="bar" style="width: <%= (int)Town.AverageVegetableAge %>px; background-color: lightgreen;"></div></div>
+	<div>Vegetables harvested today: <%= Town.CountVegetablesHarvestedToday(CurrentEngine.Clock.GameDuration) %><div class="bar" style="width: <%= Town.CountVegetablesHarvestedToday(CurrentEngine.Clock.GameDuration) %>px; background-color: lightgreen;"></div></div>
+	<div>Vegetables harvested: <%= Town.TotalVegetablesHarvested %><div class="bar" style="width: <%= Town.TotalVegetablesHarvested/5 %>px; background-color: lightgreen;"></div></div>
+	<div>Vegetables being harvested: <%= Town.TotalVegetablesBeingHarvested %><div class="bar" style="width: <%= Town.TotalVegetablesBeingHarvested %>px; background-color: lightgreen;"></div></div>
 	<h2>Forestry</h2>
 	<div>Forestry workers: <%= Town.TotalForestryWorkers %><div class="bar" style="width: <%= Town.TotalForestryWorkers %>px; background-color: lightgreen;"></div></div>
 	<div><a href="javascript:void(0);" onclick="editTreesToPlantPerDay();">Trees to plant per day: <%= Town.TreesToPlantPerDay %></a><div class="bar" style="width: <%= Town.TreesToPlantPerDay %>px; background-color: lightgreen;"></div></div>

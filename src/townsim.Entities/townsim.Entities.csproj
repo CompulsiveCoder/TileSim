@@ -32,6 +32,8 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\lib\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -44,7 +46,6 @@
     <Compile Include="PeopleCollection.cs" />
     <Compile Include="Gender.cs" />
     <Compile Include="PersonCreator.cs" />
-    <Compile Include="EmploymentType.cs" />
     <Compile Include="TownStatistics.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="PlantType.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="EngineSettings.cs" />
     <Compile Include="EditInstruction.cs" />
     <Compile Include="BaseInstruction.cs" />
+    <Compile Include="Activity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

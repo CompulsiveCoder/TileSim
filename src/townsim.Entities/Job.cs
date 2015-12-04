@@ -6,9 +6,9 @@ namespace townsim.Entities
 	{
 		public double PercentComplete = 0;
 
-		public EmploymentType Type { get; set; }
+		public ActivityType Type { get; set; }
 
-		public Job (EmploymentType employmentType)
+		public Job (ActivityType employmentType)
 		{
 			Type = employmentType;
 		}

@@ -69,7 +69,7 @@ namespace townsim.Engine
 			}
 
 			// Leaving
-			var leavingProbability = new Random ().Next (100);
+			var leavingProbability = new Random ().Next (500);
 			if (leavingProbability < town.TotalHomelessPeople) {
 				var value = new Random ().Next (1, 3);
 				Emigrate (town, value);

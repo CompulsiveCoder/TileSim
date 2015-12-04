@@ -16,7 +16,9 @@ namespace townsim.Engine.Tests.Integration
 
 			var engine = new HungerEngine (new EngineSettings());
 
-			engine.Update (town);
+			foreach (var person in town.People) {
+				engine.Update (person);
+			}
 
 			Assert.AreEqual (1, town.Alerts.Length);*/
 		}

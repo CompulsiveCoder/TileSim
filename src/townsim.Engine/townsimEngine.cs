@@ -14,7 +14,7 @@ namespace townsim.Engine
 		/// <summary>
 		/// The max time for each engine cycle in milliseconds.
 		/// </summary>
-		public int CycleTime = 1000;
+		public int CycleTime = 2000;
 
 		public DateTime GameStartTime = DateTime.MinValue;
 
@@ -49,10 +49,10 @@ namespace townsim.Engine
 
 			Log.AppendLine (Id, "Starting engine");
 
-      CreateTown ();
+			CreateTown ();
 
-      Attach ();
-      SaveInfo ();
+			Attach ();
+			SaveInfo ();
 
 			RunCycles ();
 
@@ -63,10 +63,10 @@ namespace townsim.Engine
 		{
 			Console.WriteLine ("Starting TownSim engine");
 
-      AddTown (town);
+			AddTown (town);
 
-      Attach ();
-      SaveInfo ();
+			Attach ();
+			SaveInfo ();
 
 			RunCycles ();
 
@@ -94,14 +94,14 @@ namespace townsim.Engine
 		{
 			CurrentEngine.Add (this);
 
-      var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
+      		var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
  
 			CurrentEngine.Attach (engineInfo);
 		}
 
 		public void SaveInfo()
 		{
-      var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
+      		var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
 
 			var saver = new EngineInfoSaver ();
 			saver.Save (engineInfo);
@@ -134,7 +134,9 @@ namespace townsim.Engine
 		{
 			for (int i = 0; i < 1000; i++) {
 				var beforeTime = DateTime.Now;
-				RunCycle ();
+				for (int x = 0; x < Settings.GameSpeed; x++) {
+					RunCycle ();
+				}
 				ShowSummary ();
 				var afterTime = DateTime.Now;
 				var duration = afterTime.Subtract (beforeTime);
@@ -160,6 +162,8 @@ namespace townsim.Engine
 			Console.WriteLine ("    Health:" + Player.Health);
 			Console.WriteLine ("    Thirst:" + Convert.ToInt32(Player.Thirst));
 			Console.WriteLine ("    Hunger:" + Convert.ToInt32(Player.Hunger));
+			Console.WriteLine ("    Activity:" + Player.Activity);
+			Console.WriteLine ("    Home:" + (Player.Home != null ? Player.Home.PercentComplete : 0) + "%");
 			Console.WriteLine ("  Towns:");
 
 			foreach (var town in Towns) {
@@ -192,15 +196,25 @@ namespace townsim.Engine
 				Console.WriteLine ("       Timber: " + (int)town.Timber);
 				Console.WriteLine ();
 				Console.WriteLine ("     Forestry:");
+				Console.WriteLine ("       Trees: " + town.Trees.Length);
 				Console.WriteLine ("       Forestry workers: " + town.TotalForestryWorkers);
 				Console.WriteLine ("       Trees planted today: " + town.CountTreesPlantedToday(Clock.GameDuration));
 				Console.WriteLine ("       Trees planted: " + town.TotalTreesPlanted);
 				Console.WriteLine ("       Trees being planted: " + town.TotalTreesBeingPlanted);
-				Console.WriteLine ();
-				Console.WriteLine ("     Environment:");
-				Console.WriteLine ("       Trees: " + town.Trees.Length);
 				Console.WriteLine ("       Average tree size: " + (int)town.AverageTreeSize);
 				Console.WriteLine ("       Average tree age: " + (int)town.AverageTreeAge);
+				Console.WriteLine ();
+				Console.WriteLine ("     Garden:");
+				Console.WriteLine ("       Vegetables: " + town.Vegetables.Length);
+				Console.WriteLine ("       Gardeners: " + town.TotalGardeners);
+				Console.WriteLine ("       Average vegetable size: " + (int)town.AverageVegetableSize);
+				Console.WriteLine ("       Average vegetable age: " + (int)town.AverageVegetableAge);
+				Console.WriteLine ("       Vegetables planted today: " + town.CountVegetablesPlantedToday(Clock.GameDuration));
+				Console.WriteLine ("       Vegetables planted: " + town.TotalVegetablesPlanted);
+				Console.WriteLine ("       Vegetables being planted: " + town.TotalVegetablesBeingPlanted);
+				Console.WriteLine ("       Vegetables harvested today: " + town.CountVegetablesHarvestedToday(Clock.GameDuration));
+				Console.WriteLine ("       Vegetables harvested: " + town.TotalVegetablesHarvested);
+				Console.WriteLine ("       Vegetables being harvested: " + town.TotalVegetablesBeingHarvested);
 				Console.WriteLine ();
 				Console.WriteLine ("     Buildings:");
 				Console.WriteLine ("       Builders: " + town.TotalBuilders);
@@ -233,7 +247,7 @@ namespace townsim.Engine
 
 			if (towns.Length < 1)
 			{
-				var town = new Town ("Small Town", 10);
+				var town = new Town ("Small Town", Town.DefaultPopulation);
 				AddTown (town);
 			}
 		}
@@ -251,9 +265,12 @@ namespace townsim.Engine
 			var forestsEngine = new ForestsEngine (Settings);
 			var forestryEngine = new ForestryEngine (Settings, Clock);
 			var waterSourcesEngine = new WaterSourcesEngine (Settings);
-			var constructionEngine = new ConstructionEngine (Settings);
+			var constructionEngine = new ConstructionEngine (Settings, Clock);
 			var plantEngine = new PlantEngine ();
+			var gardenEngine = new GardeningEngine (Settings, Clock);
+			var harvestingEngine = new HarvestingEngine (Settings, Clock);
 			var healthEngine = new HealthEngine ();
+			var choiceEngine = new ChoiceEngine ();
 			//var foodEngine = new FoodEngine ();
 
 			if (Towns.Length == 0)
@@ -265,6 +282,7 @@ namespace townsim.Engine
 				hungerEngine.Update (person);
 				thirstEngine.Update (person);
 				healthEngine.Update (person);
+				choiceEngine.Update (person);
 			}
 
 			var plants = new List<Plant> ();
@@ -284,7 +302,9 @@ namespace townsim.Engine
 				// Local civil
 				constructionEngine.Update (town);
 
+				gardenEngine.Update (town);
 				forestryEngine.Update (town);
+				harvestingEngine.Update (town);
 
 				// Global, population and migration
 				populationEngine.Update(town);

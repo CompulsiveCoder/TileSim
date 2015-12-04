@@ -28,8 +28,6 @@ namespace townsim.Engine
 					tree.Size += growthAmount;
 				}
 			}
-			//var growth = town.Forest / 100000;
-			//town.Forest = town.Forest + growth;
 		}
 	}
 }

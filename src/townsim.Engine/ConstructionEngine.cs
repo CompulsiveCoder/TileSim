@@ -6,20 +6,22 @@ namespace townsim.Engine
 {
 	public class ConstructionEngine
 	{
-		public int ConstructionRate = 1;
+		public double ConstructionRate = 0.2;
 
 		public int ConstructionCountLimitBase = 3;
 		public double ConstructionCountLimit = 0.1;
-
 
 		public ConstructionWorkersEngine Workers = new ConstructionWorkersEngine();
 		public TimberEngine Timber = new TimberEngine ();
 
 		public EngineSettings Settings { get;set; }
 
-		public ConstructionEngine (EngineSettings settings)
+		public EngineClock Clock { get;set; }
+
+		public ConstructionEngine (EngineSettings settings, EngineClock clock)
 		{
 			Settings = settings;
+			Clock = clock;
 		}
 
 		public void Update(Town town)
@@ -56,8 +58,13 @@ namespace townsim.Engine
 		{
 			foreach (var house in town.Buildings.Houses) {
 				if (!house.IsCompleted
-					&& house.Workers.Length < 2)
+				    && house.Workers.Length < 2) {
+
 					Workers.Hire (town, house);
+
+					// The approach has changed. Instead of hiring workers, each person just builds their own house
+					house.Workers [0].Home = house;
+				}
 			}
 		}
 
@@ -119,6 +126,7 @@ namespace townsim.Engine
 		{
 			if (town.TotalUnemployed > 0) {
 				var house = new Building (Entities.BuildingType.House);
+				house.ConstructionStartTime = Clock.GameDuration;
 
 				Workers.Hire (town, house);
 
@@ -141,11 +149,13 @@ namespace townsim.Engine
 				if (house.PercentComplete >= 100
 					&& !house.IsCompleted) {
 
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed.");
-
 					house.PercentComplete = 100;
 					house.IsCompleted = true;
+					house.ConstructionEndTime = Clock.GameDuration;
+
 					Workers.Fire (town, house);
+
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed. Duration: " + Clock.GetTimeSpanString(house.ConstructionDuration));
 				}
 			}
 		}

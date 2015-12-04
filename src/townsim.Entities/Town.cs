@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using townsim.Alerts;
+using System.Linq;
 
 namespace townsim.Entities
 {
@@ -16,7 +17,7 @@ namespace townsim.Entities
 			get { return People.Length; }
 		}
 
-		public int DefaultPopulation = 10;
+		static public int DefaultPopulation = 1;
 
 		public double Timber = 0;
 
@@ -61,8 +62,56 @@ namespace townsim.Entities
 			}
 		}
 
+		[JsonIgnore]
+		public Plant[] Vegetables
+		{
+			get{
+				var list = new List<Plant> ();
+
+				foreach (var plant in Plants)
+					if (plant.Type == PlantType.Vegetable)
+						list.Add (plant);
+
+				return list.ToArray ();
+			}
+		}
+
 		public int TreesToPlantPerDay { get;set; }
 		public int TotalTreesPlanted { get;set; }
+
+		public int VegetablesToPlantPerDay {
+			get;
+			set;
+		}
+
+		public int TotalGardeners {
+			get {
+				return PeopleDoing(ActivityType.Gardening);
+			}
+		}
+
+		public int TotalVegetablesPlanted {
+			get;
+			set;
+		}
+
+		public int VegetablesToHarvestPerDay {
+			get;
+			set;
+		}
+
+		public int TotalVegetablesHarvested {
+			get;
+			set;
+		}
+
+		public Plant[] RipeVegetables {
+			get {
+				return (from vegetable in Vegetables
+				       where vegetable.Size > 50
+					select vegetable).ToArray();
+			}
+		}
 
 		[JsonIgnore]
 		public BuildingCollection Buildings { get; set; }
@@ -105,17 +154,20 @@ namespace townsim.Entities
 
 		public void InitializeDefaultValues(int population)
 		{
-			InitializeDefaultValues (population, 100);
+			InitializeDefaultValues (population, new Random().Next(500));
 		}
 
 		public void InitializeDefaultValues(int population, int numberOfTrees)
 		{
-			WaterSources = 250000;
-			FoodSources = 250000;
+			var random = new Random ();
+			WaterSources = random.Next(50000);
+			FoodSources = random.Next(1000);
 			//Timber = 1000;
 			//Forest = 25000;
 
-			TreesToPlantPerDay = 1;
+			TreesToPlantPerDay = random.Next(5);
+
+			VegetablesToPlantPerDay = random.Next(20);
 
 			Buildings = new BuildingCollection();
 
@@ -193,6 +245,25 @@ namespace townsim.Entities
 			return list.ToArray ();
 		}
 
+		public int PeopleDoing(ActivityType jobType)
+		{
+			var matchingPeople = (from person in People
+					where person.Activity == jobType
+				select person).ToArray();
+
+			return matchingPeople.Length;
+		}
+
+		public Plant FindRipeUnassignedVegetable ()
+		{
+			var plants = (from vegetable in RipeVegetables
+			        where vegetable.Workers.Length == 0
+				select vegetable).ToArray();
+
+			return plants.Length > 0
+				? plants [0]
+					: null;
+		}
 	}
 }
 

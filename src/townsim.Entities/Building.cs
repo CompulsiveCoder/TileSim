@@ -21,6 +21,21 @@ namespace townsim.Entities
 
 		public Person[] Workers { get;set; }
 
+		public TimeSpan ConstructionStartTime { get; set; }
+
+		public TimeSpan ConstructionEndTime { get; set; }
+
+		public TimeSpan ConstructionDuration
+		{
+			get {
+				if (ConstructionEndTime > ConstructionStartTime)
+					return ConstructionEndTime.Subtract (ConstructionStartTime);
+				else
+					return new TimeSpan (0);//return DateTime.Now.Subtract (ConstructionStartTime);
+			}
+			set { }
+		}
+
 		public Building ()
 		{
 			Construct ();

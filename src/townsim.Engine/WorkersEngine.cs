@@ -11,7 +11,7 @@ namespace townsim.Engine
 		{
 		}
 
-		public int Hire(Town town, int numberOfWorkersToHire, EmploymentType employmentType, IEmploymentTarget target)
+		public int Hire(Town town, int numberOfWorkersToHire, ActivityType employmentType, IEmploymentTarget target)
 		{
 			if (numberOfWorkersToHire > town.TotalUnemployed)
 				return 0;
@@ -29,10 +29,10 @@ namespace townsim.Engine
 			}
 		}
 
-		public void Hire(Town town, Person person, EmploymentType employmentType, IEmploymentTarget target)
+		public void Hire(Town town, Person person, ActivityType employmentType, IEmploymentTarget target)
 		{
 			person.IsEmployed = true;
-			person.EmploymentType = employmentType;
+			person.Activity = employmentType;
 			person.EmploymentTarget = target;
 		
 			AddWorkerToTarget (target, person);
@@ -64,7 +64,7 @@ namespace townsim.Engine
 		public void Fire(Person person)
 		{
 			person.IsEmployed = false;
-			person.EmploymentType = EmploymentType.NotSet;
+			person.Activity = ActivityType.Inactive;
 
 			if (person.EmploymentTarget != null) {
 				person.EmploymentTarget.Workers = new Person[]{ };

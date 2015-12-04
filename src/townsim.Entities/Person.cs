@@ -27,7 +27,22 @@ namespace townsim.Entities
 			get { return IsAdult; }
 		}
 		public bool IsEmployed { get; set; }
-		public EmploymentType EmploymentType { get; set; }
+		public ActivityType Activity { get; set; }
+
+		public void Start(ActivityType activity)
+		{
+			Activity = activity;
+		}
+
+		public void Finish ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public void FocusOn(IEmploymentTarget target)
+		{
+			EmploymentTarget = target;
+		}
 
 		[JsonIgnore]
 		public IEmploymentTarget EmploymentTarget { get;set; }
@@ -36,6 +51,9 @@ namespace townsim.Entities
 		public Town Location { get; set; }
 
 		public Job[] Jobs { get;set; }
+
+		[JsonIgnore]
+		public Building Home{ get; set; }
 
 		public Person ()
 		{

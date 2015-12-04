@@ -22,7 +22,7 @@ namespace townsim.EngineConsole
 			{
 				using(engine = new townsimEngine (engineId))
 				{
-				engine.Start ();
+					engine.Start ();
 				}
 			}
 			catch (GameException ex) {

@@ -8,10 +8,15 @@ namespace townsim.Entities
 		public double Size { get;set; }
 		public PlantType Type { get;set; }
 		public bool WasPlanted { get;set; }
+		public bool WasHarvested { get; set; }
 
 		public TimeSpan TimePlanted { get;set; }
 
 		public double PercentPlanted { get; set; }
+
+		public double PercentHarvested { get; set; }
+
+		public TimeSpan TimeHarvested { get; set; }
 
 		public Person[] Workers { get;set; }
 

@@ -12,7 +12,10 @@ namespace townsim.Data
 
 		public T Parse<T>(string json)
 		{
-			return JsonConvert.DeserializeObject<T>(json);
+			if (String.IsNullOrEmpty (json))
+				return default(T);
+			else
+				return JsonConvert.DeserializeObject<T>(json);
 		}
 	}
 }
