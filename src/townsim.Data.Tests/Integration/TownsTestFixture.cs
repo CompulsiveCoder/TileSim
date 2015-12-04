@@ -10,7 +10,8 @@ namespace townsim.Data.Tests.Integration
 		[Test]
 		public void Test_SaveAndGet()
 		{
-			var saver = new TownSaver ();
+			throw new NotImplementedException ();
+			/*var saver = new TownSaver ();
 			var town = new Town ("TestTown", 10);
 			saver.Save (town);
 
@@ -26,7 +27,7 @@ namespace townsim.Data.Tests.Integration
 			Assert.AreEqual (1, loadedTowns.Length);
 
 			var deleter = new TownDeleter ();
-			deleter.Delete (town);
+			deleter.Delete (town);*/
 		}
 	}
 }

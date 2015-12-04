@@ -12,8 +12,7 @@ namespace townsim.Data
 
 		public Town Read(Guid townId)
 		{
-			throw new NotImplementedException ();
-			/*var client = new RedisClient();
+			var client = new RedisClient();
 			var json = client.Get (new TownKeys ().GetTownKey (townId));
 
 			var town = new Parser().Parse<Town> (json);
@@ -25,7 +24,7 @@ namespace townsim.Data
 			foreach (var person in town.People)
 				person.Location = town;
 
-			return town;*/
+			return town;
 		}
 	}
 }
