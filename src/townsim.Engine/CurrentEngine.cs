@@ -4,12 +4,13 @@ using System.Web;
 using System.Collections.Generic;
 using System.Threading;
 using townsim.Entities;
+using datamanager.Data;
 
 namespace townsim.Engine
 {
 	public static class CurrentEngine
 	{
-		static public Guid Id { get; set; }
+		static public string Id { get; set; }
 
 		static public EngineInfo Info { get;set; }
 
@@ -19,43 +20,41 @@ namespace townsim.Engine
 
 		static public Thread[] EngineThreads;
 
-    	static public Guid PlayerId { get; set; }
+    	static public string PlayerId { get; set; }
 
-		static public void StartThread(Guid engineId)
+		static public bool IsStarted { get { return !String.IsNullOrEmpty (Id); } }
+
+		static public void StartThread(string engineId)
 		{
 			Console.WriteLine ("Launching engine thread " + engineId);
 
-			var startTime = DateTime.MinValue;
-			EngineSettings settings = null;
-
-			System.Threading.ThreadStart threadStart = delegate {
+			ThreadStart threadStart = delegate {
 				var engine = new townsimEngine(engineId);
+
 				engine.CreateTown();
 				engine.Start();
-				startTime = engine.Clock.StartTime;
-				settings = engine.Settings;
-        		Attach( new EngineInfo (engineId, startTime, settings, engine.Player.Id));
 
+				Attach(engine.Info);
 			};
-			var engineThread = new System.Threading.Thread(threadStart);
+
+			var engineThread = new Thread(threadStart);
+
 			engineThread.IsBackground = true;
 			engineThread.Start();
-
-
 		}
 
 		static public void StartGame()
 		{
-			StartThread(Guid.NewGuid());
+			StartThread(Guid.NewGuid().ToString());
 		}
 
-		static public void Attach(Guid engineId)
+		static public void Attach(string engineId)
 		{
 			Id = engineId;
 			DataConfig.Prefix = "TownSim-" + engineId.ToString();
-			Info = new EngineInfoReader ().Read (Id);
-		      Clock = new EngineClock (Info.StartTime, Info.Settings);
-		      PlayerId = Info.PlayerId;
+			Info = new DataManager ().Get<EngineInfo>(Id);
+			Clock = new EngineClock (Info.StartTime, Info.Settings);
+			PlayerId = Info.PlayerId;
 		}
 
 		static public void Attach(EngineInfo info)

@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using townsim.Entities;
 using townsim.Data;
+using datamanager.Data;
 
 namespace townsim.Engine.Tests.Integration
 {
@@ -15,7 +16,7 @@ namespace townsim.Engine.Tests.Integration
 
 			var instruction = new EditInstruction (town.GetType (), town.Id, "TreesToPlantPerDay", 5);
 
-			new InstructionSaver ().Save (instruction);
+			new DataManager ().Save (instruction);
 
 			var instructionEngine = new InstructionEngine ();
 

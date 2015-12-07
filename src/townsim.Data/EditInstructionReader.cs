@@ -2,18 +2,27 @@
 using townsim.Entities;
 using Sider;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace townsim.Data
 {
-	public class EditInstructionReader : BaseDataAdapter
+	public class EditInstructionReader
 	{
 		public EditInstructionReader ()
 		{
 		}
 
-		public EditInstruction[] Read(Type targetType, Guid targetId)
+		public EditInstruction[] Read(Type targetType, string targetId)
 		{
-			var client = new RedisClient ();
+			var data = new datamanager.Data.DataManager ();
+
+			var instructions = (from instruction in data.Get<EditInstruction> ()
+					where instruction.TargetType == targetType
+				&& instruction.TargetId == targetId
+				select instruction).ToArray();
+
+			return instructions;
+			/*var client = new RedisClient ();
 			var key = new InstructionKeys ().GetIdsKey (targetType, targetId);
 
 			var instructions = new List<EditInstruction> ();
@@ -36,18 +45,19 @@ namespace townsim.Data
 				}
 
 				return instructions.ToArray ();
-			}
+			}*/
 		}
 
-		public EditInstruction Read(Guid instructionId)
+		public EditInstruction Read(string instructionId)
 		{
-			var client = new RedisClient ();
+			return new datamanager.Data.DataManager ().Get<EditInstruction> (instructionId);
+			/*var client = new RedisClient ();
 
 			var key = new InstructionKeys ().GetKey (instructionId);
 
 			var json = client.Get (key);
 
-			return JsonToEntity<EditInstruction> (json);
+			return JsonToEntity<EditInstruction> (json);*/
 		}
 	}
 }

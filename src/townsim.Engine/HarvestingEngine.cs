@@ -36,7 +36,7 @@ namespace townsim.Engine
 		// TODO: Remove if not needed
 		public void HireWorkers(Town town)
 		{
-			if (town.TotalUnemployed > 0) {
+			if (town.TotalInactive > 0) {
 				if (town.RipeVegetables.Length > 0) {
 					var vegetablesToHarvest = town.VegetablesToHarvestPerDay;
 
@@ -62,7 +62,7 @@ namespace townsim.Engine
 
 		public void PerformHarvesting(Town town, Person person)
 		{
-			var plant = (Plant)person.EmploymentTarget;
+			var plant = (Plant)person.ActivityTarget;
 
 			if (plant == null)
 				plant = AssignRipeVegetable (town, person);

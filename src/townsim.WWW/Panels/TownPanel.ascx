@@ -24,14 +24,14 @@ function editTreesToPlantPerDay()
 	<div>Population: <%= Town.Population %><div class="bar" style="width: <%= Town.Population %>px; background-color: lightgray;"></div></div>
 	<div>Males: <%= Town.TotalMales %><div class="bar" style="width: <%= Town.TotalMales %>px; background-color: lightgray;"></div></div>
 	<div>Females: <%= Town.TotalFemales %><div class="bar" style="width: <%= Town.TotalFemales %>px; background-color: lightgray;"></div></div>
-	<div>Workers (employed): <%= Town.TotalEmployed %><div class="bar" style="width: <%= Town.TotalEmployed %>px; background-color: lightgray;"></div></div>
-	<div>Workers (unemployed): <%= Town.TotalUnemployed %><div class="bar" style="width: <%= Town.TotalUnemployed %>px; background-color: lightgray;"></div></div>
+	<div>Active people: <%= Town.TotalActive %><div class="bar" style="width: <%= Town.TotalActive %>px; background-color: lightgray;"></div></div>
+	<div>Inactive people: <%= Town.TotalInactive %><div class="bar" style="width: <%= Town.TotalInactive %>px; background-color: lightgray;"></div></div>
 	<div>Builders: <%= Town.TotalBuilders %><div class="bar" style="width: <%= Town.TotalBuilders %>px; background-color: lightgray;"></div></div>
 	<div>Births: <%= Town.TotalBirths %><div class="bar" style="width: <%= Town.TotalBirths %>px; background-color: lightgray;"></div></div>
 	<div>Deaths: <%= Town.TotalDeaths %><div class="bar" style="width: <%= Town.TotalDeaths %>px; background-color: lightgray;"></div></div>
 	<div>Immigrants: <%= Town.TotalImmigrants %><div class="bar" style="width: <%= Town.TotalImmigrants %>px; background-color: lightgray;"></div></div>
 	<div>Emigrants: <%= Town.TotalEmigrants %><div class="bar" style="width: <%= Town.TotalEmigrants %>px; background-color: lightgray;"></div></div>
-	<div>Couples: <%= Town.TotalBreedingPairs %><div class="bar" style="width: <%= Town.TotalBreedingPairs %>px; background-color: lightgray;"></div></div>
+	<div>Couples: <%= Town.TotalParentalCouples %><div class="bar" style="width: <%= Town.TotalParentalCouples %>px; background-color: lightgray;"></div></div>
 	<div>Homeless People: <%= Town.TotalHomelessPeople %><div class="bar" style="width: <%= Town.TotalHomelessPeople %>px; background-color: lightgray;"></div></div>
 	<h2>Resources</h2>
 	<div>Timber: <%= (int)Town.Timber %><div class="bar" style="width: <%= (int)Town.Timber / 10 %>px; background-color: brown;"></div></div>
@@ -61,16 +61,4 @@ function editTreesToPlantPerDay()
 	<div>Houses: <%= Town.Buildings.TotalCompletedHouses %><div class="bar" style="width: <%= Town.Buildings.TotalCompletedHouses %>px; background-color: brown;"></div></div>
 	<div>Incomplete Houses: <%= Town.Buildings.TotalIncompleteHouses %><div class="bar" style="width: <%= Town.Buildings.TotalIncompleteHouses %>px; background-color: brown;"></div></div>
 	<div>Average Percent Complete: <%= (int)Town.Buildings.AveragePercentComplete %><div class="bar" style="width: <%= (int)Town.Buildings.AveragePercentComplete %>px; background-color: brown;"></div></div>
-
-	<% if (false) { %>
-	<div style="float:left">	
-		<% foreach (var house in Town.Buildings.IncompleteHouses){ %>
-		<div class="house" style="float:left">
-			<div>House</div>
-			<div><%= house.PercentComplete %>% complete</div>
-			<div>Workers: <%= house.Workers.Length %></div>
-		</div>
-		<% } %>
-	</div>
-	<% } %>
 </div>

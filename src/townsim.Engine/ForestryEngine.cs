@@ -33,7 +33,7 @@ namespace townsim.Engine
 
 		public void HireWorkers(Town town)
 		{
-			if (town.TotalUnemployed > 0) {
+			if (town.TotalInactive > 0) {
 				var treesToPlant = town.TreesToPlantPerDay;
 
 				var workersNeeded = treesToPlant;
@@ -45,7 +45,7 @@ namespace townsim.Engine
 
 					Workers.Hire (town, 1, ActivityType.Forestry, plant);
 
-					if (plant.Workers.Length > 0) {
+					if (plant.People.Length > 0) {
 						var plants = new List<Plant> (town.Plants);
 						plants.Add (plant);
 						town.Plants = plants.ToArray ();
@@ -57,17 +57,19 @@ namespace townsim.Engine
 		public void DoPlanting(Town town)
 		{
 			foreach (var person in town.People) {
-				if (person.IsEmployed
+				if (person.IsActive
 				    && person.Activity == ActivityType.Forestry) {
-					var plant = (Plant)person.EmploymentTarget;
+					var plant = (Plant)person.ActivityTarget;
 
-					if (plant.PercentPlanted >= 100) {
-						town.TotalTreesPlanted++;
-						Workers.Fire (person);	
+					if (plant != null) {
+						if (plant.PercentPlanted >= 100) {
+							town.TotalTreesPlanted++;
+							Workers.Fire (person);	
 
-						LogWriter.Current.AppendLine (CurrentEngine.Id, "A tree has been planted.");
-					} else {
-						DoPlanting (plant);
+							LogWriter.Current.AppendLine (CurrentEngine.Id, "A tree has been planted.");
+						} else {
+							DoPlanting (plant);
+						}
 					}
 				}
 			}

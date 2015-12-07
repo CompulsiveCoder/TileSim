@@ -4,12 +4,13 @@ using System.Threading;
 using townsim.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;
+using datamanager.Data;
 
 namespace townsim.Engine
 {
 	public class townsimEngine : IComponent
 	{
-		public Guid Id { get;set; }
+		public string Id { get;set; }
 
 		/// <summary>
 		/// The max time for each engine cycle in milliseconds.
@@ -31,12 +32,20 @@ namespace townsim.Engine
 
 		public EngineClock Clock;
 
+		public EngineInfo Info
+		{
+			get
+			{
+				return new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
+			}
+		}
+
 		public townsimEngine ()
 		{
 			Initialize ();
 		}
 
-		public townsimEngine (Guid engineId)
+		public townsimEngine (string engineId)
 		{
 			Id = engineId;
 
@@ -78,33 +87,25 @@ namespace townsim.Engine
 			Settings = new EngineSettings ();
 			Clock = new EngineClock (Settings);
 
-			if (Id == Guid.Empty){
-				Id = Guid.NewGuid ();
+			if (String.IsNullOrEmpty(Id)){
+				Id = Guid.NewGuid ().ToString();
 			}
 
 			DataConfig.Prefix = "TownSim-" + Id;
 			GameStartTime = DateTime.Now;
-
-			var idManager = new EngineIdManager ();
-			idManager.Add (Id);
-
 		}
 
 		void Attach()
 		{
 			CurrentEngine.Add (this);
 
-      		var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
- 
-			CurrentEngine.Attach (engineInfo);
+			CurrentEngine.Attach (Info);
 		}
 
 		public void SaveInfo()
 		{
-      		var engineInfo = new EngineInfo (Id, Clock.StartTime, Settings, Player.Id);
-
-			var saver = new EngineInfoSaver ();
-			saver.Save (engineInfo);
+			var data = new DataManager ();
+			data.Save (Info);
 		}
 
 		public void AddTown(Town town)
@@ -125,8 +126,8 @@ namespace townsim.Engine
 			People = peopleList.ToArray ();
 
 			if (EnableDatabase) {
-				var townSaver = new TownSaver ();
-				townSaver.Save (town);
+				var data = new DataManager ();
+				data.Save (town);
 			}
 		}
 
@@ -184,11 +185,11 @@ namespace townsim.Engine
 				Console.WriteLine ("       Emigrants: " + town.TotalEmigrants);
 				Console.WriteLine ("       Average age: " + String.Format("{0:0.##}", town.AverageAge));
 				Console.WriteLine ("       Homeless: " + town.TotalHomelessPeople);
-				Console.WriteLine ("       Couples: " + town.TotalBreedingPairs);
+				Console.WriteLine ("       Couples: " + town.TotalParentalCouples);
 				Console.WriteLine ();
-				Console.WriteLine ("     Employment:");
-				Console.WriteLine ("       Unemployed: " + town.TotalUnemployed);
-				Console.WriteLine ("       Employed: " + town.TotalEmployed);
+				Console.WriteLine ("     Activities:");
+				Console.WriteLine ("       Inactive: " + town.TotalInactive);
+				Console.WriteLine ("       Active: " + town.TotalActive);
 				Console.WriteLine ();
 				Console.WriteLine ("     Resources:");
 				Console.WriteLine ("       Water sources: " + (int)town.WaterSources + " litres");
@@ -242,8 +243,7 @@ namespace townsim.Engine
 
 		public void CreateTown()
 		{
-			var indexer = new TownIndexer ();
-			var towns = indexer.Get ();
+			var towns = new DataManager().Get<Town> ();
 
 			if (towns.Length < 1)
 			{
@@ -256,7 +256,7 @@ namespace townsim.Engine
 		{
 			var totalPopulation = 0;
 
-			var saver = new TownSaver ();
+			var data = new DataManager ();
 
 			var instructionEngine = new InstructionEngine ();
 			var thirstEngine = new ThirstEngine (Settings);
@@ -279,10 +279,14 @@ namespace townsim.Engine
 			// Local people
 			foreach (var person in People) {
 
+				// Personal
 				hungerEngine.Update (person);
 				thirstEngine.Update (person);
 				healthEngine.Update (person);
 				choiceEngine.Update (person);
+
+				// Activities
+				constructionEngine.Update (person);
 			}
 
 			var plants = new List<Plant> ();
@@ -299,8 +303,6 @@ namespace townsim.Engine
 				forestsEngine.Update (town);
 
 
-				// Local civil
-				constructionEngine.Update (town);
 
 				gardenEngine.Update (town);
 				forestryEngine.Update (town);
@@ -313,7 +315,7 @@ namespace townsim.Engine
 					PlayerDied();
 
 				if (EnableDatabase)
-					saver.Save (town);
+					data.Save (town);
 			}
 
 			// Local people
@@ -338,8 +340,7 @@ namespace townsim.Engine
 
 		public void Dispose()
 		{
-			var idManager = new EngineIdManager ();
-			idManager.Remove (Id);
+			new DataManager().Delete(Info);
 		}
 
 		public event EventHandler Disposed;

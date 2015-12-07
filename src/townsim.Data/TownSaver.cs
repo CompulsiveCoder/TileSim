@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
 using townsim.Entities;
+using datamanager.Data;
 
 namespace townsim.Data
 {
@@ -17,7 +18,8 @@ namespace townsim.Data
 
 		public void Save(Town town)
 		{
-			var client = new RedisClient();
+			new DataManager ().Save (town);
+			/*var client = new RedisClient();
 			var key = new TownKeys ().GetTownKey (town.Id);
 			var json = town.ToJson ();
 			client.Set(key, json);
@@ -32,7 +34,7 @@ namespace townsim.Data
 			// People
 			var personSaver = new PersonSaver ();
 			personSaver.Save (town, town.People);
-
+*/
 			//var townPopulation = new TownPopulation ();
 			//townPopulation.SetPopulationCount (town.Id, town.Population);
 		}

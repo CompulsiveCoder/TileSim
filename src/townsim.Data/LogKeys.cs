@@ -1,4 +1,5 @@
 ﻿using System;
+using datamanager.Data;
 
 namespace townsim.Data
 {
@@ -8,9 +9,9 @@ namespace townsim.Data
 		{
 		}
 
-		public string GetLogKey(Guid engineId)
+		public string GetLogKey(string engineId)
 		{
-			return DataConfig.Prefix + "-Log-" + engineId.ToString();
+			return DataConfig.Prefix + "-Log-" + engineId;
 		}
 	}
 }

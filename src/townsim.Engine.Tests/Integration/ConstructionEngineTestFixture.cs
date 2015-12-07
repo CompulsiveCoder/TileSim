@@ -14,12 +14,20 @@ namespace townsim.Engine.Tests.Integration
 		{
 			var settings = new EngineSettings (10);
 			var constructionEngine = new ConstructionEngine (settings, new EngineClock(settings));
-			var town = new Town (1);
-			constructionEngine.Update (town);
-			Assert.AreEqual (1, town.TotalEmployed);
+
+			var person = new Person ();
+
+			var town = new Town (person);
+
+			person.Town = town;
+
+			person.Activity = ActivityType.Builder;
+			constructionEngine.Update (person);
+
+			Assert.AreEqual (1, town.TotalActive);
 
 			for (int i = 0; i < 100; i++) {
-				constructionEngine.Update (town);
+				constructionEngine.Update (person);
 			}
 
 			var building = town.Buildings [0];
@@ -38,8 +46,12 @@ namespace townsim.Engine.Tests.Integration
 			var settings = new EngineSettings (10);
 			var constructionEngine = new ConstructionEngine (settings, new EngineClock(settings));
 			var town = new Town (2);
+
+			foreach (var person in town.People)
+				person.Activity = ActivityType.Builder;
+
 			constructionEngine.Update (town);
-			Assert.AreEqual (2, town.TotalEmployed);
+			Assert.AreEqual (2, town.TotalActive);
 
 			for (int i = 0; i < 100; i++) {
 				constructionEngine.Update (town);
@@ -52,7 +64,6 @@ namespace townsim.Engine.Tests.Integration
 			Assert.AreEqual (2, town.Buildings.TotalCompleted);
 			Assert.AreEqual (2, town.Buildings.TotalCompletedHouses);
 			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
-
 		}
 
 		[Test]
@@ -60,9 +71,15 @@ namespace townsim.Engine.Tests.Integration
 		{
 			var settings = new EngineSettings (10);
 			var constructionEngine = new ConstructionEngine (settings, new EngineClock(settings));
+
 			var town = new Town (5);
+
+			foreach (var person in town.People)
+				person.Activity = ActivityType.Builder;
+			
 			constructionEngine.Update (town);
-			Assert.AreEqual (5, town.TotalEmployed);
+
+			Assert.AreEqual (5, town.TotalActive);
 
 			for (int i = 0; i < 1000; i++) {
 				constructionEngine.Update (town);
@@ -77,7 +94,6 @@ namespace townsim.Engine.Tests.Integration
 			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
 
 
-			//population
 		}
 	}
 }

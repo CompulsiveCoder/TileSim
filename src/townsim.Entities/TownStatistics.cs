@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace townsim.Entities
 {
@@ -19,24 +20,24 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
-		public int TotalBreedingPairs
+		public int TotalParentalCouples
 		{
 			get {
-				int totalBreedingMales = 0;
-				int totalBreedingFemales = 0;
+				int totalFertileMales = 0;
+				int totalFertileFemales = 0;
 				foreach (var person in People) {
 					if (person.IsAdult && person.Age <= 50) {
 						if (person.Gender == Gender.Male)
-							totalBreedingMales++;
+							totalFertileMales++;
 						else
-							totalBreedingFemales++;
+							totalFertileFemales++;
 					}
 				}
 
-				if (totalBreedingMales > totalBreedingFemales)
-					return totalBreedingFemales;
+				if (totalFertileMales > totalFertileFemales)
+					return totalFertileFemales;
 				else
-					return totalBreedingMales;
+					return totalFertileMales;
 			}
 		}
 
@@ -144,28 +145,26 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
-		public int TotalEmployed
+		public int TotalActive
 		{
 			get {
-				int totalEmployed = 0;
-				foreach (var person in People) {
-					if (person.IsEmployed)
-						totalEmployed++;
-				}
-				return totalEmployed;
+				var total = (from person in People
+						where person.Activity != ActivityType.Inactive
+					select person).Count();
+
+				return total;
 			}
 		}
 
 		[JsonIgnore]
-		public int TotalUnemployed
+		public int TotalInactive
 		{
 			get {
-				int totalUnemployed = 0;
-				foreach (var person in People) {
-					if (!person.IsEmployed)
-						totalUnemployed++;
-				}
-				return totalUnemployed;
+				var total = (from person in People
+					where person.Activity == ActivityType.Inactive
+					select person).Count();
+
+				return total;
 			}
 		}
 

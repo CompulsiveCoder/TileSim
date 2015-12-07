@@ -1,5 +1,6 @@
 ﻿using System;
 using townsim.Entities;
+using datamanager.Data;
 
 namespace townsim.Data
 {

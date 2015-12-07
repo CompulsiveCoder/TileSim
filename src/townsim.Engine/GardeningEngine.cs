@@ -33,7 +33,7 @@ namespace townsim.Engine
 
 		public void HireWorkers(Town town)
 		{
-			if (town.TotalUnemployed > 0) {
+			if (town.TotalInactive > 0) {
 				var treesToPlant = town.VegetablesToPlantPerDay;
 
 				var workersNeeded = treesToPlant;
@@ -45,7 +45,7 @@ namespace townsim.Engine
 
 					Workers.Hire (town, 1, ActivityType.Gardening, plant);
 
-					if (plant.Workers.Length > 0) {
+					if (plant.People.Length > 0) {
 						var plants = new List<Plant> (town.Plants);
 						plants.Add (plant);
 						town.Plants = plants.ToArray ();
@@ -58,7 +58,7 @@ namespace townsim.Engine
 		{
 			foreach (var person in town.People) {
 				if (person.Activity == ActivityType.Gardening) {
-					var plant = (Plant)person.EmploymentTarget;
+					var plant = (Plant)person.ActivityTarget;
 
 					if (plant == null) {
 						plant = new Plant (PlantType.Vegetable);

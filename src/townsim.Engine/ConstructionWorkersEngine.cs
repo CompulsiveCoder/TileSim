@@ -16,7 +16,7 @@ namespace townsim.Engine
 
 		public void Hire(Town town, Building building)
 		{
-			var availableWorkers = town.TotalUnemployed;
+			var availableWorkers = town.TotalInactive;
 			var workersNeeded = WorkersPerBuilding;
 			var workersToHire = 0;
 

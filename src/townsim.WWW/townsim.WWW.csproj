@@ -39,22 +39,21 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\lib\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="datamanager.Entities">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="datamanager.Data">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="web.config" />
-    <Content Include="Town.aspx" />
-    <Content Include="Towns.aspx" />
     <Content Include="Towns.css" />
     <Content Include="towns.js" />
     <Content Include="default.css" />
-    <Content Include="Player.aspx" />
-    <Content Include="CurrentTown.aspx" />
     <Content Include="Log.aspx" />
     <Content Include="NewGame.aspx" />
-    <Content Include="EngineList.aspx" />
-    <Content Include="Forestry.aspx" />
-    <Content Include="ForestrySave.aspx" />
     <Content Include="GameInfo.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />

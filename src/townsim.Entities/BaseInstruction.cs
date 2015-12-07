@@ -6,7 +6,7 @@ namespace townsim.Entities
 	{
 		public Type TargetType;
 
-		public Guid TargetId;
+		public string TargetId;
 
 		public BaseInstruction ()
 		{

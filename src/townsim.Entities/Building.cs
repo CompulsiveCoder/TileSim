@@ -1,11 +1,12 @@
 ﻿using System;
 using Newtonsoft.Json;
+using datamanager.Entities;
 
 namespace townsim.Entities
 {
 	[Serializable]
-	[JsonObject("Building")]
-	public class Building : BaseEntity, IEmploymentTarget
+	[JsonObject("Building", IsReference=true)]
+	public class Building : BaseEntity, IActivityTarget
 	{
 		public bool IsCompleted { get; set; }
 		public double PercentComplete { get; set; }
@@ -19,7 +20,8 @@ namespace townsim.Entities
 		public int Timber { get; set; }
 		public int TimberCost { get; set; }
 
-		public Person[] Workers { get;set; }
+		[TwoWay("Home")]
+		public Person[] People { get;set; }
 
 		public TimeSpan ConstructionStartTime { get; set; }
 
@@ -53,7 +55,7 @@ namespace townsim.Entities
 
 		public void Construct()
 		{
-			Workers = new Person[]{ };
+			People = new Person[]{ };
 		}
 	}
 }

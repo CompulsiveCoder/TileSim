@@ -10,7 +10,7 @@ namespace townsim.Data
 		{
 		}
 
-		public Town Read(Guid townId)
+		public Town Read(string townId)
 		{
 			var client = new RedisClient();
 			var json = client.Get (new TownKeys ().GetTownKey (townId));

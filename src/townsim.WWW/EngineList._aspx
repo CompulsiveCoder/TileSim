@@ -6,18 +6,17 @@
 <head runat="server">
 	<title>Engine List</title>
 	<script runat="server">
-	Guid EngineId;
+	string EngineId;
 
 	void Page_Load(object sender, EventArgs e)
 	{
-		string idString = Request.QueryString["engineId"];	
+		string id = Request.QueryString["engineId"];	
 
-		if (!String.IsNullOrEmpty(idString))
+		if (!String.IsNullOrEmpty(id))
 		{
-			EngineId = Guid.Parse(idString);
+			EngineId = id;
 
-			if (EngineId != Guid.Empty)
-				CurrentEngine.StartThread(EngineId);
+			CurrentEngine.StartThread(EngineId);
 		}
 	}
 	</script>
@@ -42,7 +41,7 @@
 	<link rel="stylesheet" type="text/css" href="default.css">
 	<h1>Engine List/h1>
 		<div class="pnl" id="propCont">
-			<% if (EngineId == Guid.Empty){ %>
+			<% if (EngineId == String.Empty){ %>
 			<% foreach (var engineId in new EngineIdManager().GetIds()){ %>
 				<div><a href="Default.aspx?engineId=<%= engineId %>"><%= engineId %></a></div>
 			<% } %>

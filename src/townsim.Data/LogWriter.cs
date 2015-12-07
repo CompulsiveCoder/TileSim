@@ -9,14 +9,14 @@ namespace townsim.Data
 		{
 		}
 
-		public void AppendLine(Guid engineId, string line)
+		public void AppendLine(string engineId, string line)
 		{
 			var client = new RedisClient();
 			var key = new LogKeys ().GetLogKey (engineId);
 			client.Append (key, line + "\n");
 		}
 
-		public string ReadAll(Guid engineId)
+		public string ReadAll(string engineId)
 		{
 			var client = new RedisClient ();
 			var key = new LogKeys ().GetLogKey (engineId);

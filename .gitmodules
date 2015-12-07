@@ -1,0 +1,3 @@
+[submodule "mod/datamanager"]
+	path = mod/datamanager
+	url = https://github.com/CompulsiveCoder/datamanager.git

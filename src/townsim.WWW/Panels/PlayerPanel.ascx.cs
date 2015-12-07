@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.UI;
 using townsim.Entities;
 using townsim.Data;
+using datamanager.Data;
 
 namespace townsim
 {
@@ -14,8 +15,7 @@ namespace townsim
 
 		public void Page_Load(object sender, EventArgs e)
 		{
-			var indexer = new TownIndexer();
-			var towns = indexer.Get();
+			var towns = new DataManager().Get<Town>();
 			if (towns.Length > 0)
 			{
 				Town = towns[0];

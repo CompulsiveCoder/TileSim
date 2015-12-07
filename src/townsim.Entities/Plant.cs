@@ -1,8 +1,10 @@
 ﻿using System;
+using datamanager.Entities;
 
 namespace townsim.Entities
 {
-	public class Plant : IEmploymentTarget
+	[Serializable]
+	public class Plant : IActivityTarget
 	{
 		public double Age { get;set; }
 		public double Size { get;set; }
@@ -18,11 +20,11 @@ namespace townsim.Entities
 
 		public TimeSpan TimeHarvested { get; set; }
 
-		public Person[] Workers { get;set; }
+		public Person[] People { get;set; }
 
 		public Plant ()
 		{
-			Workers = new Person[]{ };
+			People = new Person[]{ };
 		}
 
 		public Plant(PlantType type)
@@ -43,7 +45,7 @@ namespace townsim.Entities
 
 		public void Construct()
 		{
-			Workers = new Person[]{ };
+			People = new Person[]{ };
 		}
 	}
 }

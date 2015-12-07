@@ -20,6 +20,24 @@ namespace townsim.Engine
 
 		public void ChooseActivity(Person person)
 		{
+
+			if (PersonIsHomeless(person)) {
+				person.Start (ActivityType.Builder);
+			} else {
+				ChooseActivityRandomly (person);
+			}
+
+
+		}
+
+		public bool PersonIsHomeless(Person person)
+		{
+			return person.Home == null
+				|| !person.Home.IsCompleted;
+		}
+
+		public void ChooseActivityRandomly(Person person)
+		{
 			// TODO: Implement priorities
 			var activities = new string[] {
 				"Builder",

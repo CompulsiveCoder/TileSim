@@ -29,6 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="datamanager.Data">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="datamanager.Entities">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

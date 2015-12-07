@@ -4,9 +4,12 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using townsim.Alerts;
 using System.Linq;
+using datamanager.Entities;
 
 namespace townsim.Entities
 {
+	[Serializable]
+	[JsonObject(IsReference = true)]
 	public partial class Town : BaseEntity
 	{
 		public string Name { get;set; }
@@ -43,10 +46,11 @@ namespace townsim.Entities
 		public int TotalEmigrants { get;set; }
 
 		[JsonProperty]
-		public Person[] People = new Person[]{};
+		[TwoWay("Town")]
+		public Person[] People { get;set; }
 
 		[JsonProperty]
-		public Plant[] Plants = new Plant[]{};
+		public Plant[] Plants { get; set; }
 
 		[JsonIgnore]
 		public Plant[] Trees
@@ -84,6 +88,7 @@ namespace townsim.Entities
 			set;
 		}
 
+		[JsonIgnore]
 		public int TotalGardeners {
 			get {
 				return PeopleDoing(ActivityType.Gardening);
@@ -114,6 +119,7 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
+		[TwoWay("Town")]
 		public BuildingCollection Buildings { get; set; }
 
 		[JsonIgnore]
@@ -121,25 +127,33 @@ namespace townsim.Entities
 
 		public Town ()
 		{
-			Id = Guid.NewGuid ();
+			Id = Guid.NewGuid ().ToString();
 			InitializeDefaultValues ();
+		}
+
+		public Town (params Person[] people)
+		{
+			InitializeDefaultValues (people);
 		}
 
 		public Town (int population)
 		{
-			Id = Guid.NewGuid ();
+			// TODO: Remove
+			//Id = Guid.NewGuid ();
 			InitializeDefaultValues (population);
 		}
 
 		public Town (int population, int numberOfTrees)
 		{
-			Id = Guid.NewGuid ();
+			// TODO: Remove
+			//Id = Guid.NewGuid ();
 			InitializeDefaultValues (population, numberOfTrees);
 		}
 
 		public Town (string name, int population)
 		{
-			Id = Guid.NewGuid ();
+			// TODO: Remove
+			//Id = Guid.NewGuid ();
 			Name = name;
 			InitializeDefaultValues (population);
 		}
@@ -152,6 +166,7 @@ namespace townsim.Entities
 			);
 		}
 
+		// TODO: Tidy up the following functions and remove unneeded ones
 		public void InitializeDefaultValues(int population)
 		{
 			InitializeDefaultValues (population, new Random().Next(500));
@@ -159,6 +174,22 @@ namespace townsim.Entities
 
 		public void InitializeDefaultValues(int population, int numberOfTrees)
 		{
+			var people = CreatePeople (population);
+			InitializeDefaultValues (people);
+		}
+
+		public void InitializeDefaultValues(Person[] people)
+		{
+			InitializeDefaultValues (people, new Random().Next(500));
+		}
+
+		public void InitializeDefaultValues(Person[] people, int numberOfTrees)
+		{
+			People = people;
+			foreach (var person in people) {
+				person.Town = this;
+			}
+
 			var random = new Random ();
 			WaterSources = random.Next(50000);
 			FoodSources = random.Next(1000);
@@ -171,14 +202,12 @@ namespace townsim.Entities
 
 			Buildings = new BuildingCollection();
 
-			CreatePeople (population);
-
 			CreateTrees (numberOfTrees);
 
 			Alerts = new BaseAlert[]{ };
 		}
 
-		public void CreatePeople(int numberOfPeople)
+		public Person[] CreatePeople(int numberOfPeople)
 		{
 			var people = new PersonCollection ();
 			var personCreator = new PersonCreator ();
@@ -187,7 +216,7 @@ namespace townsim.Entities
 				person.Location = this;
 				people.Add (person);
 			}
-			People = people.ToArray ();
+			return people.ToArray ();
 		}
 
 		public void CreateTrees(int numberOfTrees)
@@ -238,7 +267,7 @@ namespace townsim.Entities
 		{
 			var list = new List<Person> ();
 			foreach (var person in People) {
-				if (!person.IsEmployed) {
+				if (!person.IsActive) {
 					list.Add (person);
 				}
 			}
@@ -257,7 +286,7 @@ namespace townsim.Entities
 		public Plant FindRipeUnassignedVegetable ()
 		{
 			var plants = (from vegetable in RipeVegetables
-			        where vegetable.Workers.Length == 0
+			        where vegetable.People.Length == 0
 				select vegetable).ToArray();
 
 			return plants.Length > 0

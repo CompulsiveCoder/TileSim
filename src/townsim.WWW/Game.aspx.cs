@@ -8,21 +8,15 @@ namespace townsim
 	
 	public partial class Game : System.Web.UI.Page
 	{
-		public Guid EngineId = Guid.Empty;
+		public string EngineId = String.Empty;
 
 		public void Page_Load(object sender, EventArgs e)
 		{
-			var idString = Request.QueryString["engineId"];
-			if (!String.IsNullOrEmpty(idString))
+			var id = Request.QueryString["engineId"];
+			if (!String.IsNullOrEmpty(id))
 			{
-				EngineId = Guid.Parse(idString);	
-				if (EngineId != Guid.Empty)
-					CurrentEngine.StartThread(EngineId);
-			}
-			else
-			{
-				if (CurrentEngine.Id != Guid.Empty)
-					EngineId = CurrentEngine.Id;
+				EngineId = id;	
+				CurrentEngine.StartThread(EngineId);
 			}
 		}
 	}

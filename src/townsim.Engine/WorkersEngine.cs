@@ -2,6 +2,8 @@
 using townsim.Data;
 using townsim.Entities;
 using System.Collections.Generic;
+using System.Linq;
+using datamanager.Entities;
 
 namespace townsim.Engine
 {
@@ -11,15 +13,15 @@ namespace townsim.Engine
 		{
 		}
 
-		public int Hire(Town town, int numberOfWorkersToHire, ActivityType employmentType, IEmploymentTarget target)
+		public int Hire(Town town, int numberOfWorkersToHire, ActivityType employmentType, IActivityTarget target)
 		{
-			if (numberOfWorkersToHire > town.TotalUnemployed)
+			if (numberOfWorkersToHire > town.TotalInactive)
 				return 0;
 			else {
 				//town.Workers += numberOfWorkersToHire;
 				int numberOfWorkersHired = 0;
 				foreach (var person in town.People) {
-					if (person.CanWork && !person.IsEmployed
+					if (person.CanWork && !person.IsActive
 					    && numberOfWorkersHired < numberOfWorkersToHire) {
 						Hire (town, person, employmentType, target);
 						numberOfWorkersHired++;
@@ -29,20 +31,26 @@ namespace townsim.Engine
 			}
 		}
 
-		public void Hire(Town town, Person person, ActivityType employmentType, IEmploymentTarget target)
+		public void Hire(Town town, Person person, ActivityType employmentType, IActivityTarget target)
 		{
-			person.IsEmployed = true;
 			person.Activity = employmentType;
-			person.EmploymentTarget = target;
+			person.ActivityTarget = target;
 		
 			AddWorkerToTarget (target, person);
 		}
 
-		public void AddWorkerToTarget(IEmploymentTarget target, Person person)
+		public void AddWorkerToTarget(IActivityTarget target, Person person)
 		{
-			var workers = new List<Person> (target.Workers);
-			workers.Add (person);
-			target.Workers = workers.ToArray ();
+			var people = new List<Person> ();
+
+			people.AddRange (
+				(from p in target.People
+				where p.Id == person.Id
+					select p
+				).ToArray()
+			);
+			people.Add (person);
+			target.People = people.ToArray ();
 		}
 
 		/*public bool Fire(Town town, int numberOfWorkersToFire)
@@ -63,23 +71,22 @@ namespace townsim.Engine
 
 		public void Fire(Person person)
 		{
-			person.IsEmployed = false;
 			person.Activity = ActivityType.Inactive;
 
-			if (person.EmploymentTarget != null) {
-				person.EmploymentTarget.Workers = new Person[]{ };
-				person.EmploymentTarget = null;
+			if (person.ActivityTarget != null) {
+				person.ActivityTarget.People = new Person[]{ };
+				person.ActivityTarget = null;
 			}
 		}
 
-		public void Fire(IEmploymentTarget target)
+		public void Fire(IActivityTarget target)
 		{
-			foreach (var person in target.Workers) {
+			foreach (var person in target.People) {
 				Fire (person);
 			}
 
-			if (target.Workers.Length > 0) {
-				target.Workers = new Person[]{ };
+			if (target.People.Length > 0) {
+				target.People = new Person[]{ };
 			}
 		}
 	}

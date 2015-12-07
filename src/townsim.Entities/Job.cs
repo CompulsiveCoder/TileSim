@@ -2,6 +2,7 @@
 
 namespace townsim.Entities
 {
+	[Serializable]
 	public class Job
 	{
 		public double PercentComplete = 0;

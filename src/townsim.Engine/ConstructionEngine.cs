@@ -24,18 +24,45 @@ namespace townsim.Engine
 			Clock = clock;
 		}
 
-		public void Update(Town town)
+		public void Update(Person person)
 		{
-			StartBuildHouses (town);
+			if (person.Home == null && person.Activity == ActivityType.Builder) {
+				StartBuildingAHouse (person);
+			}
 
-			HireWorkers (town);
-
-			DoConstruction (town);
+			if (person.Activity == ActivityType.Builder) {
+				DoConstruction (person);
+			}
 		}
 
-		public void StartBuildHouses(Town town)
+		/// <summary>
+		/// Loops through all the people in the town to call the Update(person) function
+		/// </summary>
+		/// <param name="town">Town.</param>
+		public void Update(Town town)
 		{
-			var numberOfHousesToBuild = CalculateNumberOfNewHousesToStart (town);
+			foreach (var person in town.People) {
+				Update (person);
+			}
+		}
+
+		public void StartBuildingAHouse(Person person)
+		{
+			var house = new Building (Entities.BuildingType.House);
+			house.ConstructionStartTime = Clock.GameDuration;
+
+			house.AddLink ("People", person);
+
+			person.Town.Buildings.Add (house);
+
+			LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
+		}
+
+
+		//public void StartBuildHouses(Town town)
+		//{
+		//	foreach (var persion in town.People
+			//var numberOfHousesToBuild = CalculateNumberOfNewHousesToStart (town);
 				/*var fractionToBuild = 0;
 				if (town.Population > 100)
 					fractionToBuild = housesNeeded / 10;
@@ -48,37 +75,37 @@ namespace townsim.Engine
 				// Exclude houses already under construction
 				fractionToBuild -= incompleteHouses;
 */
-			for (int i = 0; i < numberOfHousesToBuild; i++) {
-					StartBuildHouse (town);
-				}
+			//for (int i = 0; i < numberOfHousesToBuild; i++) {
+			//		StartBuildHouse (town);
+			//	}
 			//}
-		}
+		//}
 
-		public void HireWorkers(Town town)
+		/*public void HireWorkers(Town town)
 		{
 			foreach (var house in town.Buildings.Houses) {
 				if (!house.IsCompleted
-				    && house.Workers.Length < 2) {
+				    && house.People.Length < 2) {
 
 					Workers.Hire (town, house);
 
 					// The approach has changed. Instead of hiring workers, each person just builds their own house
-					house.Workers [0].Home = house;
+					house.People [0].Home = house.GetLink();
 				}
 			}
-		}
+		}*/
 
-		public int CalculateNumberOfNewHousesToStart(Town town)
-		{
-			var housesNeeded = town.TotalHomelessPeople;
+		//public int CalculateNumberOfNewHousesToStart(Town town)
+		//{
+		//	var housesNeeded = town.TotalHomelessPeople;
 
-			int numberOfHousesToBuild = 0;
+		//	int numberOfHousesToBuild = 0;
 
-			numberOfHousesToBuild = housesNeeded;
+		//	numberOfHousesToBuild = housesNeeded;
 
-			numberOfHousesToBuild -= town.Buildings.TotalIncompleteHouses;
+		//	numberOfHousesToBuild -= town.Buildings.TotalIncompleteHouses;
 
-			numberOfHousesToBuild = GetConstructionLimit (town, numberOfHousesToBuild);
+		///	numberOfHousesToBuild = GetConstructionLimit (town, numberOfHousesToBuild);
 			// Limit the number of houses being built
 			//if (town.Persons.TotalIncompleteHouses <= housesNeeded) {
 				//if (town.Population > ConstructionCountLimitBase) {
@@ -94,10 +121,10 @@ namespace townsim.Engine
 			//if (numberOfHousesToBuild > town.WorkersAvailable / Workers.WorkersPerPerson)
 			//	numberOfHousesToBuild = town.WorkersAvailable / Workers.WorkersPerPerson;
 
-			return numberOfHousesToBuild;
-		}
+		//	return numberOfHousesToBuild;
+		//}
 
-		public int GetConstructionLimit(Town town, int numberOfHousesToBuild)
+		/*public int GetConstructionLimit(Town town, int numberOfHousesToBuild)
 		{
 			var limit = numberOfHousesToBuild;
 
@@ -120,17 +147,17 @@ namespace townsim.Engine
 				return maximumValue;
 			else
 				return numberToLimit;
-		}
+		}*/
 
 		public void StartBuildHouse(Town town)
 		{
-			if (town.TotalUnemployed > 0) {
+			if (town.TotalInactive > 0) {
 				var house = new Building (Entities.BuildingType.House);
 				house.ConstructionStartTime = Clock.GameDuration;
 
 				Workers.Hire (town, house);
 
-				if (house.Workers.Length > 0) {
+				if (house.People.Length > 0) {
 					town.Buildings.Add (house);
 
 					LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
@@ -138,38 +165,43 @@ namespace townsim.Engine
 			}
 		}
 
-		public void DoConstruction(Town town)
+		public void DoConstruction(Person person)
 		{
-			foreach (var house in town.Buildings.Houses) {
-				// Do the work
-				if (!house.IsCompleted && house.Workers.Length > 0) {
-					DoConstruction (town, house);
-				}
-				// Job done, fire the workers
-				if (house.PercentComplete >= 100
-					&& !house.IsCompleted) {
+			var house = person.Home;
 
-					house.PercentComplete = 100;
-					house.IsCompleted = true;
-					house.ConstructionEndTime = Clock.GameDuration;
+			var town = person.Town;
 
-					Workers.Fire (town, house);
-
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed. Duration: " + Clock.GetTimeSpanString(house.ConstructionDuration));
-				}
+			// Do the work
+			if (!house.IsCompleted && house.People.Length > 0) {
+				DoConstructionNumbers (person, house);
 			}
+			// Job done, fire the workers
+			if (house.PercentComplete >= 100
+			     && !house.IsCompleted) {
+
+				house.PercentComplete = 100;
+				house.IsCompleted = true;
+				house.ConstructionEndTime = Clock.GameDuration;
+
+				Workers.Fire (town, house);
+
+				LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
+			}
+		
 		}
 
-		public void DoConstruction(Town town, Building building)
+		public void DoConstructionNumbers(Person person, Building building)
 		{
-			if (building.Workers.Length > 0) {
+			var town = person.Town;
+
+			if (building.People.Length > 0) {
 				if (building.TimberPending > 0) {
 					if (Timber.IsTimberAvailable (town, building)) {
 						Timber.MillTimber (town, building);
 					}
 				}
 
-				var workDone = ConstructionRate * building.Workers.Length * Settings.GameSpeed;
+				var workDone = ConstructionRate * building.People.Length * Settings.GameSpeed;
 				building.PercentComplete += workDone; 
 			}
 		}

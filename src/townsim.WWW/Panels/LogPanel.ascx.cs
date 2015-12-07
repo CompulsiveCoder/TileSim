@@ -8,7 +8,7 @@ namespace townsim
 
 	public partial class LogPanel : System.Web.UI.UserControl
 	{
-		public Guid EngineId;
+		public string EngineId;
 
 		public void Page_Load(object sender, EventArgs e)
 		{

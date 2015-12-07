@@ -10,7 +10,7 @@ namespace townsim.Entities
 
 		public EditInstruction (
 			Type targetType,
-			Guid targetId,
+			string targetId,
 			string targetProperty,
 			object newValue
 		)
