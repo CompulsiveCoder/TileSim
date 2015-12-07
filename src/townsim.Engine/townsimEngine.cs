@@ -5,6 +5,8 @@ using townsim.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using datamanager.Data;
+using townsim.Engine.Activities;
+using townsim.Engine.Effects;
 
 namespace townsim.Engine
 {
@@ -259,19 +261,21 @@ namespace townsim.Engine
 			var data = new DataManager ();
 
 			var instructionEngine = new InstructionEngine ();
-			var thirstEngine = new ThirstEngine (Settings);
-			var hungerEngine = new HungerEngine (Settings);
-			var populationEngine = new PopulationEngine ();
-			var forestsEngine = new ForestsEngine (Settings);
-			var forestryEngine = new ForestryEngine (Settings, Clock);
-			var waterSourcesEngine = new WaterSourcesEngine (Settings);
-			var constructionEngine = new ConstructionEngine (Settings, Clock);
-			var plantEngine = new PlantEngine ();
-			var gardenEngine = new GardeningEngine (Settings, Clock);
-			var harvestingEngine = new HarvestingEngine (Settings, Clock);
-			var healthEngine = new HealthEngine ();
-			var choiceEngine = new ChoiceEngine ();
-			//var foodEngine = new FoodEngine ();
+
+			var thirstEffect = new ThirstEffect (Settings);
+			var hungerEffect = new HungerEffect (Settings);
+			var populationEffect = new PopulationEffect ();
+			var treeGrowthEffect = new TreeGrowthEffect (Settings);
+			var rainEffect = new RainEffect (Settings);
+			var plantGrowthEffect = new PlantGrowthEffect ();
+
+			var healthEffect = new HealthEffect ();
+
+			var decideActivity = new DecideActivity ();
+			var plantTreesActivity = new PlantTreesActivity (Settings, Clock);
+			var buildActivity = new BuildActivity (Settings, Clock);
+			var gardenActivity = new GardenActivity (Settings, Clock);
+			var harvestingActivity = new HarvestActivity (Settings, Clock);
 
 			if (Towns.Length == 0)
 				throw new TownlessException ();
@@ -280,13 +284,13 @@ namespace townsim.Engine
 			foreach (var person in People) {
 
 				// Personal
-				hungerEngine.Update (person);
-				thirstEngine.Update (person);
-				healthEngine.Update (person);
-				choiceEngine.Update (person);
+				hungerEffect.Update (person);
+				thirstEffect.Update (person);
+				healthEffect.Update (person);
+				decideActivity.Update (person);
 
 				// Activities
-				constructionEngine.Update (person);
+				buildActivity.Update (person);
 			}
 
 			var plants = new List<Plant> ();
@@ -299,17 +303,17 @@ namespace townsim.Engine
 
 
 				// Local environment
-				waterSourcesEngine.Update (town);
-				forestsEngine.Update (town);
+				rainEffect.Update (town);
+				treeGrowthEffect.Update (town);
 
 
 
-				gardenEngine.Update (town);
-				forestryEngine.Update (town);
-				harvestingEngine.Update (town);
+				gardenActivity.Update (town);
+				plantTreesActivity.Update (town);
+				harvestingActivity.Update (town);
 
 				// Global, population and migration
-				populationEngine.Update(town);
+				populationEffect.Update(town);
 
 				if (Player.Health == 0)
 					PlayerDied();
@@ -321,7 +325,7 @@ namespace townsim.Engine
 			// Local people
 			foreach (var plant in plants) {
 
-				plantEngine.Update (plant);
+				plantGrowthEffect.Update (plant);
 			}
 
 			if (totalPopulation == 0) {

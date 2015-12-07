@@ -2,9 +2,9 @@
 using townsim.Entities;
 using townsim.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Effects
 {
-	public class HungerEngine
+	public class HungerEffect
 	{
 		public decimal FoodConsumptionRate = 0.7m; // kgs
 		public decimal FoodSatisfactionRate = 1; // The rate at which hunger is reduced upon consumption
@@ -13,7 +13,7 @@ namespace townsim.Engine
 
 		public EngineSettings Settings { get;set; }
 
-		public HungerEngine (EngineSettings settings)
+		public HungerEffect (EngineSettings settings)
 		{
 			Settings = settings;
 		}
@@ -38,6 +38,7 @@ namespace townsim.Engine
 
 		public void UpdateFoodConsumption(Person person)
 		{
+			// TODO: Turn this into an activity
 			var randomiser = new Random ().Next (400);
 
 			var willEat = randomiser < person.Hunger;

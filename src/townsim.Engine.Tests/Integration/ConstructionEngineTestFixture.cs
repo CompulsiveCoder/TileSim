@@ -3,6 +3,7 @@ using NUnit.Framework;
 using townsim.Data;
 using townsim.Data.Tests;
 using townsim.Entities;
+using townsim.Engine.Activities;
 
 namespace townsim.Engine.Tests.Integration
 {
@@ -13,7 +14,7 @@ namespace townsim.Engine.Tests.Integration
 		public void Test_Housing_1pop()
 		{
 			var settings = new EngineSettings (10);
-			var constructionEngine = new ConstructionEngine (settings, new EngineClock(settings));
+			var constructionEngine = new BuildActivity (settings, new EngineClock(settings));
 
 			var person = new Person ();
 
@@ -44,7 +45,7 @@ namespace townsim.Engine.Tests.Integration
 		public void Test_Housing_2pop()
 		{
 			var settings = new EngineSettings (10);
-			var constructionEngine = new ConstructionEngine (settings, new EngineClock(settings));
+			var constructionEngine = new BuildActivity (settings, new EngineClock(settings));
 			var town = new Town (2);
 
 			foreach (var person in town.People)
@@ -70,7 +71,7 @@ namespace townsim.Engine.Tests.Integration
 		public void Test_Housing_5pop()
 		{
 			var settings = new EngineSettings (10);
-			var constructionEngine = new ConstructionEngine (settings, new EngineClock(settings));
+			var constructionEngine = new BuildActivity (settings, new EngineClock(settings));
 
 			var town = new Town (5);
 

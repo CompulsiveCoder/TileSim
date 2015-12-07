@@ -7,9 +7,9 @@ using datamanager.Entities;
 
 namespace townsim.Engine
 {
-	public class WorkersEngine
+	public class WorkersUtility
 	{
-		public WorkersEngine ()
+		public WorkersUtility ()
 		{
 		}
 

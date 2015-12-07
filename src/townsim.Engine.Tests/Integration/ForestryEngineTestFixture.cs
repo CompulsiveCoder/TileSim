@@ -2,6 +2,7 @@
 using townsim.Data.Tests;
 using NUnit.Framework;
 using townsim.Entities;
+using townsim.Engine.Activities;
 
 namespace townsim.Engine.Tests.Integration
 {
@@ -15,7 +16,7 @@ namespace townsim.Engine.Tests.Integration
 			town.TreesToPlantPerDay = 1;
 
 			var settings = new EngineSettings (1);
-			var forestryEngine = new ForestryEngine (settings, new EngineClock(settings));
+			var forestryEngine = new PlantTreesActivity (settings, new EngineClock(settings));
 
 			forestryEngine.HireWorkers (town);
 
@@ -29,7 +30,7 @@ namespace townsim.Engine.Tests.Integration
 			town.TreesToPlantPerDay = 1;
 
 			var settings = new EngineSettings (1);
-			var forestryEngine = new ForestryEngine (settings, new EngineClock(settings));
+			var forestryEngine = new PlantTreesActivity (settings, new EngineClock(settings));
 
 			// Workers need to be hired before planting can begin. Should this effect be mocked rather than using the HireWorkers function?
 			forestryEngine.HireWorkers (town);

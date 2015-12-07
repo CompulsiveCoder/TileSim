@@ -4,15 +4,17 @@ using townsim.Entities;
 using System.Collections.Generic;
 using datamanager.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Effects
 {
-	public class PopulationEngine
+	public class PopulationEffect
 	{
+		// TODO: Split up into multiple effects and/or activities
+
 		public double AgingRate = 0.1;
 		public LogWriter Log = new LogWriter ();
     	public int BirthOdds = 25; // 1 in 25
 
-		public PopulationEngine ()
+		public PopulationEffect ()
 		{
 		}
 

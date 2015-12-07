@@ -3,15 +3,15 @@ using townsim.Data;
 using townsim.Entities;
 using townsim.Alerts;
 
-namespace townsim.Engine
+namespace townsim.Engine.Effects
 {
-	public class WaterSourcesEngine
+	public class RainEffect
 	{
 		public EngineSettings Settings { get;set; }
 
 		public decimal RainRate = 0.05m;
 
-		public WaterSourcesEngine (EngineSettings settings)
+		public RainEffect (EngineSettings settings)
 		{
 			Settings = settings;
 		}

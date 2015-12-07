@@ -4,9 +4,9 @@ using townsim.Entities;
 
 namespace townsim.Engine
 {
-	public class PeopleEngine
+	public class PeopleUtility
 	{
-		public PeopleEngine ()
+		public PeopleUtility ()
 		{
 		}
 

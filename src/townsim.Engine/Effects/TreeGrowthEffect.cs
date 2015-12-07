@@ -2,15 +2,16 @@
 using townsim.Data;
 using townsim.Entities;
 
-namespace townsim.Engine
+namespace townsim.Engine.Effects
 {
-	public class ForestsEngine
+	public class TreeGrowthEffect
 	{
+		// TODO: Merge with plant growth effect
 		public EngineSettings Settings { get;set; }
 
 		public double TreeGrowthRate = 0.0000001;
 
-		public ForestsEngine (EngineSettings settings)
+		public TreeGrowthEffect (EngineSettings settings)
 		{
 			Settings = settings;
 		}

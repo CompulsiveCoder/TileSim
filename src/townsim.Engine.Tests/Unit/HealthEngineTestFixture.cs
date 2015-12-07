@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using townsim.Entities;
+using townsim.Engine.Effects;
 
 namespace townsim.Engine.Tests.Unit
 {
@@ -13,7 +14,7 @@ namespace townsim.Engine.Tests.Unit
 			var person = new Person ();
 			person.Thirst = 100;
 
-			var healthEngine = new HealthEngine ();
+			var healthEngine = new HealthEffect ();
 			healthEngine.Update (person);
 
 			Assert.Less (person.Health, 100);
@@ -25,7 +26,7 @@ namespace townsim.Engine.Tests.Unit
 			var person = new Person ();
 			person.Hunger = 100;
 
-			var healthEngine = new HealthEngine ();
+			var healthEngine = new HealthEffect ();
 			healthEngine.Update (person);
 
 			Assert.Less (person.Health, 100);
@@ -37,7 +38,7 @@ namespace townsim.Engine.Tests.Unit
 			var person = new Person ();
 			person.Health = 50;
 
-			var healthEngine = new HealthEngine ();
+			var healthEngine = new HealthEffect ();
 			healthEngine.Update (person);
 
 			Assert.Greater (person.Health, 50);

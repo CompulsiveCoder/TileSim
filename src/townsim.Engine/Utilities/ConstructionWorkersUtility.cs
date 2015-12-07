@@ -2,15 +2,15 @@
 using townsim.Data;
 using townsim.Entities;
 
-namespace townsim.Engine
+namespace townsim.Engine.Activities
 {
-	public class ConstructionWorkersEngine
+	public class ConstructionWorkersUtility
 	{
 		public int WorkersPerBuilding = 2;
 
-		WorkersEngine Workers = new WorkersEngine ();
+		WorkersUtility Workers = new WorkersUtility ();
 
-		public ConstructionWorkersEngine ()
+		public ConstructionWorkersUtility ()
 		{
 		}
 

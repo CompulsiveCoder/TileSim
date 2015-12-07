@@ -2,11 +2,11 @@
 using townsim.Entities;
 using townsim.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Effects
 {
-	public class HealthEngine
+	public class HealthEffect
 	{
-		public HealthEngine ()
+		public HealthEffect ()
 		{
 		}
 

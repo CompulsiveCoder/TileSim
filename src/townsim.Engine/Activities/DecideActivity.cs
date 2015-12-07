@@ -1,13 +1,13 @@
 ﻿using System;
 using townsim.Entities;
 
-namespace townsim.Engine
+namespace townsim.Engine.Activities
 {
-	public class ChoiceEngine
+	public class DecideActivity
 	{
 		public Random Randomizer = new Random();
 
-		public ChoiceEngine ()
+		public DecideActivity ()
 		{
 		}
 

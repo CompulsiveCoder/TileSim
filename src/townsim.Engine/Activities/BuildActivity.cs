@@ -2,23 +2,23 @@
 using townsim.Data;
 using townsim.Entities;
 
-namespace townsim.Engine
+namespace townsim.Engine.Activities
 {
-	public class ConstructionEngine
+	public class BuildActivity
 	{
 		public double ConstructionRate = 0.2;
 
 		public int ConstructionCountLimitBase = 3;
 		public double ConstructionCountLimit = 0.1;
 
-		public ConstructionWorkersEngine Workers = new ConstructionWorkersEngine();
-		public TimberEngine Timber = new TimberEngine ();
+		public ConstructionWorkersUtility Workers = new ConstructionWorkersUtility();
+		public WoodChopActivity Timber = new WoodChopActivity ();
 
 		public EngineSettings Settings { get;set; }
 
 		public EngineClock Clock { get;set; }
 
-		public ConstructionEngine (EngineSettings settings, EngineClock clock)
+		public BuildActivity (EngineSettings settings, EngineClock clock)
 		{
 			Settings = settings;
 			Clock = clock;

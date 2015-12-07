@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using townsim.Entities;
+using townsim.Engine.Effects;
 
 namespace townsim.Engine.Tests.Integration
 {
@@ -13,7 +14,7 @@ namespace townsim.Engine.Tests.Integration
 			var town = new Town (10);
 			town.WaterSources = 5;
 
-			var thirstEngine = new ThirstEngine (new EngineSettings(1));
+			var thirstEngine = new ThirstEffect (new EngineSettings(1));
 
 			throw new NotImplementedException ();
 			//thirstEngine.Update (town);

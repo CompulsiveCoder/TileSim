@@ -3,11 +3,11 @@ using townsim.Entities;
 using System.Collections.Generic;
 using townsim.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Activities
 {
-	public class ForestryEngine
+	public class PlantTreesActivity
 	{
-		public WorkersEngine Workers = new WorkersEngine();
+		public WorkersUtility Workers = new WorkersUtility();
 
 		public double PlantingTimeCost = 2;
 
@@ -15,7 +15,7 @@ namespace townsim.Engine
 
 		public EngineClock Clock;
 		
-		public ForestryEngine (EngineSettings settings, EngineClock clock)
+		public PlantTreesActivity (EngineSettings settings, EngineClock clock)
 		{
 			Settings = settings;
 			Clock = clock;

@@ -3,9 +3,9 @@ using townsim.Entities;
 using System.Collections.Generic;
 using townsim.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Activities
 {
-	public class TimberEngine
+	public class WoodChopActivity
 	{
 		/// <summary>
 		/// The amount of wastage when refining materials.
@@ -14,7 +14,7 @@ namespace townsim.Engine
 
 		public int TimberRate = 1;
 
-		public TimberEngine ()
+		public WoodChopActivity ()
 		{
 		}
 

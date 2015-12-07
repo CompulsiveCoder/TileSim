@@ -38,31 +38,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ConstructionEngine.cs" />
-    <Compile Include="ForestsEngine.cs" />
-    <Compile Include="PopulationEngine.cs" />
-    <Compile Include="WaterSourcesEngine.cs" />
-    <Compile Include="WorkersEngine.cs" />
     <Compile Include="townsimEngine.cs" />
-    <Compile Include="ConstructionWorkersEngine.cs" />
-    <Compile Include="TimberEngine.cs" />
     <Compile Include="PopulationExpiredException.cs" />
     <Compile Include="GameException.cs" />
-    <Compile Include="PeopleEngine.cs" />
     <Compile Include="TownlessException.cs" />
-    <Compile Include="ThirstEngine.cs" />
-    <Compile Include="HungerEngine.cs" />
-    <Compile Include="HealthEngine.cs" />
     <Compile Include="PlayerDiedException.cs" />
     <Compile Include="EngineLog.cs" />
     <Compile Include="CurrentEngine.cs" />
-    <Compile Include="PlantEngine.cs" />
-    <Compile Include="ForestryEngine.cs" />
     <Compile Include="EngineClock.cs" />
     <Compile Include="InstructionEngine.cs" />
-    <Compile Include="GardeningEngine.cs" />
-    <Compile Include="HarvestingEngine.cs" />
-    <Compile Include="ChoiceEngine.cs" />
+    <Compile Include="Activities\HarvestActivity.cs" />
+    <Compile Include="Activities\WoodChopActivity.cs" />
+    <Compile Include="Activities\GardenActivity.cs" />
+    <Compile Include="Activities\DecideActivity.cs" />
+    <Compile Include="Activities\BuildActivity.cs" />
+    <Compile Include="Activities\PlantTreesActivity.cs" />
+    <Compile Include="Effects\HealthEffect.cs" />
+    <Compile Include="Effects\RainEffect.cs" />
+    <Compile Include="Effects\ThirstEffect.cs" />
+    <Compile Include="Effects\HungerEffect.cs" />
+    <Compile Include="Effects\TreeGrowthEffect.cs" />
+    <Compile Include="Effects\PlantGrowthEffect.cs" />
+    <Compile Include="Effects\PopulationEffect.cs" />
+    <Compile Include="Utilities\ConstructionWorkersUtility.cs" />
+    <Compile Include="Utilities\WorkersUtility.cs" />
+    <Compile Include="Utilities\PeopleUtility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -81,5 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Alerts\" />
+    <Folder Include="Effects\" />
+    <Folder Include="Activities\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
 </Project>

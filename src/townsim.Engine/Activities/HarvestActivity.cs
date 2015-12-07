@@ -3,11 +3,11 @@ using townsim.Entities;
 using System.Collections.Generic;
 using townsim.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Activities
 {
-	public class HarvestingEngine
+	public class HarvestActivity
 	{
-		public WorkersEngine Workers = new WorkersEngine();
+		public WorkersUtility Workers = new WorkersUtility();
 
 		public double HarvestingTimeCost = 2;
 
@@ -17,7 +17,7 @@ namespace townsim.Engine
 
 		public EngineClock Clock;
 
-		public HarvestingEngine (EngineSettings settings, EngineClock clock)
+		public HarvestActivity (EngineSettings settings, EngineClock clock)
 		{
 			Settings = settings;
 			Clock = clock;

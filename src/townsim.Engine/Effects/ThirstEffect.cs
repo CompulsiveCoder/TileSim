@@ -2,9 +2,9 @@
 using townsim.Entities;
 using townsim.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Effects
 {
-	public class ThirstEngine
+	public class ThirstEffect
 	{
 		public decimal WaterConsumptionRate = 0.3m; // liters
 		public decimal ThirstSatisfactionRate = 1; // The rate at which thirst is reduced
@@ -13,7 +13,7 @@ namespace townsim.Engine
 
 		public EngineSettings Settings { get;set; }
 
-		public ThirstEngine (EngineSettings settings)
+		public ThirstEffect (EngineSettings settings)
 		{
 			Settings = settings;
 		}
@@ -37,6 +37,7 @@ namespace townsim.Engine
 
 		public void UpdateWaterConsumption(Person person)
 		{
+			// TODO: Turn this into an activity
 			var randomiser = new Random ().Next (200);
 
 			var decider = randomiser < person.Thirst;
@@ -53,8 +54,8 @@ namespace townsim.Engine
 					if (amountConsumed > person.Thirst)
 						amountConsumed = person.Thirst;
 
-          if (CurrentEngine.PlayerId == person.Id)
-            LogWriter.Current.AppendLine (CurrentEngine.Id, "Player consumed " + Convert.ToInt32(amountConsumed) + "ml water.");
+					if (CurrentEngine.PlayerId == person.Id)
+						LogWriter.Current.AppendLine (CurrentEngine.Id, "Player consumed " + Convert.ToInt32 (amountConsumed) + "ml water.");
 					
 					person.Location.WaterSources -= amountConsumed;
 					person.Thirst -= amountConsumed * ThirstSatisfactionRate;

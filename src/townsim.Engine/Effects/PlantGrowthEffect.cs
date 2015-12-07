@@ -1,11 +1,11 @@
 ﻿using System;
 using townsim.Entities;
 
-namespace townsim.Engine
+namespace townsim.Engine.Effects
 {
-	public class PlantEngine
+	public class PlantGrowthEffect
 	{
-		public PlantEngine ()
+		public PlantGrowthEffect ()
 		{
 		}
 
