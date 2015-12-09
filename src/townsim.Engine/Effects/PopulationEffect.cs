@@ -35,7 +35,7 @@ namespace townsim.Engine.Effects
 		public void UpdatePopulationBirthRate(Town town)
 		{
 			var random = new Random ();
-			for (int i = 0; i < town.TotalParentalCouples; i++) {
+			for (int i = 0; i < town.TotalCouples; i++) {
 				var randomNumber = random.Next (1, BirthOdds);
 				if (randomNumber < 1) {
 					IncreasePopulation (town, new PersonCreator ().CreateBabies (1));

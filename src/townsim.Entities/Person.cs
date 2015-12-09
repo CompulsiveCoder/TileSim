@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using datamanager.Entities;
+using System.Collections.Generic;
 
 namespace townsim.Entities
 {
@@ -53,6 +54,21 @@ namespace townsim.Entities
 		[TwoWayAttribute("People")]
 		public Town Town { get; set; }
 
+		public Dictionary<PriorityTypes, decimal> Priorities = new Dictionary<PriorityTypes, decimal> ();
+
+		public Dictionary<SupplyTypes, decimal> Supplies = new Dictionary<SupplyTypes, decimal> ();
+
+		public Person ()
+		{
+			Priorities.Add (PriorityTypes.Food, 0);
+			Priorities.Add (PriorityTypes.Water, 0);
+			Priorities.Add (PriorityTypes.Shelter, 0);
+
+			Supplies.Add (SupplyTypes.Food, 10);
+			Supplies.Add (SupplyTypes.Water, 100);
+			Supplies.Add (SupplyTypes.Timber, 50);
+		}
+
 		public void Start(ActivityType activity)
 		{
 			Activity = activity;
@@ -60,7 +76,7 @@ namespace townsim.Entities
 
 		public void Finish ()
 		{
-			throw new NotImplementedException ();
+			Activity = ActivityType.Inactive;
 		}
 
 		public void FocusOn(IActivityTarget target)
@@ -68,9 +84,6 @@ namespace townsim.Entities
 			ActivityTarget = target;
 		}
 
-		public Person ()
-		{
-		}
 
 		public void IncreaseAge(double amount)
 		{

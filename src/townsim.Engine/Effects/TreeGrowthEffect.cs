@@ -25,7 +25,7 @@ namespace townsim.Engine.Effects
 		{
 			foreach (var tree in town.Trees) {
 				if (tree.PercentPlanted >= 100) {
-					var growthAmount = tree.Size * TreeGrowthRate * Settings.GameSpeed;
+					var growthAmount = tree.Size * TreeGrowthRate;
 					tree.Size += growthAmount;
 				}
 			}

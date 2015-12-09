@@ -20,7 +20,7 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
-		public int TotalParentalCouples
+		public int TotalCouples
 		{
 			get {
 				int totalFertileMales = 0;

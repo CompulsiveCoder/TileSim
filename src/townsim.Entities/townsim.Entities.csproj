@@ -62,6 +62,8 @@
     <Compile Include="BaseInstruction.cs" />
     <Compile Include="Activity.cs" />
     <Compile Include="IActivityTarget.cs" />
+    <Compile Include="PriorityTypes.cs" />
+    <Compile Include="SupplyTypes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

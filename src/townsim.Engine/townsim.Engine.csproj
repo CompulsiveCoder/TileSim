@@ -63,6 +63,9 @@
     <Compile Include="Utilities\ConstructionWorkersUtility.cs" />
     <Compile Include="Utilities\WorkersUtility.cs" />
     <Compile Include="Utilities\PeopleUtility.cs" />
+    <Compile Include="Activities\EatActivity.cs" />
+    <Compile Include="Effects\ColdEffect.cs" />
+    <Compile Include="Activities\DrinkActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -84,5 +87,6 @@
     <Folder Include="Effects\" />
     <Folder Include="Activities\" />
     <Folder Include="Utilities\" />
+    <Folder Include="Decisions\" />
   </ItemGroup>
 </Project>

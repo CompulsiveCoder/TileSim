@@ -28,7 +28,7 @@ namespace townsim.Engine.Effects
 			{
 				var randomValue = new Random ().Next (10);
 				var actualValue = (decimal)randomValue * RainRate;
-				town.WaterSources += actualValue * Settings.GameSpeed;
+				town.WaterSources += actualValue;
 
         LogWriter.Current.AppendLine (CurrentEngine.Id, "It rained " + actualValue + "litres");
 			}
