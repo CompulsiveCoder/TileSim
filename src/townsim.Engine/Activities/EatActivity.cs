@@ -2,9 +2,9 @@
 using townsim.Entities;
 using townsim.Data;
 
-namespace townsim.Engine
+namespace townsim.Engine.Activities
 {
-	public class EatActivity
+	public class EatActivity : BaseActivity
 	{
 		public decimal FoodConsumptionRate = 0.7m; // kgs
 		public decimal FoodSatisfactionRate = 1; // The rate at which hunger is reduced upon consumption
@@ -18,7 +18,7 @@ namespace townsim.Engine
 
 		public void Update(Person person)
 		{
-			if (person.ActivityType == ActivityType.Eating) {
+			if (person.Activity == ActivityType.Eating) {
 				var amountOfFoodRequired = person.Hunger;
 				var amountConsumed = amountOfFoodRequired * FoodConsumptionRate;
 
@@ -41,8 +41,7 @@ namespace townsim.Engine
 				if (person.Hunger <= 0)
 				{
 					person.Hunger = 0;
-					person.Priorities [PriorityTypes.Food] = 0;
-					person.ActivityType = ActivityType.Inactive;
+					person.Activity = ActivityType.Inactive;
 				}
 			}
 		}

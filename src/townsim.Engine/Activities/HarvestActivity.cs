@@ -5,7 +5,7 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
-	public class HarvestActivity
+	public class HarvestActivity : BaseActivity
 	{
 		public WorkersUtility Workers = new WorkersUtility();
 
@@ -13,14 +13,8 @@ namespace townsim.Engine.Activities
 
 		public decimal FoodToPlantRatio = 0.5m;
 
-		public EngineSettings Settings;
-
-		public EngineClock Clock;
-
-		public HarvestActivity (EngineSettings settings, EngineClock clock)
+		public HarvestActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
 		{
-			Settings = settings;
-			Clock = clock;
 		}
 
 		public void Update(Town town)
@@ -54,7 +48,7 @@ namespace townsim.Engine.Activities
 		public void PerformHarvesting(Town town)
 		{
 			foreach (var person in town.People) {
-				if (person.ActivityType == ActivityType.Harvesting) {
+				if (person.Activity == ActivityType.Harvesting) {
 					PerformHarvesting (town, person);
 				}
 			}

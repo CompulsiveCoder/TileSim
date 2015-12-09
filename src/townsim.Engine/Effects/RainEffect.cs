@@ -11,6 +11,8 @@ namespace townsim.Engine.Effects
 
 		public decimal RainRate = 0.05m;
 
+		public Random Random = new Random ();
+
 		public RainEffect (EngineSettings settings)
 		{
 			Settings = settings;
@@ -23,10 +25,10 @@ namespace townsim.Engine.Effects
 
 		public void Rain(Town town)
 		{
-			var probability = new Random ().Next (100);
+			var probability = Random.Next (100);
 			if (probability > 98)
 			{
-				var randomValue = new Random ().Next (10);
+				var randomValue = Random.Next (10);
 				var actualValue = (decimal)randomValue * RainRate;
 				town.WaterSources += actualValue;
 

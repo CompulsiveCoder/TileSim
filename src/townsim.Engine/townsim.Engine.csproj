@@ -64,12 +64,14 @@
     <Compile Include="Utilities\WorkersUtility.cs" />
     <Compile Include="Utilities\PeopleUtility.cs" />
     <Compile Include="Activities\EatActivity.cs" />
-    <Compile Include="Effects\ColdEffect.cs" />
     <Compile Include="Activities\DrinkActivity.cs" />
     <Compile Include="Decisions\WaterDecision.cs" />
     <Compile Include="Decisions\FoodDecision.cs" />
     <Compile Include="Activities\CollectWaterActivity.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
+    <Compile Include="Prioritizers\ShelterPrioritizer.cs" />
+    <Compile Include="Prioritizers\WaterPrioritizer.cs" />
+    <Compile Include="Prioritizers\FoodPrioritizer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -92,5 +94,6 @@
     <Folder Include="Activities\" />
     <Folder Include="Utilities\" />
     <Folder Include="Decisions\" />
+    <Folder Include="Prioritizers\" />
   </ItemGroup>
 </Project>

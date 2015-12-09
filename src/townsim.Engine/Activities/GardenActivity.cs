@@ -5,7 +5,7 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
-	public class GardenActivity
+	public class GardenActivity : BaseActivity
 	{
 		public WorkersUtility Workers = new WorkersUtility();
 
@@ -57,7 +57,7 @@ namespace townsim.Engine.Activities
 		public void DoPlanting(Town town)
 		{
 			foreach (var person in town.People) {
-				if (person.ActivityType == ActivityType.Gardening) {
+				if (person.Activity == ActivityType.Gardening) {
 					var plant = (Plant)person.ActivityTarget;
 
 					if (plant == null) {

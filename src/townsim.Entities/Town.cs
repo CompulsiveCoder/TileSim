@@ -45,9 +45,29 @@ namespace townsim.Entities
 		public int TotalImmigrants { get;set; }
 		public int TotalEmigrants { get;set; }
 
+		private Person[] people;
 		[JsonProperty]
 		[TwoWay("Town")]
-		public Person[] People { get;set; }
+		public Person[] People
+		{
+			get
+			{
+				return people;
+			}
+			set
+			{
+				// TODO: Find a better way to ensure no nulls are in the list
+				var nullFound = false;
+				var list = new List<Person> ();
+				foreach (var p in value) {
+					if (p == null)
+						nullFound = true;
+					else
+						list.Add (p);
+				}
+				people = list.ToArray();
+			}
+		}
 
 		[JsonProperty]
 		public Plant[] Plants { get; set; }
@@ -274,11 +294,13 @@ namespace townsim.Entities
 			return list.ToArray ();
 		}
 
-		public int PeopleDoing(ActivityType jobType)
+		public int PeopleDoing(ActivityType activity)
 		{
 			var matchingPeople = (from person in People
-					where person.ActivityType == jobType
-				select person).ToArray();
+			                      where
+			                          person != null
+			                          && person.Activity == activity
+			                      select person).ToArray ();
 
 			return matchingPeople.Length;
 		}

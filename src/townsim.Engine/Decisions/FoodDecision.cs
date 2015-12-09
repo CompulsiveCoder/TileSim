@@ -11,17 +11,17 @@ namespace townsim.Engine
 
 		public ActivityType Decide(Person person)
 		{
-			if (person.Hunger > 80
+			if (person.Hunger > 50 // TODO: Make configurable
 				&& person.Supplies[SupplyTypes.Food] > 0)
-				person.ActivityType = ActivityType.Eating;
+				person.Activity = ActivityType.Eating;
 			else {
 				if (person.Town.RipeVegetables.Length > 0)
-					person.ActivityType = ActivityType.Harvesting;
+					person.Activity = ActivityType.Harvesting;
 				else
-					person.ActivityType = ActivityType.Gardening;
+					person.Activity = ActivityType.Gardening;
 			}
 
-			return person.ActivityType;
+			return person.Activity;
 		}
 	}
 }

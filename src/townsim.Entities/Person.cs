@@ -33,10 +33,17 @@ namespace townsim.Entities
 
 		public bool IsActive
 		{
-			get { return ActivityType != ActivityType.Inactive; }
+			get { return Activity != ActivityType.Inactive; }
 		}
 
-		public ActivityType ActivityType;
+		private ActivityType activity;
+		public ActivityType Activity
+		{
+			get { return activity; }
+			set { activity = value; }
+		}
+
+		public Dictionary<string, object> ActivityData = new Dictionary<string, object> ();
 
 		[JsonIgnore]
 		public IActivityTarget ActivityTarget { get;set; }
@@ -66,7 +73,7 @@ namespace townsim.Entities
 			Priorities.Add (PriorityTypes.Water, 0);
 			Priorities.Add (PriorityTypes.Shelter, 0);
 
-			Supplies.Add (SupplyTypes.Food, 10);
+			Supplies.Add (SupplyTypes.Food, 0);
 			SuppliesMax.Add (SupplyTypes.Food, 1000);
 			Supplies.Add (SupplyTypes.Water, 0);
 			SuppliesMax.Add (SupplyTypes.Water, 1000);
@@ -75,12 +82,14 @@ namespace townsim.Entities
 
 		public void Start(ActivityType activity)
 		{
-			ActivityType = activity;
+			ActivityData.Clear ();
+			Activity = activity;
 		}
 
 		public void Finish ()
 		{
-			ActivityType = ActivityType.Inactive;
+			Activity = ActivityType.Inactive;
+			ActivityData.Clear ();
 		}
 
 		public void FocusOn(IActivityTarget target)
@@ -102,6 +111,11 @@ namespace townsim.Entities
 				Thirst = 0;
 			if (Health < 0)
 				Health = 0;
+		}
+
+		public bool Is(ActivityType activity)
+		{
+			return Activity == activity;
 		}
 	}
 }

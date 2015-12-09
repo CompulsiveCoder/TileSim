@@ -28,13 +28,14 @@ namespace townsim.Engine.Effects
 
 			person.Hunger += increase;
 
+			// TODO: Clean up
 			if (person.Hunger > 100) {
 				person.Hunger = 100;
-				person.Priorities [PriorityTypes.Food] = person.Hunger;
-			} else if (person.Hunger > 10)
-				person.Priorities [PriorityTypes.Food] = person.Hunger;
-			else
-				person.Priorities [PriorityTypes.Food] = new Random ().Next (20, 80);
+				//person.Priorities [PriorityTypes.Food] = person.Hunger;
+			} //else if (person.Hunger > 10)
+				//person.Priorities [PriorityTypes.Food] = person.Hunger;
+			//else
+				//erson.Priorities [PriorityTypes.Food] = new Random ().Next (20, 80);
 			
 		}
 	}

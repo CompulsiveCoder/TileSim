@@ -4,7 +4,7 @@ using townsim.Entities;
 
 namespace townsim.Engine.Activities
 {
-	public class BuildActivity
+	public class BuildActivity : BaseActivity
 	{
 		public double ConstructionRate = 0.2;
 
@@ -14,11 +14,7 @@ namespace townsim.Engine.Activities
 		public ConstructionWorkersUtility Workers = new ConstructionWorkersUtility();
 		public WoodChopActivity Timber = new WoodChopActivity ();
 
-		public EngineSettings Settings { get;set; }
-
-		public EngineClock Clock { get;set; }
-
-		public BuildActivity (EngineSettings settings, EngineClock clock)
+		public BuildActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
 		{
 			Settings = settings;
 			Clock = clock;
@@ -26,11 +22,11 @@ namespace townsim.Engine.Activities
 
 		public void Update(Person person)
 		{
-			if (person.Home == null && person.ActivityType == ActivityType.Builder) {
+			if (person.Home == null && person.Activity == ActivityType.Builder) {
 				StartBuildingAHouse (person);
 			}
 
-			if (person.ActivityType == ActivityType.Builder) {
+			if (person.Activity == ActivityType.Builder) {
 				DoConstruction (person);
 			}
 		}
@@ -55,101 +51,13 @@ namespace townsim.Engine.Activities
 
 			person.Town.Buildings.Add (house);
 
-			LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
-		}
-
-
-		//public void StartBuildHouses(Town town)
-		//{
-		//	foreach (var persion in town.People
-			//var numberOfHousesToBuild = CalculateNumberOfNewHousesToStart (town);
-				/*var fractionToBuild = 0;
-				if (town.Population > 100)
-					fractionToBuild = housesNeeded / 10;
-				else
-					fractionToBuild = housesNeeded;
-
-				// Count the number of houses already under construction
-				var incompleteHouses = town.Persons.TotalIncompleteHouses;
-
-				// Exclude houses already under construction
-				fractionToBuild -= incompleteHouses;
-*/
-			//for (int i = 0; i < numberOfHousesToBuild; i++) {
-			//		StartBuildHouse (town);
-			//	}
-			//}
-		//}
-
-		/*public void HireWorkers(Town town)
-		{
-			foreach (var house in town.Buildings.Houses) {
-				if (!house.IsCompleted
-				    && house.People.Length < 2) {
-
-					Workers.Hire (town, house);
-
-					// The approach has changed. Instead of hiring workers, each person just builds their own house
-					house.People [0].Home = house.GetLink();
-				}
-			}
-		}*/
-
-		//public int CalculateNumberOfNewHousesToStart(Town town)
-		//{
-		//	var housesNeeded = town.TotalHomelessPeople;
-
-		//	int numberOfHousesToBuild = 0;
-
-		//	numberOfHousesToBuild = housesNeeded;
-
-		//	numberOfHousesToBuild -= town.Buildings.TotalIncompleteHouses;
-
-		///	numberOfHousesToBuild = GetConstructionLimit (town, numberOfHousesToBuild);
-			// Limit the number of houses being built
-			//if (town.Persons.TotalIncompleteHouses <= housesNeeded) {
-				//if (town.Population > ConstructionCountLimitBase) {
-			//		numberOfHousesToBuild = (int)((double)housesNeeded * ConstructionCountLimit);
-				//} else {
-				//	numberOfHousesToBuild = housesNeeded;
-				//}
-			//}//
-
-			//numberOfHousesToBuild -= town.Persons.TotalIncompleteHouses;
-
-			// Limit to the number of workers available
-			//if (numberOfHousesToBuild > town.WorkersAvailable / Workers.WorkersPerPerson)
-			//	numberOfHousesToBuild = town.WorkersAvailable / Workers.WorkersPerPerson;
-
-		//	return numberOfHousesToBuild;
-		//}
-
-		/*public int GetConstructionLimit(Town town, int numberOfHousesToBuild)
-		{
-			var limit = numberOfHousesToBuild;
-
-			if (town.Population > 5
-			    && town.Population <= 10)
-				limit = town.Population / 2;
-			else if (town.Population > 10)
-				limit = town.Population / 5;
-			else if (town.Population > 100)
-				limit = town.Population / 10;
-			
-
-			return ApplyLimit (numberOfHousesToBuild, limit);
-				
-		}
-
-		public int ApplyLimit(int numberToLimit, int maximumValue)
-		{
-			if (numberToLimit > maximumValue)
-				return maximumValue;
+			if (person.Home.Id == house.Id && person.Id == CurrentEngine.PlayerId)
+				LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started building a home.");
 			else
-				return numberToLimit;
-		}*/
+				LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
+		}
 
-		public void StartBuildHouse(Town town)
+		/*public void StartBuildHouse(Town town)
 		{
 			if (town.TotalInactive > 0) {
 				var house = new Building (Entities.BuildingType.House);
@@ -163,7 +71,7 @@ namespace townsim.Engine.Activities
 					LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
 				}
 			}
-		}
+		}*/
 
 		public void DoConstruction(Person person)
 		{
@@ -185,7 +93,10 @@ namespace townsim.Engine.Activities
 
 				Workers.Fire (town, house);
 
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
+				if (person.Home.Id == house.Id && person.Id == CurrentEngine.PlayerId)
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player completed their house. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
+				else
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
 			}
 		
 		}

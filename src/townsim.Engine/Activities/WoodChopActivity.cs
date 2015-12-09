@@ -5,7 +5,7 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
-	public class WoodChopActivity
+	public class WoodChopActivity : BaseActivity
 	{
 		/// <summary>
 		/// The amount of wastage when refining materials.

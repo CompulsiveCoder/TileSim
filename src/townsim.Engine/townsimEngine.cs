@@ -161,16 +161,16 @@ namespace townsim.Engine
 			Console.WriteLine ("  Player:");
 			Console.WriteLine ("    Age: " + Convert.ToInt32(Player.Age) + "    Gender:" + Player.Gender + "    Health:" + Player.Health);
 			Console.WriteLine ("    Thirst: " + Convert.ToInt32(Player.Thirst) + "   Hunger:" + Convert.ToInt32(Player.Hunger));
-			Console.WriteLine ("    Activity: " + Player.ActivityType);
+			Console.WriteLine ("    Activity: " + Player.Activity);
 			Console.WriteLine ("    Home: " + (Player.Home != null ? Player.Home.PercentComplete : 0) + "%");
 
 			Console.WriteLine ();
 			Console.WriteLine ("   Priorities:");
-			Console.WriteLine ("     Water: " + (int)Player.Priorities[PriorityTypes.Water] + "%      Food: " + (int)Player.Priorities[PriorityTypes.Food] + "%   Shelter: " + (int)Player.Priorities[PriorityTypes.Shelter] + "%");
+			Console.WriteLine ("     Water: " + (int)Player.Priorities[PriorityTypes.Water] + "%      Food: " + (int)Player.Priorities[PriorityTypes.Food] + "%     Shelter: " + (int)Player.Priorities[PriorityTypes.Shelter] + "%");
 
 			Console.WriteLine ();
 			Console.WriteLine ("   Supplies:");
-			Console.WriteLine ("     Water: " + (int)Player.Supplies[SupplyTypes.Water] + " litres      Food: " + Player.Supplies[SupplyTypes.Food] + " kgs     Timber: " + (int)Player.Supplies[SupplyTypes.Timber]);
+			Console.WriteLine ("     Water: " + (int)Player.Supplies[SupplyTypes.Water] + "ml      Food: " + Player.Supplies[SupplyTypes.Food] + " kgs     Timber: " + (int)Player.Supplies[SupplyTypes.Timber]);
 
 			Console.WriteLine ();
 
@@ -189,7 +189,7 @@ namespace townsim.Engine
 				Console.WriteLine ("       Active: " + town.TotalActive + "   Inactive: " + town.TotalInactive);
 				Console.WriteLine ();
 				Console.WriteLine ("     Forestry:");
-				Console.WriteLine ("       Trees: " + town.Trees.Length + "    Forestry workers: " + town.TotalForestryWorkers);
+				Console.WriteLine ("       Trees: " + town.Trees.Length + "        Forestry workers: " + town.TotalForestryWorkers);
 				Console.WriteLine ("       Trees planted today: " + town.CountTreesPlantedToday(Clock.GameDuration) + "   Trees planted: " + town.TotalTreesPlanted + "    Trees being planted: " + town.TotalTreesBeingPlanted);
 				Console.WriteLine ("       Average tree size: " + (int)town.AverageTreeSize + "   Average tree age: " + (int)town.AverageTreeAge);
 				Console.WriteLine ();
@@ -248,7 +248,6 @@ namespace townsim.Engine
 
 			var instructionEngine = new InstructionEngine ();
 
-			var coldEffect = new ColdEffect ();
 			var thirstEffect = new ThirstEffect (Settings);
 			var hungerEffect = new HungerEffect (Settings);
 			var populationEffect = new PopulationEffect ();
@@ -256,14 +255,13 @@ namespace townsim.Engine
 			var rainEffect = new RainEffect (Settings);
 			var plantGrowthEffect = new PlantGrowthEffect ();
 
+			var shelterPrioritizer = new ShelterPrioritizer ();
+			var foodPrioritizer = new FoodPrioritizer ();
+			var waterPrioritizer = new WaterPrioritizer ();
+
 			var healthEffect = new HealthEffect ();
 
-			var decideActivity = new DecideActivity ();
-			var collectWaterActivity = new CollectWaterActivity (Settings);
-			var drinkActivity = new DrinkActivity (Settings);
-			var eatActivity = new EatActivity (Settings);
 			var plantTreesActivity = new PlantTreesActivity (Settings, Clock);
-			var buildActivity = new BuildActivity (Settings, Clock);
 			var gardenActivity = new GardenActivity (Settings, Clock);
 			var harvestingActivity = new HarvestActivity (Settings, Clock);
 
@@ -272,21 +270,15 @@ namespace townsim.Engine
 
 			// People
 			foreach (var person in People) {
-
-				// Effects
-				coldEffect.Update (person);
 				hungerEffect.Update (person);
 				thirstEffect.Update (person);
 				healthEffect.Update (person);
 
-				// Decision-making
-				decideActivity.Update (person);
+				shelterPrioritizer.Prioritize (person);
+				foodPrioritizer.Prioritize (person);
+				waterPrioritizer.Prioritize (person);
 
-				// Activities
-				collectWaterActivity.Update(person);
-				drinkActivity.Update(person);
-				eatActivity.Update(person);
-				buildActivity.Update (person);
+				Act (person);
 			}
 
 			var plants = new List<Plant> ();
@@ -327,6 +319,24 @@ namespace townsim.Engine
 				Console.ReadLine ();
 				throw new PopulationExpiredException ();
 			}
+		}
+
+		public void Act(Person person)
+		{
+			var decideActivity = new DecideActivity ();
+			var collectWaterActivity = new CollectWaterActivity (Settings);
+			var drinkActivity = new DrinkActivity (Settings);
+			var eatActivity = new EatActivity (Settings);
+			var buildActivity = new BuildActivity (Settings, Clock);
+
+			// Decision-making
+			decideActivity.Update (person);
+
+			// Activities
+			collectWaterActivity.Update(person);
+			drinkActivity.Update(person);
+			eatActivity.Update(person);
+			buildActivity.Update (person);
 		}
 
 		public void PlayerDied()

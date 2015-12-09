@@ -23,16 +23,19 @@ namespace townsim.Entities
 		public int TotalCouples
 		{
 			get {
-				int totalFertileMales = 0;
-				int totalFertileFemales = 0;
-				foreach (var person in People) {
-					if (person.IsAdult && person.Age <= 50) {
-						if (person.Gender == Gender.Male)
-							totalFertileMales++;
-						else
-							totalFertileFemales++;
-					}
-				}
+				int totalFertileMales = (from person in People
+					where person != null
+					&& person.Gender == Gender.Male
+					&& person.IsAdult
+					&& person.Age < 50 // Make this configurable
+					select person).Count();
+
+				int totalFertileFemales = (from person in People
+					where person != null
+					&& person.Gender == Gender.Male
+					&& person.IsAdult
+					&& person.Age < 50 // Make this configurable
+					select person).Count();
 
 				if (totalFertileMales > totalFertileFemales)
 					return totalFertileFemales;
@@ -45,14 +48,13 @@ namespace townsim.Entities
 		public int TotalMales
 		{
 			get {
-				int totalMales = 0;
-				foreach (var person in People) {
-					if (person.Gender == Gender.Male) {
-						totalMales++;
-					}
-				}
-
-				return totalMales;
+				if (People == null || People.Length == 0)
+					return 0;
+				else
+					return (from person in People
+				        where person != null 
+							&& person.Gender == Gender.Male
+				        select person).Count ();
 			}
 		}
 
@@ -60,14 +62,13 @@ namespace townsim.Entities
 		public int TotalFemales
 		{
 			get {
-				int totalFemales = 0;
-				foreach (var person in People) {
-					if (person.Gender == Gender.Female) {
-						totalFemales++;
-					}
-				}
-
-				return totalFemales;
+				if (People == null || People.Length == 0)
+					return 0;
+				else
+					return (from person in People
+						where person != null 
+							&& person.Gender == Gender.Female
+						select person).Count ();
 			}
 		}
 
@@ -122,12 +123,10 @@ namespace townsim.Entities
 		public int TotalBuilders
 		{
 			get {
-				int totalBuilders = 0;
-				foreach (var person in People) {
-					if (person.ActivityType == ActivityType.Builder)
-						totalBuilders++;
-				}
-				return totalBuilders;
+				return (from person in People
+				        where person != null
+				            && person.Activity == ActivityType.Builder
+				        select person).Count ();
 			}
 		}
 
@@ -135,12 +134,10 @@ namespace townsim.Entities
 		public int TotalForestryWorkers
 		{
 			get {
-				int totalForestryWorkers = 0;
-				foreach (var person in People) {
-					if (person.ActivityType == ActivityType.Forestry)
-						totalForestryWorkers++;
-				}
-				return totalForestryWorkers;
+				return (from person in People
+					where person != null
+					&& person.Activity == ActivityType.Forestry
+					select person).Count ();
 			}
 		}
 
@@ -149,7 +146,8 @@ namespace townsim.Entities
 		{
 			get {
 				var total = (from person in People
-						where person.ActivityType != ActivityType.Inactive
+						where person != null
+							&& person.Activity != ActivityType.Inactive
 					select person).Count();
 
 				return total;
@@ -161,7 +159,8 @@ namespace townsim.Entities
 		{
 			get {
 				var total = (from person in People
-					where person.ActivityType == ActivityType.Inactive
+					where person != null
+						&& person.Activity == ActivityType.Inactive
 					select person).Count();
 
 				return total;

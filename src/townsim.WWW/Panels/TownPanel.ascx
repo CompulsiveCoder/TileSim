@@ -31,7 +31,7 @@ function editTreesToPlantPerDay()
 	<div>Deaths: <%= Town.TotalDeaths %><div class="bar" style="width: <%= Town.TotalDeaths %>px; background-color: lightgray;"></div></div>
 	<div>Immigrants: <%= Town.TotalImmigrants %><div class="bar" style="width: <%= Town.TotalImmigrants %>px; background-color: lightgray;"></div></div>
 	<div>Emigrants: <%= Town.TotalEmigrants %><div class="bar" style="width: <%= Town.TotalEmigrants %>px; background-color: lightgray;"></div></div>
-	<div>Couples: <%= Town.TotalParentalCouples %><div class="bar" style="width: <%= Town.TotalParentalCouples %>px; background-color: lightgray;"></div></div>
+	<div>Couples: <%= Town.TotalCouples %><div class="bar" style="width: <%= Town.TotalCouples %>px; background-color: lightgray;"></div></div>
 	<div>Homeless People: <%= Town.TotalHomelessPeople %><div class="bar" style="width: <%= Town.TotalHomelessPeople %>px; background-color: lightgray;"></div></div>
 	<h2>Resources</h2>
 	<div>Timber: <%= (int)Town.Timber %><div class="bar" style="width: <%= (int)Town.Timber / 10 %>px; background-color: brown;"></div></div>
@@ -55,8 +55,8 @@ function editTreesToPlantPerDay()
 	<div>Trees being planted: <%= Town.TotalTreesBeingPlanted %><div class="bar" style="width: <%= Town.TotalTreesBeingPlanted %>px; background-color: lightgreen;"></div></div>
 	<h2>Environment</h2>
 	<div>Trees: <%= Town.Trees.Length %><div class="bar" style="width: <%= Town.Trees.Length/10 %>px; background-color: green;"></div></div>
-	<div>Average tree size: <%= (int)Town.AverageTreeSize %><div class="bar" style="width: <%= (int)Town.AverageTreeSize/5 %>px; background-color: green;"></div></div>
-	<div>Average tree age: <%= (int)Town.AverageTreeAge %><div class="bar" style="width: <%= (int)Town.AverageTreeAge %>px; background-color: green;"></div></div>
+	<div>Average tree size: <%= (int)Town.AverageTreeSize %><div class="bar" style="width: <%= (int)Town.AverageTreeSize/10 %>px; background-color: green;"></div></div>
+	<div>Average tree age: <%= (int)Town.AverageTreeAge %><div class="bar" style="width: <%= (int)Town.AverageTreeAge/5 %>px; background-color: green;"></div></div>
 	<h2>Buildings</h2>
 	<div>Houses: <%= Town.Buildings.TotalCompletedHouses %><div class="bar" style="width: <%= Town.Buildings.TotalCompletedHouses %>px; background-color: brown;"></div></div>
 	<div>Incomplete Houses: <%= Town.Buildings.TotalIncompleteHouses %><div class="bar" style="width: <%= Town.Buildings.TotalIncompleteHouses %>px; background-color: brown;"></div></div>

@@ -1,10 +1,11 @@
 ﻿using System;
 using townsim.Entities;
 using System.Collections.Generic;
+using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
-	public class DecideActivity
+	public class DecideActivity : BaseActivity
 	{
 		public Random Randomizer = new Random();
 
@@ -44,7 +45,7 @@ namespace townsim.Engine.Activities
 			var priorities = GetHighestPriorities (person);
 
 			if (priorities.Length == 0)
-				person.ActivityType = ActivityType.Inactive;
+				person.Start(ActivityType.Inactive);
 			else {
 				var index = 0;
 
@@ -60,8 +61,10 @@ namespace townsim.Engine.Activities
 
 		public void ChooseActivityBasedOnPriority(Person person, PriorityTypes priority)
 		{
+			var previousActivity = person.Activity;
+
 			if (priority == PriorityTypes.Shelter)
-				person.ActivityType = ActivityType.Builder;
+				person.Start(ActivityType.Builder);
 			else if (priority == PriorityTypes.Food)
 			{
 				new FoodDecision ().Decide (person);
@@ -69,6 +72,19 @@ namespace townsim.Engine.Activities
 			else if (priority == PriorityTypes.Water)
 			{
 				new WaterDecision ().Decide (person);
+			}
+
+			var activityHasChanged = previousActivity != person.Activity;
+
+			if (activityHasChanged && CurrentEngine.PlayerId == person.Id) {
+				switch (person.Activity) {
+				case ActivityType.CollectingWater:
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started collecting water.");
+					break;
+				case ActivityType.Drinking:
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started drinking water.");
+					break;
+				}
 			}
 		}
 
