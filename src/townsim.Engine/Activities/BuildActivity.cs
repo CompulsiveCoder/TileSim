@@ -4,6 +4,7 @@ using townsim.Entities;
 
 namespace townsim.Engine.Activities
 {
+	[Serializable]
 	public class BuildActivity : BaseActivity
 	{
 		public double ConstructionRate = 0.2;
@@ -12,7 +13,7 @@ namespace townsim.Engine.Activities
 		public double ConstructionCountLimit = 0.1;
 
 		public ConstructionWorkersUtility Workers = new ConstructionWorkersUtility();
-		public WoodChopActivity Timber = new WoodChopActivity ();
+		public ChopTimberActivity Timber = new ChopTimberActivity ();
 
 		public BuildActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
 		{
@@ -20,18 +21,18 @@ namespace townsim.Engine.Activities
 			Clock = clock;
 		}
 
-		public void Update(Person person)
+		public override void Act()
 		{
-			if (person.Home == null && person.Activity == ActivityType.Builder) {
-				StartBuildingAHouse (person);
+			if (Person.Home == null && Person.ActivityType == ActivityType.Builder) {
+				StartBuildingAHouse (Person);
 			}
 
-			if (person.Activity == ActivityType.Builder) {
-				DoConstruction (person);
+			if (Person.ActivityType == ActivityType.Builder) {
+				DoConstruction (Person);
 			}
 		}
 
-		/// <summary>
+		/*/// <summary>
 		/// Loops through all the people in the town to call the Update(person) function
 		/// </summary>
 		/// <param name="town">Town.</param>
@@ -40,7 +41,7 @@ namespace townsim.Engine.Activities
 			foreach (var person in town.People) {
 				Update (person);
 			}
-		}
+		}*/
 
 		public void StartBuildingAHouse(Person person)
 		{
@@ -91,7 +92,7 @@ namespace townsim.Engine.Activities
 				house.IsCompleted = true;
 				house.ConstructionEndTime = Clock.GameDuration;
 
-				Workers.Fire (town, house);
+				person.FinishActivity ();
 
 				if (person.Home.Id == house.Id && person.Id == CurrentEngine.PlayerId)
 					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player completed their house. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));

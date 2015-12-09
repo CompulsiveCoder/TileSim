@@ -4,50 +4,46 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
+	[Serializable]
 	public class DrinkActivity : BaseActivity
 	{
 		public decimal WaterConsumptionFactor = 0.05m; // liters
 		public decimal ThirstSatisfactionRate = 1; // The rate at which thirst is reduced
 
-		public DrinkActivity (EngineSettings settings)
+		public DrinkActivity (EngineSettings settings) : base(settings)
 		{
-			Settings = settings;
 		}
 
-		public void Update(Person person)
+		public override void Act()
 		{
-			if (person.Activity == ActivityType.Drinking)
+			if (Person.ActivityType == ActivityType.Drinking)
 			{
-				if (person.Thirst == 0 && person.ActivityData.ContainsKey("TotalConsumed")) {
-					if (CurrentEngine.PlayerId == person.Id)
-						LogWriter.Current.AppendLine (CurrentEngine.Id, "Player consumed " + Convert.ToInt32 (person.ActivityData ["TotalConsumed"]) + "ml water.");
+				if (Person.Thirst == 0 && Person.ActivityData.ContainsKey("TotalConsumed")) {
+					if (CurrentEngine.PlayerId == Person.Id)
+						LogWriter.Current.AppendLine (CurrentEngine.Id, "Player consumed " + Convert.ToInt32 (Person.ActivityData ["TotalConsumed"]) + "ml water.");
 
-					person.Finish ();
+					Person.FinishActivity ();
 				} else {
-					//var amountOfWaterRequired = person.Thirst;
-
-					//var amountConsumed = amountOfWaterRequired * WaterConsumptionRate;
-
-					if (!person.ActivityData.ContainsKey ("TotalConsumed")) {
-						person.ActivityData.Add ("TotalConsumed", 0m);
-						if (CurrentEngine.PlayerId == person.Id)
+					if (!Person.ActivityData.ContainsKey ("TotalConsumed")) {
+						Person.ActivityData.Add ("TotalConsumed", 0m);
+						if (CurrentEngine.PlayerId == Person.Id)
 							LogWriter.Current.AppendLine (CurrentEngine.Id, "Player started drinking water.");
 					}
 
-					decimal amountConsumed = person.Thirst * WaterConsumptionFactor / ThirstSatisfactionRate;
-					if (person.Supplies [SupplyTypes.Water] > 0) {
-						if (amountConsumed > person.Supplies [SupplyTypes.Water])
-							amountConsumed = person.Supplies [SupplyTypes.Water];
-						if (amountConsumed > person.Thirst)
-							amountConsumed = person.Thirst;
+					decimal amountConsumed = Person.Thirst * WaterConsumptionFactor / ThirstSatisfactionRate;
+					if (Person.Supplies [SupplyTypes.Water] > 0) {
+						if (amountConsumed > Person.Supplies [SupplyTypes.Water])
+							amountConsumed = Person.Supplies [SupplyTypes.Water];
+						if (amountConsumed > Person.Thirst)
+							amountConsumed = Person.Thirst;
 
-						person.Supplies [SupplyTypes.Water] = person.Supplies [SupplyTypes.Water] - amountConsumed;
-						person.Thirst -= amountConsumed * ThirstSatisfactionRate;
-						person.ActivityData ["TotalConsumed"] = (decimal)person.ActivityData ["TotalConsumed"] + amountConsumed;
+						Person.Supplies [SupplyTypes.Water] = Person.Supplies [SupplyTypes.Water] - amountConsumed;
+						Person.Thirst -= amountConsumed * ThirstSatisfactionRate;
+						Person.ActivityData ["TotalConsumed"] = (decimal)Person.ActivityData ["TotalConsumed"] + amountConsumed;
 					}
 
-					if (person.Thirst < 0) {
-						person.Thirst = 0;
+					if (Person.Thirst < 0) {
+						Person.Thirst = 0;
 					}
 				}
 			}

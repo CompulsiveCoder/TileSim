@@ -5,30 +5,26 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
+	[Serializable]
 	public class PlantTreesActivity : BaseActivity
 	{
 		public WorkersUtility Workers = new WorkersUtility();
 
 		public double PlantingTimeCost = 2;
 
-		public EngineSettings Settings;
-
-		public EngineClock Clock;
-		
-		public PlantTreesActivity (EngineSettings settings, EngineClock clock)
+		public PlantTreesActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
 		{
-			Settings = settings;
-			Clock = clock;
 		}
 
-		public void Update(Town town)
+		public override void Act()
 		{
-			var treesPlantedToday = town.CountTreesPlantedToday (Clock.GameDuration);
+			//throw new NotImplementedException ();
+			/*var treesPlantedToday = town.CountTreesPlantedToday (Clock.GameDuration);
 
 			if (treesPlantedToday < town.TreesToPlantPerDay)
 				HireWorkers (town);
 
-			DoPlanting (town);
+			DoPlanting (town);*/
 		}
 
 		public void HireWorkers(Town town)
@@ -58,7 +54,7 @@ namespace townsim.Engine.Activities
 		{
 			foreach (var person in town.People) {
 				if (person.IsActive
-				    && person.Activity == ActivityType.Forestry) {
+				    && person.ActivityType == ActivityType.Forestry) {
 					var plant = (Plant)person.ActivityTarget;
 
 					if (plant != null) {

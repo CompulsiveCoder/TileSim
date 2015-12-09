@@ -8,13 +8,13 @@ using townsim.Engine.Activities;
 namespace townsim.Engine.Tests.Integration
 {
 	[TestFixture]
-	public class ConstructionEngineTestFixture : BaseTestFixture
+	public class BuildActivityTestFixture : BaseTestFixture
 	{
 		[Test]
 		public void Test_Housing_1pop()
 		{
 			var settings = new EngineSettings (10);
-			var constructionEngine = new BuildActivity (settings, new EngineClock(settings));
+			var buildActivity = new BuildActivity (settings, new EngineClock(settings));
 
 			var person = new Person ();
 
@@ -22,13 +22,13 @@ namespace townsim.Engine.Tests.Integration
 
 			person.Town = town;
 
-			person.Activity = ActivityType.Builder;
-			constructionEngine.Update (person);
+			person.ActivityType = ActivityType.Builder;
+			buildActivity.Act ();
 
 			Assert.AreEqual (1, town.TotalActive);
 
 			for (int i = 0; i < 100; i++) {
-				constructionEngine.Update (person);
+				buildActivity.Act ();
 			}
 
 			var building = town.Buildings [0];
@@ -41,21 +41,24 @@ namespace townsim.Engine.Tests.Integration
 
 		}
 
-		[Test]
+		/*[Test]
 		public void Test_Housing_2pop()
 		{
 			var settings = new EngineSettings (10);
-			var constructionEngine = new BuildActivity (settings, new EngineClock(settings));
+			var buildActivity = new BuildActivity (settings, new EngineClock(settings));
 			var town = new Town (2);
 
-			foreach (var person in town.People)
-				person.Activity = ActivityType.Builder;
+			foreach (var person in town.People) {
+				person.ActivityType = ActivityType.Builder;
+				buildActivity.Act ();
+			}
 
-			constructionEngine.Update (town);
 			Assert.AreEqual (2, town.TotalActive);
 
 			for (int i = 0; i < 100; i++) {
-				constructionEngine.Update (town);
+				foreach (var person in town.People) {
+					buildActivity.Act ();
+				}
 			}
 
 			var building = town.Buildings [0];
@@ -65,25 +68,28 @@ namespace townsim.Engine.Tests.Integration
 			Assert.AreEqual (2, town.Buildings.TotalCompleted);
 			Assert.AreEqual (2, town.Buildings.TotalCompletedHouses);
 			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
-		}
+		}*/
 
 		[Test]
 		public void Test_Housing_5pop()
 		{
 			var settings = new EngineSettings (10);
-			var constructionEngine = new BuildActivity (settings, new EngineClock(settings));
+			var buildActivity = new BuildActivity (settings, new EngineClock(settings));
 
 			var town = new Town (5);
 
-			foreach (var person in town.People)
-				person.Activity = ActivityType.Builder;
+			foreach (var person in town.People) {
+				person.ActivityType = ActivityType.Builder;
 			
-			constructionEngine.Update (town);
+				buildActivity.Act ();
+			}
 
 			Assert.AreEqual (5, town.TotalActive);
 
 			for (int i = 0; i < 1000; i++) {
-				constructionEngine.Update (town);
+				foreach (var person in town.People) {
+					buildActivity.Act ();
+				}
 			}
 
 			var building = town.Buildings [0];

@@ -15,7 +15,7 @@ namespace townsim.Engine
 		{
 			if (person.Is(ActivityType.Drinking)) {
 				if (person.Thirst == 0) {
-					person.Finish ();
+					person.FinishActivity ();
 				}
 			}
 			else if (PersonNeedsToDrink (person))
@@ -23,18 +23,18 @@ namespace townsim.Engine
 			else if (PersonIsCollectingWater (person))
 			{
 				if (PersonHasFilledWater (person)) {
-					person.Finish ();
+					person.FinishActivity ();
 				}
 			}
 			else if (CouldCollectMoreWater (person))
 				person.Start(ActivityType.CollectingWater);
 			
-			return person.Activity;
+			return person.ActivityType;
 		}
 
 		public bool PersonIsCollectingWater(Person person)
 		{
-			var isCurrentlyCollectingWater = person.Activity == ActivityType.CollectingWater;
+			var isCurrentlyCollectingWater = person.ActivityType == ActivityType.CollectingWater;
 
 			return isCurrentlyCollectingWater;
 		}
@@ -46,7 +46,7 @@ namespace townsim.Engine
 
 		public bool PersonNeedsToDrink(Person person)
 		{
-			var isThirsty = person.Thirst > 80; // TODO: Make this configurable
+			var isThirsty = person.Thirst > 50; // TODO: Make this configurable
 
 			var hasWaterToDrink = person.Supplies [SupplyTypes.Water] >= MinimumDrinkableAmount;
 

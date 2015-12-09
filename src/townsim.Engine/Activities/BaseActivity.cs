@@ -3,11 +3,14 @@ using townsim.Entities;
 
 namespace townsim.Engine.Activities
 {
+	[Serializable]
 	public abstract class BaseActivity
 	{
 		public EngineSettings Settings { get; set; }
 
 		public EngineClock Clock { get; set; }
+
+		public Person Person { get; set; }
 
 		public BaseActivity ()
 		{
@@ -22,6 +25,14 @@ namespace townsim.Engine.Activities
 		{
 			Settings = settings;
 			Clock = clock;
+		}
+
+		public abstract void Act();
+
+		public void Start(Person person)
+		{
+			person.Activity = this;
+			Person = person;
 		}
 	}
 }

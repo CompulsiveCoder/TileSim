@@ -3,6 +3,7 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using datamanager.Entities;
 using System.Collections.Generic;
+using townsim.Engine.Activities;
 
 namespace townsim.Entities
 {
@@ -33,15 +34,18 @@ namespace townsim.Entities
 
 		public bool IsActive
 		{
-			get { return Activity != ActivityType.Inactive; }
+			get { return ActivityType != ActivityType.Inactive; }
 		}
 
-		private ActivityType activity;
-		public ActivityType Activity
+		private ActivityType activityType;
+		public ActivityType ActivityType
 		{
-			get { return activity; }
-			set { activity = value; }
+			get { return activityType; }
+			set { activityType = value; }
 		}
+
+		[JsonIgnore]
+		public BaseActivity Activity { get;set; }
 
 		public Dictionary<string, object> ActivityData = new Dictionary<string, object> ();
 
@@ -83,13 +87,15 @@ namespace townsim.Entities
 		public void Start(ActivityType activity)
 		{
 			ActivityData.Clear ();
-			Activity = activity;
+			ActivityType = activity;
+			Activity = null;
 		}
 
-		public void Finish ()
+		public void FinishActivity ()
 		{
-			Activity = ActivityType.Inactive;
+			ActivityType = ActivityType.Inactive;
 			ActivityData.Clear ();
+			Activity = null;
 		}
 
 		public void FocusOn(IActivityTarget target)
@@ -115,7 +121,7 @@ namespace townsim.Entities
 
 		public bool Is(ActivityType activity)
 		{
-			return Activity == activity;
+			return ActivityType == activity;
 		}
 	}
 }

@@ -161,7 +161,7 @@ namespace townsim.Engine
 			Console.WriteLine ("  Player:");
 			Console.WriteLine ("    Age: " + Convert.ToInt32(Player.Age) + "    Gender:" + Player.Gender + "    Health:" + Player.Health);
 			Console.WriteLine ("    Thirst: " + Convert.ToInt32(Player.Thirst) + "   Hunger:" + Convert.ToInt32(Player.Hunger));
-			Console.WriteLine ("    Activity: " + Player.Activity);
+			Console.WriteLine ("    Activity: " + Player.ActivityType);
 			Console.WriteLine ("    Home: " + (Player.Home != null ? Player.Home.PercentComplete : 0) + "%");
 
 			Console.WriteLine ();
@@ -281,12 +281,9 @@ namespace townsim.Engine
 				Act (person);
 			}
 
-			var plants = new List<Plant> ();
-
 			foreach (var town in Towns) {
 				instructionEngine.Update (town);
 
-				plants.AddRange (town.Plants);
 				totalPopulation += town.Population;
 
 
@@ -294,12 +291,15 @@ namespace townsim.Engine
 				rainEffect.Update (town);
 				treeGrowthEffect.Update (town);
 
-				gardenActivity.Update (town);
-				plantTreesActivity.Update (town);
-				harvestingActivity.Update (town);
 
 				// Global, population and migration
 				populationEffect.Update(town);
+
+
+				// Local people
+				foreach (var plant in town.Plants) {
+					plantGrowthEffect.Update (plant);
+				}
 
 				if (Player.Health == 0)
 					PlayerDied();
@@ -308,11 +308,6 @@ namespace townsim.Engine
 					data.Save (town);
 			}
 
-			// Local people
-			foreach (var plant in plants) {
-
-				plantGrowthEffect.Update (plant);
-			}
 
 			if (totalPopulation == 0) {
 				Console.WriteLine ("Game over!");
@@ -323,20 +318,28 @@ namespace townsim.Engine
 
 		public void Act(Person person)
 		{
-			var decideActivity = new DecideActivity ();
+			new PersonEngine (Settings, Clock).Act (person);
+			/*var decideActivity = new DecideActivity ();
 			var collectWaterActivity = new CollectWaterActivity (Settings);
 			var drinkActivity = new DrinkActivity (Settings);
 			var eatActivity = new EatActivity (Settings);
 			var buildActivity = new BuildActivity (Settings, Clock);
+			var harvestActivity = new HarvestActivity (Settings, Clock);
+			var gardenActivity = new GardenActivity (Settings, Clock);
+			var plantTreesActivity = new PlantTreesActivity (Settings, Clock);
 
 			// Decision-making
-			decideActivity.Update (person);
+			decideActivity.Act (person);
 
 			// Activities
-			collectWaterActivity.Update(person);
-			drinkActivity.Update(person);
-			eatActivity.Update(person);
-			buildActivity.Update (person);
+			collectWaterActivity.Act(person);
+			drinkActivity.Act(person);
+			eatActivity.Act(person);
+			buildActivity.Act (person);
+
+			gardenActivity.Act (person);
+			plantTreesActivity.Act (person);
+			*/
 		}
 
 		public void PlayerDied()

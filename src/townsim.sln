@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townsim.EngineCustomConsole
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townsim.Alerts", "townsim.Alerts\townsim.Alerts.csproj", "{85972657-52CF-4C7D-A6E4-DEF232F28C91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townsim.Base", "townsim.Base\townsim.Base.csproj", "{FB1138A7-129A-4A5C-B069-E8491616257A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = townsim.EngineConsole\townsim.EngineConsole.csproj

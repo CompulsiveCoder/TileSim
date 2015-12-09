@@ -4,6 +4,7 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
+	[Serializable]
 	public class CollectWaterActivity : BaseActivity
 	{
 		public decimal CollectionRate = 50.0m;
@@ -12,27 +13,27 @@ namespace townsim.Engine.Activities
 		{
 		}
 
-		public void Update(Person person)
+		public override void Act()
 		{
-			if (person.Activity == ActivityType.CollectingWater) {
-				if (person.Supplies [SupplyTypes.Water] < person.SuppliesMax [SupplyTypes.Water]) {
+			if (Person.ActivityType == ActivityType.CollectingWater) {
+				if (Person.Supplies [SupplyTypes.Water] < Person.SuppliesMax [SupplyTypes.Water]) {
 
-					if (!person.ActivityData.ContainsKey ("TotalWaterCollected")) {
- 						person.ActivityData ["TotalWaterCollected"] = 0m;
+					if (!Person.ActivityData.ContainsKey ("TotalWaterCollected")) {
+						Person.ActivityData ["TotalWaterCollected"] = 0m;
 					}
 					
 					var amount = CollectionRate;
 
-					if (person.Supplies [SupplyTypes.Water] >= person.SuppliesMax [SupplyTypes.Water]) { // If water is full, stop collecting
-						var total = (decimal)person.ActivityData ["TotalWaterCollected"];
+					if (Person.Supplies [SupplyTypes.Water] >= Person.SuppliesMax [SupplyTypes.Water]) { // If water is full, stop collecting
+						var total = (decimal)Person.ActivityData ["TotalWaterCollected"];
 						LogWriter.Current.AppendLine (CurrentEngine.Id, "Collected " + total + " water.");
-						person.Finish ();
+						Person.FinishActivity ();
 					}
-					else if (person.Town.WaterSources > amount) { // If water is available in the town, collect it
-						person.Supplies [SupplyTypes.Water] += amount;
-						person.Town.WaterSources -= amount;
+					else if (Person.Town.WaterSources > amount) { // If water is available in the town, collect it
+						Person.Supplies [SupplyTypes.Water] += amount;
+						Person.Town.WaterSources -= amount;
 
-						person.ActivityData ["TotalWaterCollected"] = (decimal)person.ActivityData ["TotalWaterCollected"] + amount;
+						Person.ActivityData ["TotalWaterCollected"] = (decimal)Person.ActivityData ["TotalWaterCollected"] + amount;
 					}
 				}
 			}

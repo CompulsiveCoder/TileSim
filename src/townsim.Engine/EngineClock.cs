@@ -3,6 +3,7 @@ using townsim.Entities;
 
 namespace townsim.Engine
 {
+	[Serializable]
 	public class EngineClock
 	{
 		public DateTime StartTime;
@@ -14,7 +15,7 @@ namespace townsim.Engine
 
 		public TimeSpan GameDuration
 		{
-      get { return TimeSpan.FromSeconds (RealDuration.TotalSeconds * Settings.GameSpeed); }
+      		get { return TimeSpan.FromSeconds (RealDuration.TotalSeconds * Settings.GameSpeed); }
 		}
 
 		public EngineSettings Settings { get; set; }

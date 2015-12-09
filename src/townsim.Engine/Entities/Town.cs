@@ -299,7 +299,7 @@ namespace townsim.Entities
 			var matchingPeople = (from person in People
 			                      where
 			                          person != null
-			                          && person.Activity == activity
+			                          && person.ActivityType == activity
 			                      select person).ToArray ();
 
 			return matchingPeople.Length;

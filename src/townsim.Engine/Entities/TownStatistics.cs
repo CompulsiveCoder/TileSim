@@ -125,7 +125,7 @@ namespace townsim.Entities
 			get {
 				return (from person in People
 				        where person != null
-				            && person.Activity == ActivityType.Builder
+				            && person.ActivityType == ActivityType.Builder
 				        select person).Count ();
 			}
 		}
@@ -136,7 +136,7 @@ namespace townsim.Entities
 			get {
 				return (from person in People
 					where person != null
-					&& person.Activity == ActivityType.Forestry
+					&& person.ActivityType == ActivityType.Forestry
 					select person).Count ();
 			}
 		}
@@ -147,7 +147,7 @@ namespace townsim.Entities
 			get {
 				var total = (from person in People
 						where person != null
-							&& person.Activity != ActivityType.Inactive
+							&& person.ActivityType != ActivityType.Inactive
 					select person).Count();
 
 				return total;
@@ -160,7 +160,7 @@ namespace townsim.Entities
 			get {
 				var total = (from person in People
 					where person != null
-						&& person.Activity == ActivityType.Inactive
+						&& person.ActivityType == ActivityType.Inactive
 					select person).Count();
 
 				return total;

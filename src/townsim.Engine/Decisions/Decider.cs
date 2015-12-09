@@ -3,35 +3,24 @@ using townsim.Entities;
 using System.Collections.Generic;
 using townsim.Data;
 
-namespace townsim.Engine.Activities
+namespace townsim.Engine.Decisions
 {
-	public class DecideActivity : BaseActivity
+	public class Decider
 	{
 		public Random Randomizer = new Random();
 
-		public DecideActivity ()
+		public Decider ()
 		{
 		}
 
-		public void Update(Person person)
+		public void Decide(Person person)
 		{
-			//if (person.Activity == ActivityType.Inactive) {
-				ChooseActivity (person);
-			//}
+			ChooseActivity (person);
 		}
 
 		public void ChooseActivity(Person person)
 		{
-
-			//if (PersonIsHomeless(person)) {
-			//	person.Start (ActivityType.Builder);
-			//} else {
-				ChooseActivityBasedOnPriorities (person);
-
-				//ChooseActivityRandomly (person);
-			//}
-
-
+			ChooseActivityBasedOnPriorities (person);
 		}
 
 		public bool PersonIsHomeless(Person person)
@@ -61,23 +50,23 @@ namespace townsim.Engine.Activities
 
 		public void ChooseActivityBasedOnPriority(Person person, PriorityTypes priority)
 		{
-			var previousActivity = person.Activity;
+			var previousActivity = person.ActivityType;
 
 			if (priority == PriorityTypes.Shelter)
 				person.Start(ActivityType.Builder);
-			else if (priority == PriorityTypes.Food)
-			{
-				new FoodDecision ().Decide (person);
-			}
 			else if (priority == PriorityTypes.Water)
 			{
 				new WaterDecision ().Decide (person);
 			}
+			else if (priority == PriorityTypes.Food)
+			{
+				new FoodDecision ().Decide (person);
+			}
 
-			var activityHasChanged = previousActivity != person.Activity;
+			var activityHasChanged = previousActivity != person.ActivityType;
 
 			if (activityHasChanged && CurrentEngine.PlayerId == person.Id) {
-				switch (person.Activity) {
+				switch (person.ActivityType) {
 				case ActivityType.CollectingWater:
 					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started collecting water.");
 					break;
@@ -109,7 +98,7 @@ namespace townsim.Engine.Activities
 			return possibleChoices.ToArray ();
 		}
 
-		public void ChooseActivityRandomly(Person person)
+		/*public void ChooseActivityRandomly(Person person)
 		{
 			// TODO: Implement priorities
 			var activities = new string[] {
@@ -124,7 +113,7 @@ namespace townsim.Engine.Activities
 			var randomizedActivity = (ActivityType)Enum.Parse(typeof(ActivityType), activities [randomIndex]);
 
 			person.Start(randomizedActivity);
-		}
+		}*/
 	}
 }
 

@@ -48,18 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TownKeys.cs" />
-    <Compile Include="Parser.cs" />
-    <Compile Include="EntityKeys.cs" />
-    <Compile Include="BuildingKeys.cs" />
-    <Compile Include="PeopleKeys.cs" />
-    <Compile Include="EngineKeys.cs" />
-    <Compile Include="LogWriter.cs" />
-    <Compile Include="LogKeys.cs" />
-    <Compile Include="InstructionKeys.cs" />
-    <Compile Include="InstructionApplier.cs" />
-    <Compile Include="PersonSummary.cs" />
-    <Compile Include="EditInstructionReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

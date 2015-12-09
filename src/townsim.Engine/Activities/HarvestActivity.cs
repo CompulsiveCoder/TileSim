@@ -5,6 +5,7 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
+	[Serializable]
 	public class HarvestActivity : BaseActivity
 	{
 		public WorkersUtility Workers = new WorkersUtility();
@@ -17,54 +18,22 @@ namespace townsim.Engine.Activities
 		{
 		}
 
-		public void Update(Town town)
+		public override void Act()
 		{
-			//var vegetablesHarvestedToday = town.CountVegetablesHarvestedToday (Clock.GameDuration);
-
-			//if (vegetablesHarvestedToday < town.VegetablesToHarvestPerDay)
-			//	HireWorkers (town);
-
-			PerformHarvesting (town);
+			PerformHarvesting ();
 		}
 
-		// TODO: Remove if not needed
-		public void HireWorkers(Town town)
+		public void PerformHarvesting()
 		{
-			if (town.TotalInactive > 0) {
-				if (town.RipeVegetables.Length > 0) {
-					var vegetablesToHarvest = town.VegetablesToHarvestPerDay;
-
-					var workersNeeded = vegetablesToHarvest;
-
-					for (int i = 0; i < workersNeeded; i++) {
-						var plant = new Plant (PlantType.Vegetable);
-						plant.TimeHarvested = Clock.GameDuration;
-						plant.WasHarvested = true;
-					}
-				}
-			}
-		}
-
-		public void PerformHarvesting(Town town)
-		{
-			foreach (var person in town.People) {
-				if (person.Activity == ActivityType.Harvesting) {
-					PerformHarvesting (town, person);
-				}
-			}
-		}
-
-		public void PerformHarvesting(Town town, Person person)
-		{
-			var plant = (Plant)person.ActivityTarget;
+			var plant = (Plant)Person.ActivityTarget;
 
 			if (plant == null)
-				plant = AssignRipeVegetable (town, person);
+				plant = AssignRipeVegetable (Person.Town, Person);
 
 			if (plant != null) {
 				if (plant.PercentHarvested >= 100) {
-					town.TotalVegetablesHarvested++;
-					town.FoodSources += ExtractFood (plant);
+					Person.Town.TotalVegetablesHarvested++;
+					Person.Town.FoodSources += ExtractFood (plant);
 					//Workers.Fire (person);	
 
 					LogWriter.Current.AppendLine (CurrentEngine.Id, "A vegetable has been harvested.");

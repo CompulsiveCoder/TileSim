@@ -4,6 +4,7 @@ using townsim.Entities;
 
 namespace townsim.Engine.Activities
 {
+	[Serializable]
 	public class ConstructionWorkersUtility
 	{
 		public int WorkersPerBuilding = 2;

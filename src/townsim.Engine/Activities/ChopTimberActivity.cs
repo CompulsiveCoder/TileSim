@@ -5,7 +5,8 @@ using townsim.Data;
 
 namespace townsim.Engine.Activities
 {
-	public class WoodChopActivity : BaseActivity
+	[Serializable]
+	public class ChopTimberActivity : BaseActivity
 	{
 		/// <summary>
 		/// The amount of wastage when refining materials.
@@ -14,8 +15,13 @@ namespace townsim.Engine.Activities
 
 		public int TimberRate = 1;
 
-		public WoodChopActivity ()
+		public ChopTimberActivity ()
 		{
+		}
+
+		public override void Act ()
+		{
+			throw new NotImplementedException ();
 		}
 
 		public bool IsTimberAvailable(Town town, Building building)

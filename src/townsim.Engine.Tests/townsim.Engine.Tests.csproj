@@ -41,12 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Integration\ConstructionEngineTestFixture.cs" />
     <Compile Include="Integration\DehydrationAlertTestFixture.cs" />
     <Compile Include="Integration\StarvationAlertTestFixture.cs" />
     <Compile Include="Integration\ForestryEngineTestFixture.cs" />
     <Compile Include="Integration\InstructionEngineTestFixture.cs" />
     <Compile Include="Unit\HealthEngineTestFixture.cs" />
+    <Compile Include="Integration\BuildActivityTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
