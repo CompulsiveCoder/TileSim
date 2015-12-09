@@ -277,7 +277,7 @@ namespace townsim.Entities
 		public int PeopleDoing(ActivityType jobType)
 		{
 			var matchingPeople = (from person in People
-					where person.Activity == jobType
+					where person.ActivityType == jobType
 				select person).ToArray();
 
 			return matchingPeople.Length;

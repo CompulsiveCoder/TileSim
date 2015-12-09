@@ -66,6 +66,10 @@
     <Compile Include="Activities\EatActivity.cs" />
     <Compile Include="Effects\ColdEffect.cs" />
     <Compile Include="Activities\DrinkActivity.cs" />
+    <Compile Include="Decisions\WaterDecision.cs" />
+    <Compile Include="Decisions\FoodDecision.cs" />
+    <Compile Include="Activities\CollectWaterActivity.cs" />
+    <Compile Include="Activities\BaseActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

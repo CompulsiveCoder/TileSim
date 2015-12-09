@@ -18,7 +18,7 @@ namespace townsim.Engine
 
 		public void Update(Person person)
 		{
-			if (person.Activity == ActivityType.Eating) {
+			if (person.ActivityType == ActivityType.Eating) {
 				var amountOfFoodRequired = person.Hunger;
 				var amountConsumed = amountOfFoodRequired * FoodConsumptionRate;
 
@@ -42,7 +42,7 @@ namespace townsim.Engine
 				{
 					person.Hunger = 0;
 					person.Priorities [PriorityTypes.Food] = 0;
-					person.Activity = ActivityType.Inactive;
+					person.ActivityType = ActivityType.Inactive;
 				}
 			}
 		}

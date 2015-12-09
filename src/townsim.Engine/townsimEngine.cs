@@ -156,14 +156,13 @@ namespace townsim.Engine
 			Player.ValidateProperties ();
 			Console.Clear ();
 			Console.WriteLine ("TownSim Engine");
-			Console.WriteLine ("  Id: " + Id);
-			Console.WriteLine ("  Real clock: " + Clock.GetRealDurationString());
-			Console.WriteLine ("  Game clock: " + Clock.GetGameDurationString());
+			Console.WriteLine ("  Id: " + Id + "     Speed: " + Settings.GameSpeed);
+			Console.WriteLine ("  Real clock: " + Clock.GetRealDurationString() + "   Game clock: " + Clock.GetGameDurationString());
 			Console.WriteLine ("  Player:");
-			Console.WriteLine ("    Age:" + Convert.ToInt32(Player.Age) + "    Gender:" + Player.Gender + "    Health:" + Player.Health);
-			Console.WriteLine ("    Thirst:" + Convert.ToInt32(Player.Thirst) + "   Hunger:" + Convert.ToInt32(Player.Hunger));
-			Console.WriteLine ("    Activity:" + Player.Activity);
-			Console.WriteLine ("    Home:" + (Player.Home != null ? Player.Home.PercentComplete : 0) + "%");
+			Console.WriteLine ("    Age: " + Convert.ToInt32(Player.Age) + "    Gender:" + Player.Gender + "    Health:" + Player.Health);
+			Console.WriteLine ("    Thirst: " + Convert.ToInt32(Player.Thirst) + "   Hunger:" + Convert.ToInt32(Player.Hunger));
+			Console.WriteLine ("    Activity: " + Player.ActivityType);
+			Console.WriteLine ("    Home: " + (Player.Home != null ? Player.Home.PercentComplete : 0) + "%");
 
 			Console.WriteLine ();
 			Console.WriteLine ("   Priorities:");
@@ -260,6 +259,7 @@ namespace townsim.Engine
 			var healthEffect = new HealthEffect ();
 
 			var decideActivity = new DecideActivity ();
+			var collectWaterActivity = new CollectWaterActivity (Settings);
 			var drinkActivity = new DrinkActivity (Settings);
 			var eatActivity = new EatActivity (Settings);
 			var plantTreesActivity = new PlantTreesActivity (Settings, Clock);
@@ -283,6 +283,7 @@ namespace townsim.Engine
 				decideActivity.Update (person);
 
 				// Activities
+				collectWaterActivity.Update(person);
 				drinkActivity.Update(person);
 				eatActivity.Update(person);
 				buildActivity.Update (person);

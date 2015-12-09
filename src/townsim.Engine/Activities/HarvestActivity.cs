@@ -54,7 +54,7 @@ namespace townsim.Engine.Activities
 		public void PerformHarvesting(Town town)
 		{
 			foreach (var person in town.People) {
-				if (person.Activity == ActivityType.Harvesting) {
+				if (person.ActivityType == ActivityType.Harvesting) {
 					PerformHarvesting (town, person);
 				}
 			}

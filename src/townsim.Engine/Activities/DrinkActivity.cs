@@ -18,13 +18,13 @@ namespace townsim.Engine
 
 		public void Update(Person person)
 		{
-			if (person.Activity == ActivityType.Drinking) {
+			if (person.ActivityType == ActivityType.Drinking) {
 				//var amountOfWaterRequired = person.Thirst;
 
 				//var amountConsumed = amountOfWaterRequired * WaterConsumptionRate;
 
 				var amountConsumed = person.Thirst * WaterConsumptionFactor / ThirstSatisfactionRate ;
-				if (person.Location.WaterSources > 0) {
+				if (person.Supplies[SupplyTypes.Water] > 0) {
 					if (amountConsumed > person.Supplies[SupplyTypes.Water])
 						amountConsumed = person.Supplies[SupplyTypes.Water];
 					if (amountConsumed > person.Thirst)

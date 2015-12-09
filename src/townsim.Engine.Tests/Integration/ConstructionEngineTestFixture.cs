@@ -22,7 +22,7 @@ namespace townsim.Engine.Tests.Integration
 
 			person.Town = town;
 
-			person.Activity = ActivityType.Builder;
+			person.ActivityType = ActivityType.Builder;
 			constructionEngine.Update (person);
 
 			Assert.AreEqual (1, town.TotalActive);
@@ -49,7 +49,7 @@ namespace townsim.Engine.Tests.Integration
 			var town = new Town (2);
 
 			foreach (var person in town.People)
-				person.Activity = ActivityType.Builder;
+				person.ActivityType = ActivityType.Builder;
 
 			constructionEngine.Update (town);
 			Assert.AreEqual (2, town.TotalActive);
@@ -76,7 +76,7 @@ namespace townsim.Engine.Tests.Integration
 			var town = new Town (5);
 
 			foreach (var person in town.People)
-				person.Activity = ActivityType.Builder;
+				person.ActivityType = ActivityType.Builder;
 			
 			constructionEngine.Update (town);
 

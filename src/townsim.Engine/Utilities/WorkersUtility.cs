@@ -33,7 +33,7 @@ namespace townsim.Engine
 
 		public void Hire(Town town, Person person, ActivityType employmentType, IActivityTarget target)
 		{
-			person.Activity = employmentType;
+			person.ActivityType = employmentType;
 			person.ActivityTarget = target;
 		
 			AddWorkerToTarget (target, person);
@@ -71,7 +71,7 @@ namespace townsim.Engine
 
 		public void Fire(Person person)
 		{
-			person.Activity = ActivityType.Inactive;
+			person.ActivityType = ActivityType.Inactive;
 
 			if (person.ActivityTarget != null) {
 				person.ActivityTarget.People = new Person[]{ };

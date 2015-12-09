@@ -57,7 +57,7 @@ namespace townsim.Engine.Activities
 		public void DoPlanting(Town town)
 		{
 			foreach (var person in town.People) {
-				if (person.Activity == ActivityType.Gardening) {
+				if (person.ActivityType == ActivityType.Gardening) {
 					var plant = (Plant)person.ActivityTarget;
 
 					if (plant == null) {

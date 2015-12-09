@@ -33,10 +33,10 @@ namespace townsim.Entities
 
 		public bool IsActive
 		{
-			get { return Activity != ActivityType.Inactive; }
+			get { return ActivityType != ActivityType.Inactive; }
 		}
 
-		public ActivityType Activity;
+		public ActivityType ActivityType;
 
 		[JsonIgnore]
 		public IActivityTarget ActivityTarget { get;set; }
@@ -58,6 +58,8 @@ namespace townsim.Entities
 
 		public Dictionary<SupplyTypes, decimal> Supplies = new Dictionary<SupplyTypes, decimal> ();
 
+		public Dictionary<SupplyTypes, decimal> SuppliesMax = new Dictionary<SupplyTypes, decimal> ();
+
 		public Person ()
 		{
 			Priorities.Add (PriorityTypes.Food, 0);
@@ -65,18 +67,20 @@ namespace townsim.Entities
 			Priorities.Add (PriorityTypes.Shelter, 0);
 
 			Supplies.Add (SupplyTypes.Food, 10);
-			Supplies.Add (SupplyTypes.Water, 100);
+			SuppliesMax.Add (SupplyTypes.Food, 1000);
+			Supplies.Add (SupplyTypes.Water, 0);
+			SuppliesMax.Add (SupplyTypes.Water, 1000);
 			Supplies.Add (SupplyTypes.Timber, 50);
 		}
 
 		public void Start(ActivityType activity)
 		{
-			Activity = activity;
+			ActivityType = activity;
 		}
 
 		public void Finish ()
 		{
-			Activity = ActivityType.Inactive;
+			ActivityType = ActivityType.Inactive;
 		}
 
 		public void FocusOn(IActivityTarget target)

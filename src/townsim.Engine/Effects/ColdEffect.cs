@@ -16,10 +16,10 @@ namespace townsim.Engine
 
 			if (person.IsHomeless) {
 				person.Priorities [PriorityTypes.Shelter] = 100;
-				person.Activity = ActivityType.Builder;
+				person.ActivityType = ActivityType.Builder;
 			} else {
 				person.Priorities [PriorityTypes.Shelter] = 0;
-				person.Activity = ActivityType.Inactive;
+				person.ActivityType = ActivityType.Inactive;
 			}
 
 		}

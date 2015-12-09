@@ -44,7 +44,7 @@ namespace townsim.Engine.Activities
 			var priorities = GetHighestPriorities (person);
 
 			if (priorities.Length == 0)
-				person.Activity = ActivityType.Inactive;
+				person.ActivityType = ActivityType.Inactive;
 			else {
 				var index = 0;
 
@@ -61,21 +61,15 @@ namespace townsim.Engine.Activities
 		public void ChooseActivityBasedOnPriority(Person person, PriorityTypes priority)
 		{
 			if (priority == PriorityTypes.Shelter)
-				person.Activity = ActivityType.Builder;
+				person.ActivityType = ActivityType.Builder;
 			else if (priority == PriorityTypes.Food)
 			{
-				if (person.Hunger > 80)
-					person.Activity = ActivityType.Eating;
-				else {
-					if (person.Town.RipeVegetables.Length > 0)
-						person.Activity = ActivityType.Harvesting;
-					else
-						person.Activity = ActivityType.Gardening;
-				}
+				new FoodDecision ().Decide (person);
 			}
 			else if (priority == PriorityTypes.Water)
-				person.Activity = ActivityType.Drinking;
-			
+			{
+				new WaterDecision ().Decide (person);
+			}
 		}
 
 		public PriorityTypes[] GetHighestPriorities(Person person)

@@ -124,7 +124,7 @@ namespace townsim.Entities
 			get {
 				int totalBuilders = 0;
 				foreach (var person in People) {
-					if (person.Activity == ActivityType.Builder)
+					if (person.ActivityType == ActivityType.Builder)
 						totalBuilders++;
 				}
 				return totalBuilders;
@@ -137,7 +137,7 @@ namespace townsim.Entities
 			get {
 				int totalForestryWorkers = 0;
 				foreach (var person in People) {
-					if (person.Activity == ActivityType.Forestry)
+					if (person.ActivityType == ActivityType.Forestry)
 						totalForestryWorkers++;
 				}
 				return totalForestryWorkers;
@@ -149,7 +149,7 @@ namespace townsim.Entities
 		{
 			get {
 				var total = (from person in People
-						where person.Activity != ActivityType.Inactive
+						where person.ActivityType != ActivityType.Inactive
 					select person).Count();
 
 				return total;
@@ -161,7 +161,7 @@ namespace townsim.Entities
 		{
 			get {
 				var total = (from person in People
-					where person.Activity == ActivityType.Inactive
+					where person.ActivityType == ActivityType.Inactive
 					select person).Count();
 
 				return total;

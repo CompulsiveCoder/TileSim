@@ -58,7 +58,7 @@ namespace townsim.Engine.Activities
 		{
 			foreach (var person in town.People) {
 				if (person.IsActive
-				    && person.Activity == ActivityType.Forestry) {
+				    && person.ActivityType == ActivityType.Forestry) {
 					var plant = (Plant)person.ActivityTarget;
 
 					if (plant != null) {

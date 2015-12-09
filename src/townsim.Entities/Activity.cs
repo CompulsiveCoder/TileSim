@@ -12,7 +12,8 @@ namespace townsim.Entities
 		Builder,
 		Forestry,
 		Gardening,
-		Harvesting
+		Harvesting,
+		CollectingWater
 	}
 
 }

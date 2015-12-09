@@ -5,7 +5,7 @@ namespace townsim.Entities
 	[Serializable]
 	public class EngineSettings
 	{
-		public int GameSpeed = 10;//60 * 60 * 24;
+		public int GameSpeed = 20;//60 * 60 * 24;
 		public int Interval = 1000; // milliseconds
 
 		public EngineSettings()

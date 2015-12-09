@@ -26,11 +26,11 @@ namespace townsim.Engine.Activities
 
 		public void Update(Person person)
 		{
-			if (person.Home == null && person.Activity == ActivityType.Builder) {
+			if (person.Home == null && person.ActivityType == ActivityType.Builder) {
 				StartBuildingAHouse (person);
 			}
 
-			if (person.Activity == ActivityType.Builder) {
+			if (person.ActivityType == ActivityType.Builder) {
 				DoConstruction (person);
 			}
 		}
