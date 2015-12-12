@@ -12,110 +12,170 @@ namespace townsim.Engine.Activities
 		public int ConstructionCountLimitBase = 3;
 		public double ConstructionCountLimit = 0.1;
 
-		public ConstructionWorkersUtility Workers = new ConstructionWorkersUtility();
-		public ChopTimberActivity Timber = new ChopTimberActivity ();
-
-		public BuildActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
+		public Building Building
 		{
-			Settings = settings;
-			Clock = clock;
+			get { return (Building)Target; } 
+			set { Target = value; }
 		}
 
-		public override void Act()
+		public BuildActivity (Person person, EngineSettings settings, EngineClock clock) : base(person, settings, clock)
+		{
+		}
+
+		public override void ExecuteSingleCycle()
 		{
 			if (Person.Home == null && Person.ActivityType == ActivityType.Builder) {
-				StartBuildingAHouse (Person);
+				StartBuildingAHouse ();
 			}
 
 			if (Person.ActivityType == ActivityType.Builder) {
-				DoConstruction (Person);
+				PerformConstructionCycle ();
 			}
 		}
 
-		/*/// <summary>
-		/// Loops through all the people in the town to call the Update(person) function
-		/// </summary>
-		/// <param name="town">Town.</param>
-		public void Update(Town town)
+		public void StartBuildingAHouse()
 		{
-			foreach (var person in town.People) {
-				Update (person);
-			}
-		}*/
-
-		public void StartBuildingAHouse(Person person)
-		{
-			var house = new Building (Entities.BuildingType.House);
+			var house = new Building (BuildingType.House);
 			house.ConstructionStartTime = Clock.GameDuration;
 
-			house.AddLink ("People", person);
+			house.AddLink ("People", Person);
 
-			person.Town.Buildings.Add (house);
+			SetTarget (house);
 
-			if (person.Home.Id == house.Id && person.Id == CurrentEngine.PlayerId)
+			if (Person.Town == null)
+				throw new Exception ("The person.Town property cannot be null.");
+			
+			Person.Town.Buildings.Add (house);
+
+			EnsureSupplies (Person, house);
+
+			if (Person.Home.Id == house.Id && Person.Id == CurrentEngine.PlayerId && Settings.OutputType == ConsoleOutputType.General)
 				LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started building a home.");
 			else
 				LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
 		}
 
-		/*public void StartBuildHouse(Town town)
+		public void EnsureSupplies(Person person, Building house)
 		{
-			if (town.TotalInactive > 0) {
-				var house = new Building (Entities.BuildingType.House);
-				house.ConstructionStartTime = Clock.GameDuration;
+			if (person.Supplies [SupplyTypes.Timber] < house.TimberPending) {
+				if (Settings.OutputType == ConsoleOutputType.General) {
+					Console.WriteLine ("Not enough timber. There is a demand for timber.");
+				}
+				person.Demands.Add (new SupplyDemand (person, SupplyTypes.Timber, house.TimberPending));
+			}
+		}
 
-				Workers.Hire (town, house);
+		public void PerformConstructionCycle()
+		{
+			var house = Person.Home;
 
-				if (house.People.Length > 0) {
-					town.Buildings.Add (house);
+			var town = Person.Town;
 
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "A new house is under construction.");
+			if (BuildingNeedsTimber(house)) {
+				if (Person.Has (SupplyTypes.Timber, house.TimberPending)) {
+					MoveTimberFromPersonToBuilding (Person, house);
+				} else {
+					Person.AddDemand (SupplyTypes.Timber, house.TimberPending);
+					Person.Start (ActivityType.Inactive);
 				}
 			}
-		}*/
-
-		public void DoConstruction(Person person)
-		{
-			var house = person.Home;
-
-			var town = person.Town;
-
-			// Do the work
-			if (!house.IsCompleted && house.People.Length > 0) {
-				DoConstructionNumbers (person, house);
-			}
-			// Job done, fire the workers
-			if (house.PercentComplete >= 100
-			     && !house.IsCompleted) {
-
-				house.PercentComplete = 100;
-				house.IsCompleted = true;
-				house.ConstructionEndTime = Clock.GameDuration;
-
-				person.FinishActivity ();
-
-				if (person.Home.Id == house.Id && person.Id == CurrentEngine.PlayerId)
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player completed their house. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
+			else
+			{
+				// Do the work
+				if (!IsComplete()) {
+					ApplyConstructionCycleNumbers (Person);
+				}
 				else
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
+				{
+					house.PercentComplete = 100;
+					house.IsCompleted = true;
+					house.ConstructionEndTime = Clock.GameDuration;
+
+					Finish ();
+
+					if (Person.Home.Id == house.Id && Person.Id == CurrentEngine.PlayerId)
+						LogWriter.Current.AppendLine (CurrentEngine.Id, "The player completed their house. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
+					else
+						LogWriter.Current.AppendLine (CurrentEngine.Id, "A house has been completed. Duration: " + Clock.GetTimeSpanString (house.ConstructionDuration));
+				}
 			}
 		
 		}
 
-		public void DoConstructionNumbers(Person person, Building building)
+		public bool BuildingNeedsTimber(Building house)
 		{
-			var town = person.Town;
+			var value = house.TimberPending > 0;
 
-			if (building.People.Length > 0) {
-				if (building.TimberPending > 0) {
-					if (Timber.IsTimberAvailable (town, building)) {
-						Timber.MillTimber (town, building);
-					}
-				}
+			return value;
+		}
 
-				var workDone = ConstructionRate * building.People.Length * Settings.GameSpeed;
-				building.PercentComplete += workDone; 
+		public bool BuildingIsFinished(Building building)
+		{
+			var value = building.PercentComplete >= 100;
+				//&& !building.IsCompleted; // TODO: Remove if not needed
+
+			return value;
+		}
+
+		public void ApplyConstructionCycleNumbers(Person person)//, Building building)
+		{
+			//var town = person.Town;
+
+			//if (building.People.Length > 0) {
+				//if (building.TimberPending > 0) {
+				//	if (Timber.IsTimberAvailable (town)) {
+				//		Timber.MillTimber (person);
+				//	}
+				//}
+
+			var building = (Building)person.ActivityTarget;
+			var workDone = ConstructionRate;
+			building.PercentComplete += workDone; 
+			//}
+		}
+
+		public void MoveTimberFromPersonToBuilding(Person person, Building building)
+		{
+			if (Settings.OutputType == ConsoleOutputType.General
+			    && CurrentEngine.PlayerId == person.Id) {
+				Console.WriteLine ("Transferring " + building.TimberPending + " timber from person to building.");
 			}
+			person.Supplies [SupplyTypes.Timber] = person.Supplies [SupplyTypes.Timber] - building.TimberPending;
+			building.Timber += building.TimberPending;
+		}
+
+		public override void Start ()
+		{
+			Person.Start (ActivityType.Builder);
+
+			if (Person.Home == null && Person.ActivityType == ActivityType.Builder) {
+				StartBuildingAHouse ();
+			}
+		}
+
+		public override bool IsComplete ()
+		{
+			var building = ((Building)Person.ActivityTarget);
+
+			var isComplete = building != null
+				&& (building.PercentComplete >= 100
+					|| building.IsCompleted);
+
+			return isComplete;
+		}
+
+		public override bool IsImpossible ()
+		{
+			return Building != null
+				&& Building.TimberPending > Person.Supplies [SupplyTypes.Timber];
+		}
+
+		public override void Finish ()
+		{
+			if (Building.PercentComplete > 100)
+				Building.PercentComplete = 100;
+			
+			CleanUp ();
 		}
 	}
 }

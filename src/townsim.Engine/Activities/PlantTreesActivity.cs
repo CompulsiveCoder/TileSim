@@ -8,15 +8,15 @@ namespace townsim.Engine.Activities
 	[Serializable]
 	public class PlantTreesActivity : BaseActivity
 	{
-		public WorkersUtility Workers = new WorkersUtility();
+		//public WorkersUtility Workers = new WorkersUtility();
 
-		public double PlantingTimeCost = 2;
+		public decimal PlantingTimeCost = 2;
 
-		public PlantTreesActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
+		public PlantTreesActivity (Person person, EngineSettings settings, EngineClock clock) : base(person, settings, clock)
 		{
 		}
 
-		public override void Act()
+		public override void ExecuteSingleCycle()
 		{
 			//throw new NotImplementedException ();
 			/*var treesPlantedToday = town.CountTreesPlantedToday (Clock.GameDuration);
@@ -39,7 +39,7 @@ namespace townsim.Engine.Activities
 					plant.TimePlanted = Clock.GameDuration;
 					plant.WasPlanted = true;
 
-					Workers.Hire (town, 1, ActivityType.Forestry, plant);
+					//Workers.Hire (town, 1, ActivityType.Forestry, plant);
 
 					if (plant.People.Length > 0) {
 						var plants = new List<Plant> (town.Plants);
@@ -60,7 +60,7 @@ namespace townsim.Engine.Activities
 					if (plant != null) {
 						if (plant.PercentPlanted >= 100) {
 							town.TotalTreesPlanted++;
-							Workers.Fire (person);	
+							//Workers.Fire (person);	
 
 							LogWriter.Current.AppendLine (CurrentEngine.Id, "A tree has been planted.");
 						} else {
@@ -79,11 +79,31 @@ namespace townsim.Engine.Activities
 				plant.PercentPlanted = 100;
 		}
 
-		public double GetPlantingCompletionIncrement()
+		public decimal GetPlantingCompletionIncrement()
 		{
 			var increment = 100 / PlantingTimeCost;
 
 			return increment;
+		}
+
+		public override void Start ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsComplete ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsImpossible ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override void Finish ()
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }

@@ -6,21 +6,31 @@ namespace townsim.Entities
 	[Serializable]
 	public class Plant : IActivityTarget
 	{
-		public double Age { get;set; }
-		public double Size { get;set; }
+		public decimal Age { get;set; }
+		public decimal Size { get;set; }
 		public PlantType Type { get;set; }
 		public bool WasPlanted { get;set; }
 		public bool WasHarvested { get; set; }
 
 		public TimeSpan TimePlanted { get;set; }
 
-		public double PercentPlanted { get; set; }
+		public decimal PercentPlanted { get; set; }
 
-		public double PercentHarvested { get; set; }
+		public decimal PercentHarvested { get; set; }
 
 		public TimeSpan TimeHarvested { get; set; }
 
 		public Person[] People { get;set; }
+
+		public decimal TotalWood
+		{
+			get {
+				if (Type == PlantType.Tree)
+					return Size;
+				else
+					return 0;
+			}
+		}
 
 		public Plant ()
 		{
@@ -34,7 +44,7 @@ namespace townsim.Entities
 			Construct ();
 		}
 
-		public Plant(PlantType type, double age, double size)
+		public Plant(PlantType type, decimal age, decimal size)
 		{
 			Type = type;
 			Size = size;

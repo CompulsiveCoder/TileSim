@@ -20,22 +20,31 @@ namespace townsim.Engine
 		{
 			switch (person.ActivityType) {
 			case ActivityType.Drinking:
-				new DrinkActivity (Settings).Start (person);
+				new DrinkActivity (person, Settings).Start ();
 				break;
 			case ActivityType.CollectingWater:
-				new CollectWaterActivity (Settings).Start (person);
+				new CollectWaterActivity (person, Settings).Start ();
 				break;
 			case ActivityType.Builder:
-				new BuildActivity (Settings, Clock).Start (person);
+				new BuildActivity (person, Settings, Clock).Start ();
 				break;
 			case ActivityType.Eating:
-				new EatActivity (Settings).Start (person);
+				new EatActivity (person, Settings).Start ();
 				break;
 			case ActivityType.Harvesting:
-				new HarvestActivity (Settings, Clock).Start (person);
+				new HarvestActivity (person, Settings, Clock).Start ();
 				break;
 			case ActivityType.Gardening:
-				new GardenActivity (Settings, Clock).Start (person);
+				new GardenActivity (person, Settings, Clock).Start ();
+				break;
+			case ActivityType.FellWood:
+				new FellWoodActivity (person, Settings).Start ();
+				break;
+			case ActivityType.MillTimber:
+				new MillTimberActivity (person, Settings).Start ();
+				break;
+			case ActivityType.PlantTrees:
+				new PlantTreesActivity (person, Settings, Clock).Start ();
 				break;
 			case ActivityType.Inactive:
 				// Don't do anything
@@ -45,7 +54,7 @@ namespace townsim.Engine
 			}
 		}
 
-		public void Act(Person person)
+		public void StartSingleCycle(Person person)
 		{
 			SetPriorities (person);
 
@@ -55,7 +64,7 @@ namespace townsim.Engine
 				Start (person);
 
 			if (person.Activity != null)
-				person.Activity.Act ();
+				person.Activity.StartSingleCycle ();
 		}
 
 		public void SetPriorities(Person person)
@@ -71,7 +80,7 @@ namespace townsim.Engine
 
 		public void MakeDecisions(Person person)
 		{
-			var decider = new Decider ();
+			var decider = new Decider (Settings);
 			decider.Decide (person);
 		}
 	}

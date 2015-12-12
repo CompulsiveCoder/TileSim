@@ -9,13 +9,25 @@ namespace townsim.Engine.Decisions
 	{
 		public Random Randomizer = new Random();
 
-		public Decider ()
+		public EngineSettings Settings { get; set; }
+
+		public Decider (EngineSettings settings)
 		{
+			Settings = settings;
 		}
 
 		public void Decide(Person person)
 		{
+			var previousActivity = person.ActivityType;
+
 			ChooseActivity (person);
+
+			if (previousActivity != person.ActivityType) {
+				if (Settings.OutputType == ConsoleOutputType.General) {
+					Console.WriteLine ("Player chose activity: " + person.ActivityType);
+				}
+			}
+
 		}
 
 		public void ChooseActivity(Person person)
@@ -52,15 +64,30 @@ namespace townsim.Engine.Decisions
 		{
 			var previousActivity = person.ActivityType;
 
-			if (priority == PriorityTypes.Shelter)
-				person.Start(ActivityType.Builder);
+			if (Settings.OutputType == ConsoleOutputType.General
+				&& person.Id == CurrentEngine.PlayerId) {
+				Console.WriteLine ("Priority: " + priority.ToString ());
+			}
+
+			if (priority == PriorityTypes.Shelter) {
+
+				if (person.HasDemand(SupplyTypes.Timber))
+				{
+					if (person.HasDemand(SupplyTypes.Wood))
+						new WoodDecision (Settings).Decide (person);
+					else
+						new TimberDecision (Settings).Decide (person);
+				}
+				else
+					new ShelterDecision (Settings).Decide (person);
+			}
 			else if (priority == PriorityTypes.Water)
 			{
-				new WaterDecision ().Decide (person);
+				new WaterDecision (Settings).Decide (person);
 			}
 			else if (priority == PriorityTypes.Food)
 			{
-				new FoodDecision ().Decide (person);
+				new FoodDecision (Settings).Decide (person);
 			}
 
 			var activityHasChanged = previousActivity != person.ActivityType;
@@ -72,6 +99,12 @@ namespace townsim.Engine.Decisions
 					break;
 				case ActivityType.Drinking:
 					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started drinking water.");
+					break;
+				case ActivityType.FellWood:
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started felling wood.");
+					break;
+				case ActivityType.MillTimber:
+					LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started milling timber.");
 					break;
 				}
 			}
@@ -97,23 +130,6 @@ namespace townsim.Engine.Decisions
 
 			return possibleChoices.ToArray ();
 		}
-
-		/*public void ChooseActivityRandomly(Person person)
-		{
-			// TODO: Implement priorities
-			var activities = new string[] {
-				"Builder",
-				"Forestry",
-				"Gardening",
-				"Harvesting"
-			};
-
-			var randomIndex = Randomizer.Next (activities.Length);
-
-			var randomizedActivity = (ActivityType)Enum.Parse(typeof(ActivityType), activities [randomIndex]);
-
-			person.Start(randomizedActivity);
-		}*/
 	}
 }
 

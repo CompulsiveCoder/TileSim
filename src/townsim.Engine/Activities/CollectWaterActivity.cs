@@ -9,11 +9,11 @@ namespace townsim.Engine.Activities
 	{
 		public decimal CollectionRate = 50.0m;
 		
-		public CollectWaterActivity (EngineSettings settings) : base(settings)
+		public CollectWaterActivity (Person person, EngineSettings settings) : base(person, settings)
 		{
 		}
 
-		public override void Act()
+		public override void ExecuteSingleCycle()
 		{
 			if (Person.ActivityType == ActivityType.CollectingWater) {
 				if (Person.Supplies [SupplyTypes.Water] < Person.SuppliesMax [SupplyTypes.Water]) {
@@ -24,7 +24,7 @@ namespace townsim.Engine.Activities
 					
 					var amount = CollectionRate;
 
-					if (Person.Supplies [SupplyTypes.Water] >= Person.SuppliesMax [SupplyTypes.Water]) { // If water is full, stop collecting
+					if (IsComplete()) { // If water is full, stop collecting
 						var total = (decimal)Person.ActivityData ["TotalWaterCollected"];
 						LogWriter.Current.AppendLine (CurrentEngine.Id, "Collected " + total + " water.");
 						Person.FinishActivity ();
@@ -38,6 +38,25 @@ namespace townsim.Engine.Activities
 				}
 			}
 		}
+
+		public override void Start ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsComplete ()
+		{
+			return Person.Supplies [SupplyTypes.Water] >= Person.SuppliesMax [SupplyTypes.Water];
+		}
+
+		public override bool IsImpossible ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override void Finish ()
+		{
+			throw new NotImplementedException ();
+		}
 	}
 }
-

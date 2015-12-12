@@ -8,17 +8,17 @@ namespace townsim.Engine.Activities
 	[Serializable]
 	public class HarvestActivity : BaseActivity
 	{
-		public WorkersUtility Workers = new WorkersUtility();
+		//public WorkersUtility Workers = new WorkersUtility();
 
-		public double HarvestingTimeCost = 2;
+		public decimal HarvestingTimeCost = 2;
 
 		public decimal FoodToPlantRatio = 0.5m;
 
-		public HarvestActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
+		public HarvestActivity (Person person, EngineSettings settings, EngineClock clock) : base(person, settings, clock)
 		{
 		}
 
-		public override void Act()
+		public override void ExecuteSingleCycle()
 		{
 			PerformHarvesting ();
 		}
@@ -64,9 +64,9 @@ namespace townsim.Engine.Activities
 				plant.PercentHarvested = 100;
 		}
 
-		public double GetHarvestingCompletionIncrement()
+		public decimal GetHarvestingCompletionIncrement()
 		{
-			var increment = 100 / HarvestingTimeCost;
+			var increment = 100m / HarvestingTimeCost;
 
 			return increment;
 		}
@@ -75,6 +75,26 @@ namespace townsim.Engine.Activities
 		{
 			// TODO: Adjust the amount of food from each plant
 			return (decimal)plant.Size*FoodToPlantRatio;
+		}
+
+		public override void Start ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsComplete ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsImpossible ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override void Finish ()
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }

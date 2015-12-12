@@ -13,7 +13,10 @@ namespace townsim.Entities
 		Forestry,
 		Gardening,
 		Harvesting,
-		CollectingWater
+		CollectingWater,
+		FellWood,
+		PlantTrees,
+		MillTimber
 	}
 
 }

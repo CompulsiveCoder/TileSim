@@ -66,8 +66,6 @@
     <Compile Include="Effects\TreeGrowthEffect.cs" />
     <Compile Include="Effects\PlantGrowthEffect.cs" />
     <Compile Include="Effects\PopulationEffect.cs" />
-    <Compile Include="Utilities\ConstructionWorkersUtility.cs" />
-    <Compile Include="Utilities\WorkersUtility.cs" />
     <Compile Include="Utilities\PeopleUtility.cs" />
     <Compile Include="Activities\EatActivity.cs" />
     <Compile Include="Activities\DrinkActivity.cs" />
@@ -113,7 +111,14 @@
     <Compile Include="Data\PeopleKeys.cs" />
     <Compile Include="Data\PersonSummary.cs" />
     <Compile Include="Data\TownKeys.cs" />
-    <Compile Include="Activities\ChopTimberActivity.cs" />
+    <Compile Include="Decisions\TimberDecision.cs" />
+    <Compile Include="Decisions\ShelterDecision.cs" />
+    <Compile Include="Activities\MillTimberActivity.cs" />
+    <Compile Include="Decisions\BaseDecision.cs" />
+    <Compile Include="Entities\SupplyDemand.cs" />
+    <Compile Include="Decisions\WoodDecision.cs" />
+    <Compile Include="ConsoleOutputType.cs" />
+    <Compile Include="Activities\FellWoodActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

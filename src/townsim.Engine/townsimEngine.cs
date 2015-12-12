@@ -42,9 +42,24 @@ namespace townsim.Engine
 			}
 		}
 
+		public bool EnableConsoleSummary = true;
+
 		public townsimEngine ()
 		{
 			Initialize ();
+
+			Attach ();
+		}
+
+		public townsimEngine (Person person, Town town)
+		{
+			Player = person;
+
+			AddTown(town);
+
+			Initialize ();
+
+			Attach ();
 		}
 
 		public townsimEngine (string engineId)
@@ -62,7 +77,6 @@ namespace townsim.Engine
 
 			CreateTown ();
 
-			Attach ();
 			SaveInfo ();
 
 			RunCycles ();
@@ -76,7 +90,6 @@ namespace townsim.Engine
 
 			AddTown (town);
 
-			Attach ();
 			SaveInfo ();
 
 			RunCycles ();
@@ -102,6 +115,8 @@ namespace townsim.Engine
 			CurrentEngine.Add (this);
 
 			CurrentEngine.Attach (Info);
+
+			CurrentEngine.PlayerId = Player.Id;
 		}
 
 		public void SaveInfo()
@@ -140,7 +155,8 @@ namespace townsim.Engine
 				for (int x = 0; x < Settings.GameSpeed; x++) {
 					RunCycle ();
 				}
-				ShowSummary ();
+				if (EnableConsoleSummary)
+					ShowSummary ();
 				var afterTime = DateTime.Now;
 				var duration = afterTime.Subtract (beforeTime);
 				Console.WriteLine ("Duration: " + duration.Milliseconds + " milliseconds (max " + CycleTime + ")");
@@ -170,7 +186,11 @@ namespace townsim.Engine
 
 			Console.WriteLine ();
 			Console.WriteLine ("   Supplies:");
-			Console.WriteLine ("     Water: " + (int)Player.Supplies[SupplyTypes.Water] + "ml      Food: " + Player.Supplies[SupplyTypes.Food] + " kgs     Timber: " + (int)Player.Supplies[SupplyTypes.Timber]);
+			Console.WriteLine ("     Water: " + (int)Player.Supplies[SupplyTypes.Water] + "ml      Food: " + Player.Supplies[SupplyTypes.Food] + " kgs     Wood: " + (int)Player.Supplies[SupplyTypes.Wood] + "    Timber: " + (int)Player.Supplies[SupplyTypes.Timber]);
+
+			Console.WriteLine ();
+			Console.WriteLine ("   Demands:");
+			Console.WriteLine ("     Water: " + (int)Player.GetDemandAmount(SupplyTypes.Water) + "ml      Food: " + Player.GetDemandAmount(SupplyTypes.Food) + " kgs     Wood: " + (int)Player.GetDemandAmount(SupplyTypes.Wood) + "    Timber: " + (int)Player.GetDemandAmount(SupplyTypes.Timber));
 
 			Console.WriteLine ();
 
@@ -261,9 +281,6 @@ namespace townsim.Engine
 
 			var healthEffect = new HealthEffect ();
 
-			var plantTreesActivity = new PlantTreesActivity (Settings, Clock);
-			var gardenActivity = new GardenActivity (Settings, Clock);
-			var harvestingActivity = new HarvestActivity (Settings, Clock);
 
 			if (Towns.Length == 0)
 				throw new TownlessException ();
@@ -318,7 +335,7 @@ namespace townsim.Engine
 
 		public void Act(Person person)
 		{
-			new PersonEngine (Settings, Clock).Act (person);
+			new PersonEngine (Settings, Clock).StartSingleCycle (person);
 			/*var decideActivity = new DecideActivity ();
 			var collectWaterActivity = new CollectWaterActivity (Settings);
 			var drinkActivity = new DrinkActivity (Settings);
@@ -344,7 +361,8 @@ namespace townsim.Engine
 
 		public void PlayerDied()
 		{
-			ShowSummary ();
+			if (EnableConsoleSummary)
+				ShowSummary ();
 			Console.WriteLine ("The player died.");
 			Console.WriteLine ("Game Over");
 		}

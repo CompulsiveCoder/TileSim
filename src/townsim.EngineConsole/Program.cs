@@ -22,6 +22,7 @@ namespace townsim.EngineConsole
 			{
 				using(engine = new townsimEngine (engineId))
 				{
+					engine.Settings.OutputType = ConsoleOutputType.GameSummary;
 					engine.Start ();
 				}
 			}

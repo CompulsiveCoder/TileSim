@@ -5,22 +5,24 @@ namespace townsim.Data
 {
 	public class LogWriter
 	{
+		public RedisClient Client;
+
 		public LogWriter ()
 		{
+			Client = new RedisClient ();
 		}
 
 		public void AppendLine(string engineId, string line)
 		{
-			var client = new RedisClient();
 			var key = new LogKeys ().GetLogKey (engineId);
-			client.Append (key, line + "\n");
+			Client.Append (key, line + "\n");
+			Console.WriteLine (line);
 		}
 
 		public string ReadAll(string engineId)
 		{
-			var client = new RedisClient ();
 			var key = new LogKeys ().GetLogKey (engineId);
-			return client.Get (key);
+			return Client.Get (key);
 		}
 
 		public static LogWriter Current = new LogWriter();

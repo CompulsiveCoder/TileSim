@@ -6,6 +6,15 @@ namespace townsim.Entities
 {
 	public partial class Town
 	{
+		[JsonIgnore]
+		public decimal WoodAvailableAsTrees
+		{
+			get {
+				return (from tree in Trees
+				where tree.Size > 20 // TODO: Make configurable
+					select tree.TotalWood).Sum();
+				}
+		}
 
 		[JsonIgnore]
 		public int TotalHomelessPeople
@@ -168,10 +177,10 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
-		public double AverageTreeSize
+		public decimal AverageTreeSize
 		{
 			get {
-				double sum = 0;
+				decimal sum = 0;
 				var trees = Trees;
 				foreach (var tree in trees) {
 					sum += tree.Size;
@@ -181,10 +190,10 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
-		public double AverageTreeAge
+		public decimal AverageTreeAge
 		{
 			get {
-				double sum = 0;
+				decimal sum = 0;
 				var trees = Trees;
 				foreach (var tree in trees) {
 					sum += tree.Age;
@@ -252,28 +261,36 @@ namespace townsim.Entities
 		}
 
 		[JsonIgnore]
-		public double AverageVegetableSize
+		public decimal AverageVegetableSize
 		{
 			get {
-				double sum = 0;
-				var vegetables = Vegetables;
-				foreach (var vegetable in vegetables) {
-					sum += vegetable.Size;
+				if (Vegetables.Length == 0)
+					return 0;
+				else {
+					decimal sum = 0;
+					var vegetables = Vegetables;
+					foreach (var vegetable in vegetables) {
+						sum += vegetable.Size;
+					}
+					return sum / vegetables.Length;
 				}
-				return sum / vegetables.Length;
 			}
 		}
 
 		[JsonIgnore]
-		public double AverageVegetableAge
+		public decimal AverageVegetableAge
 		{
 			get {
-				double sum = 0;
-				var vegetables = Vegetables;
-				foreach (var vegetable in vegetables) {
-					sum += vegetable.Age;
+				if (Vegetables.Length == 0)
+					return 0;
+				else {
+					decimal sum = 0;
+					var vegetables = Vegetables;
+					foreach (var vegetable in vegetables) {
+						sum += vegetable.Age;
+					}
+					return sum / vegetables.Length;
 				}
-				return sum / vegetables.Length;
 			}
 		}
 

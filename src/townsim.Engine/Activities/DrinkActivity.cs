@@ -10,11 +10,11 @@ namespace townsim.Engine.Activities
 		public decimal WaterConsumptionFactor = 0.05m; // liters
 		public decimal ThirstSatisfactionRate = 1; // The rate at which thirst is reduced
 
-		public DrinkActivity (EngineSettings settings) : base(settings)
+		public DrinkActivity (Person person, EngineSettings settings) : base(person, settings)
 		{
 		}
 
-		public override void Act()
+		public override void ExecuteSingleCycle()
 		{
 			if (Person.ActivityType == ActivityType.Drinking)
 			{
@@ -47,6 +47,26 @@ namespace townsim.Engine.Activities
 					}
 				}
 			}
+		}
+
+		public override void Start ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsComplete ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsImpossible ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override void Finish ()
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }

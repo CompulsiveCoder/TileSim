@@ -13,7 +13,8 @@ namespace townsim.Engine.Tests.Integration
 		[Test]
 		public void Test_Housing_1pop()
 		{
-			var settings = new EngineSettings (10);
+			throw new NotImplementedException ();
+			/*var settings = new EngineSettings (10);
 			var buildActivity = new BuildActivity (settings, new EngineClock(settings));
 
 			var person = new Person ();
@@ -37,7 +38,7 @@ namespace townsim.Engine.Tests.Integration
 			Assert.AreEqual (0, town.TotalBuilders);
 			Assert.AreEqual (1, town.Buildings.TotalCompleted);
 			Assert.AreEqual (1, town.Buildings.TotalCompletedHouses);
-			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
+			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);*/
 
 		}
 
@@ -73,7 +74,9 @@ namespace townsim.Engine.Tests.Integration
 		[Test]
 		public void Test_Housing_5pop()
 		{
-			var settings = new EngineSettings (10);
+
+			throw new NotImplementedException ();
+			/*var settings = new EngineSettings (10);
 			var buildActivity = new BuildActivity (settings, new EngineClock(settings));
 
 			var town = new Town (5);
@@ -99,7 +102,7 @@ namespace townsim.Engine.Tests.Integration
 			Assert.AreEqual (5, town.Buildings.TotalCompleted);
 			Assert.AreEqual (5, town.Buildings.TotalCompletedHouses);
 			Assert.AreEqual (0, town.Buildings.TotalIncompleteHouses);
-
+*/
 
 		}
 	}

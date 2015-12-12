@@ -3,13 +3,13 @@ using townsim.Entities;
 
 namespace townsim.Engine
 {
-	public class FoodDecision
+	public class FoodDecision : BaseDecision
 	{
-		public FoodDecision ()
+		public FoodDecision (EngineSettings settings) : base(settings)
 		{
 		}
 
-		public ActivityType Decide(Person person)
+		public override ActivityType Decide(Person person)
 		{
 			if (person.Hunger > 50 // TODO: Make configurable
 				&& person.Supplies[SupplyTypes.Food] > 0)

@@ -8,15 +8,15 @@ namespace townsim.Engine.Activities
 	[Serializable]
 	public class GardenActivity : BaseActivity
 	{
-		public WorkersUtility Workers = new WorkersUtility();
+		//public WorkersUtility Workers = new WorkersUtility();
 
-		public double PlantingIncrement = 100;
+		public decimal PlantingIncrement = 100;
 
-		public GardenActivity (EngineSettings settings, EngineClock clock) : base(settings, clock)
+		public GardenActivity (Person person, EngineSettings settings, EngineClock clock) : base(person, settings, clock)
 		{
 		}
 
-		public override void Act()
+		public override void ExecuteSingleCycle()
 		{
 			DoPlanting ();
 		}
@@ -61,6 +61,26 @@ namespace townsim.Engine.Activities
 				plant.PercentPlanted = 100;
 				plant.WasPlanted = true;
 			}
+		}
+
+		public override void Start ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsComplete ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsImpossible ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override void Finish ()
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }

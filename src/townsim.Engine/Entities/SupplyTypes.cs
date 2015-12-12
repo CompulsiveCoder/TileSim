@@ -6,6 +6,7 @@ namespace townsim.Entities
 	{
 		Water,
 		Food,
+		Wood,
 		Timber
 	}
 }

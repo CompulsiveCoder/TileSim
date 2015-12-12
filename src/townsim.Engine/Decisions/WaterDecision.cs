@@ -3,15 +3,15 @@ using townsim.Entities;
 
 namespace townsim.Engine
 {
-	public class WaterDecision
+	public class WaterDecision : BaseDecision
 	{
 		public decimal MinimumDrinkableAmount = 1;
 
-		public WaterDecision ()
+		public WaterDecision (EngineSettings settings) : base(settings)
 		{
 		}
 
-		public ActivityType Decide(Person person)
+		public override ActivityType Decide(Person person)
 		{
 			if (person.Is(ActivityType.Drinking)) {
 				if (person.Thirst == 0) {

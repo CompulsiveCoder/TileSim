@@ -45,13 +45,23 @@
     <Compile Include="Integration\StarvationAlertTestFixture.cs" />
     <Compile Include="Integration\ForestryEngineTestFixture.cs" />
     <Compile Include="Integration\InstructionEngineTestFixture.cs" />
-    <Compile Include="Unit\HealthEngineTestFixture.cs" />
     <Compile Include="Integration\BuildActivityTestFixture.cs" />
+    <Compile Include="Unit\Decisions\TimberDecisionTestFixture.cs" />
+    <Compile Include="Unit\Effects\HealthEffectTestFixture.cs" />
+    <Compile Include="Unit\Decisions\WoodDecisionTestFixture.cs" />
+    <Compile Include="Integration\BuildHomeTestFixture.cs" />
+    <Compile Include="Unit\Entities\PersonTestFixture.cs" />
+    <Compile Include="Unit\Activities\BuildActivityTestFixture.cs" />
+    <Compile Include="Unit\Activities\FellWoodActivityTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Integration\" />
     <Folder Include="Unit\" />
+    <Folder Include="Unit\Decisions\" />
+    <Folder Include="Unit\Effects\" />
+    <Folder Include="Unit\Activities\" />
+    <Folder Include="Unit\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\townsim.Engine\townsim.Engine.csproj">

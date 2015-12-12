@@ -10,12 +10,11 @@ namespace townsim.Engine.Activities
 		public decimal FoodConsumptionRate = 0.7m; // kgs
 		public decimal FoodSatisfactionRate = 1; // The rate at which hunger is reduced upon consumption
 
-		public EatActivity (EngineSettings settings)
+		public EatActivity (Person person, EngineSettings settings) : base(person, settings)
 		{
-			Settings = settings;
 		}
 
-		public override void Act()
+		public override void ExecuteSingleCycle()
 		{
 			if (Person.ActivityType == ActivityType.Eating) {
 				var amountOfFoodRequired = Person.Hunger;
@@ -43,6 +42,26 @@ namespace townsim.Engine.Activities
 					Person.ActivityType = ActivityType.Inactive;
 				}
 			}
+		}
+
+		public override void Start ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsComplete ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override bool IsImpossible ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override void Finish ()
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace townsim.Engine.Effects
 		// TODO: Merge with plant growth effect
 		public EngineSettings Settings { get;set; }
 
-		public double TreeGrowthRate = 0.0000001;
+		public decimal TreeGrowthRate = 0.0000001m;
 
 		public TreeGrowthEffect (EngineSettings settings)
 		{

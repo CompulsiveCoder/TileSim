@@ -1,4 +1,5 @@
 ﻿using System;
+using townsim.Engine;
 
 namespace townsim.Entities
 {
@@ -7,6 +8,10 @@ namespace townsim.Entities
 	{
 		public int GameSpeed = 10;//60 * 60 * 24;
 		public int Interval = 1000; // milliseconds
+
+		public decimal TimberWasteRate = 3;
+
+		public ConsoleOutputType OutputType = ConsoleOutputType.General;
 
 		public EngineSettings()
 		{

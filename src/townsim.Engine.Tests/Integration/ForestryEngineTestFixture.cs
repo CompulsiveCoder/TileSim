@@ -12,7 +12,8 @@ namespace townsim.Engine.Tests.Integration
 		[Test]
 		public void Test_HireForestryWorkers()
 		{
-			var town = new Town (1);
+			throw new NotImplementedException ();
+			/*var town = new Town (1);
 			town.TreesToPlantPerDay = 1;
 
 			var settings = new EngineSettings (1);
@@ -20,13 +21,14 @@ namespace townsim.Engine.Tests.Integration
 
 			forestryEngine.HireWorkers (town);
 
-			Assert.AreEqual (1, town.TotalForestryWorkers);
+			Assert.AreEqual (1, town.TotalForestryWorkers);*/
 		}
 
 		[Test]
 		public void Test_DoPlanting()
 		{
-			var town = new Town (1, 0);
+			throw new NotImplementedException ();
+			/*var town = new Town (1, 0);
 			town.TreesToPlantPerDay = 1;
 
 			var settings = new EngineSettings (1);
@@ -41,7 +43,7 @@ namespace townsim.Engine.Tests.Integration
 
 			var increment = forestryEngine.GetPlantingCompletionIncrement ();
 
-			Assert.AreEqual (increment, tree.PercentPlanted);
+			Assert.AreEqual (increment, tree.PercentPlanted);*/
 		}
 	}
 }
