@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using datamanager.Data;
 using townsim.Engine.Activities;
-using townsim.Engine.Effects;
 
 namespace townsim.Engine
 {

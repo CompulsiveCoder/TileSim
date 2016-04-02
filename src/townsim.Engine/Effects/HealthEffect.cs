@@ -14,11 +14,11 @@ namespace townsim.Engine.Effects
 		{
 			var isHarmed = false;
 
-			if (person.Thirst >= 100) {
+            if (person.Vitals[PersonVital.Thirst] >= 100) {
 
 				Context.Log.WriteLine ("The player is dying of thirst.");
-				var damage = person.Thirst / 100;
-				person.Health -= damage;
+                var damage = person.Vitals[PersonVital.Thirst] / 100;
+                person.Vitals[PersonVital.Health] -= damage;
 				isHarmed = true;
 			}
 

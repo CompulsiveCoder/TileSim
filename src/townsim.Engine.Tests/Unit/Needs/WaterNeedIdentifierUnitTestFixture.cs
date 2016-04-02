@@ -14,9 +14,9 @@ namespace townsim.Engine.Tests.Unit.Needs
             var settings = EngineSettings.DefaultVerbose;
 
             var person = new Person (settings);
-            person.Thirst = 80;
+            person.Vitals[PersonVital.Thirst] = 80;
 
-            var waterNeed = new WaterNeedIdentifier (settings);
+            var waterNeed = new DrinkNeedIdentifier (settings);
 
             waterNeed.RegisterIfNeeded (person);
 
@@ -24,7 +24,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
             var need = person.Needs [0];
 
-            Assert.AreEqual (ItemType.Water, need.Type);
+            Assert.AreEqual (ItemType.Drink, need.Type);
             Assert.AreEqual (settings.DefaultDrinkAmount, need.Quantity);
             Assert.AreEqual (settings.DefaultPriorities[ItemType.Water], need.Priority);
         }
@@ -36,7 +36,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
             var person = new Person (settings);
 
-            var waterNeed = new WaterNeedIdentifier (settings);
+            var waterNeed = new DrinkNeedIdentifier (settings);
 
             waterNeed.RegisterIfNeeded (person);
 

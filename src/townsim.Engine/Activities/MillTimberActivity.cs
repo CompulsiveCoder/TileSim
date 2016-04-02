@@ -50,7 +50,7 @@ namespace townsim.Engine.Activities
 			ConvertWoodToTimber (person, amountOfTimberToMillThisCycle);
 		}
 
-        public override bool CheckSupplies(Person actor)
+        public override bool CheckRequiredItems(Person actor)
 		{
             if (!HasEnoughWood (NeedEntry.Quantity)) {
                 RegisterNeedForWood (Actor, NeedEntry.Quantity);
@@ -85,7 +85,7 @@ namespace townsim.Engine.Activities
                     Console.WriteLine ("    Timber: " + amountOfTimber);
                     Console.WriteLine ("    Total timber: " + TotalTimberMilled);
                 }
-                NeedsConsumed[ItemType.Wood] += woodNeeded;
+                ItemsConsumed[ItemType.Wood] += woodNeeded;
                 ItemsProduced[ItemType.Timber] += amountOfTimber;
             } else {
                 if (Settings.IsVerbose) {

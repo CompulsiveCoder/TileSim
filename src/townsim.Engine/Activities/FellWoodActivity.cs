@@ -56,7 +56,7 @@ namespace townsim.Engine.Activities
 				throw new Exception ("Can't fell wood when no trees are available.");
 		}
 
-        public override bool CheckSupplies (Person actor)
+        public override bool CheckRequiredItems (Person actor)
         {
             // TODO: Implement the need for an axe
             return true;

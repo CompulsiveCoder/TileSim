@@ -5,10 +5,13 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
+    [Activity(ItemType.Water)]
 	public class CollectWaterActivity : BaseActivity
 	{
 		public decimal CollectionRate = 50.0m;
-		
+
+        public decimal TotalWaterCollected = 0;
+        		
         public CollectWaterActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
 		{
 		}
@@ -20,43 +23,48 @@ namespace townsim.Engine.Activities
 
         public override void Execute (Person person)
         {
-            if (person.Inventory.IsFull(ItemType.Water)) {
-               // if (!person.ActivityData.ContainsKey ("TotalWaterCollected")) {
-               //     person.ActivityData ["TotalWaterCollected"] = 0m;
-               // }
+            if (Settings.IsVerbose)
+                Console.WriteLine ("Collecting water");
 
-               // var amount = CollectionRate;
+            var personCanHoldMoreWater = !person.Inventory.IsFull (ItemType.Water);
 
-               /* if (IsComplete) { // If water is full, stop collecting
-                    var total = (decimal)Person.ActivityData ["TotalWaterCollected"];
-                    throw new NotImplementedException ();
-                    //PlayerLog.WriteLine (CurrentEngine.Id, "Collected " + total + " water.");
-                    //Finish ();
-                }
-                else*/
-                throw new NotImplementedException ();
-                //if (Person.Tile.HasItem(ItemType.Water, amount))
-                //{
-                //    ItemsProduced.Add(ItemType.Water, amount);
+            var tileHasWater = person.Tile.Inventory.Items [ItemType.Water] > 0;
 
-                    /*Tile.ItemsConsumed.Add (ItemType.Water, amount);
+            if (tileHasWater && personCanHoldMoreWater) {
+                var amountThisCycle = Settings.DefaultCollectWaterRate;
 
-                    Person.ActivityData ["TotalWaterCollected"] = (decimal)Person.ActivityData ["TotalWaterCollected"] + amount;*/
-               // }
+                var tile = person.Tile;
+
+                AddTransfer (tile, person, ItemType.Water, amountThisCycle);
+
+                TotalWaterCollected += amountThisCycle;
+            } else {
+                if (Settings.IsVerbose)
+                    Console.WriteLine ("  The tile has no water.");
             }
         }
 
         public override bool CheckFinished ()
         {
-            throw new NotImplementedException ();
+            return TotalWaterCollected >= NeedEntry.Quantity;
         }
+
         public override void ConfirmProduced (NeedEntry entry)
         {
             base.ConfirmProduced (entry);
         }
-        public override bool CheckSupplies (Person actor)
+
+        public override bool CheckRequiredItems (Person actor)
         {
-            throw new NotImplementedException ();
+            if (actor.Tile == null)
+                throw new Exception ("actor.Tile property is null.");
+            
+            var waterAvailable = actor.Tile.Inventory.Items [ItemType.Water] > 0;
+
+            if (!waterAvailable && Settings.IsVerbose)
+                Console.WriteLine ("  No water available.");
+
+            return waterAvailable;
         }
 
         // TODO: Clean up

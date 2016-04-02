@@ -1,5 +1,4 @@
 ﻿using System;
-using townsim.Engine.Effects;
 using townsim.Engine.Entities;
 
 namespace townsim.Engine
@@ -18,17 +17,17 @@ namespace townsim.Engine
 
             throw new NotImplementedException ();
 
-			var thirstEffect = new ThirstEffect (Context);
+			/*var thirstEffect = new ThirstEffect (Context);
 			var hungerEffect = new HungerEffect (Context);
 			//var populationEffect = new PopulationEffect (Context);
 			var treeGrowthEffect = new TreeGrowthEffect (Context);
 			var rainEffect = new RainEffect (Context);
 			var plantGrowthEffect = new PlantGrowthEffect (Context);
 
-			var healthEffect = new HealthEffect (Context);
+			var healthEffect = new HealthEffect (Context);*/
 
 			// Local people
-			foreach (var plant in Context.Data.Get<Plant>()) {
+			/*foreach (var plant in Context.Data.Get<Plant>()) {
 				plantGrowthEffect.Update (plant);
 			}
 
@@ -46,7 +45,7 @@ namespace townsim.Engine
 
 				// Global, population and migration
 			//	populationEffect.Update(town);
-			}
+			}*/
 
 		}
 	}

@@ -31,7 +31,7 @@ namespace townsim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-        public override bool CheckSupplies (Person person)
+        public override bool CheckRequiredItems (Person person)
         {
             if (ResourcesNeeded (person)) {
                 RegisterNeedForTimber (person, Settings.ShelterTimberCost);
@@ -98,34 +98,6 @@ namespace townsim.Engine.Activities
             }
 		}
 
-		public void CheckComplete(Building home)
-		{
-            throw new NotImplementedException ();
-            /*home.PercentComplete
-
-			if (home.PercentComplete == 100) {
-				home.IsCompleted = true;
-
-				Finish ();
-			}*/
-		}
-
-		public void GetTimber(Person person)
-		{
-			throw new NotImplementedException ();
-			/*var timberRequired = TimberCost;
-
-			var woodRequired = timberRequired * Settings.WoodRequiredForTimber;
-							
-			var millTimberActivity = new MillTimberActivity (person, Settings);
-			millTimberActivity.SetQuantity (timberRequired);
-			person.RushActivity (millTimberActivity);
-
-			if (Settings.IsVerbose)
-				Console.WriteLine ("        Getting timber by starting " + millTimberActivity.GetType().Name + " activity");
-			*/
-		}
-
 		public bool BuildingHasEnoughTimber(Building building)
 		{
 			return building.TimberPending > 0;
@@ -141,7 +113,7 @@ namespace townsim.Engine.Activities
 			if (Settings.IsVerbose)
                 Console.WriteLine ("        Registering the need for " + amountOfTimber + " timber");
 			
-            person.AddNeed (ItemType.Timber, amountOfTimber, NeedEntry.Priority+1);
+            AddNeed(ItemType.Timber, amountOfTimber, NeedEntry.Priority+1);
 		}
 
 		public BuildStatus GetBuildStatus(Person person)
@@ -180,7 +152,7 @@ namespace townsim.Engine.Activities
 			//	Console.WriteLine ("Transferring " + building.TimberPending + " timber from person to building.");
 			//}
 
-            person.Inventory.Transfer(ItemType.Timber, building.TimberPending, building);
+            Transfers.Add (new ItemTransfer (person, building, ItemType.Timber, building.TimberPending));
 		}
 	}
 }

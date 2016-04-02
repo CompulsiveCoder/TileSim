@@ -15,9 +15,6 @@ namespace townsim.Engine.Entities
 	{
 		public double Age { get; set; }
 		public Gender Gender { get; set; }
-		public decimal Thirst = 0;
-		public decimal Hunger = 0;
-		public decimal Health = 100;
 		public bool IsAlive = true;
 
         public Inventory Inventory { get; set; }
@@ -41,10 +38,16 @@ namespace townsim.Engine.Entities
 
 		public List<NeedEntry> Needs = new List<NeedEntry>();
 
+        public Dictionary<PersonVital, decimal> Vitals = new Dictionary<PersonVital, decimal> ();
+
         public Person (EngineSettings settings)
         {
             Demands = new DemandList (this);
             Inventory = new Inventory (this, Demands, settings);
+
+            Vitals.Add (PersonVital.Health, 100);
+            Vitals.Add (PersonVital.Thirst, 0);
+            Vitals.Add (PersonVital.Hunger, 0);
 		}
 
 		public void IncreaseAge(double amount)
@@ -54,12 +57,13 @@ namespace townsim.Engine.Entities
 
 		public void ValidateProperties()
 		{
-			if (Age < 0)
+            throw new NotImplementedException ();
+			/*if (Age < 0)
 				Age = 0;
 			if (Thirst < 0)
 				Thirst = 0;
 			if (Health < 0)
-				Health = 0;
+				Health = 0;*/
 		}
 
 

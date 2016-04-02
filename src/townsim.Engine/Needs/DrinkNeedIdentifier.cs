@@ -3,16 +3,16 @@ using townsim.Engine.Entities;
 
 namespace townsim.Engine.Needs
 {
-    public class WaterNeedIdentifier : BaseNeedIdentifier
+    public class DrinkNeedIdentifier : BaseNeedIdentifier
     {
-        public WaterNeedIdentifier (EngineSettings settings)
-            : base(ItemType.Water, settings)
+        public DrinkNeedIdentifier (EngineSettings settings)
+            : base(ItemType.Drink, settings)
         {
         }
 
         public override bool IsNeeded (Person person)
         {
-            return person.Thirst > Settings.ThirstThreshold;
+            return person.Vitals[PersonVital.Thirst] > Settings.ThirstThreshold;
         }
 
         public override void RegisterNeed(Person person, ItemType needType, decimal quantity, decimal priority)

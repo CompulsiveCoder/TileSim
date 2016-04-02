@@ -16,7 +16,10 @@ namespace townsim.Engine
 		public NeedEntry NeedEntry { get; set; }
 
 		public Dictionary<ItemType, decimal> ItemsProduced = new Dictionary<ItemType, decimal>();
-		public Dictionary<ItemType, decimal> NeedsConsumed = new Dictionary<ItemType, decimal>();
+        public Dictionary<ItemType, decimal> ItemsConsumed = new Dictionary<ItemType, decimal>();
+        public List<ItemTransfer> Transfers = new List<ItemTransfer>();
+        public Dictionary<PersonVital, decimal> VitalsChange = new Dictionary<PersonVital, decimal> ();
+        public List<NeedEntry> Needs = new List<NeedEntry>();
 
 		public string Name
 		{
@@ -29,24 +32,35 @@ namespace townsim.Engine
 			NeedEntry = needEntry;
 			Settings = settings;
 
+            InitializeItemsProduced ();
+            InitializeItemsConsumed ();
+		}
+
+        public void InitializeItemsProduced()
+        {
             ItemsProduced.Add (ItemType.Shelter, 0);
             ItemsProduced.Add (ItemType.Food, 0);
             ItemsProduced.Add (ItemType.Water, 0);
             ItemsProduced.Add (ItemType.Timber, 0);
             ItemsProduced.Add (ItemType.Wood, 0);
+        }
 
-            NeedsConsumed.Add (ItemType.Shelter, 0);
-            NeedsConsumed.Add (ItemType.Food, 0);
-            NeedsConsumed.Add (ItemType.Water, 0);
-            NeedsConsumed.Add (ItemType.Timber, 0);
-            NeedsConsumed.Add (ItemType.Wood, 0);
-		}
+        public void InitializeItemsConsumed()
+        {
+            ItemsConsumed.Add (ItemType.Shelter, 0);
+            ItemsConsumed.Add (ItemType.Food, 0);
+            ItemsConsumed.Add (ItemType.Water, 0);
+            ItemsConsumed.Add (ItemType.Timber, 0);
+            ItemsConsumed.Add (ItemType.Wood, 0);
+        }
 
 		public void Act(Person person)
 		{
-            var hasSupplies = CheckSupplies (person);
+            var hasSupplies = CheckRequiredItems (person);
             if (hasSupplies)
-			    Execute (person);	
+                Execute (person);
+            
+            CommitActivityResults ();
 
 			var isFinished = CheckFinished ();
 			if (isFinished)
@@ -59,7 +73,7 @@ namespace townsim.Engine
 
 		public abstract bool CheckFinished();
 
-        public abstract bool CheckSupplies (Person actor);
+        public abstract bool CheckRequiredItems (Person actor);
 
 		public virtual void Finish()
 		{
@@ -71,8 +85,6 @@ namespace townsim.Engine
 
                 Actor.Needs.Remove (NeedEntry);
 
-                CommitActivityResults ();
-
                 Actor.ActivityQueue.Remove (this);
             }
 		}
@@ -81,54 +93,154 @@ namespace townsim.Engine
 		{
 			if (Settings.IsVerbose) {
 				Console.WriteLine ("  Committing activity results...");
-
-				Console.WriteLine ("    Produced:");
 			}
 
-			foreach (var need in ItemsProduced.Keys)
-			{
-				var amountProduced = ItemsProduced [need];
+            CommitProduced ();
+
+            CommitConsumed ();
+
+            CommitTransfers ();
+
+            CommitVitalsChange ();
+
+            CommitNeeds ();
+		}
+
+        public void CommitProduced()
+        {
+            if (Settings.IsVerbose)
+                Console.WriteLine ("    Produced:");
+            
+            foreach (var itemType in ItemsProduced.Keys)
+            {
+                var amountProduced = ItemsProduced [itemType];
 
                 if (amountProduced > 0) {
                     if (Settings.IsVerbose)
-                        Console.WriteLine ("      " + need + ": " + amountProduced);
-				
-                    Actor.Inventory.Items [need] += amountProduced;
+                        Console.WriteLine ("      " + itemType + ": " + amountProduced);
+
+                    Actor.Inventory.Items [itemType] += amountProduced;
                 }
-			}
+            }
 
-			if (Settings.IsVerbose) {
-				Console.WriteLine ("    Consumed:");
-			}
+            ItemsProduced.Clear ();
+            InitializeItemsProduced ();
+        }
 
-			foreach (var need in NeedsConsumed.Keys)
-			{
-				var amountConsumed = NeedsConsumed [need];
+        public void CommitConsumed()
+        {
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("    Consumed:");
+            }
+
+            foreach (var itemType in ItemsConsumed.Keys)
+            {
+                var amountConsumed = ItemsConsumed [itemType];
 
                 if (amountConsumed > 0) {
                     if (Settings.IsVerbose)
-                        Console.WriteLine ("      " + need + ": " + amountConsumed);
-				
-                    Actor.Inventory.Items [need] -= amountConsumed;
-                }
-			}
+                        Console.WriteLine ("      " + itemType + ": " + amountConsumed);
 
-		}
+                    Actor.Inventory.Items [itemType] -= amountConsumed;
+                }
+            }
+
+            ItemsConsumed.Clear ();
+            InitializeItemsConsumed ();
+        }
+
+        public void CommitTransfers()
+        {
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("  Committing transfers");
+            }
+
+            foreach (var transfer in Transfers) {
+                CommitTransfer (transfer);
+            }
+
+            Transfers.Clear ();
+        }
+
+        public void CommitTransfer(ItemTransfer transfer)
+        {
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("    Committing transfer");
+                Console.WriteLine ("      Source: " + transfer.Source.GetType().Name);
+                Console.WriteLine ("      Destination: " + transfer.Destination.GetType().Name);
+                Console.WriteLine ("      Type: " + transfer.Type);
+                Console.WriteLine ("      Quantity: " + transfer.Quantity);
+            }
+
+            var type = transfer.Type;
+
+            transfer.Source.Inventory [type] -= transfer.Quantity;
+            transfer.Destination.Inventory [type] += transfer.Quantity;      
+
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("      Source (" + transfer.Source.GetType().Name + ") total: " + transfer.Source.Inventory[type]);
+                Console.WriteLine ("      Destination (" + transfer.Destination.GetType().Name + ") total: " + transfer.Destination.Inventory[type]);
+            }
+        }
+
+        public void CommitVitalsChange()
+        {
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("    Committing vitals changes");
+            }
+
+            foreach (var vital in VitalsChange.Keys) {
+                var changeValue = VitalsChange [vital];
+                var previousValue = Actor.Vitals [vital];
+                var newValue = previousValue + changeValue;
+
+                newValue = PercentageValidator.Validate (newValue);
+
+                if (Settings.IsVerbose) {
+                    Console.WriteLine ("      " + vital);
+                    Console.WriteLine ("        Previous: " + previousValue);
+                    Console.WriteLine ("        Change: " + changeValue);
+                    Console.WriteLine ("        New value: " + newValue);
+                }
+                Actor.Vitals [vital] = newValue;
+            }
+
+            VitalsChange.Clear ();
+        }
+
+        public void CommitNeeds()
+        {
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("    Committing needs");
+            }
+
+            while (Needs.Count > 0)
+            {
+                var need = Needs [0];
+
+                Actor.Needs.Add (need);
+
+                Needs.RemoveAt (0);               
+            }
+        }
 
         public virtual void ConfirmProduced(NeedEntry entry)
         {
             ItemsProduced [entry.Type] += entry.Quantity;
         }
-		// TODO: Remove if not needed
-		/*public virtual void SetQuantity(decimal quantity)
-		{
-			Quantity = quantity;
-		}
 
-		public virtual void SetNeedEntry(NeedEntry needEntry)
-		{
-			NeedEntry = needEntry;
-		}*/
+        public void AddTransfer(IHasInventory source, IHasInventory destination, ItemType itemType, decimal quantity)
+        {
+            Transfers.Add (new ItemTransfer(source, destination, itemType, quantity));
+        }
+
+        public void AddNeed(ItemType needType, decimal quantity, decimal priority)
+        {
+            if (Settings.IsVerbose)
+                Console.WriteLine ("    Registering the need for " + quantity + " " + needType + ".");
+            
+            Needs.Add (new NeedEntry (needType, quantity, priority));
+        }
 	}
 }
 

@@ -48,7 +48,7 @@ namespace townsim.Engine
 			People = new Person[] {};
 			Plants = new Plant[]{ };
 			Logic = new GameLogic ();
-			Tiles = new GameTile[]{new GameTile(this)};
+			Tiles = new GameTile[]{new GameTile(this, context.Settings)};
 		}
 
 		public void AddPerson(Person person)

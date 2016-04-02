@@ -57,12 +57,6 @@
     <Compile Include="CurrentEngine.cs" />
     <Compile Include="EngineClock.cs" />
     <Compile Include="InstructionEngine.cs" />
-    <Compile Include="Effects\HealthEffect.cs" />
-    <Compile Include="Effects\RainEffect.cs" />
-    <Compile Include="Effects\ThirstEffect.cs" />
-    <Compile Include="Effects\HungerEffect.cs" />
-    <Compile Include="Effects\TreeGrowthEffect.cs" />
-    <Compile Include="Effects\PlantGrowthEffect.cs" />
     <Compile Include="Prioritizers\ShelterPrioritizer.cs" />
     <Compile Include="Prioritizers\WaterPrioritizer.cs" />
     <Compile Include="Prioritizers\FoodPrioritizer.cs" />
@@ -97,7 +91,6 @@
     <Compile Include="GameLauncher.cs" />
     <Compile Include="GameCreator.cs" />
     <Compile Include="EngineContextStarter.cs" />
-    <Compile Include="Effects\BaseEffect.cs" />
     <Compile Include="EffectEngine.cs" />
     <Compile Include="Data\LogKeys.cs" />
     <Compile Include="Populators\TownPopulator.cs" />
@@ -123,12 +116,16 @@
     <Compile Include="Entities\ItemDemand.cs" />
     <Compile Include="Needs\BaseNeedIdentifier.cs" />
     <Compile Include="Needs\ShelterNeedIdentifier.cs" />
-    <Compile Include="Needs\WaterNeedIdentifier.cs" />
     <Compile Include="Activities\CollectWaterActivity.cs" />
     <Compile Include="Entities\Inventory.cs" />
     <Compile Include="Entities\DemandList.cs" />
     <Compile Include="Entities\IHasInventory.cs" />
     <Compile Include="Entities\Person.Activities.cs" />
+    <Compile Include="Transfers\ItemTransfer.cs" />
+    <Compile Include="Transfers\TransferManager.cs" />
+    <Compile Include="Activities\DrinkWaterActivity.cs" />
+    <Compile Include="Entities\PersonVital.cs" />
+    <Compile Include="Needs\DrinkNeedIdentifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -157,5 +154,6 @@
     <Folder Include="Populators\" />
     <Folder Include="Environment\" />
     <Folder Include="Needs\" />
+    <Folder Include="Transfers\" />
   </ItemGroup>
 </Project>

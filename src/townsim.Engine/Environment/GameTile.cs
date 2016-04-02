@@ -9,7 +9,7 @@ namespace townsim.Engine
 {
 	[Serializable]
 	[JsonObject(IsReference = true)]
-	public partial class GameTile
+    public partial class GameTile : IHasInventory
 	{
 		[TwoWay("Tile")]
 		public Plant[] Plants { get; set; }
@@ -22,11 +22,16 @@ namespace townsim.Engine
 		[NonSerialized]
 		public GameEnvironment World;
 
-		public GameTile (GameEnvironment world)
+        public Inventory Inventory { get; set; }
+
+        public EngineSettings Settings { get;set; }
+
+		public GameTile (GameEnvironment world, EngineSettings settings)
 		{
 			World = world;
 			Plants = new Plant[]{ };
 			People = new Person[]{ };
+            Inventory = new Inventory(this, null, Settings);
 		}
 
 		public void AddPerson(Person person)
