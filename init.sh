@@ -12,7 +12,7 @@ cd $DIR
 cd mod/datamanager/
 INIT_FILE="init.sh"
 if [ ! -f "$INIT_FILE" ]; then
-  echo "datamanager init file not found: $PWD/$INIT_FILE. Did the submodule fail to initialize?"
+  echo "datamanager init file not found: $PWD/$INIT_FILE. Did the submodule fail to clone?"
 else
   echo "datamanager submodule found"
   sh init.sh
