@@ -47,7 +47,6 @@
     <Compile Include="Unit\Entities\PersonTestFixture.cs" />
     <Compile Include="Unit\Activities\BuildActivityTestFixture.cs" />
     <Compile Include="Unit\Activities\FellWoodActivityTestFixture.cs" />
-    <Compile Include="Unit\Needs\ShelterNeedTestFixture.cs" />
     <Compile Include="Unit\Decisions\ShelterDecisionTestFixture.cs" />
     <Compile Include="Unit\Activities\BuildShelterActivityUnitTestFixture.cs" />
     <Compile Include="MockGameTile.cs" />
@@ -58,6 +57,7 @@
     <Compile Include="Unit\Activities\MillTimberActivityTestFixture.cs" />
     <Compile Include="BaseEngineUnitTestFixture.cs" />
     <Compile Include="Unit\Decisions\PersonDeciderUnitTestFixture.cs" />
+    <Compile Include="Unit\Needs\ShelterNeedIdentifierTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

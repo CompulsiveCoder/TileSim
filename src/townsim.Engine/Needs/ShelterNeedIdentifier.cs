@@ -6,7 +6,7 @@ namespace townsim.Engine.Needs
 	public class ShelterNeedIdentifier : BaseNeedIdentifier
 	{
 		public ShelterNeedIdentifier (EngineSettings settings)
-			: base(ItemType.Shelter, 100, settings)
+			: base(ItemType.Shelter, settings)
 		{
 		}
 
@@ -15,6 +15,7 @@ namespace townsim.Engine.Needs
 			return person.IsHomeless;
 		}
 
+        // TODO: Remove
 		/*public override void IdentifyAndRegisterNeed(Person person)
 		{
 			if (Settings.IsVerbose)

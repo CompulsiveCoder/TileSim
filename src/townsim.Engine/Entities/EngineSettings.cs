@@ -1,5 +1,6 @@
 ﻿using System;
 using townsim.Engine;
+using System.Collections.Generic;
 
 namespace townsim.Engine.Entities
 {
@@ -44,6 +45,7 @@ namespace townsim.Engine.Entities
 		public decimal TimberMillingRate = 10;
 		#endregion
 
+        public Dictionary<ItemType, int> DefaultPriorities = new Dictionary<ItemType, int> ();
 
 		public double AgingRate = 0.1;
 		public int BirthOdds = 25; // 1 in 25
@@ -62,7 +64,12 @@ namespace townsim.Engine.Entities
 		#endregion
 
 		public EngineSettings()
-		{
+        {
+            DefaultPriorities.Add (ItemType.Water, 100);
+            DefaultPriorities.Add (ItemType.Shelter, 90);
+            DefaultPriorities.Add (ItemType.Food, 80);
+            DefaultPriorities.Add (ItemType.Timber, 0);
+            DefaultPriorities.Add (ItemType.Wood, 0);
 		}
 
 		public EngineSettings(int gameSpeed)

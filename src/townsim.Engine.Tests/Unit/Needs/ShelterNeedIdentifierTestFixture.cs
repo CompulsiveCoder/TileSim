@@ -6,14 +6,16 @@ using townsim.Engine.Needs;
 namespace townsim.Engine.Tests.Unit.Needs
 {
 	[TestFixture]
-	public class ShelterNeedTestFixture
+	public class ShelterNeedIdentifierTestFixture
 	{
 		[Test]
 		public void Test_RegisterIfNeeded_ShelterIsNeeded()
 		{
 			var person = new Person ();
 
-			var shelterNeed = new ShelterNeedIdentifier (EngineSettings.DefaultVerbose);
+            var settings = EngineSettings.DefaultVerbose;
+
+			var shelterNeed = new ShelterNeedIdentifier (settings);
 
 			shelterNeed.RegisterIfNeeded (person);
 
@@ -23,7 +25,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
 			Assert.AreEqual (ItemType.Shelter, need.Type);
 			Assert.AreEqual (1, need.Quantity);
-			Assert.AreEqual (100, need.Priority);
+            Assert.AreEqual (settings.DefaultPriorities[ItemType.Shelter], need.Priority);
 		}
 
 		[Test]
