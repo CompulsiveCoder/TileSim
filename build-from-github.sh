@@ -13,7 +13,7 @@ fi
 echo "Branch: $BRANCH"
 
 # If the .tmp/townsim directory exists then remove it
-if [ -d "$BRANCH" ]; then
+if [ -d ".tmp/townsim" ]; then
     rm .tmp/townsim -rf
 fi
 
