@@ -88,7 +88,8 @@ namespace townsim.Engine.Entities
 			ActivityQueue.Remove (activity);
 		}
 
-		public List<BaseDecision> Decisions = new List<BaseDecision> ();
+        // TODO: Remove if not needed
+		//public List<BaseDecision> Decisions = new List<BaseDecision> ();
 
 		public Person ()
         {

@@ -89,9 +89,7 @@
     <Compile Include="Data\LogWriter.cs" />
     <Compile Include="Data\Parser.cs" />
     <Compile Include="Data\PersonSummary.cs" />
-    <Compile Include="Decisions\ShelterDecision.cs" />
     <Compile Include="Activities\MillTimberActivity.cs" />
-    <Compile Include="Decisions\BaseDecision.cs" />
     <Compile Include="ConsoleOutputType.cs" />
     <Compile Include="Activities\FellWoodActivity.cs" />
     <Compile Include="PlayerConsole.cs" />
