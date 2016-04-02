@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using townsim.Alerts;
 using System.Linq;
 using datamanager.Entities;
+using townsim.Engine;
 
 namespace townsim.Entities
 {
 	[Serializable]
 	[JsonObject(IsReference = true)]
-	public partial class Town : BaseEntity
+	public partial class Town : BaseGameEntity
 	{
 		public string Name { get;set; }
 
@@ -27,13 +27,9 @@ namespace townsim.Entities
 		public Plant[] Forest
 		{
 			get {
-				var list = new List<Plant> ();
-				foreach (var plant in Plants) {
-					if (plant.Type == PlantType.Tree) {
-						list.Add (plant);
-					}
-				}
-				return list.ToArray ();
+				return (from plant in Plants
+				        where plant.Type == PlantType.Tree
+				        select plant).ToArray ();
 			}
 		}
 
@@ -70,7 +66,7 @@ namespace townsim.Entities
 		}
 
 		[JsonProperty]
-		public Plant[] Plants { get; set; }
+		public Plant[] Plants = new Plant[]{};
 
 		[JsonIgnore]
 		public Plant[] Trees
@@ -140,18 +136,29 @@ namespace townsim.Entities
 
 		[JsonIgnore]
 		[TwoWay("Town")]
-		public BuildingCollection Buildings { get; set; }
+		public Building[] Buildings { get; set; }
 
 		[JsonIgnore]
 		public BaseAlert[] Alerts { get; set; }
 
 		public Town ()
 		{
-			Id = Guid.NewGuid ().ToString();
-			InitializeDefaultValues ();
+			Construct ();
 		}
 
-		public Town (params Person[] people)
+		public Town (string name)
+		{
+			Name = name;
+			Construct ();
+		}
+
+		public void Construct()
+		{
+			Id = Guid.NewGuid ().ToString();
+			Buildings = new Building[]{};
+		}
+
+		/*public Town (params Person[] people)
 		{
 			InitializeDefaultValues (people);
 		}
@@ -176,58 +183,72 @@ namespace townsim.Entities
 			//Id = Guid.NewGuid ();
 			Name = name;
 			InitializeDefaultValues (population);
-		}
+		}*/
 
 		public void InitializeDefaultValues()
 		{
-			InitializeDefaultValues (
-				DefaultPopulation,
-				100
-			);
+			throw new NotImplementedException ();
+			//InitializeDefaultValues (
+			//	DefaultPopulation,
+			//	100
+			//);
 		}
 
 		// TODO: Tidy up the following functions and remove unneeded ones
 		public void InitializeDefaultValues(int population)
 		{
-			InitializeDefaultValues (population, new Random().Next(500));
+			throw new NotImplementedException ();
+			//InitializeDefaultValues (population, new Random().Next(500));
 		}
 
 		public void InitializeDefaultValues(int population, int numberOfTrees)
 		{
-			var people = CreatePeople (population);
-			InitializeDefaultValues (people);
+			throw new NotImplementedException ();
+			//var people = CreatePeople (population);
+			//InitializeDefaultValues (people);
 		}
 
 		public void InitializeDefaultValues(Person[] people)
 		{
-			InitializeDefaultValues (people, new Random().Next(500));
+			throw new NotImplementedException ();
+			//InitializeDefaultValues (people, new Random().Next(500));
 		}
 
 		public void InitializeDefaultValues(Person[] people, int numberOfTrees)
 		{
-			People = people;
+			/*People = people;
 			foreach (var person in people) {
 				person.Town = this;
-			}
+			}*/
 
-			var random = new Random ();
-			WaterSources = random.Next(50000);
-			FoodSources = random.Next(1000);
+			//var random = new Random ();
+			//WaterSources = random.Next(50000);
+			//FoodSources = random.Next(1000);
 			//Timber = 1000;
 			//Forest = 25000;
 
-			TreesToPlantPerDay = random.Next(5);
+			// TODO: Remove if not needed
+			/*TreesToPlantPerDay = random.Next(5);
 
-			VegetablesToPlantPerDay = random.Next(20);
+			VegetablesToPlantPerDay = random.Next(20);*/
 
-			Buildings = new BuildingCollection();
+			//CreateTrees (numberOfTrees);
 
-			CreateTrees (numberOfTrees);
-
-			Alerts = new BaseAlert[]{ };
+			//Alerts = new BaseAlert[]{ };
 		}
 
-		public Person[] CreatePeople(int numberOfPeople)
+		public void Populate(TownPopulator populator)
+		{
+			//var populator = new TownPopulator (this, Context);
+			
+			//AddPeople(CreatePeople (numberOfPeople));
+
+			populator.Town = this;
+
+			populator.Populate ();
+		}
+
+		/*public Person[] CreatePeople(int numberOfPeople)
 		{
 			var people = new PersonCollection ();
 			var personCreator = new PersonCreator ();
@@ -237,19 +258,8 @@ namespace townsim.Entities
 				people.Add (person);
 			}
 			return people.ToArray ();
-		}
+		}*/
 
-		public void CreateTrees(int numberOfTrees)
-		{
-			var list = new List<Plant> ();
-			for (int i = 0; i < numberOfTrees; i++) {
-				var tree = new Plant(PlantType.Tree, 100, 100);
-				tree.WasPlanted = false;
-				tree.PercentPlanted = 100; // TODO: Is this necessary?
-				list.Add (tree);
-			}
-			Plants = list.ToArray ();
-		}
 
 		public void AddAlert(BaseAlert alert)
 		{
@@ -296,13 +306,15 @@ namespace townsim.Entities
 
 		public int PeopleDoing(ActivityType activity)
 		{
-			var matchingPeople = (from person in People
+
+			throw new NotImplementedException ();
+			/*var matchingPeople = (from person in People
 			                      where
 			                          person != null
 			                          && person.ActivityType == activity
 			                      select person).ToArray ();
 
-			return matchingPeople.Length;
+			return matchingPeople.Length;*/
 		}
 
 		public Plant FindRipeUnassignedVegetable ()
@@ -314,6 +326,21 @@ namespace townsim.Entities
 			return plants.Length > 0
 				? plants [0]
 					: null;
+		}
+
+		public void AddPeople(Person[] newPeople)
+		{
+			var list = new List<Person> ();
+
+			if (People != null)
+				list.AddRange (People);
+
+			list.AddRange (newPeople);
+
+			foreach (var person in newPeople)
+				person.Town = this;
+
+			People = list.ToArray ();
 		}
 	}
 }

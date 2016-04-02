@@ -7,25 +7,34 @@ namespace townsim.Data
 	{
 		public RedisClient Client;
 
-		public LogWriter ()
+		public LogKeys Keys;
+
+		public string EngineId;
+
+		public LogWriter (string engineId)
 		{
 			Client = new RedisClient ();
+			Keys = new LogKeys ("TownSim-" + engineId + "-");
 		}
 
-		public void AppendLine(string engineId, string line)
+		/*public LogWriter (string prefix)
 		{
-			var key = new LogKeys ().GetLogKey (engineId);
+			Client = new RedisClient ();
+			Keys = new LogKeys (prefix);
+		}*/
+
+		public void WriteLine(string line)
+		{
+			var key = Keys.GetLogKey (EngineId);
 			Client.Append (key, line + "\n");
 			Console.WriteLine (line);
 		}
 
 		public string ReadAll(string engineId)
 		{
-			var key = new LogKeys ().GetLogKey (engineId);
+			var key = Keys.GetLogKey (engineId);
 			return Client.Get (key);
 		}
-
-		public static LogWriter Current = new LogWriter();
 	}
 }
 

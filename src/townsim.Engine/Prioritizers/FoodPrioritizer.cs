@@ -18,18 +18,25 @@ namespace townsim.Engine
 
 		public void PrioritizeCritical(Person person)
 		{
+			throw new NotImplementedException ();
+			/*
 			person.Priorities [PriorityTypes.Food] = person.Hunger;
 
 			// TODO: Should this be here?
-			if (person.Supplies[SupplyTypes.Food] > person.SuppliesMax[SupplyTypes.Food]/2)
+			if (person.Supplies[needTypes.Food] > person.SuppliesMax[needTypes.Food]/2)
 				person.Priorities [PriorityTypes.Food] = person.Hunger/2;
+*/
 		}
 
 		public void PrioritizeSecondary(Person person)
 		{
+
+			throw new NotImplementedException ();
+			/*
 			if (!person.IsActive) {
 				person.Priorities [PriorityTypes.Food] = 60;
 			}
+			*/
 		}
 	}
 }

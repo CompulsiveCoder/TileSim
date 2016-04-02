@@ -3,62 +3,156 @@ using NUnit.Framework;
 using townsim.Entities;
 using townsim.Engine.Activities;
 using townsim.Data.Tests;
+using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Activities
 {
-	[TestFixture]
-	public class FellWoodActivityTestFixture : BaseTestFixture
+	public class FellWoodActivityTestFixture : BaseDataTestFixture
 	{
 		[Test]
-		public void Test_Act_1step_HasDemandForWood_DoesHaveEnoughTrees()
+		public void Test_Act_StartFelling()
 		{
-			var person = new Person ();
-			CurrentEngine.PlayerId = person.Id;
+			Console.WriteLine ("");
+			Console.WriteLine ("Preparing test");
+			Console.WriteLine ("");
 
-			var town = new Town (person);
+			var context = MockEngineContext.New ();
 
-			var settings = new EngineSettings ();
+			var person = new PeopleCreator ().CreateAdult ();
 
-			var woodNeeded = 150;
+			var tile = context.World.Tiles[0];
+			tile.AddPerson (person);
+			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-			person.AddDemand (SupplyTypes.Wood, woodNeeded);
+			var needEntry = new NeedEntry (NeedType.Wood, 50, 101);
 
-			var activity = new FellWoodActivity (person, settings);
+			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
 
-			person.Start (ActivityType.FellWood, activity);
+			Console.WriteLine ("");
+			Console.WriteLine ("Executing target");
+			Console.WriteLine ("");
 
-			activity.ExecuteSingleCycle ();
+			activity.Act (person);
 
-			Assert.IsNotNull (person.ActivityTarget);
-
-			Assert.AreNotEqual (0, ((Plant)person.ActivityTarget).PercentHarvested);
+			Assert.IsNotNull (activity.Target);
 		}
 
 		[Test]
-		public void Test_Act_100steps_HasDemandForWood_DoesHaveEnoughTrees()
+		public void Test_Act_ContinueFelling()
 		{
-			var person = new Person ();
-			CurrentEngine.PlayerId = person.Id;
+			Console.WriteLine ("");
+			Console.WriteLine ("Preparing test");
+			Console.WriteLine ("");
 
-			var town = new Town (person);
+			var context = MockEngineContext.New ();
 
-			var settings = new EngineSettings ();
+			var person = new PeopleCreator ().CreateAdult ();
 
+			var tile = context.World.Tiles[0];
+			tile.AddPerson (person);
+			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
+
+			var needEntry = new NeedEntry (NeedType.Wood, 50, 101);
+
+			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			activity.Target = tile.Trees [0];
+
+			Console.WriteLine ("");
+			Console.WriteLine ("Executing target");
+			Console.WriteLine ("");
+
+			activity.Act (person);
+
+			Assert.AreEqual(10, activity.Target.PercentHarvested);
+		}
+
+		[Test]
+		public void Test_Act_FinishedFelling()
+		{
+			Console.WriteLine ("");
+			Console.WriteLine ("Preparing test");
+			Console.WriteLine ("");
+
+			var context = MockEngineContext.New ();
+
+			var person = new PeopleCreator ().CreateAdult ();
+
+			var tile = context.World.Tiles[0];
+			tile.AddPerson (person);
+			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
+
+			var needEntry = new NeedEntry (NeedType.Wood, 50, 101);
+
+			person.AddNeed (needEntry);
+
+			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			activity.Target = tile.Trees [0];
+			activity.Target.PercentHarvested = 100;
+			activity.TotalWoodFelled = 40; // Add just enough so the activity can finish
+
+			var totalWoodExpected = activity.Target.Size;
+
+			Console.WriteLine ("");
+			Console.WriteLine ("Executing test");
+			Console.WriteLine ("");
+
+			activity.Act (person);
+
+			Assert.IsTrue (activity.IsFinished);
+			Assert.IsNull(activity.Target);
+			Assert.AreEqual (totalWoodExpected, person.Supplies [NeedType.Wood]);
+
+			Assert.AreEqual (0, person.Needs.Count);
+		}
+
+		// TODO: Overhaul and re-enable
+		//[Test]
+		public void Test_Act_1step_PersonHasDemandForWood_TownDoesHaveEnoughTrees()
+		{
+			throw new NotImplementedException ();
+			/*var context = EngineContext.New();
+			context.Settings.DefaultTownPopulation = 1;
+			context.Populate ();
+
+			var person = context.World.People [0];
+
+			var woodNeeded = 150;
+
+			person.AddDemand (NeedType.Wood, woodNeeded);
+
+			var activity = new FellWoodActivity (person, context);
+
+			activity.AssignPerson (person);
+
+			activity.StartSingleCycle ();
+
+			Assert.IsNotNull (person.Activity.Target);
+
+			Assert.AreNotEqual (0, ((Plant)person.Activity.Target).PercentHarvested);*/
+		}
+
+		// TODO: Overhaul and re-enable
+		//[Test]
+		public void Test_Act_100steps_PersonHasDemandForWood_TownDoesHaveEnoughTrees()
+		{
+			throw new NotImplementedException ();
+
+			/*var context = EngineContext.New();
+			context.Settings.DefaultTownPopulation = 1;
+			context.Populate ();
+
+			var person = context.World.People [0];
+
+			// Add demand for wood
 			var woodNeeded = 200;
+			person.AddDemand (NeedType.Wood, woodNeeded);
 
-			person.AddDemand (SupplyTypes.Wood, woodNeeded);
+			// Create the fell wood activity
+			var activity = new FellWoodActivity (person, context);
 
-			var activity = new FellWoodActivity (person, settings);
+			activity.RunCycles (100);
 
-			person.Start (ActivityType.FellWood, activity);
-
-			for (int i = 0; i < 100; i++) {
-				activity.ExecuteSingleCycle ();
-			}
-
-			Assert.IsNull (person.ActivityTarget);
-
-			Assert.AreEqual (woodNeeded, person.Supplies [SupplyTypes.Wood]);
+			Assert.AreEqual (woodNeeded, person.Supplies [NeedType.Wood]);*/
 		}
 	}
 }

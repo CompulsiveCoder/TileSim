@@ -6,9 +6,10 @@ namespace townsim.Entities
 {
 	[Serializable]
 	[JsonObject("Building", IsReference=true)]
-	public class Building : BaseEntity, IActivityTarget
+	public class Building : BaseGameEntity, IActivityTarget
 	{
-		public bool IsCompleted { get; set; }
+        public bool IsCompleted { get { return PercentComplete == 100; } }
+
 		public double PercentComplete { get; set; }
 		public BuildingType Type { get; set; }
 		public int TimberPending
@@ -37,6 +38,9 @@ namespace townsim.Entities
 			}
 			set { }
 		}
+
+		[TwoWay("Buildings")]
+		public Town Town { get; set; }
 
 		public Building ()
 		{

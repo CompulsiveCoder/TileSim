@@ -1,16 +1,17 @@
 ﻿using System;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using datamanager.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using townsim.Engine.Activities;
+using townsim.Engine;
+using townsim.Engine.Needs;
 
 namespace townsim.Entities
 {
 	[Serializable]
 	[JsonObject(IsReference = true)]
-	public class Person : BaseEntity
+	public partial class Person : BaseGameEntity
 	{
 		public double Age { get; set; }
 		public Gender Gender { get; set; }
@@ -18,40 +19,9 @@ namespace townsim.Entities
 		public decimal Hunger = 0;
 		public decimal Health = 100;
 		public bool IsAlive = true;
-		public bool IsAdult
-		{
-			get { return Age >= 18; }
-		}
 
-		public bool IsChild
-		{
-			get { return !IsAdult; }
-		}
-
-		public bool CanWork
-		{
-			get { return IsAdult; }
-		}
-
-		public bool IsActive
-		{
-			get { return ActivityType != ActivityType.Inactive; }
-		}
-
-		private ActivityType activityType;
-		public ActivityType ActivityType
-		{
-			get { return activityType; }
-			set { activityType = value; }
-		}
-
-		[JsonIgnore]
-		public BaseActivity Activity { get;set; }
-
+		// TODO: Remove. Use the activity object itself to store data. This is obsolete
 		public Dictionary<string, object> ActivityData = new Dictionary<string, object> ();
-
-		[JsonIgnore]
-		public IActivityTarget ActivityTarget { get;set; }
 
 		[JsonIgnore]
 		public Town Location { get; set; }
@@ -61,38 +31,109 @@ namespace townsim.Entities
 		[TwoWayAttribute("People")]
 		public Building Home{ get; set; }
 
-		public bool IsHomeless { get { return Home == null || !Home.IsCompleted; } }
-
 		[TwoWayAttribute("People")]
-		public Town Town { get; set; }
+		public Town Town {
+			get;
+			set;
+		}
 
-		public Dictionary<PriorityTypes, decimal> Priorities = new Dictionary<PriorityTypes, decimal> ();
+		[TwoWay("People")]
+		public GameTile Tile { get; set; }
 
-		public Dictionary<SupplyTypes, decimal> Supplies = new Dictionary<SupplyTypes, decimal> ();
+		// TODO: Remove
+		//public Dictionary<PriorityTypes, decimal> Priorities = new Dictionary<PriorityTypes, decimal> ();
 
-		public Dictionary<SupplyTypes, decimal> SuppliesMax = new Dictionary<SupplyTypes, decimal> ();
+		public Dictionary<NeedType, decimal> Supplies = new Dictionary<NeedType, decimal> ();
+
+		public Dictionary<NeedType, decimal> SuppliesMax = new Dictionary<NeedType, decimal> ();
 
 		public List<SupplyDemand> Demands = new List<SupplyDemand>();
 
-		public Person ()
-		{
-			Priorities.Add (PriorityTypes.Food, 0);
-			Priorities.Add (PriorityTypes.Water, 0);
-			Priorities.Add (PriorityTypes.Shelter, 0);
+		//public Dictionary<NeedType, decimal> Needs = new Dictionary<NeedType, decimal>();
+		public List<NeedEntry> Needs = new List<NeedEntry>();
 
-			Supplies.Add (SupplyTypes.Food, 0);
-			SuppliesMax.Add (SupplyTypes.Food, 1000);
-			Supplies.Add (SupplyTypes.Water, 0);
-			SuppliesMax.Add (SupplyTypes.Water, 1000);
-			Supplies.Add (SupplyTypes.Wood, 0); // Wood is unrefined timber
-			SuppliesMax.Add (SupplyTypes.Wood, 1000);
-			Supplies.Add (SupplyTypes.Timber, 0); // Timber is refine wood
-			SuppliesMax.Add (SupplyTypes.Timber, 1000);
+		public List<BaseActivity> ActivityQueue = new List<BaseActivity>();
+
+		public string ActivityName {
+			get {
+				if (Activity == null)
+					return String.Empty;
+				else
+					return Activity.GetType ().Name;
+			}
 		}
 
-		public void Start(ActivityType activityType, BaseActivity activity)
+		public BaseActivity Activity {
+			get {
+				if (ActivityQueue.Count == 0)
+					return null;
+				else
+					return ActivityQueue [0];	
+			}
+		}
+
+		public void RushActivity(BaseActivity activity)
+		{
+			ActivityQueue.Insert(0, activity);
+		}
+
+		public void AddActivity(BaseActivity activity)
+		{
+			ActivityQueue.Add (activity);
+		}
+
+		public void FinishedActivity(BaseActivity activity)
+		{
+			ActivityQueue.Remove (activity);
+		}
+
+		public List<BaseDecision> Decisions = new List<BaseDecision> ();
+
+		public Person ()
+        {
+            Supplies.Add (NeedType.Shelter, 0);
+            SuppliesMax.Add (NeedType.Shelter, 1);
+			Supplies.Add (NeedType.Food, 0);
+			SuppliesMax.Add (NeedType.Food, 1000);
+			Supplies.Add (NeedType.Water, 0);
+			SuppliesMax.Add (NeedType.Water, 1000);
+			Supplies.Add (NeedType.Wood, 0); // Wood is unrefined timber
+			SuppliesMax.Add (NeedType.Wood, 1000);
+			Supplies.Add (NeedType.Timber, 0); // Timber is refine wood
+			SuppliesMax.Add (NeedType.Timber, 1000);
+		}
+
+		public void Assign(ActivityType activityType)
+		{
+			throw new NotImplementedException ();
+			//this.activityType = activityType;
+		}
+
+		public void Assign(BaseActivity activity)
+		{
+			throw new NotImplementedException ();
+			/*
+			this.activity = activity;
+			
+			this.activityType = activity.Type;
+
+			if (activity.Actor == null)
+				activity.Actor = this;*/
+		}
+
+		public void ClearActivity()
+		{
+
+			throw new NotImplementedException ();
+			/*activity = null;
+			activityType = ActivityType.Inactive;
+			ActivityData.Clear ();*/
+		}
+
+		/*public void Start(ActivityType activityType, BaseActivity activity)
 		{
 			Start (activityType);
+			activity.Init (activityType, this);
 			activity.Start ();
 		}
 
@@ -100,22 +141,20 @@ namespace townsim.Entities
 		{
 			ActivityData.Clear ();
 			ActivityType = activity;
-			Activity = null;
-			ActivityTarget = null;
-		}
+		}*/
 
-		public void FinishActivity ()
+		/*public void FinishActivity ()
 		{
 			ActivityType = ActivityType.Inactive;
 			ActivityData.Clear ();
 			Activity = null;
-			ActivityTarget = null;
-		}
+		}*/
 
-		public void FocusOn(IActivityTarget target)
+		/*public void FocusOn(IActivityTarget target)
 		{
-			ActivityTarget = target;
-		}
+			throw new NotImplementedException ();
+			//ActivityTarget = target;
+		}*/
 
 
 		public void IncreaseAge(double amount)
@@ -135,47 +174,59 @@ namespace townsim.Entities
 
 		public bool Is(ActivityType activity)
 		{
-			return ActivityType == activity;
+
+			throw new NotImplementedException ();
+			//return ActivityType == activity;
 		}
 
-		public void AddSupply(SupplyTypes supplyType, decimal amount)
+		#region Supplies
+		public void AddSupply(NeedType needType, decimal amount)
 		{
-			Supplies [supplyType] = (decimal)Supplies [supplyType] + amount;
+			Supplies [needType] = (decimal)Supplies [needType] + amount;
 
-			if (GetDemandAmount(supplyType) > 0)
-				RemoveDemand (supplyType, amount);
+			if (GetDemandAmount(needType) > 0)
+				RemoveDemand (needType, amount);
 		}
 
-		public void RemoveSupply(SupplyTypes supplyType, decimal amount)
+		public void RemoveSupply(NeedType needType, decimal amount)
 		{
-			if (amount > Supplies[supplyType])
-				throw new Exception ("There's not enough available. Need " + amount + " but there's only " + Supplies[supplyType] + ".");
+			if (amount > Supplies[needType])
+				throw new Exception ("There's not enough available. Need " + amount + " but there's only " + Supplies[needType] + ".");
 
-			Supplies [supplyType] = Supplies [supplyType] - amount;
+			Supplies [needType] = Supplies [needType] - amount;
 
-			if (Supplies[supplyType] < 0)
-				Supplies[supplyType] = 0;
+			if (Supplies[needType] < 0)
+				Supplies[needType] = 0;
 		}
 
-		public bool HasDemand(SupplyTypes supplyType)
+		public bool Has(NeedType needType, decimal amount)
 		{
-			var totalDemand = GetDemandAmount(supplyType);
+			var value = Supplies [needType] >= amount;
+			return value;
+		}
+		#endregion
 
-			//var totalSupply = Supplies [supplyType];
+		#region Demands
+		public bool HasDemand(NeedType needType)
+		{
+			var totalDemand = GetDemandAmount(needType);
 
 			return totalDemand > 0;
 		}
 
-		public void AddDemand(SupplyTypes supply, decimal amount)
+		public void AddDemand(NeedType supply, decimal amount)
 		{
 			Demands.Add (new SupplyDemand (this, supply, amount));
 		}
 
-		public void RemoveDemand(SupplyTypes supply, decimal amountToRemove)
+		public void RemoveDemand(NeedType supply, decimal amountToRemove)
 		{
 			var totalRemoved = 0.0m;
 
-			while (totalRemoved < amountToRemove) {
+			var amountRemainingToRemove = amountToRemove;
+
+			while (totalRemoved < amountToRemove
+				&& HasDemand(supply)) {
 				var demandsFound = (from d in Demands
 					where d.Supply == supply
 					&& d.Amount > 0
@@ -185,13 +236,13 @@ namespace townsim.Entities
 					var demandFound = demandsFound [0];
 
 					if (demandFound.Amount > amountToRemove) {
-						demandFound.Amount -= amountToRemove;
+						demandFound.Amount -= amountRemainingToRemove;
 
 						totalRemoved += amountToRemove;
 					}
 					else {
 						Demands.Remove (demandFound);
-						amountToRemove -= demandFound.Amount;
+						amountRemainingToRemove -= demandFound.Amount;
 
 						totalRemoved += demandFound.Amount;
 					}
@@ -199,24 +250,38 @@ namespace townsim.Entities
 			}
 		}
 
-		/*public bool DemandExists(SupplyTypes supply, decimal amount, BaseEntity target)
+		public decimal GetDemandAmount(NeedType needType)
 		{
 			return (from demand in Demands
-				where demand.Supply == supply
-				&& 
-		}*/
-
-		public decimal GetDemandAmount(SupplyTypes supplyType)
-		{
-			return (from demand in Demands
-			        where demand.Supply == supplyType
+			        where demand.Supply == needType
 			        select demand.Amount).Sum ();
 		}
+		#endregion
 
-		public bool Has(SupplyTypes supplyType, decimal amount)
+
+		public void AddNeed(NeedType needType, decimal quantity, decimal priority)
 		{
-			var value = Supplies [supplyType] >= amount;
-			return value;
+			AddNeed(new NeedEntry (needType, quantity, priority));
+		}
+
+		public void AddNeed(NeedEntry needEntry)
+		{
+			Needs.Add (needEntry);
+		}
+
+		public bool HasNeed(NeedType need)
+		{
+			return (from n in Needs
+			        where n.Type == need
+			        select n).Count () > 0;
+		}
+
+		public bool HasNeed(NeedType needType, decimal quantity)
+		{
+			return (from n in Needs
+				where n.Type == needType
+				&& n.Quantity == quantity
+				select n).Count () > 0;
 		}
 	}
 }

@@ -4,8 +4,8 @@ namespace townsim.Engine
 {
 	public enum ConsoleOutputType
 	{
-		General,
-		GameSummary
+		Debug, // Used for debugging
+		Game // Used the play the game via console
 	}
 }
 

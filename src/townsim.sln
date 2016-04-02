@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townsim.Alerts", "townsim.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townsim.Base", "townsim.Base\townsim.Base.csproj", "{FB1138A7-129A-4A5C-B069-E8491616257A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townsim.Data.Tests.Integration", "townsim.Data.Tests.Integration\townsim.Data.Tests.Integration.csproj", "{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townsim.Engine.Tests.Integration", "townsim.Engine.Tests.Integration\townsim.Engine.Tests.Integration.csproj", "{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,10 @@ Global
 		{365EB32E-85CD-482F-8329-1660455D7E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{365EB32E-85CD-482F-8329-1660455D7E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{365EB32E-85CD-482F-8329-1660455D7E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,6 +55,10 @@ Global
 		{94560C32-AFBD-4DD1-8347-79FE1995137D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94560C32-AFBD-4DD1-8347-79FE1995137D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94560C32-AFBD-4DD1-8347-79FE1995137D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A7FEDC8F-CE70-4002-BDDB-37514D64342C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7FEDC8F-CE70-4002-BDDB-37514D64342C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7FEDC8F-CE70-4002-BDDB-37514D64342C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +81,12 @@ Global
 		{FB1138A7-129A-4A5C-B069-E8491616257A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 120
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/plain
 		StartupItem = townsim.EngineConsole\townsim.EngineConsole.csproj
 	EndGlobalSection
 EndGlobal

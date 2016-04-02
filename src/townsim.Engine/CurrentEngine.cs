@@ -16,20 +16,22 @@ namespace townsim.Engine
 
 		static public EngineClock Clock { get;set; }
 
-		static public townsimEngine[] CurrentEngines = new townsimEngine[]{ };
+		static public EngineProcess[] CurrentEngines = new EngineProcess[]{ };
 
 		static public Thread[] EngineThreads;
 
-    	static public string PlayerId { get; set; }
+		// TODO: Remove if not needed
+    	//static public string PlayerId { get; set; }
 
 		static public bool IsStarted { get { return !String.IsNullOrEmpty (Id); } }
 
 		static public void StartThread(string engineId)
 		{
-			Console.WriteLine ("Launching engine thread " + engineId);
+			throw new NotImplementedException ();
+			/*Console.WriteLine ("Launching engine thread " + engineId);
 
 			ThreadStart threadStart = delegate {
-				var engine = new townsimEngine(engineId);
+				var engine = new EngineProcess(engineId);
 
 				engine.CreateTown();
 				engine.Start();
@@ -40,7 +42,7 @@ namespace townsim.Engine
 			var engineThread = new Thread(threadStart);
 
 			engineThread.IsBackground = true;
-			engineThread.Start();
+			engineThread.Start();*/
 		}
 
 		static public void StartGame()
@@ -50,25 +52,27 @@ namespace townsim.Engine
 
 		static public void Attach(string engineId)
 		{
-			Id = engineId;
+			throw new NotImplementedException ();
+			/*Id = engineId;
 			DataConfig.Prefix = "TownSim-" + engineId.ToString();
 			Info = new DataManager ().Get<EngineInfo>(Id);
-			Clock = new EngineClock (Info.StartTime, Info.Settings);
-			PlayerId = Info.PlayerId;
+			Clock = new EngineClock (Context);*/
 		}
 
 		static public void Attach(EngineInfo info)
 		{
+
+			throw new NotImplementedException ();
+			/*
 			Id = info.Id;
 			DataConfig.Prefix = "TownSim-" + info.Id.ToString();
 			Info = info;
-			Clock = new EngineClock (Info.StartTime, Info.Settings);
-      		PlayerId = info.PlayerId;
+			Clock = new EngineClock (Info.StartTime, Info.Settings);*/
 		}
 
-		static public void Add(townsimEngine engine)
+		static public void Add(EngineProcess engine)
 		{
-			var list = new List<townsimEngine> (CurrentEngines);
+			var list = new List<EngineProcess> (CurrentEngines);
 			if (!list.Contains (engine))
 				list.Add (engine);
 			CurrentEngines = list.ToArray ();

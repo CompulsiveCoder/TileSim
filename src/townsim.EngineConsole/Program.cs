@@ -1,6 +1,7 @@
 ﻿using System;
 using townsim.Data;
 using townsim.Engine;
+using townsim.Entities;
 
 namespace townsim.EngineConsole
 {
@@ -8,31 +9,15 @@ namespace townsim.EngineConsole
 	{
 		public static void Main (string[] args)
 		{
-			var engineId = String.Empty;
+			var settings = SettingsParser.GetSettings (args);
 
-			if (args.Length == 1)
-				engineId = args [0];
-			else
-				engineId = Guid.NewGuid ().ToString();
+			LaunchGame (settings);
+		}
 
-			Console.WriteLine ("Engine ID: " + engineId);
 
-			townsimEngine engine = null;
-			try
-			{
-				using(engine = new townsimEngine (engineId))
-				{
-					engine.Settings.OutputType = ConsoleOutputType.GameSummary;
-					engine.Start ();
-				}
-			}
-			catch (GameException ex) {
-				Console.WriteLine (ex.Message);
-			}
-			finally {
-				if (engine != null)
-					engine.Dispose ();
-			}
+		public static void LaunchGame(EngineSettings settings)
+		{
+			new GameLauncher ().Launch (settings);
 		}
 	}
 }

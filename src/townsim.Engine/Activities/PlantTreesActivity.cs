@@ -6,17 +6,18 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-	public class PlantTreesActivity : BaseActivity
+	public class PlantTreesActivity : BaseActivityOld
 	{
 		//public WorkersUtility Workers = new WorkersUtility();
 
 		public decimal PlantingTimeCost = 2;
 
-		public PlantTreesActivity (Person person, EngineSettings settings, EngineClock clock) : base(person, settings, clock)
+		public PlantTreesActivity (Person person, EngineContext context)
+			: base(ActivityType.PlantTrees, person, context)
 		{
 		}
 
-		public override void ExecuteSingleCycle()
+		protected override void ExecuteSingleCycle()
 		{
 			//throw new NotImplementedException ();
 			/*var treesPlantedToday = town.CountTreesPlantedToday (Clock.GameDuration);
@@ -36,6 +37,8 @@ namespace townsim.Engine.Activities
 
 				for (int i = 0; i < workersNeeded; i++) {
 					var plant = new Plant (PlantType.Tree);
+					throw new NotImplementedException ();
+					/*
 					plant.TimePlanted = Clock.GameDuration;
 					plant.WasPlanted = true;
 
@@ -45,7 +48,7 @@ namespace townsim.Engine.Activities
 						var plants = new List<Plant> (town.Plants);
 						plants.Add (plant);
 						town.Plants = plants.ToArray ();
-					}
+					}*/
 				}
 			}
 		}
@@ -55,14 +58,15 @@ namespace townsim.Engine.Activities
 			foreach (var person in town.People) {
 				if (person.IsActive
 				    && person.ActivityType == ActivityType.Forestry) {
-					var plant = (Plant)person.ActivityTarget;
+					var plant = (Plant)person.Activity.Target;
 
 					if (plant != null) {
 						if (plant.PercentPlanted >= 100) {
 							town.TotalTreesPlanted++;
 							//Workers.Fire (person);	
 
-							LogWriter.Current.AppendLine (CurrentEngine.Id, "A tree has been planted.");
+							throw new NotImplementedException ();
+							//PlayerLog.WriteLine (CurrentEngine.Id, "A tree has been planted.");
 						} else {
 							DoPlanting (plant);
 						}
@@ -91,12 +95,12 @@ namespace townsim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsComplete ()
+		public override bool CheckComplete ()
 		{
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsImpossible ()
+		public override bool CheckImpossible ()
 		{
 			throw new NotImplementedException ();
 		}

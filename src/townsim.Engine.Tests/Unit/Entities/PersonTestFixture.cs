@@ -1,37 +1,58 @@
 ﻿using System;
 using NUnit.Framework;
 using townsim.Entities;
+using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Entities
 {
-	[TestFixture]
+	// TODO: Remove if not needed
+	//[TestFixture]
 	public class PersonTestFixture
 	{
-		[Test]
-		public void Test_RemoveDemand_SameAmount()
+		// TODO: Remove if not needed
+		//[Test]
+		public void Test_RemoveDemand_SameAmount_SingleDemand()
 		{
 			var person = new Person ();
 
-			person.AddDemand (SupplyTypes.Timber, 50);
-			person.AddDemand (SupplyTypes.Timber, 25);
-			person.AddDemand (SupplyTypes.Timber, 25);
+			person.AddDemand (NeedType.Timber, 100);
 
-			person.RemoveDemand (SupplyTypes.Timber, 100);
+			person.RemoveDemand (NeedType.Timber, 100);
 
-			Assert.AreEqual (0, person.GetDemandAmount (SupplyTypes.Timber));
+			var remainingAmount = person.GetDemandAmount (NeedType.Timber);
+
+			Assert.AreEqual (0, remainingAmount);
 		}
 
-		[Test]
+		// TODO: Remove if not needed
+		//[Test]
+		public void Test_RemoveDemand_SameAmount_MultipleDemands()
+		{
+			var person = new Person ();
+
+			person.AddDemand (NeedType.Timber, 50);
+			person.AddDemand (NeedType.Timber, 25);
+			person.AddDemand (NeedType.Timber, 25);
+
+			person.RemoveDemand (NeedType.Timber, 100);
+
+			var remainingAmount = person.GetDemandAmount (NeedType.Timber);
+
+			Assert.AreEqual (0, remainingAmount);
+		}
+
+		// TODO: Remove if not needed
+		//[Test]
 		public void Test_RemoveDemand_DemandLeftOver()
 		{
 			var person = new Person ();
 
-			person.AddDemand (SupplyTypes.Timber, 50);
-			person.AddDemand (SupplyTypes.Timber, 25);
+			person.AddDemand (NeedType.Timber, 50);
+			person.AddDemand (NeedType.Timber, 25);
 
-			person.RemoveDemand (SupplyTypes.Timber, 50);
+			person.RemoveDemand (NeedType.Timber, 50);
 
-			Assert.AreEqual (25, person.GetDemandAmount (SupplyTypes.Timber));
+			Assert.AreEqual (25, person.GetDemandAmount (NeedType.Timber));
 		}
 	}
 }

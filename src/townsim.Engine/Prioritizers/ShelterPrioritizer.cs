@@ -11,11 +11,13 @@ namespace townsim.Engine
 
 		public void Prioritize(Person person)
 		{
-			if (person.IsHomeless) {
-				person.Priorities [PriorityTypes.Shelter] = 100;
+			throw new NotImplementedException ();
+
+			/*if (person.IsHomeless) {
+				person.Needs [NeedType.Shelter] = 100;
 			} else {
-				person.Priorities [PriorityTypes.Shelter] = 0;
-			}
+				person.Needs [NeedType.Shelter] = 0;
+			}*/
 		}
 	}
 }

@@ -7,36 +7,42 @@ namespace townsim.Engine
 	{
 		public decimal MinimumDrinkableAmount = 1;
 
-		public WaterDecision (EngineSettings settings) : base(settings)
+		public WaterDecision (EngineContext context) : base(context)
 		{
 		}
 
-		public override ActivityType Decide(Person person)
+		public override void Decide(Person person)
 		{
-			if (person.Is(ActivityType.Drinking)) {
-				if (person.Thirst == 0) {
-					person.FinishActivity ();
-				}
+			throw new NotImplementedException ();
+			/*if (person.Is(ActivityType.Drinking)) {
+				// TODO: Remove if not needed. Should be obsolete
+				//if (person.Thirst == 0) {
+				//	throw new NotImplementedException ();
+				//	person.FinishActivity ();
+				//}
 			}
 			else if (PersonNeedsToDrink (person))
-				person.Start(ActivityType.Drinking);
+				person.Assign(ActivityType.Drinking);
 			else if (PersonIsCollectingWater (person))
 			{
-				if (PersonHasFilledWater (person)) {
-					person.FinishActivity ();
-				}
+				// TODO: Remove if not needed. Should be obsolete
+				//if (PersonHasFilledWater (person)) {
+				//	throw new NotImplementedException ();
+				//	person.FinishActivity ();
+				//}
 			}
 			else if (CouldCollectMoreWater (person))
-				person.Start(ActivityType.CollectingWater);
+				person.Assign(ActivityType.CollectingWater);
 			
-			return person.ActivityType;
+			return person.ActivityType;*/
 		}
 
 		public bool PersonIsCollectingWater(Person person)
 		{
-			var isCurrentlyCollectingWater = person.ActivityType == ActivityType.CollectingWater;
+			throw new NotImplementedException ();
+			/*var isCurrentlyCollectingWater = person.ActivityType == ActivityType.CollectingWater;
 
-			return isCurrentlyCollectingWater;
+			return isCurrentlyCollectingWater;*/
 		}
 
 		public bool PersonHasFilledWater(Person person)

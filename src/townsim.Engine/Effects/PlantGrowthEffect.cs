@@ -3,9 +3,9 @@ using townsim.Entities;
 
 namespace townsim.Engine.Effects
 {
-	public class PlantGrowthEffect
+	public class PlantGrowthEffect : BaseEffect
 	{
-		public PlantGrowthEffect ()
+		public PlantGrowthEffect (EngineContext context) : base(context)
 		{
 		}
 

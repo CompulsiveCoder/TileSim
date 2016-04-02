@@ -5,17 +5,14 @@ using townsim.Alerts;
 
 namespace townsim.Engine.Effects
 {
-	public class RainEffect
+	public class RainEffect : BaseEffect
 	{
-		public EngineSettings Settings { get;set; }
-
 		public decimal RainRate = 0.05m;
 
 		public Random Random = new Random ();
 
-		public RainEffect (EngineSettings settings)
+		public RainEffect (EngineContext context) : base(context)
 		{
-			Settings = settings;
 		}
 
 		public void Update(Town town)
@@ -32,7 +29,7 @@ namespace townsim.Engine.Effects
 				var actualValue = (decimal)randomValue * RainRate;
 				town.WaterSources += actualValue;
 
-        LogWriter.Current.AppendLine (CurrentEngine.Id, "It rained " + actualValue + "litres");
+				Context.Log.WriteLine ("It rained " + actualValue + "litres");
 			}
 		}
 	}

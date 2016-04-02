@@ -15,21 +15,30 @@ namespace townsim.Engine
 
 		public TimeSpan GameDuration
 		{
-      		get { return TimeSpan.FromSeconds (RealDuration.TotalSeconds * Settings.GameSpeed); }
+      		get {
+				return TimeSpan.FromSeconds (RealDuration.TotalSeconds * Settings.GameSpeed);
+			}
 		}
 
 		public EngineSettings Settings { get; set; }
 
-		public EngineClock (DateTime startTime, EngineSettings settings)
+		public EngineClock (DateTime startTime, EngineContext context)
 		{
-			Settings = settings;
-			StartTime = startTime;
+			throw new NotImplementedException ();
+			//Context = context;
+			//StartTime = startTime;
 		}
 
 		public EngineClock (EngineSettings settings)
 		{
+			if (settings.IsVerbose)
+				Console.WriteLine ("Constructing game engine clock");
+			
 			Settings = settings;
 			StartTime = DateTime.Now;
+
+			if (settings.IsVerbose)
+				Console.WriteLine ("Setting start time to: " + StartTime.ToString());
 		}
 
 		public string GetTimeSpanString(TimeSpan timeSpan)
@@ -62,7 +71,13 @@ namespace townsim.Engine
 
 		public string GetSpeedComparisonString()
 		{
-			return GetTimeSpanString (TimeSpan.FromSeconds (Settings.GameSpeed));
+			throw new NotImplementedException ();
+			//return GetTimeSpanString (TimeSpan.FromSeconds (Settings.GameSpeed));
+		}
+
+		public static EngineClock Default
+		{
+			get { return new EngineClock (EngineSettings.Default); }
 		}
 	}
 }

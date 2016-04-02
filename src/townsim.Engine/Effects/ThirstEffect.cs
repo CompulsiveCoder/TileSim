@@ -4,15 +4,14 @@ using townsim.Data;
 
 namespace townsim.Engine.Effects
 {
-	public class ThirstEffect
+	public class ThirstEffect : BaseEffect
 	{
 		public decimal ThirstRate = 0.3m;//100m / (24*60*60) * 5m; // 100% / seconds in a day * drinks per day
 
-		public EngineSettings Settings { get;set; }
+		public EngineInfo Info { get;set; }
 
-		public ThirstEffect (EngineSettings settings)
+		public ThirstEffect (EngineContext context) : base(context)
 		{
-			Settings = settings;
 		}
 
 		public void Update(Person person)

@@ -1,5 +1,7 @@
 ﻿using System;
 using townsim.Engine.Activities;
+using townsim.Engine;
+using townsim.Engine.Needs;
 
 namespace townsim.Entities
 {
@@ -8,18 +10,19 @@ namespace townsim.Entities
 	{
 		public Person Person { get; set; }
 
-		public SupplyTypes Supply { get; set; }
+		public NeedType Supply { get; set; }
 
 		public decimal Amount { get;set; }
 
 		public BaseActivity Activity { get; set; }
 
-		public BaseEntity Target { get; set; }
+		public BaseGameEntity Target { get; set; }
 
-		public SupplyDemand (Person person, SupplyTypes supplyType, decimal amount)
+		public SupplyDemand (Person person, NeedType needType, decimal amount)
 		{
+			throw new NotImplementedException ();
 			Person = person;
-			Supply = supplyType;
+			Supply = needType;
 			Amount = amount;
 		}
 	}

@@ -4,16 +4,13 @@ using townsim.Entities;
 
 namespace townsim.Engine.Effects
 {
-	public class TreeGrowthEffect
+	public class TreeGrowthEffect : BaseEffect
 	{
 		// TODO: Merge with plant growth effect
-		public EngineSettings Settings { get;set; }
+		public EngineInfo Info { get;set; }
 
-		public decimal TreeGrowthRate = 0.0000001m;
-
-		public TreeGrowthEffect (EngineSettings settings)
+		public TreeGrowthEffect (EngineContext context) : base(context)
 		{
-			Settings = settings;
 		}
 
 		public void Update(Town town)
@@ -25,7 +22,7 @@ namespace townsim.Engine.Effects
 		{
 			foreach (var tree in town.Trees) {
 				if (tree.PercentPlanted >= 100) {
-					var growthAmount = tree.Size * TreeGrowthRate;
+					var growthAmount = tree.Size * Context.Settings.TreeGrowthRate;
 					tree.Size += growthAmount;
 				}
 			}

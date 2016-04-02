@@ -5,23 +5,24 @@ namespace townsim.Engine
 {
 	public class FoodDecision : BaseDecision
 	{
-		public FoodDecision (EngineSettings settings) : base(settings)
+		public FoodDecision (EngineContext context) : base(context)
 		{
 		}
 
-		public override ActivityType Decide(Person person)
+		public override void Decide(Person person)
 		{
-			if (person.Hunger > 50 // TODO: Make configurable
+			throw new NotImplementedException ();
+			/*if (person.Hunger > 50 // TODO: Make configurable
 				&& person.Supplies[SupplyTypes.Food] > 0)
-				person.ActivityType = ActivityType.Eating;
+				person.Assign(ActivityType.Eating);
 			else {
 				if (person.Town.RipeVegetables.Length > 0)
-					person.ActivityType = ActivityType.Harvesting;
+					person.Assign(ActivityType.Harvesting);
 				else
-					person.ActivityType = ActivityType.Gardening;
+					person.Assign(ActivityType.Gardening);
 			}
 
-			return person.ActivityType;
+			return person.ActivityType;*/
 		}
 	}
 }

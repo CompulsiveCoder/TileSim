@@ -4,15 +4,10 @@ using townsim.Data;
 
 namespace townsim.Engine.Effects
 {
-	public class HungerEffect
+	public class HungerEffect : BaseEffect
 	{
-		public decimal HungerRate = 0.1m;//100m / (24*60*60) * 3m; // 100% / seconds in a day * meals per day
-
-		public EngineSettings Settings { get;set; }
-
-		public HungerEffect (EngineSettings settings)
+		public HungerEffect (EngineContext context) : base(context)
 		{
-			Settings = settings;
 		}
 
 		public void Update(Person person)
@@ -24,7 +19,7 @@ namespace townsim.Engine.Effects
 
 		public void UpdateHunger(Person person)
 		{
-			var increase = HungerRate;
+			var increase = Context.Settings.HungerRate;
 
 			person.Hunger += increase;
 

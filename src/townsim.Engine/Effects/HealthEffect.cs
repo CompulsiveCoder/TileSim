@@ -4,9 +4,9 @@ using townsim.Data;
 
 namespace townsim.Engine.Effects
 {
-	public class HealthEffect
+	public class HealthEffect : BaseEffect
 	{
-		public HealthEffect ()
+		public HealthEffect (EngineContext context) : base(context)
 		{
 		}
 
@@ -16,14 +16,14 @@ namespace townsim.Engine.Effects
 
 			if (person.Thirst >= 100) {
 
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "The player is dying of thirst.");
+				Context.Log.WriteLine ("The player is dying of thirst.");
 				var damage = person.Thirst / 100;
 				person.Health -= damage;
 				isHarmed = true;
 			}
 
 			if (person.Hunger >= 100) {
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "The player is dying of hunger.");
+				Context.Log.WriteLine ("The player is dying of hunger.");
 				var damage = person.Hunger / 100;
 				person.Health -= damage;
 				isHarmed = true;

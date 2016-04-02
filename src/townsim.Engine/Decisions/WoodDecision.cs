@@ -5,21 +5,22 @@ namespace townsim.Engine
 {
 	public class WoodDecision : BaseDecision
 	{
-		public WoodDecision (EngineSettings settings) : base(settings)
+		public WoodDecision (EngineContext context) : base(context)
 		{
 		}
 
-		public override ActivityType Decide(Person person)
+		public override void Decide(Person person)
 		{
-			if (person.ActivityType != ActivityType.FellWood) {
+			throw new NotImplementedException ();
+			/*if (person.ActivityType != ActivityType.FellWood) {
 				if (person.HasDemand (SupplyTypes.Wood)) {
 					if (person.Town.Trees.Length > 0) {
-						person.Start (ActivityType.FellWood);
+						person.Assign (ActivityType.FellWood);
 					}
 				}
 			}
 
-			return person.ActivityType;
+			return person.ActivityType;*/
 		}
 	}
 }

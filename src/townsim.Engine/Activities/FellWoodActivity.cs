@@ -2,45 +2,82 @@
 using townsim.Entities;
 using System.Collections.Generic;
 using townsim.Data;
+using townsim.Engine.Needs;
 
 namespace townsim.Engine.Activities
 {
+	[Activity(NeedType.Wood)]
 	[Serializable]
 	public class FellWoodActivity : BaseActivity
 	{
-		public decimal ChoppingRate = 10m;
-
 		public decimal TotalWoodFelled = 0;
 
-		public FellWoodActivity (Person person, EngineSettings settings) : base(person, settings)
+		public Plant Target { get;set; }
+
+		public decimal AmountOfWoodToFell
+		{
+			get { return NeedEntry.Quantity; }
+			set { NeedEntry.Quantity = value; }
+		}
+
+		public FellWoodActivity (Person person, NeedEntry needEntry, EngineSettings settings)
+			: base(person, needEntry, settings)
 		{
 		}
 
-		public override void ExecuteSingleCycle ()
+		public override void Prepare (Person person)
 		{
-			if (Person.ActivityType == ActivityType.FellWood) {
-				//if (Person.HasDemand (SupplyTypes.Wood)) {
-					//if (IsTimberAvailable (Person.Town))
-					//FellWood (Person, Person.GetDemandAmount (SupplyTypes.Wood));
+			throw new NotImplementedException ();
+		}
 
+		public override bool CheckFinished ()
+		{
+			return TotalWoodFelled >= AmountOfWoodToFell;
+		}
 
-				if (IsComplete ())
-					Finish ();
-				else if (!TreesAvailableInTown ())
-					Cancel ();
-				else
-					FellWood ();
-				//}
+		public override void Execute (Person person)
+		{
+			if (Settings.IsVerbose)
+			{
+				Console.WriteLine ("Starting " + GetType ().Name + " activity.");
+				Console.WriteLine ("  Quantity (wood): " + NeedEntry.Quantity);
 			}
+			
+			Plant treeBeingFelled = GetTreeToFell ();
+
+			if (treeBeingFelled != null) {
+				var amountOfWood = treeBeingFelled.Size;
+
+				var isFinishedFellingTree = FellTreeCycle (Actor, treeBeingFelled);
+
+				if (isFinishedFellingTree)
+					FinishedFellingSingleTree (Actor, treeBeingFelled);
+
+				// TODO: Remove if not needed
+				//return amountOfWood;
+			} else
+				throw new Exception ("Can't fell wood when no trees are available.");
 		}
+
+        public override bool CheckSupplies (Person actor)
+        {
+            // TODO: Should an axe be a required supply?
+            return true;
+        }
+
+		// TODO: Clean up
+		//protected override void ExecuteSingleCycle ()
+		//{
+		//	FellWoodCycle ();
+		//}
 
 		public bool IsTimberAvailable(Town town)
 		{
 			return town.Timber > 0;
 		}
 
-		/*
-		 * public void FellWood(Person person, decimal totalNeeded)
+		// TODO: Clean up
+		/*public void FellWood(Person person, decimal totalNeeded)
 		{
 			if (!PersonHasEnoughWood(totalNeeded)
 				&& TreesAvailableInTown()) {
@@ -54,121 +91,141 @@ namespace townsim.Engine.Activities
 			}
 		}*/
 
-		public decimal FellWood()
-		{
-			Plant tree = GetTargetTree ();
-
-			if (tree != null) {
-				var amountOfWood = tree.Size;
-
-				SetTarget(tree);
-
-				if (FellTreeCycle (Person, tree))
-					FinishedFellingTree (Person, tree);
-
-				return amountOfWood;
-			} else
-				return 0;
-		}
-
 		public bool FellTreeCycle(Person person, Plant plant)
 		{
-			plant.PercentHarvested += ChoppingRate;
-			TotalWoodFelled += ChoppingRate;
+			if (Settings.IsVerbose)
+				Console.WriteLine ("  Felling tree");
 
-			if (Settings.OutputType == ConsoleOutputType.General) {
-				Console.WriteLine (plant.PercentHarvested + "%");
-			}
+			plant.PercentHarvested += Settings.FellingRate;
+			TotalWoodFelled += Settings.FellingRate; // TODO: Should this be set here or once the tree is finished?
 
 			if (plant.PercentHarvested > 100)
 				plant.PercentHarvested = 100;
 
+			if (Settings.OutputType == ConsoleOutputType.Debug) {
+				Console.WriteLine ("  " + plant.PercentHarvested + "% felled");
+			}
+
+			if (plant.PercentHarvested > 100) {
+				plant.PercentHarvested = 100;
+			}
+
+			if (plant.PercentHarvested == 100
+				&& Settings.IsVerbose) {
+				Console.WriteLine ("  Finished felling tree.");
+			}
+				
+
 			return plant.PercentHarvested == 100;
 		}
 
-		public void FinishedFellingTree(Person person, Plant tree)
+		public void FinishedFellingSingleTree(Person person, Plant tree)
 		{
-			var list = new List<Plant> (person.Town.Plants);
-			list.Remove (tree);
-			person.Town.Plants = list.ToArray ();
+			person.Tile.RemovePlant (tree);
 
 			var amountOfWood = tree.Size;
 
-			Person.Supplies [SupplyTypes.Wood] = Person.Supplies [SupplyTypes.Wood] + amountOfWood;
+			NeedsProduced [NeedType.Wood] = amountOfWood;
+			//Actor.AddSupply(NeedType.Wood, amountOfWood);
 
-			Person.RemoveDemand (SupplyTypes.Wood, amountOfWood);
+			if (Settings.IsVerbose) {
+				Console.WriteLine ("  Wood from tree: " + amountOfWood);
+				Console.WriteLine ("  Total wood: " + person.Supplies [NeedType.Wood]);
+			}
 
-			ClearTarget ();
+			Target = null;
 
-			if (CurrentEngine.PlayerId == person.Id)
-				LogWriter.Current.AppendLine (CurrentEngine.Id, String.Format("Player cut a tree down. Age:{0} size:{1} wood:{2}", (int)tree.Age, (int)tree.Size, (int)amountOfWood));
+			// TODO: Clean up
+			//ClearTarget ();
 
+			//if (Context.Settings.PlayerId == person.Id)
+				//Context.Log.WriteLine (String.Format("Player cut a tree down. Age:{0} size:{1} wood:{2}", (int)tree.Age, (int)tree.Size, (int)amountOfWood));
 		}
 
-		public void FinishedFellingWood(Person person)
+		public void FinishedFellingRequiredWood(Person person)
 		{
-			Person.FinishActivity ();
+			throw new NotImplementedException ();
+			Finish ();
 		}
 
-		public Plant GetLargeTree(Person person)
+		public Plant FindLargeTree()
 		{
-			foreach (var plant in person.Town.Plants) {
+			if (Actor.Tile == null)
+				throw new Exception ("The Actor.Tile property is null. Set a tile first.");
+
+			// TODO: Use linq
+			foreach (var plant in Actor.Tile.Plants) {
 				if (plant.Type == PlantType.Tree
-					&& plant.Size > 10) {
+					&& plant.Size > Settings.MinimumTreeSize) {
+
+					if (Settings.IsVerbose)
+						Console.WriteLine (" Found large tree");
+					
 					return plant;
 				}
 			}
+
+			if (Settings.IsVerbose)
+				Console.WriteLine ("  No large trees available");
+			
 			return null;
 		}
 
-		public Plant GetTargetTree()
+		public Plant GetTreeToFell()
 		{
 			Plant tree = null;
 
-			if (Person.ActivityTarget is Plant
-				&& ((Plant)Person.ActivityTarget).Type == PlantType.Tree)
-				tree = (Plant)Person.ActivityTarget;
+			if (Target != null)
+				tree = (Plant)Target;
 			else {
-				if (Settings.OutputType == ConsoleOutputType.General) {
-					Console.WriteLine ("Felling tree");
+				tree = FindLargeTree ();
+
+				Target = tree;
+
+				if (Settings.IsVerbose) {
+					Console.WriteLine ("  Cutting down tree");
 				}
-				tree = GetLargeTree (Person);
 			}
 
 			return tree;
 		}
 
-		public override void Start ()
+		public void Start ()
 		{
+			throw new NotImplementedException ();
 		}
 
-		public override bool IsComplete ()
+		public bool CheckComplete ()
 		{
-			return !Person.HasDemand(SupplyTypes.Wood);
+			throw new NotImplementedException ();
+
+			//var value = !Person.HasDemand(NeedType.Wood);
+			//return value;
 		}
 
-		public override bool IsImpossible ()
+		public bool CheckImpossible ()
 		{
-			var woodNeeded = Person.GetDemandAmount (SupplyTypes.Wood);
 
-			return Person.Town.WoodAvailableAsTrees < woodNeeded;
-		}
+			throw new NotImplementedException ();
+			return !TreesAvailableInTown ();
+			/*var woodNeeded = Person.GetDemandAmount (NeedType.Wood);
 
-		public override void Finish ()
-		{
-			CleanUp ();
+			return Person.Town.WoodAvailableAsTrees < woodNeeded;*/
 		}
 
 		public bool PersonHasEnoughWood(decimal amountOfWood)
 		{
-			var value = Person.Supplies [SupplyTypes.Wood] >= amountOfWood;
+			throw new NotImplementedException ();
 
-			return value;
+			//var value = Person.Supplies [NeedType.Wood] >= amountOfWood;
+
+			//return value;
 		}
 
 		public bool TreesAvailableInTown()
 		{
-			return Person.Town.Trees.Length > 0;
+			throw new NotImplementedException ();
+			//return Person.Town.Trees.Length > 0;
 		}
 	}
 }

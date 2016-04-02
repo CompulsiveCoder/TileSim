@@ -2,123 +2,177 @@
 using townsim.Engine.Activities;
 using townsim.Data;
 using townsim.Entities;
+using townsim.Engine.Needs;
 
 namespace townsim.Engine.Activities
 {
 	[Serializable]
+	[Activity(NeedType.Timber)]
 	public class MillTimberActivity : BaseActivity
 	{
-		public decimal MillRate = 10;
-
 		public decimal TotalTimberMilled = 0;
 
-		public MillTimberActivity (Person person, EngineSettings settings) : base(person, settings)
+		public MillTimberActivity (Person person, NeedEntry needEntry, EngineSettings settings)
+			: base(person, needEntry, settings)
 		{
 		}
 
-		public override void ExecuteSingleCycle ()
+		public override bool CheckFinished ()
 		{
-			if (PersonIsBuildingTheirHomeAndNeedsTimber ()) {
-				var amount = Person.GetDemandAmount(SupplyTypes.Timber);
+			return TotalTimberMilled >= NeedEntry.Quantity;
+		}
 
-				MillTimberCycle (amount);
+		public override void Prepare (Person person)
+		{
+			throw new NotImplementedException ();
+		}
+
+		public override void Execute (Person person)
+		{
+			if (Settings.IsVerbose) {
+				Console.WriteLine ("Starting " + GetType ().Name + " activity");
+				Console.WriteLine ("  Quantity (timber): " + NeedEntry.Quantity);
+				Console.WriteLine ("  Current (timber): " + person.Supplies[NeedType.Timber]);
 			}
+
+			// TODO: Clean up
+			MillTimberCycle (person);
+
+			//if (PersonIsBuildingTheirHomeAndNeedsTimber ()) {
+				/*var amount = Person.GetDemandAmount(NeedType.Timber);
+
+				MillTimberCycle (amount);*/
+			//}
 		}
 
 		public bool PersonIsBuildingTheirHomeAndNeedsTimber()
 		{
-			return Person.Home != null
-			&& !Person.Home.IsCompleted
-			&& Person.Home.TimberPending > 0;
+			throw new NotImplementedException ();
+			return Actor.Home != null
+				&& !Actor.Home.IsCompleted
+				&& Actor.Home.TimberPending > 0;
 		}
 
-		public void MillTimberCycle(decimal amountOfTimber)
+        public void MillTimberCycle(Person person)
 		{
-			if (CurrentEngine.PlayerId == Person.Id
+			// TODO: Remove if not needed
+			/*if (Settings.PlayerId == Person.Id
 			    && Settings.OutputType == ConsoleOutputType.General) {
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started milling timber.");
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "Timber needed: " + amountOfTimber);
-			}
+				PlayerLog.WriteLine (CurrentEngine.Id, "The player has started milling timber.");
+				PlayerLog.WriteLine (CurrentEngine.Id, "Timber needed: " + amountOfTimber);
+			}*/
 
-			if (HasCompletedMillingTimber(amountOfTimber))
-				Finish ();
-			else
-			{
-				var amountOfTimberToMillThisCycle = MillRate;
+			var amountOfTimberToMillThisCycle = Settings.TimberMillingRate;
 
-				var totalWoodNeededThisCycle = CalculateAmountOfWoodNeeded (amountOfTimberToMillThisCycle);
+            if (NeedEntry.Quantity < amountOfTimberToMillThisCycle)
+                amountOfTimberToMillThisCycle = NeedEntry.Quantity;
 
-				if (HasEnoughWood(totalWoodNeededThisCycle)) {
-					ConvertWoodToTimber (amountOfTimberToMillThisCycle);
-				} else
-					throw new Exception ("Not enough wood available."); // TODO: Should a demand for wood be added here?
-			}
-				
+			ConvertWoodToTimber (person, amountOfTimberToMillThisCycle);
 		}
 
-		public void ConvertWoodToTimber(decimal amountOfTimber)
+        public override bool CheckSupplies(Person actor)
 		{
+            if (!HasEnoughWood (NeedEntry.Quantity)) {
+                RegisterNeedForWood (Actor, NeedEntry.Quantity);
+
+                return false;
+            } else
+                return true;
+		}
+        public void RegisterNeedForWood(Person person, decimal quantity)
+		{
+
+			var amountOfWoodNeeded = CalculateAmountOfWoodNeeded (NeedEntry.Quantity);
+
+			if (Settings.IsVerbose)
+				Console.WriteLine ("  Registering the need for " + amountOfWoodNeeded + " wood");
+
+			person.AddNeed (NeedType.Wood, amountOfWoodNeeded, 102); // TODO: Figure out a better way to decide priority
+		}
+
+		public void GetWood(decimal woodRequired)
+		{
+			throw new NotImplementedException ();
+			//var fellWoodActivity = new FellWoodActivity (Actor, Settings);
+
+			//if (Settings.IsVerbose) {
+			//	Console.WriteLine ("        Getting " + woodRequired + " wood by starting " + fellWoodActivity.GetType().Name + " activity.");
+			//}
+			
+			//fellWoodActivity.SetQuantity (woodRequired);
+			//Actor.RushActivity (fellWoodActivity);
+		}
+
+		public void ConvertWoodToTimber(Person actor, decimal amountOfTimber)
+		{
+            if (Settings.IsVerbose)
+                Console.WriteLine ("  Converting wood to timber");
+            
 			var woodNeeded = CalculateAmountOfWoodNeeded(amountOfTimber);
 
 			// TODO: Is there a cleaner way to do this?
-			if (Person.Supplies [SupplyTypes.Wood] >= woodNeeded) {
-				Person.Supplies [SupplyTypes.Wood] -= woodNeeded;
-				Person.Supplies [SupplyTypes.Timber] += amountOfTimber;
-				Person.RemoveDemand (SupplyTypes.Timber, amountOfTimber);
-				TotalTimberMilled += amountOfTimber;
-			}
+            if (actor.Supplies [NeedType.Wood] >= woodNeeded) {
+                TotalTimberMilled += amountOfTimber;
+                if (Settings.IsVerbose) {
+                    Console.WriteLine ("    Wood: " + woodNeeded);
+                    Console.WriteLine ("    Timber: " + amountOfTimber);
+                    Console.WriteLine ("    Total timber: " + TotalTimberMilled);
+                }
+                NeedsConsumed[NeedType.Wood] += woodNeeded;
+                NeedsProduced[NeedType.Timber] += amountOfTimber;
+                //DemandsResolved.Add(NeedType.Timber, // TODO: Remove if not needed. Should be obsolete because the need is removed when the activity is finished.
+                //actor.RemoveDemand (NeedType.Timber, amountOfTimber);
+            } else {
+                if (Settings.IsVerbose) {
+                    Console.WriteLine ("    Not enough wood: " + woodNeeded);
+                }
+            }
 
-			if (CurrentEngine.PlayerId == Person.Id
+			/*if (Settings.PlayerId == Person.Id
 				&& Settings.OutputType == ConsoleOutputType.General) {
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "The player has started milling timber.");
-				LogWriter.Current.AppendLine (CurrentEngine.Id, TotalTimberMilled + " timber");
-			}
+				PlayerLog.WriteLine (CurrentEngine.Id, "The player has started milling timber.");
+				PlayerLog.WriteLine (CurrentEngine.Id, TotalTimberMilled + " timber");
+			}*/
 
-			if (IsComplete ())
-				Finish ();
+			// TODO: Remove. Obsolete
+			//if (IsComplete)
+			//	Finish ();
 		}
 
-		public override void Start ()
+		public bool CheckComplete ()
 		{
+			throw new NotImplementedException ();
+			/*var value = !Person.HasDemand (NeedType.Timber);
+			return value;*/
 		}
 
-		public override bool IsComplete ()
+		public bool CheckImpossible ()
 		{
-			var value = !Person.HasDemand (SupplyTypes.Timber);
-			return value;
-		}
-
-		public override bool IsImpossible ()
-		{
-			var amount = Person.GetDemandAmount (SupplyTypes.Timber);
+			throw new NotImplementedException ();
+			/*var amount = Person.GetDemandAmount (NeedType.Timber);
 
 			var woodNeeded = amount * Settings.TimberWasteRate;
 
-			var isImpossible = !Person.Has (SupplyTypes.Wood, woodNeeded);
+			var isImpossible = !Person.Has (NeedType.Wood, woodNeeded);
 
-			return isImpossible;
+			return isImpossible;*/
 		}
 
-		public override void Finish ()
-		{
-			base.CleanUp ();
-		}
-
-		public bool HasCompletedMillingTimber(decimal amountOfTimber)
+		/*public bool HasCompletedMillingTimber(decimal amountOfTimber)
 		{
 			return IsComplete ();
-		}
+		}*/
 
 		public bool HasEnoughWood(decimal amountOfWoodNeeded)
 		{	
-			var value = Person.Has (SupplyTypes.Wood, amountOfWoodNeeded);
+			var value = Actor.Has (NeedType.Wood, amountOfWoodNeeded);
 
 			return value;
 		}
 
 		public decimal CalculateAmountOfWoodNeeded(decimal amountOfTimber)
 		{
-			return amountOfTimber * Settings.TimberWasteRate;
+			return amountOfTimber * Settings.WoodRequiredForTimber;
 		}
 	}
 }

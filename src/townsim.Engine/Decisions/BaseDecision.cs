@@ -1,18 +1,28 @@
 ﻿using System;
 using townsim.Entities;
+using Newtonsoft.Json;
 
 namespace townsim.Engine
 {
 	public abstract class BaseDecision
 	{
-		public EngineSettings Settings { get; set; }
+		//[JsonIgnore]
+		//[NonSerialized]
+		//public EngineContext Context;
+
+		[JsonIgnore]
+		[NonSerialized]
+		public EngineSettings Settings;
+
+		// TODO: Clean up
+//		public BaseDecision (EngineContext context)
 
 		public BaseDecision (EngineSettings settings)
 		{
 			Settings = settings;
 		}
 
-		public abstract ActivityType Decide(Person person);
+		public abstract void Decide(Person person);
 	}
 }
 

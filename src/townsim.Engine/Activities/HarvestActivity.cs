@@ -6,7 +6,7 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-	public class HarvestActivity : BaseActivity
+	public class HarvestActivity : BaseActivityOld
 	{
 		//public WorkersUtility Workers = new WorkersUtility();
 
@@ -14,18 +14,20 @@ namespace townsim.Engine.Activities
 
 		public decimal FoodToPlantRatio = 0.5m;
 
-		public HarvestActivity (Person person, EngineSettings settings, EngineClock clock) : base(person, settings, clock)
+		public HarvestActivity (Person person, EngineContext context)
+			: base(ActivityType.Harvesting, person, context)
 		{
 		}
 
-		public override void ExecuteSingleCycle()
+		protected override void ExecuteSingleCycle()
 		{
 			PerformHarvesting ();
 		}
 
 		public void PerformHarvesting()
 		{
-			var plant = (Plant)Person.ActivityTarget;
+			throw new NotImplementedException ();
+			/*var plant = (Plant)Person.Activity.Target;
 
 			if (plant == null)
 				plant = AssignRipeVegetable (Person.Town, Person);
@@ -36,21 +38,26 @@ namespace townsim.Engine.Activities
 					Person.Town.FoodSources += ExtractFood (plant);
 					//Workers.Fire (person);	
 
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "A vegetable has been harvested.");
+					throw new NotImplementedException ();
+					//PlayerLog.WriteLine (CurrentEngine.Id, "A vegetable has been harvested.");
 				} else {
 					PerformHarvesting (plant);
 				}
-			}
+			}*/
 		}
 
 		public Plant AssignRipeVegetable(Town town, Person person)
 		{
 			if (town.RipeVegetables.Length > 0) {
 				var vegetable = town.FindRipeUnassignedVegetable ();
-				person.FocusOn (vegetable);
+				throw new NotImplementedException ();
+				//person.FocusOn (vegetable);
 				return vegetable;
 			} else
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "Not enough ripe vegetables available.");
+			{
+				throw new NotImplementedException ();
+				//PlayerLog.WriteLine (CurrentEngine.Id, "Not enough ripe vegetables available.");
+			}
 
 			return null;
 		}
@@ -82,12 +89,12 @@ namespace townsim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsComplete ()
+		public override bool CheckComplete ()
 		{
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsImpossible ()
+		public override bool CheckImpossible ()
 		{
 			throw new NotImplementedException ();
 		}

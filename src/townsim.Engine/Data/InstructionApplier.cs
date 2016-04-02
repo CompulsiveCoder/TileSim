@@ -10,7 +10,7 @@ namespace townsim.Data
 		{
 		}
 
-		public void Apply(BaseEntity target, EditInstruction instruction)
+		public void Apply(BaseGameEntity target, EditInstruction instruction)
 		{
 			var type = target.GetType ();
 

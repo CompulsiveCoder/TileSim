@@ -6,15 +6,12 @@ using datamanager.Data;
 
 namespace townsim.Engine.Effects
 {
-	public class PopulationEffect
+	public class PopulationEffect : BaseEffect
 	{
 		// TODO: Split up into multiple effects and/or activities
 
-		public double AgingRate = 0.1;
-		public LogWriter Log = new LogWriter ();
-    	public int BirthOdds = 25; // 1 in 25
 
-		public PopulationEffect ()
+		public PopulationEffect (EngineContext context) : base(context)
 		{
 		}
 
@@ -28,7 +25,7 @@ namespace townsim.Engine.Effects
 		public void UpdatePopulationAge(Town town)
 		{
 			foreach (var person in town.People) {
-				person.IncreaseAge (AgingRate);
+				person.IncreaseAge (Context.Settings.AgingRate);
 			}
 		}
 
@@ -36,11 +33,11 @@ namespace townsim.Engine.Effects
 		{
 			var random = new Random ();
 			for (int i = 0; i < town.TotalCouples; i++) {
-				var randomNumber = random.Next (1, BirthOdds);
+				var randomNumber = random.Next (1, Context.Settings.BirthOdds);
 				if (randomNumber < 1) {
 					IncreasePopulation (town, new PersonCreator ().CreateBabies (1));
 					town.TotalBirths++;
-					Log.AppendLine (CurrentEngine.Id, "A baby was born.");
+					Context.Log.WriteLine ("A baby was born.");
 				}
 			}
 		}
@@ -79,8 +76,6 @@ namespace townsim.Engine.Effects
 
 		public void ReducePopulation(Town town, int numberOfPeople)
 		{
-			var data = new DataManager ();
-
 			if (town.Population > 0) {
 				if (town.Population < numberOfPeople)
 					numberOfPeople = town.Population;
@@ -91,7 +86,7 @@ namespace townsim.Engine.Effects
 						list.RemoveAt (0);
 						var person = town.People [i];
 						if (person != null)
-							data.Delete (person);
+							Context.Data.Delete (person);
 					}
 				}
 				town.People = list.ToArray ();
@@ -127,8 +122,8 @@ namespace townsim.Engine.Effects
 			var peopleWord = "people";
 			if (numberOfPeople == 1)
 				peopleWord = "person";
-
-			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " new " + peopleWord + " arrived in town.");
+			
+			Context.Log.WriteLine (numberOfPeople + " new " + peopleWord + " arrived in town.");
 		}
 
 		public void Emigrate(Town town, int numberOfPeople)
@@ -141,7 +136,7 @@ namespace townsim.Engine.Effects
 			if (numberOfPeople == 1)
 				peopleWord = "person";
 
-			LogWriter.Current.AppendLine (CurrentEngine.Id, numberOfPeople + " " + peopleWord + " left town.");
+			Context.Log.WriteLine (numberOfPeople + " " + peopleWord + " left town.");
 		}
 	}
 }

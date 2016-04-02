@@ -6,31 +6,34 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-	public class GardenActivity : BaseActivity
+	public class GardenActivity : BaseActivityOld
 	{
 		//public WorkersUtility Workers = new WorkersUtility();
 
 		public decimal PlantingIncrement = 100;
 
-		public GardenActivity (Person person, EngineSettings settings, EngineClock clock) : base(person, settings, clock)
+		public GardenActivity (Person person, EngineContext context)
+			: base(ActivityType.Gardening, person, context)
 		{
 		}
 
-		public override void ExecuteSingleCycle()
+		protected override void ExecuteSingleCycle()
 		{
 			DoPlanting ();
 		}
 
 		public void DoPlanting()
 		{
-			if (Person.ActivityType == ActivityType.Gardening) {
+			if (Person.Activity.Type == ActivityType.Gardening) {
 				var town = Person.Town;
 
-				var plant = (Plant)Person.ActivityTarget;
+				var plant = (Plant)Person.Activity.Target;
 
 				if (plant == null) {
 					plant = new Plant (PlantType.Vegetable);
-					plant.TimePlanted = Clock.GameDuration;
+
+					throw new NotImplementedException ();
+					//plant.TimePlanted = Clock.GameDuration;
 					plant.WasPlanted = true;
 
 					var plants = new List<Plant> (town.Plants);
@@ -42,9 +45,10 @@ namespace townsim.Engine.Activities
 
 				if (plant.PercentPlanted >= 100) {
 					town.TotalVegetablesPlanted++;
-					Person.FinishActivity ();
+					Finish();
 
-					LogWriter.Current.AppendLine (CurrentEngine.Id, "A vegetable seedling has been planted.");
+					throw new NotImplementedException ();
+					//PlayerLog.WriteLine (CurrentEngine.Id, "A vegetable seedling has been planted.");
 				} else {
 					DoPlanting (plant);
 				}
@@ -68,12 +72,12 @@ namespace townsim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsComplete ()
+		public override bool CheckComplete ()
 		{
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsImpossible ()
+		public override bool CheckImpossible ()
 		{
 			throw new NotImplementedException ();
 		}

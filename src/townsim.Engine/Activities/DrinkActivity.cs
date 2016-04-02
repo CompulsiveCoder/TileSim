@@ -5,29 +5,31 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-	public class DrinkActivity : BaseActivity
+	public class DrinkActivity : BaseActivityOld
 	{
 		public decimal WaterConsumptionFactor = 0.05m; // liters
 		public decimal ThirstSatisfactionRate = 1; // The rate at which thirst is reduced
 
-		public DrinkActivity (Person person, EngineSettings settings) : base(person, settings)
+		public DrinkActivity (Person person, EngineContext context)
+			: base(ActivityType.Drinking, person, context)
 		{
 		}
 
-		public override void ExecuteSingleCycle()
+		protected override void ExecuteSingleCycle()
 		{
-			if (Person.ActivityType == ActivityType.Drinking)
+			throw new NotImplementedException ();
+			/*if (Person.ActivityType == ActivityType.Drinking)
 			{
 				if (Person.Thirst == 0 && Person.ActivityData.ContainsKey("TotalConsumed")) {
-					if (CurrentEngine.PlayerId == Person.Id)
-						LogWriter.Current.AppendLine (CurrentEngine.Id, "Player consumed " + Convert.ToInt32 (Person.ActivityData ["TotalConsumed"]) + "ml water.");
+					if (Settings.PlayerId == Person.Id)
+						PlayerLog.WriteLine (CurrentEngine.Id, "Player consumed " + Convert.ToInt32 (Person.ActivityData ["TotalConsumed"]) + "ml water.");
 
-					Person.FinishActivity ();
+					Finish ();
 				} else {
 					if (!Person.ActivityData.ContainsKey ("TotalConsumed")) {
 						Person.ActivityData.Add ("TotalConsumed", 0m);
-						if (CurrentEngine.PlayerId == Person.Id)
-							LogWriter.Current.AppendLine (CurrentEngine.Id, "Player started drinking water.");
+						if (Settings.PlayerId == Person.Id)
+							PlayerLog.WriteLine (CurrentEngine.Id, "Player started drinking water.");
 					}
 
 					decimal amountConsumed = Person.Thirst * WaterConsumptionFactor / ThirstSatisfactionRate;
@@ -46,7 +48,7 @@ namespace townsim.Engine.Activities
 						Person.Thirst = 0;
 					}
 				}
-			}
+			}*/
 		}
 
 		public override void Start ()
@@ -54,12 +56,12 @@ namespace townsim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsComplete ()
+		public override bool CheckComplete ()
 		{
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsImpossible ()
+		public override bool CheckImpossible ()
 		{
 			throw new NotImplementedException ();
 		}

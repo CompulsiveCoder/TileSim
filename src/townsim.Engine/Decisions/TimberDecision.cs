@@ -7,13 +7,14 @@ namespace townsim.Engine.Decisions
 {
 	public class TimberDecision : BaseDecision
 	{
-		public TimberDecision (EngineSettings settings) : base(settings)
+		public TimberDecision (EngineContext context) : base(context)
 		{
 		}
 
-		public override ActivityType Decide(Person person)
+		public override void Decide(Person person)
 		{
-			if (person.ActivityType != ActivityType.MillTimber) {
+			throw new NotImplementedException ();
+			/*if (person.ActivityType != ActivityType.MillTimber) {
 				if (HasDemandForTimber (person)) {
 					var amount = person.GetDemandAmount (SupplyTypes.Timber);
 
@@ -21,8 +22,8 @@ namespace townsim.Engine.Decisions
 
 					if (!HasEnoughWood (person, woodNeeded)) {
 
-						if (Settings.OutputType == ConsoleOutputType.General
-						   && CurrentEngine.PlayerId == person.Id) {
+						if (Context.Settings.OutputType == ConsoleOutputType.Debug
+							&& Context.Settings.PlayerId == person.Id) {
 							Console.WriteLine ("Can't fulfil demand for timber. Not enough wood to mill. Adding demand for wood.");
 						}
 
@@ -33,7 +34,7 @@ namespace townsim.Engine.Decisions
 				}
 			}
 
-			return person.ActivityType;
+			return person.ActivityType;*/
 		}
 
 		public void AddDemandForWood(Person person, decimal amountOfWood)
@@ -45,12 +46,12 @@ namespace townsim.Engine.Decisions
 
 		public void StartMillingTimber(Person person)
 		{
-			if (Settings.OutputType == ConsoleOutputType.General
-				&& CurrentEngine.PlayerId == person.Id) {
-				LogWriter.Current.AppendLine (CurrentEngine.Id, "Starting to mill timber.");
+			if (Context.Settings.OutputType == ConsoleOutputType.Debug
+				&& Context.Settings.PlayerId == person.Id) {
+				Context.Log.WriteLine ("Starting to mill timber.");
 			}
 
-			person.Start (ActivityType.MillTimber);
+			person.Assign (ActivityType.MillTimber);
 		}
 
 		public bool HasEnoughWood(Person person, decimal amountOfWood)
@@ -65,7 +66,7 @@ namespace townsim.Engine.Decisions
 
 		public decimal CalculateAmountOfWoodNeeded(decimal amountOfTimber)
 		{
-			return amountOfTimber * Settings.TimberWasteRate;
+			return amountOfTimber * Context.Settings.TimberWasteRate;
 		}
 	}
 }

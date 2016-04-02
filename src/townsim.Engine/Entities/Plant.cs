@@ -1,5 +1,6 @@
 ﻿using System;
 using datamanager.Entities;
+using townsim.Engine;
 
 namespace townsim.Entities
 {
@@ -21,6 +22,8 @@ namespace townsim.Entities
 		public TimeSpan TimeHarvested { get; set; }
 
 		public Person[] People { get;set; }
+
+		public GameTile Tile { get;set; }
 
 		public decimal TotalWood
 		{

@@ -5,16 +5,17 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-	public class EatActivity : BaseActivity
+	public class EatActivity : BaseActivityOld
 	{
 		public decimal FoodConsumptionRate = 0.7m; // kgs
 		public decimal FoodSatisfactionRate = 1; // The rate at which hunger is reduced upon consumption
 
-		public EatActivity (Person person, EngineSettings settings) : base(person, settings)
+		public EatActivity (Person person, EngineContext context)
+			: base(ActivityType.Eating, person, context)
 		{
 		}
 
-		public override void ExecuteSingleCycle()
+		protected override void ExecuteSingleCycle()
 		{
 			if (Person.ActivityType == ActivityType.Eating) {
 				var amountOfFoodRequired = Person.Hunger;
@@ -27,8 +28,9 @@ namespace townsim.Engine.Activities
 					if (amountConsumed > Person.Hunger)
 						amountConsumed = Person.Hunger;
 
-					if (CurrentEngine.PlayerId == Person.Id)
-						LogWriter.Current.AppendLine (CurrentEngine.Id, "Player ate " + (int)amountConsumed + "grams of food.");
+					throw new NotImplementedException ();
+					//if (Settings.PlayerId == Person.Id)
+					//	PlayerLog.WriteLine (CurrentEngine.Id, "Player ate " + (int)amountConsumed + "grams of food.");
 
 					Person.Supplies[SupplyTypes.Food] -= amountConsumed;
 					Person.Hunger -= amountConsumed * FoodSatisfactionRate;
@@ -39,7 +41,7 @@ namespace townsim.Engine.Activities
 				if (Person.Hunger <= 0)
 				{
 					Person.Hunger = 0;
-					Person.ActivityType = ActivityType.Inactive;
+					Finish ();
 				}
 			}
 		}
@@ -49,12 +51,12 @@ namespace townsim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsComplete ()
+		public override bool CheckComplete ()
 		{
 			throw new NotImplementedException ();
 		}
 
-		public override bool IsImpossible ()
+		public override bool CheckImpossible ()
 		{
 			throw new NotImplementedException ();
 		}

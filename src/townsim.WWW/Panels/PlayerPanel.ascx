@@ -14,9 +14,9 @@
 		<div>House: <%= (Player.Home != null ? (int)Player.Home.PercentComplete : 0) + "%" %><div class="bar" style="width: <%= (Player.Home != null ? (int)Player.Home.PercentComplete : 0)*2.5 %>px; background-color: brown;"></div></div>
 		<div>&nbsp;</div>
 		<div><b>Supplies</b></div>
-		<div>Food: <%= (int)Player.Supplies[SupplyTypes.Food] %>kg<div class="bar" style="width: <%= (int)Player.Supplies[SupplyTypes.Food]*2.5 %>px; background-color: brown;"></div></div>
-		<div>Water: <%= (int)Player.Supplies[SupplyTypes.Water] %>ml<div class="bar" style="width: <%= (int)Player.Supplies[SupplyTypes.Water]/3 %>px; background-color: lightblue;"></div></div>
-		<div>Timber: <%= (int)Player.Supplies[SupplyTypes.Timber] %><div class="bar" style="width: <%= (int)Player.Supplies[SupplyTypes.Timber]*2.5 %>px; background-color: lightblue;"></div></div>
+		<div>Food: <%= (int)Player.Supplies[needTypes.Food] %>kg<div class="bar" style="width: <%= (int)Player.Supplies[needTypes.Food]*2.5 %>px; background-color: brown;"></div></div>
+		<div>Water: <%= (int)Player.Supplies[needTypes.Water] %>ml<div class="bar" style="width: <%= (int)Player.Supplies[needTypes.Water]/3 %>px; background-color: lightblue;"></div></div>
+		<div>Timber: <%= (int)Player.Supplies[NeedType.Timber] %><div class="bar" style="width: <%= (int)Player.Supplies[NeedType.Timber]*2.5 %>px; background-color: lightblue;"></div></div>
 		<div>&nbsp;</div>
 		<div><b>Priorities</b></div>
 		<div>Food: <%= (int)Player.Priorities[PriorityTypes.Food] + "%" %><div class="bar" style="width: <%= (int)Player.Priorities[PriorityTypes.Food]*2.5 %>px; background-color: brown;"></div></div>

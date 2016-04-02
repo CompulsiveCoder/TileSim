@@ -2,7 +2,7 @@
 
 namespace townsim.Entities
 {
-	public abstract class BaseInstruction : BaseEntity
+	public abstract class BaseInstruction : BaseGameEntity
 	{
 		public Type TargetType;
 

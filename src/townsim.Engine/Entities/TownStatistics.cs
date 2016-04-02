@@ -20,10 +20,10 @@ namespace townsim.Entities
 		public int TotalHomelessPeople
 		{
 			get {
-				if (Population <= Buildings.TotalCompletedHouses) {
+				if (Population <= TotalCompletedHouses) {
 					return 0;
 				} else {
-					return Population - Buildings.TotalCompletedHouses;
+					return Population - TotalCompletedHouses;
 				}
 			}
 		}
@@ -132,10 +132,14 @@ namespace townsim.Entities
 		public int TotalBuilders
 		{
 			get {
-				return (from person in People
+
+				throw new NotImplementedException ();
+			/*
+			 *return (from person in People
 				        where person != null
 				            && person.ActivityType == ActivityType.Builder
 				        select person).Count ();
+				        */
 			}
 		}
 
@@ -143,10 +147,12 @@ namespace townsim.Entities
 		public int TotalForestryWorkers
 		{
 			get {
-				return (from person in People
+
+				throw new NotImplementedException ();
+				/*return (from person in People
 					where person != null
 					&& person.ActivityType == ActivityType.Forestry
-					select person).Count ();
+					select person).Count ();*/
 			}
 		}
 
@@ -156,7 +162,7 @@ namespace townsim.Entities
 			get {
 				var total = (from person in People
 						where person != null
-							&& person.ActivityType != ActivityType.Inactive
+						&& person.IsActive
 					select person).Count();
 
 				return total;
@@ -169,7 +175,7 @@ namespace townsim.Entities
 			get {
 				var total = (from person in People
 					where person != null
-						&& person.ActivityType == ActivityType.Inactive
+					&& !person.IsActive
 					select person).Count();
 
 				return total;
@@ -322,6 +328,81 @@ namespace townsim.Entities
 				return totalVegetablesBeingHarvested;
 			}
 		}
+
+		#region Buildings
+
+		public int TotalCompleted
+		{
+			get {
+				return (from building in Buildings
+				        where building.IsCompleted
+				        select building).Count ();
+			}
+		}
+
+		public int TotalHouses
+		{
+			get {
+
+				return (from building in Buildings
+					where building.Type == BuildingType.House
+					select building).Count ();
+			}
+		}
+
+		public int TotalCompletedHouses
+		{
+			get {
+				return (from building in Buildings
+					where building.IsCompleted
+					&& building.Type == BuildingType.House
+					select building).Count ();
+			}
+		}
+
+		public int TotalIncompleteHouses
+		{
+			get {
+				return (from building in Buildings
+					where !building.IsCompleted
+					&& building.Type == BuildingType.House
+					select building).Count ();
+			}
+		}
+
+		public Building[] Houses
+		{
+			get {
+				return (from building in Buildings
+					where building.Type == BuildingType.House
+					select building).ToArray ();
+			}
+		}
+
+		public Building[] IncompleteHouses
+		{
+			get {
+				return (from building in Buildings
+					where building.Type == BuildingType.House
+					&& !building.IsCompleted
+					select building).ToArray ();
+			}
+		}
+
+		public double AveragePercentComplete
+		{
+			get {
+				if (IncompleteHouses.Length == 0)
+					return 0;
+				double sum = 0;
+				foreach (var building in Houses) {
+					sum += building.PercentComplete;
+
+				}
+				return sum / TotalHouses;
+			}
+		}
+		#endregion
 	}
 }
 

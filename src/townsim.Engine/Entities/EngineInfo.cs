@@ -1,23 +1,40 @@
 ﻿using System;
+using townsim.Engine;
+using datamanager.Data;
+using townsim.Data;
+using Newtonsoft.Json;
 
 namespace townsim.Entities
 {
 	[Serializable]
-	public class EngineInfo : BaseEntity
+	public class EngineInfo : BaseGameEntity
 	{
-		public EngineSettings Settings;
-
 		public DateTime StartTime { get; set; }
 
-    	public string PlayerId { get; set; }
-		
-    	public EngineInfo (string engineId, DateTime startTime, EngineSettings settings, string playerId)
+		public EngineSettings Settings;
+
+		public static EngineInfo Default
 		{
-			Id = engineId;
+			get
+			{	
+				return new EngineInfo (DateTime.Now, EngineSettings.Default);
+			}
+		}
+		
+    	public EngineInfo (DateTime startTime, EngineSettings settings)
+		{
+		//	throw new NotImplementedException ();
 			Settings = settings;
 			StartTime = startTime;
-			PlayerId = playerId;
 		}
+
+		/*public EngineInfo(EngineSettings settings, EngineClock clock, DataManager data, LogWriter log)
+		{
+			Settings = settings;
+			Clock = clock;
+			Data = data;
+			Log = log;
+		}*/
 	}
 }
 
