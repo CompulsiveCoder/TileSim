@@ -1,6 +1,7 @@
 ﻿using System;
 using townsim.Engine.Entities;
 using datamanager.Data;
+using datamanager.Data.Tests;
 
 namespace townsim.Engine.Tests
 {
@@ -15,7 +16,6 @@ namespace townsim.Engine.Tests
 
 		public EngineContext Create()
 		{
-			// Create the required objects
 			var data = CreateDataManager ();
 
 			var context = new MockEngineContext (Settings, data);
@@ -37,7 +37,7 @@ namespace townsim.Engine.Tests
 
 		public DataManager CreateDataManager()
 		{
-			var dataManager = new DataManager();
+            var dataManager = new DataManager(new MockRedisClientWrapper());
 
 			dataManager.IsVerbose = Settings.IsVerbose;
 

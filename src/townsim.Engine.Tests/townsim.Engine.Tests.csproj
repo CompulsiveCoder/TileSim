@@ -38,6 +38,9 @@
     <Reference Include="datamanager.Entities">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
     </Reference>
+    <Reference Include="datamanager.Data.Tests">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.Tests.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
