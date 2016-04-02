@@ -20,5 +20,5 @@ fi
 git clone https://github.com/CompulsiveCoder/townsim.git .tmp/townsim --branch $BRANCH
 cd .tmp/townsim && \
 sh init-build.sh && \
-cd $DIR # && \
-#rm .tmp/townsim -rf
+cd $DIR && \
+rm .tmp/townsim -rf
