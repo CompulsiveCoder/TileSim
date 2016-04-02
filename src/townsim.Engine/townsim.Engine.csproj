@@ -63,7 +63,6 @@
     <Compile Include="Effects\HungerEffect.cs" />
     <Compile Include="Effects\TreeGrowthEffect.cs" />
     <Compile Include="Effects\PlantGrowthEffect.cs" />
-    <Compile Include="Effects\PopulationEffect.cs" />
     <Compile Include="Prioritizers\ShelterPrioritizer.cs" />
     <Compile Include="Prioritizers\WaterPrioritizer.cs" />
     <Compile Include="Prioritizers\FoodPrioritizer.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="Activities\ActivityCreator.cs" />
     <Compile Include="Environment\GameTile.cs" />
     <Compile Include="Entities\PlantCreator.cs" />
-    <Compile Include="Entities\PeopleCreator.cs" />
     <Compile Include="Decisions\PersonDecider.cs" />
     <Compile Include="Environment\GameTile.Helpers.cs" />
     <Compile Include="Needs\NeedEntry.cs" />
@@ -125,6 +123,12 @@
     <Compile Include="Entities\ItemDemand.cs" />
     <Compile Include="Needs\BaseNeedIdentifier.cs" />
     <Compile Include="Needs\ShelterNeedIdentifier.cs" />
+    <Compile Include="Needs\WaterNeedIdentifier.cs" />
+    <Compile Include="Activities\CollectWaterActivity.cs" />
+    <Compile Include="Entities\Inventory.cs" />
+    <Compile Include="Entities\DemandList.cs" />
+    <Compile Include="Entities\IHasInventory.cs" />
+    <Compile Include="Entities\Person.Activities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

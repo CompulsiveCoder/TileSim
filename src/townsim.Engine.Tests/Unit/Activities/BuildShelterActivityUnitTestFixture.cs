@@ -11,31 +11,46 @@ namespace townsim.Engine.Tests.Unit.Activities
 	{
 		[Test]
 		public void Test_Build_StartConstruction()
-		{
-			var person = new Person ();
-			person.AddSupply (ItemType.Timber, 50); // TODO: Get the 50 value from somewhere easier to configures
+        {
+            Console.WriteLine ("");
+            Console.WriteLine ("Preparing test");
+            Console.WriteLine ("");
+
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new Person (settings);
+            person.Inventory.AddItem (ItemType.Timber, 50); // TODO: Get the 50 value from somewhere easier to configures
 
 			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
-			var activity = new BuildShelterActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			var activity = new BuildShelterActivity (person, needEntry, settings);
+
+            Console.WriteLine ("");
+            Console.WriteLine ("Executing test");
+            Console.WriteLine ("");
 
 			activity.Act (person);
 
+            Console.WriteLine ("");
+            Console.WriteLine ("Analysing test");
+            Console.WriteLine ("");
+
 			Assert.IsNotNull (person.Home);
-			Assert.AreEqual (50, person.Home.Timber); // TODO: Should all the timber necessarily be provided as soon as construction starts?
+            Assert.AreEqual (50, person.Home.Inventory.Items[ItemType.Timber]); // TODO: Should all the timber necessarily be provided as soon as construction starts?
 		}
 
 		[Test]
 		public void Test_Build_ContinueConstruction()
-		{
-			var person = new Person ();
-			person.Home = new Building (BuildingType.House);
-			person.Home.Timber = 50; // TODO: Get the 50 value from somewhere easier to configures
+        {
+            var settings = EngineSettings.DefaultVerbose;
+            settings.ConstructionRate = 1;
+
+			var person = new Person (settings);
+			person.Home = new Building (BuildingType.House, settings);
+            person.Home.Inventory.Items[ItemType.Timber] = 50; // TODO: Get the 50 value from somewhere easier to configures
 
 			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
-			var settings = EngineSettings.DefaultVerbose;
-			settings.ConstructionRate = 1;
 
 			var activity = new BuildShelterActivity (person, needEntry, settings);
 
@@ -52,16 +67,18 @@ namespace townsim.Engine.Tests.Unit.Activities
             Console.WriteLine ("Preparing test");
             Console.WriteLine ("");
 
-			var person = new Person ();
-            person.Home = new Building (BuildingType.Shelter);
-			person.Home.Timber = 50; // TODO: Get the 50 value from somewhere easier to configures
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new Person (settings);
+            person.Home = new Building (BuildingType.Shelter, settings);
+            person.Home.Inventory.Items[ItemType.Timber] = 50; // TODO: Get the 50 value from somewhere easier to configures
 			person.Home.PercentComplete = 99.9;
 
 			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
 			person.AddNeed (needEntry);
 
-			var activity = new BuildShelterActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			var activity = new BuildShelterActivity (person, needEntry, settings);
             activity.Shelter = person.Home;
 
 			activity.Act (person);
@@ -74,12 +91,14 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 		[Test]
 		public void Test_Build_NotEnoughTimber()
-		{
-			var person = new Person ();
+        {
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new Person (settings);
 
 			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
-			var activity = new BuildShelterActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			var activity = new BuildShelterActivity (person, needEntry, settings);
 
 			activity.Act (person);
 

@@ -35,7 +35,7 @@ namespace townsim.Engine.Effects
 			for (int i = 0; i < town.TotalCouples; i++) {
 				var randomNumber = random.Next (1, Context.Settings.BirthOdds);
 				if (randomNumber < 1) {
-					IncreasePopulation (town, new PersonCreator ().CreateBabies (1));
+					IncreasePopulation (town, new PersonCreator (Settings).CreateBabies (1));
 					town.TotalBirths++;
 					Context.Log.WriteLine ("A baby was born.");
 				}

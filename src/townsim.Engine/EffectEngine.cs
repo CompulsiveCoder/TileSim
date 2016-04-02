@@ -15,9 +15,12 @@ namespace townsim.Engine
 
 		public void ApplySingleCycle()
 		{
+
+            throw new NotImplementedException ();
+
 			var thirstEffect = new ThirstEffect (Context);
 			var hungerEffect = new HungerEffect (Context);
-			var populationEffect = new PopulationEffect (Context);
+			//var populationEffect = new PopulationEffect (Context);
 			var treeGrowthEffect = new TreeGrowthEffect (Context);
 			var rainEffect = new RainEffect (Context);
 			var plantGrowthEffect = new PlantGrowthEffect (Context);
@@ -42,7 +45,7 @@ namespace townsim.Engine
 				treeGrowthEffect.Update (town);
 
 				// Global, population and migration
-				populationEffect.Update(town);
+			//	populationEffect.Update(town);
 			}
 
 		}

@@ -30,7 +30,7 @@ namespace townsim.Engine
 		[JsonIgnore]
 		[XmlIgnore]
 		[NonSerialized]
-		public PeopleCreator PeopleCreator;
+		public PersonCreator PersonCreator;
 
 		[JsonIgnore]
 		[XmlIgnore]
@@ -41,7 +41,7 @@ namespace townsim.Engine
 
 		public GameEnvironment (EngineContext context)
 		{
-			PeopleCreator = new PeopleCreator ();
+            PersonCreator = new PersonCreator (context.Settings);
 			PlantCreator = new PlantCreator (context.Settings);
 			Context = context;
 			Towns = new Town[]{};

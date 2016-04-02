@@ -125,12 +125,12 @@ namespace townsim.Engine.Activities
 
 			var amountOfWood = tree.Size;
 
-			NeedsProduced [ItemType.Wood] = amountOfWood;
+			ItemsProduced [ItemType.Wood] = amountOfWood;
 			//Actor.AddSupply(NeedType.Wood, amountOfWood);
 
 			if (Settings.IsVerbose) {
 				Console.WriteLine ("  Wood from tree: " + amountOfWood);
-				Console.WriteLine ("  Total wood: " + person.Supplies [ItemType.Wood]);
+                Console.WriteLine ("  Total wood: " + person.Inventory.Items [ItemType.Wood]);
 			}
 
 			Target = null;

@@ -13,7 +13,9 @@ namespace townsim.Data.Tests.Integration
 		{
 			var data = GetDataManager();
 
-			var person = new Person();
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new Person(settings);
 
 			data.Save (person);
 

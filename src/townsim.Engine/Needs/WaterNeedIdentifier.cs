@@ -3,22 +3,22 @@ using townsim.Engine.Entities;
 
 namespace townsim.Engine.Needs
 {
-    public class ShelterNeedIdentifier : BaseNeedIdentifier
+    public class WaterNeedIdentifier : BaseNeedIdentifier
     {
-        public ShelterNeedIdentifier (EngineSettings settings)
-            : base(ItemType.Shelter, settings)
+        public WaterNeedIdentifier (EngineSettings settings)
+            : base(ItemType.Water, settings)
         {
         }
 
         public override bool IsNeeded (Person person)
         {
-            return person.IsHomeless;
+            return person.Thirst > Settings.ThirstThreshold;
         }
 
         public override void RegisterNeed(Person person, ItemType needType, decimal quantity, decimal priority)
         {
             if (!NeedIsRegistered (person, needType, quantity)) {
-                person.AddNeed (needType, quantity, priority);
+                person.AddNeed (needType, Settings.DefaultDrinkAmount, priority);
             }
         }
     }

@@ -6,23 +6,23 @@ namespace townsim.Engine.Entities
 {
 	[Serializable]
 	[JsonObject("Building", IsReference=true)]
-	public class Building : BaseGameEntity, IActivityTarget
+    public class Building : BaseGameEntity, IActivityTarget, IHasInventory
 	{
         public bool IsCompleted { get { return PercentComplete == 100; } }
 
 		public double PercentComplete { get; set; }
 		public BuildingType Type { get; set; }
-		public int TimberPending
+		public decimal TimberPending
 		{
 			get {
-				return TimberCost - Timber;
+                return Settings.ShelterTimberCost - Inventory.Items[ItemType.Timber];
 			}
 		}
-		public int Timber { get; set; }
-		public int TimberCost { get; set; }
 
 		[TwoWay("Home")]
 		public Person[] People { get;set; }
+
+        public Inventory Inventory { get;set; }
 
 		public TimeSpan ConstructionStartTime { get; set; }
 
@@ -42,24 +42,26 @@ namespace townsim.Engine.Entities
 		[TwoWay("Buildings")]
 		public Town Town { get; set; }
 
-		public Building ()
-		{
-			Construct ();
+        public EngineSettings Settings { get; set; }
 
-			TimberCost = 50;
+        public Building (EngineSettings settings)
+		{
+			Construct (settings);
+
 		}
 
-		public Building (BuildingType type)
+        public Building (BuildingType type, EngineSettings settings)
 		{
-			Construct ();
+			Construct (settings);
 
-			TimberCost = 50;
 			Type = type;
 		}
 
-		public void Construct()
+        public void Construct(EngineSettings settings)
 		{
 			People = new Person[]{ };
+            Inventory = new Inventory (this, settings);
+            Settings = settings;
 		}
 	}
 }

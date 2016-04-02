@@ -23,23 +23,25 @@ namespace townsim.Engine
 
 		public abstract void RegisterNeed(Person person, ItemType needType, decimal quantity, decimal priority);
 
-		public abstract bool NeedIsRegistered(Person person, ItemType needType, decimal quantity);
-
 		public virtual void RegisterIfNeeded(Person person)
 		{
 			if (Settings.IsVerbose)
 				Console.WriteLine ("      Identifying the need for shelter.");
-
-			var needType = ItemType.Shelter;
+            
             var priority = DefaultPriority;
 
-			var needIsNotAlreadyRegistered = !NeedIsRegistered (person, needType, priority);
+			var needIsNotAlreadyRegistered = !NeedIsRegistered (person, Type, priority);
 
-			var requiresRegistration = (person.IsHomeless && needIsNotAlreadyRegistered);
+            var requiresRegistration = (IsNeeded(person) && needIsNotAlreadyRegistered);
 
 			if (requiresRegistration)
-				RegisterNeed(person, needType, 1, priority);
+				RegisterNeed(person, Type, 1, priority);
 		}
+
+        public virtual bool NeedIsRegistered (Person person, ItemType needType, decimal quantity)
+        {
+            return person.HasNeed (needType, quantity);
+        }
 	}
 }
 

@@ -19,7 +19,9 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var context = MockEngineContext.New ();
 
-			var person = new PeopleCreator ().CreateAdult ();
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new PersonCreator (settings).CreateAdult ();
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
@@ -27,7 +29,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
 
-			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			var activity = new FellWoodActivity (person, needEntry, settings);
 
 			Console.WriteLine ("");
 			Console.WriteLine ("Executing target");
@@ -47,7 +49,9 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var context = MockEngineContext.New ();
 
-			var person = new PeopleCreator ().CreateAdult ();
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new PersonCreator (settings).CreateAdult ();
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
@@ -55,7 +59,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
 
-			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			var activity = new FellWoodActivity (person, needEntry, settings);
 			activity.Target = tile.Trees [0];
 
 			Console.WriteLine ("");
@@ -76,7 +80,9 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var context = MockEngineContext.New ();
 
-			var person = new PeopleCreator ().CreateAdult ();
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new PersonCreator (settings).CreateAdult ();
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
@@ -86,7 +92,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			person.AddNeed (needEntry);
 
-			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
+			var activity = new FellWoodActivity (person, needEntry, settings);
 			activity.Target = tile.Trees [0];
 			activity.Target.PercentHarvested = 100;
 			activity.TotalWoodFelled = 40; // Add just enough so the activity can finish
@@ -101,7 +107,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			Assert.IsTrue (activity.IsFinished);
 			Assert.IsNull(activity.Target);
-			Assert.AreEqual (totalWoodExpected, person.Supplies [ItemType.Wood]);
+            Assert.AreEqual (totalWoodExpected, person.Inventory.Items [ItemType.Wood]);
 
 			Assert.AreEqual (0, person.Needs.Count);
 		}

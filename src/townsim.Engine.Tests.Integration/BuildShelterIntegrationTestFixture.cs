@@ -11,7 +11,10 @@ namespace townsim.Engine.Tests.Integration
 	{
 		[Test]
 		public void Test_DecideAndBuildShelter()
-		{
+        {
+            Console.WriteLine ("");
+            Console.WriteLine ("Preparing test");
+            Console.WriteLine ("");
 
 			var context = EngineContext.New ();
 			context.Settings.IsVerbose = true;
@@ -29,35 +32,28 @@ namespace townsim.Engine.Tests.Integration
 
 			var tile = context.World.Tiles [0];
 
-			var person = new PeopleCreator ().CreateAdult(); // TODO: Store the PeopleCreator object somewhere else
+            var person = new PersonCreator (context.Settings).CreateAdult(); // TODO: Store the PersonCreator object somewhere else
 
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (10)); // TODO: Should this PlantCreator object be stored somewhere better?
 
-			// TODO: Remove if not needed
-			//context.Settings.ConstructionRate = 10;
 			context.Settings.FellingRate = 50;
-			//context.Populate ();
 
-			//var person = context.World.People [0];
+            Console.WriteLine ("");
+            Console.WriteLine ("Executing test");
+            Console.WriteLine ("");
 
-			context.Start ();
+			context.Start (); // TODO: Should Start be part of the test? Or part of the preparation before the above console output?
 
 			context.RunCycles (20);
+
+            Console.WriteLine ("");
+            Console.WriteLine ("Analysing test");
+            Console.WriteLine ("");
 
 			Assert.IsNotNull (person.Home);
 			Assert.AreEqual (100, person.Home.PercentComplete);
             Assert.AreEqual (null, person.Activity);
-
-		/*	var person = new Person ();
-
-			//person.Decisions.Add (new ShelterDecision ());
-
-			//var personEngine = new PersonEngine ();
-
-			throw new NotImplementedException ();
-//			personEngine.Act (person);
-			//person.Act*/
 		}
 	}
 }

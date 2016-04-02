@@ -7,8 +7,11 @@ namespace townsim.Engine.Entities
 	{
 		Random Randomiser = new Random();
 
-		public PersonCreator ()
+        public EngineSettings Settings { get;set; }
+
+        public PersonCreator (EngineSettings settings)
 		{
+            Settings = settings;
 		}
 
 		public Person[] CreateBabies(int numberOfBabies)
@@ -21,7 +24,7 @@ namespace townsim.Engine.Entities
 
 		public Person CreateBaby()
 		{
-			var person = new Person ();
+            var person = new Person (Settings);
 			person.Gender = GetRandomGender ();
 			return person;
 		}
@@ -36,7 +39,7 @@ namespace townsim.Engine.Entities
 
 		public Person CreateAdult()
 		{
-			var person = new Person ();
+			var person = new Person (Settings);
 			person.Gender = GetRandomGender ();
 			person.Age = GetRandomAge (18, 50);
 			return person;

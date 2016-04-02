@@ -24,6 +24,11 @@ namespace townsim.Engine.Entities
 		//public int DefaultTownTreeCount = 100;
 		#endregion
 
+        #region Person Settings
+        public decimal ThirstThreshold = 50;
+        public decimal DefaultDrinkAmount = 10;
+        #endregion
+
 		#region Wood Settings
 		public decimal FellingRate = 10m;
 
@@ -39,6 +44,8 @@ namespace townsim.Engine.Entities
 		public decimal TimberNeededForHouse = 50;
 
 		public double ConstructionRate = 0.2;
+
+        public decimal ShelterTimberCost = 50;
 		#endregion
 
 		#region Milling Settings

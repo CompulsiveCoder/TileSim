@@ -21,8 +21,8 @@ namespace townsim.Engine.Tests.Unit.Activities
 			context.Settings.IsVerbose = true;
 			context.Settings.TimberMillingRate = context.Settings.TimberMillingRate * 10;
 
-			var person = new PeopleCreator ().CreateAdult ();
-			person.Supplies[ItemType.Wood] = 100;
+            var person = new Person(context.Settings);
+            person.Inventory.Items[ItemType.Wood] = 100;
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
@@ -41,8 +41,8 @@ namespace townsim.Engine.Tests.Unit.Activities
 			Console.WriteLine ("Analysing test");
 			Console.WriteLine ("");
 
-			Assert.AreEqual (50, person.Supplies [ItemType.Timber]);
-			Assert.AreEqual (10, person.Supplies [ItemType.Wood]);
+            Assert.AreEqual (50, person.Inventory.Items [ItemType.Timber]);
+            Assert.AreEqual (10, person.Inventory.Items [ItemType.Wood]);
 		}
 
 		[Test]
@@ -55,7 +55,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			var context = MockEngineContext.New ();
 			context.Settings.IsVerbose = true;
 
-			var person = new PeopleCreator ().CreateAdult ();
+            var person = new Person (context.Settings);
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);

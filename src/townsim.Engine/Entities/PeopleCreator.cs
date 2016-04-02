@@ -19,7 +19,7 @@ namespace townsim.Engine
 
 		public Person[] CreateAdults(int number)
 		{
-			var personCreator = new PersonCreator ();
+			var personCreator = new PersonCreator (Settings);
 			var list = new List<Person> ();
 
 			for (int i = 0; i < number; i++) {

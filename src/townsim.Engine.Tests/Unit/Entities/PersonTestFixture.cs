@@ -13,7 +13,8 @@ namespace townsim.Engine.Tests.Unit.Entities
 		//[Test]
 		public void Test_RemoveDemand_SameAmount_SingleDemand()
 		{
-			var person = new Person ();
+            throw new NotImplementedException ();
+			/*var person = new Person ();
 
 			person.AddDemand (ItemType.Timber, 100);
 
@@ -21,14 +22,15 @@ namespace townsim.Engine.Tests.Unit.Entities
 
 			var remainingAmount = person.GetDemandAmount (ItemType.Timber);
 
-			Assert.AreEqual (0, remainingAmount);
+			Assert.AreEqual (0, remainingAmount);*/
 		}
 
 		// TODO: Remove if not needed
 		//[Test]
 		public void Test_RemoveDemand_SameAmount_MultipleDemands()
 		{
-			var person = new Person ();
+            throw new NotImplementedException ();
+			/*var person = new Person ();
 
 			person.AddDemand (ItemType.Timber, 50);
 			person.AddDemand (ItemType.Timber, 25);
@@ -38,21 +40,22 @@ namespace townsim.Engine.Tests.Unit.Entities
 
 			var remainingAmount = person.GetDemandAmount (ItemType.Timber);
 
-			Assert.AreEqual (0, remainingAmount);
+			Assert.AreEqual (0, remainingAmount);*/
 		}
 
 		// TODO: Remove if not needed
 		//[Test]
 		public void Test_RemoveDemand_DemandLeftOver()
 		{
-			var person = new Person ();
+            throw new NotImplementedException ();
+			/*var person = new Person ();
 
 			person.AddDemand (ItemType.Timber, 50);
 			person.AddDemand (ItemType.Timber, 25);
 
 			person.RemoveDemand (ItemType.Timber, 50);
 
-			Assert.AreEqual (25, person.GetDemandAmount (ItemType.Timber));
+			Assert.AreEqual (25, person.GetDemandAmount (ItemType.Timber));*/
 		}
 	}
 }

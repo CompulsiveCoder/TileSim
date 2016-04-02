@@ -54,6 +54,7 @@
     <Compile Include="Unit\Activities\FellWoodActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Activities\MillTimberActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Needs\ShelterNeedIdentifierUnitTestFixture.cs" />
+    <Compile Include="Unit\Needs\WaterNeedIdentifierUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

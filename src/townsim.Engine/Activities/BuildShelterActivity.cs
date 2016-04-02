@@ -7,14 +7,7 @@ namespace townsim.Engine.Activities
 	[Activity(ItemType.Shelter)]
 	public class BuildShelterActivity : BaseActivity
 	{
-		// TODO: Move to settings
-		public int TimberCost = 50;
-
 		public Building Shelter;
-
-		// TODO
-		//public FellWoodActivity WoodFelling;
-		//public MillTimberActivity TimberMilling;
 
 		public BuildShelterActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
 		{
@@ -41,7 +34,7 @@ namespace townsim.Engine.Activities
         public override bool CheckSupplies (Person person)
         {
             if (ResourcesNeeded (person)) {
-                RegisterNeedForTimber (person, TimberCost);
+                RegisterNeedForTimber (person, Settings.ShelterTimberCost);
                 return false;
             } else
                 return true;
@@ -81,7 +74,7 @@ namespace townsim.Engine.Activities
 			if (Settings.IsVerbose)
 				Console.WriteLine ("  Starting shelter construction");
 
-			person.Home = new Building (BuildingType.House);
+			person.Home = new Building (BuildingType.House, Settings);
 
             Shelter = person.Home;
 
@@ -140,7 +133,7 @@ namespace townsim.Engine.Activities
 
 		public bool PersonHasEnoughTimber(Person person)
 		{
-			return person.Has (ItemType.Timber, TimberCost);
+            return person.Inventory.Has (ItemType.Timber, Settings.ShelterTimberCost);
 		}
 
         public void RegisterNeedForTimber(Person person, decimal amountOfTimber)
@@ -148,7 +141,7 @@ namespace townsim.Engine.Activities
 			if (Settings.IsVerbose)
                 Console.WriteLine ("        Registering the need for " + amountOfTimber + " timber");
 			
-            person.AddNeed (ItemType.Timber, amountOfTimber, 101);
+            person.AddNeed (ItemType.Timber, amountOfTimber, NeedEntry.Priority+1);
 		}
 
 		public BuildStatus GetBuildStatus(Person person)
@@ -186,8 +179,8 @@ namespace townsim.Engine.Activities
 			//	&& Context.Settings.PlayerId == person.Id) {
 			//	Console.WriteLine ("Transferring " + building.TimberPending + " timber from person to building.");
 			//}
-			person.Supplies [ItemType.Timber] = person.Supplies [ItemType.Timber] - building.TimberPending;
-			building.Timber += building.TimberPending;
+
+            person.Inventory.Transfer(ItemType.Timber, building.TimberPending, building);
 		}
 	}
 }

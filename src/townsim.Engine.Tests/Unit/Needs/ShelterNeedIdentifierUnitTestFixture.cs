@@ -10,10 +10,10 @@ namespace townsim.Engine.Tests.Unit.Needs
 	{
 		[Test]
 		public void Test_RegisterIfNeeded_ShelterIsNeeded()
-		{
-			var person = new Person ();
-
+        {
             var settings = EngineSettings.DefaultVerbose;
+
+			var person = new Person (settings);
 
 			var shelterNeed = new ShelterNeedIdentifier (settings);
 
@@ -30,14 +30,16 @@ namespace townsim.Engine.Tests.Unit.Needs
 
 		[Test]
 		public void Test_RegisterIfNeeded_ShelterNotNeeded()
-		{
-			var person = new Person ();
+        {
+            var settings = EngineSettings.DefaultVerbose;
+
+			var person = new Person (settings);
 
 			// TODO: Should there be a helper function somewhere for creating a completed home?
-			person.Home = new Building (BuildingType.House);
+			person.Home = new Building (BuildingType.House, settings);
 			person.Home.PercentComplete = 100;
 
-			var shelterNeed = new ShelterNeedIdentifier (EngineSettings.DefaultVerbose);
+			var shelterNeed = new ShelterNeedIdentifier (settings);
 
 			shelterNeed.RegisterIfNeeded (person);
 
