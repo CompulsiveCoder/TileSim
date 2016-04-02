@@ -52,44 +52,20 @@ namespace townsim.Engine.Activities
 
 				if (isFinishedFellingTree)
 					FinishedFellingSingleTree (Actor, treeBeingFelled);
-
-				// TODO: Remove if not needed
-				//return amountOfWood;
 			} else
 				throw new Exception ("Can't fell wood when no trees are available.");
 		}
 
         public override bool CheckSupplies (Person actor)
         {
-            // TODO: Should an axe be a required supply?
+            // TODO: Implement the need for an axe
             return true;
         }
-
-		// TODO: Clean up
-		//protected override void ExecuteSingleCycle ()
-		//{
-		//	FellWoodCycle ();
-		//}
 
 		public bool IsTimberAvailable(Town town)
 		{
 			return town.Timber > 0;
 		}
-
-		// TODO: Clean up
-		/*public void FellWood(Person person, decimal totalNeeded)
-		{
-			if (!PersonHasEnoughWood(totalNeeded)
-				&& TreesAvailableInTown()) {
-
-				if (!IsComplete())
-					FellTree (person);
-				else
-					Finish()
-			} else {
-				person.FinishActivity ();
-			}
-		}*/
 
 		public bool FellTreeCycle(Person person, Plant plant)
 		{
@@ -126,26 +102,16 @@ namespace townsim.Engine.Activities
 			var amountOfWood = tree.Size;
 
 			ItemsProduced [ItemType.Wood] = amountOfWood;
-			//Actor.AddSupply(NeedType.Wood, amountOfWood);
 
 			if (Settings.IsVerbose) {
 				Console.WriteLine ("  Wood from tree: " + amountOfWood);
-                Console.WriteLine ("  Total wood: " + person.Inventory.Items [ItemType.Wood]);
+                Console.WriteLine ("  Total wood: " + person.Inventory.Items [ItemType.Wood] + amountOfWood);
 			}
 
 			Target = null;
 
-			// TODO: Clean up
-			//ClearTarget ();
-
 			//if (Context.Settings.PlayerId == person.Id)
 				//Context.Log.WriteLine (String.Format("Player cut a tree down. Age:{0} size:{1} wood:{2}", (int)tree.Age, (int)tree.Size, (int)amountOfWood));
-		}
-
-		public void FinishedFellingRequiredWood(Person person)
-		{
-			throw new NotImplementedException ();
-			Finish ();
 		}
 
 		public Plant FindLargeTree()
@@ -188,44 +154,6 @@ namespace townsim.Engine.Activities
 			}
 
 			return tree;
-		}
-
-		public void Start ()
-		{
-			throw new NotImplementedException ();
-		}
-
-		public bool CheckComplete ()
-		{
-			throw new NotImplementedException ();
-
-			//var value = !Person.HasDemand(NeedType.Wood);
-			//return value;
-		}
-
-		public bool CheckImpossible ()
-		{
-
-			throw new NotImplementedException ();
-			return !TreesAvailableInTown ();
-			/*var woodNeeded = Person.GetDemandAmount (NeedType.Wood);
-
-			return Person.Town.WoodAvailableAsTrees < woodNeeded;*/
-		}
-
-		public bool PersonHasEnoughWood(decimal amountOfWood)
-		{
-			throw new NotImplementedException ();
-
-			//var value = Person.Supplies [NeedType.Wood] >= amountOfWood;
-
-			//return value;
-		}
-
-		public bool TreesAvailableInTown()
-		{
-			throw new NotImplementedException ();
-			//return Person.Town.Trees.Length > 0;
 		}
 	}
 }
