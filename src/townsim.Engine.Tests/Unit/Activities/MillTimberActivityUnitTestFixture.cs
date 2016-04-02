@@ -7,8 +7,8 @@ using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Activities
 {
-	[TestFixture]
-	public class MillTimberActivityTestFixture : BaseEngineUnitTestFixture
+    [TestFixture(Category="Unit")]
+	public class MillTimberActivityUnitTestFixture : BaseEngineUnitTestFixture
 	{
 		[Test]
 		public void Test_Act_WoodIsAvailable()

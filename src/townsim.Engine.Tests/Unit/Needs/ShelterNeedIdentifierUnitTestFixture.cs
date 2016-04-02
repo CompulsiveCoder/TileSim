@@ -5,8 +5,8 @@ using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Needs
 {
-	[TestFixture]
-	public class ShelterNeedIdentifierTestFixture
+    [TestFixture(Category="Unit")]
+    public class ShelterNeedIdentifierUnitTestFixture : BaseEngineUnitTestFixture
 	{
 		[Test]
 		public void Test_RegisterIfNeeded_ShelterIsNeeded()

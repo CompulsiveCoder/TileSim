@@ -6,7 +6,7 @@ using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Activities
 {
-	[TestFixture]
+    [TestFixture(Category="Unit")]
 	public class BuildShelterActivityUnitTestFixture
 	{
 		[Test]

@@ -6,7 +6,7 @@ using townsim.Engine.Activities;
 
 namespace townsim.Engine.Tests.Integration
 {
-	[TestFixture]
+    [TestFixture(Category="Integration")]
 	public class BuildShelterIntegrationTestFixture
 	{
 		[Test]

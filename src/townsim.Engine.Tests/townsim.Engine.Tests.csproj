@@ -43,18 +43,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\Effects\HealthEffectTestFixture.cs" />
     <Compile Include="Unit\Entities\PersonTestFixture.cs" />
-    <Compile Include="Unit\Activities\BuildActivityTestFixture.cs" />
-    <Compile Include="Unit\Activities\FellWoodActivityTestFixture.cs" />
     <Compile Include="Unit\Activities\BuildShelterActivityUnitTestFixture.cs" />
     <Compile Include="MockGameTile.cs" />
     <Compile Include="MockGameEnvironment.cs" />
     <Compile Include="MockEngineProcess.cs" />
     <Compile Include="MockEngineContext.cs" />
     <Compile Include="MockGameCreator.cs" />
-    <Compile Include="Unit\Activities\MillTimberActivityTestFixture.cs" />
     <Compile Include="BaseEngineUnitTestFixture.cs" />
     <Compile Include="Unit\Decisions\PersonDeciderUnitTestFixture.cs" />
-    <Compile Include="Unit\Needs\ShelterNeedIdentifierTestFixture.cs" />
+    <Compile Include="Unit\Activities\FellWoodActivityUnitTestFixture.cs" />
+    <Compile Include="Unit\Activities\MillTimberActivityUnitTestFixture.cs" />
+    <Compile Include="Unit\Needs\ShelterNeedIdentifierUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

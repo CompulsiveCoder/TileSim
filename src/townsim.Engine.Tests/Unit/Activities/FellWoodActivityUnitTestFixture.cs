@@ -7,7 +7,8 @@ using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Activities
 {
-	public class FellWoodActivityTestFixture : BaseDataTestFixture
+    [TestFixture(Category="Unit")]
+    public class FellWoodActivityUnitTestFixture : BaseDataTestFixture
 	{
 		[Test]
 		public void Test_Act_StartFelling()
