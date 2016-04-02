@@ -1,13 +1,13 @@
 ﻿using System;
-using townsim.Engine.Needs;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine
 {
 	public class ActivityAttribute : Attribute
 	{
-		public NeedType[] Needs { get; set; }
+		public ItemType[] Needs { get; set; }
 
-		public ActivityAttribute (params NeedType[] needs)
+		public ActivityAttribute (params ItemType[] needs)
 		{
 			Needs = needs;
 		}

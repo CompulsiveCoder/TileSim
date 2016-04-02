@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	public enum Gender
 	{

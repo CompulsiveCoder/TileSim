@@ -1,7 +1,7 @@
 ﻿using System;
 using datamanager.Entities;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	public interface IActivityTarget
 	{

@@ -1,5 +1,5 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Data;
 
 namespace townsim.Engine.Effects

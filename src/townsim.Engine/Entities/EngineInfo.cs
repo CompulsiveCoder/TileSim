@@ -4,7 +4,7 @@ using datamanager.Data;
 using townsim.Data;
 using Newtonsoft.Json;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	[Serializable]
 	public class EngineInfo : BaseGameEntity

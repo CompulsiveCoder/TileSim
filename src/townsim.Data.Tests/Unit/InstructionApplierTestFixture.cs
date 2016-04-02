@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using townsim.Entities;
+using townsim.Engine.Entities;
 
 namespace townsim.Data.Tests.Unit
 {

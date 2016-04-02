@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	public partial class Town
 	{

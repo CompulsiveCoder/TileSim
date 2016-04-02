@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Collections;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	[Serializable]
 	[JsonObject("People")]

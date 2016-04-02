@@ -1,11 +1,11 @@
 ﻿using System;
-using townsim.Engine.Needs;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine
 {
 	public class NeedEntry
 	{
-		public NeedType Type { get; set; }
+		public ItemType Type { get; set; }
 
 		public decimal Quantity { get; set; }
 
@@ -15,7 +15,7 @@ namespace townsim.Engine
 		//public BaseNeed Need { get;set; }
 
 		public NeedEntry (
-			NeedType needType,
+			ItemType needType,
 			decimal quantity,
 			decimal priority//,
 			//BaseNeed need

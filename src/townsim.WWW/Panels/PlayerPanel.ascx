@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="townsim.PlayerPanel" %>
-<%@ Import namespace="townsim.Entities" %>
+<%@ Import namespace="townsim.Engine.Entities" %>
 <div class="pnl">
 	<h2>Player</h2>
 	<% if (Player != null){ %>

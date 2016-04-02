@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="townsim.TownPanel" AutoEventWireup="true" %>
-<%@ Import Namespace="townsim.Entities" %>
+<%@ Import Namespace="townsim.Engine.Entities" %>
 <%@ Import Namespace="townsim.Engine" %>
 <script runat="server">
 </script>

@@ -2,7 +2,7 @@
 using datamanager.Entities;
 using townsim.Engine;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	[Serializable]
 	public class Plant : IActivityTarget

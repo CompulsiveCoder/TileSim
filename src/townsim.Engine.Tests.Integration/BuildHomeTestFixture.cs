@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using townsim.Data.Tests;
-using townsim.Entities;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine.Tests.Integration
 {

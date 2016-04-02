@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using townsim.Entities;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine
 {

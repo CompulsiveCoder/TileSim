@@ -1,18 +1,18 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 
 namespace townsim.Engine
 {
-	public abstract class BaseNeed
+	public abstract class BaseNeedIdentifier
 	{
-		public NeedType Type { get; set; }
+		public ItemType Type { get; set; }
 
 		public decimal DefaultPriority { get;set; }
 
 		public EngineSettings Settings { get; set; }
 
-		public BaseNeed(NeedType needType, decimal defaultPriority, EngineSettings settings)
+		public BaseNeedIdentifier(ItemType needType, decimal defaultPriority, EngineSettings settings)
 		{
 			Type = needType;
 			DefaultPriority = defaultPriority;
@@ -25,16 +25,16 @@ namespace townsim.Engine
 		//public abstract NeedEntry IdentifyNeed(Person person);
 
 
-		public abstract void RegisterNeed(Person person, NeedType needType, decimal quantity, decimal priority);
+		public abstract void RegisterNeed(Person person, ItemType needType, decimal quantity, decimal priority);
 
-		public abstract bool NeedIsRegistered(Person person, NeedType needType, decimal quantity);
+		public abstract bool NeedIsRegistered(Person person, ItemType needType, decimal quantity);
 
 		public virtual void RegisterIfNeeded(Person person)
 		{
 			if (Settings.IsVerbose)
 				Console.WriteLine ("      Identifying the need for shelter.");
 
-			var needType = NeedType.Shelter;
+			var needType = ItemType.Shelter;
 			var priority = 100;
 
 			var needIsNotAlreadyRegistered = !NeedIsRegistered (person, needType, priority);

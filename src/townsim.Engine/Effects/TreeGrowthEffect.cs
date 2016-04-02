@@ -1,6 +1,6 @@
 ﻿using System;
 using townsim.Data;
-using townsim.Entities;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine.Effects
 {

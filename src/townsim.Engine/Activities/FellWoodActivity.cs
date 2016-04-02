@@ -1,12 +1,12 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using System.Collections.Generic;
 using townsim.Data;
 using townsim.Engine.Needs;
 
 namespace townsim.Engine.Activities
 {
-	[Activity(NeedType.Wood)]
+	[Activity(ItemType.Wood)]
 	[Serializable]
 	public class FellWoodActivity : BaseActivity
 	{
@@ -125,12 +125,12 @@ namespace townsim.Engine.Activities
 
 			var amountOfWood = tree.Size;
 
-			NeedsProduced [NeedType.Wood] = amountOfWood;
+			NeedsProduced [ItemType.Wood] = amountOfWood;
 			//Actor.AddSupply(NeedType.Wood, amountOfWood);
 
 			if (Settings.IsVerbose) {
 				Console.WriteLine ("  Wood from tree: " + amountOfWood);
-				Console.WriteLine ("  Total wood: " + person.Supplies [NeedType.Wood]);
+				Console.WriteLine ("  Total wood: " + person.Supplies [ItemType.Wood]);
 			}
 
 			Target = null;

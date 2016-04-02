@@ -1,10 +1,10 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 
 namespace townsim.Engine.Activities
 {
-	[Activity(NeedType.Shelter)]
+	[Activity(ItemType.Shelter)]
 	public class BuildShelterActivity : BaseActivity
 	{
 		// TODO: Move to settings
@@ -140,7 +140,7 @@ namespace townsim.Engine.Activities
 
 		public bool PersonHasEnoughTimber(Person person)
 		{
-			return person.Has (NeedType.Timber, TimberCost);
+			return person.Has (ItemType.Timber, TimberCost);
 		}
 
         public void RegisterNeedForTimber(Person person, decimal amountOfTimber)
@@ -148,7 +148,7 @@ namespace townsim.Engine.Activities
 			if (Settings.IsVerbose)
                 Console.WriteLine ("        Registering the need for " + amountOfTimber + " timber");
 			
-            person.AddNeed (NeedType.Timber, amountOfTimber, 101);
+            person.AddNeed (ItemType.Timber, amountOfTimber, 101);
 		}
 
 		public BuildStatus GetBuildStatus(Person person)
@@ -186,7 +186,7 @@ namespace townsim.Engine.Activities
 			//	&& Context.Settings.PlayerId == person.Id) {
 			//	Console.WriteLine ("Transferring " + building.TimberPending + " timber from person to building.");
 			//}
-			person.Supplies [NeedType.Timber] = person.Supplies [NeedType.Timber] - building.TimberPending;
+			person.Supplies [ItemType.Timber] = person.Supplies [ItemType.Timber] - building.TimberPending;
 			building.Timber += building.TimberPending;
 		}
 	}

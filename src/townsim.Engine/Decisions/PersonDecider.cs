@@ -1,5 +1,5 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using System.Collections.Generic;
 using townsim.Data;
 using townsim.Engine.Needs;

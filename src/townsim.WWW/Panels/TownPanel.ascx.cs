@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.UI;
 using townsim.Data;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using datamanager.Data;
 
 namespace townsim

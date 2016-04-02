@@ -77,8 +77,6 @@
     <Compile Include="Entities\EngineInfo.cs" />
     <Compile Include="Entities\EngineSettings.cs" />
     <Compile Include="Entities\Gender.cs" />
-    <Compile Include="Entities\IActivityTarget.cs" />
-    <Compile Include="Entities\Job.cs" />
     <Compile Include="Entities\PeopleCollection.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\PersonCreator.cs" />
@@ -94,7 +92,6 @@
     <Compile Include="Decisions\ShelterDecision.cs" />
     <Compile Include="Activities\MillTimberActivity.cs" />
     <Compile Include="Decisions\BaseDecision.cs" />
-    <Compile Include="Entities\SupplyDemand.cs" />
     <Compile Include="ConsoleOutputType.cs" />
     <Compile Include="Activities\FellWoodActivity.cs" />
     <Compile Include="PlayerConsole.cs" />
@@ -110,13 +107,10 @@
     <Compile Include="Populators\BasePopulator.cs" />
     <Compile Include="Environment\GameEnvironment.cs" />
     <Compile Include="Entities\BaseGameEntity.cs" />
-    <Compile Include="Needs\ShelterNeed.cs" />
     <Compile Include="Entities\Person.Helpers.cs" />
     <Compile Include="Activities\BuildShelterActivity.cs" />
-    <Compile Include="Needs\NeedType.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
     <Compile Include="Activities\BuildStatus.cs" />
-    <Compile Include="Needs\BaseNeed.cs" />
     <Compile Include="GameLogic.cs" />
     <Compile Include="Activities\ActivityInfo.cs" />
     <Compile Include="Activities\ActivityAttribute.cs" />
@@ -128,6 +122,11 @@
     <Compile Include="Environment\GameTile.Helpers.cs" />
     <Compile Include="Needs\NeedEntry.cs" />
     <Compile Include="PercentageValidator.cs" />
+    <Compile Include="Entities\ItemType.cs" />
+    <Compile Include="Entities\IActivityTarget.cs" />
+    <Compile Include="Entities\ItemDemand.cs" />
+    <Compile Include="Needs\BaseNeedIdentifier.cs" />
+    <Compile Include="Needs\ShelterNeedIdentifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

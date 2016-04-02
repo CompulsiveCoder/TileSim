@@ -1,7 +1,7 @@
 using System;
 using townsim.Data;
 using System.Threading;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using System.Collections.Generic;
 
 namespace townsim.Engine

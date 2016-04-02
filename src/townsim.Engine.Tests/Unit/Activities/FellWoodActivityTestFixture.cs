@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Activities;
 using townsim.Data.Tests;
 using townsim.Engine.Needs;
@@ -24,7 +24,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-			var needEntry = new NeedEntry (NeedType.Wood, 50, 101);
+			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
 
 			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
 
@@ -52,7 +52,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-			var needEntry = new NeedEntry (NeedType.Wood, 50, 101);
+			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
 
 			var activity = new FellWoodActivity (person, needEntry, EngineSettings.DefaultVerbose);
 			activity.Target = tile.Trees [0];
@@ -81,7 +81,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-			var needEntry = new NeedEntry (NeedType.Wood, 50, 101);
+			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
 
 			person.AddNeed (needEntry);
 
@@ -100,7 +100,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			Assert.IsTrue (activity.IsFinished);
 			Assert.IsNull(activity.Target);
-			Assert.AreEqual (totalWoodExpected, person.Supplies [NeedType.Wood]);
+			Assert.AreEqual (totalWoodExpected, person.Supplies [ItemType.Wood]);
 
 			Assert.AreEqual (0, person.Needs.Count);
 		}

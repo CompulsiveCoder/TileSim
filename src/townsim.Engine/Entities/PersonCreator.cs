@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	public class PersonCreator
 	{

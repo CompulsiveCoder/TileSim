@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using System.Collections.Generic;
 
 namespace townsim.Engine

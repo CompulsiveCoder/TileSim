@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Data;
 using datamanager.Data;
 

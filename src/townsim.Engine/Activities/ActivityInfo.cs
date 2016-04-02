@@ -1,5 +1,5 @@
 ﻿using System;
-using townsim.Engine.Needs;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine
 {
@@ -7,7 +7,7 @@ namespace townsim.Engine
 	{
 		public Type ActivityType { get; set; }
 
-		public NeedType[] Needs { get; set; }
+		public ItemType[] Needs { get; set; }
 
 		public ActivityInfo ()
 		{
@@ -20,7 +20,7 @@ namespace townsim.Engine
 			DetectNeedsFromAttribute (activityType);
 		}
 
-		public bool IsSuited(NeedType need)
+		public bool IsSuited(ItemType need)
 		{
 			return Array.IndexOf (Needs, need) > -1;
 		}

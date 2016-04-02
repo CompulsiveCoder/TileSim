@@ -1,8 +1,8 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using System.Collections.Generic;
 
-namespace townsim.Engine
+namespace townsim.Engine.Entities
 {
 	public class PlantCreator
 	{

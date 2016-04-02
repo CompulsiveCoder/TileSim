@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using datamanager.Entities;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	[Serializable]
 	[JsonObject("Building", IsReference=true)]

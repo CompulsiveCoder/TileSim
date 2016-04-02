@@ -1,12 +1,12 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine.Needs
 {
-	public class ShelterNeed : BaseNeed
+	public class ShelterNeedIdentifier : BaseNeedIdentifier
 	{
-		public ShelterNeed (EngineSettings settings)
-			: base(NeedType.Shelter, 100, settings)
+		public ShelterNeedIdentifier (EngineSettings settings)
+			: base(ItemType.Shelter, 100, settings)
 		{
 		}
 
@@ -31,14 +31,14 @@ namespace townsim.Engine.Needs
 				RegisterNeed(person, needType, 1, priority);
 		}*/
 
-		public override void RegisterNeed(Person person, NeedType needType, decimal quantity, decimal priority)
+		public override void RegisterNeed(Person person, ItemType needType, decimal quantity, decimal priority)
 		{
 			if (!NeedIsRegistered (person, needType, quantity)) {
 				person.AddNeed (needType, quantity, priority);
 			}
 		}
 
-		public override bool NeedIsRegistered (Person person, NeedType needType, decimal quantity)
+		public override bool NeedIsRegistered (Person person, ItemType needType, decimal quantity)
 		{
 			return person.HasNeed (needType, quantity);
 		}

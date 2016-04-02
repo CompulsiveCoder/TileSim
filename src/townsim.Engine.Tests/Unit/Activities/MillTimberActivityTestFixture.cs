@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using townsim.Data.Tests;
 using townsim.Engine.Activities;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Activities
@@ -22,12 +22,12 @@ namespace townsim.Engine.Tests.Unit.Activities
 			context.Settings.TimberMillingRate = context.Settings.TimberMillingRate * 10;
 
 			var person = new PeopleCreator ().CreateAdult ();
-			person.Supplies[NeedType.Wood] = 100;
+			person.Supplies[ItemType.Wood] = 100;
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
 
-			var needEntry = new NeedEntry (NeedType.Timber, 50, 101);
+			var needEntry = new NeedEntry (ItemType.Timber, 50, 101);
 
 			var activity = new MillTimberActivity (person, needEntry, context.Settings);
 
@@ -41,8 +41,8 @@ namespace townsim.Engine.Tests.Unit.Activities
 			Console.WriteLine ("Analysing test");
 			Console.WriteLine ("");
 
-			Assert.AreEqual (50, person.Supplies [NeedType.Timber]);
-			Assert.AreEqual (10, person.Supplies [NeedType.Wood]);
+			Assert.AreEqual (50, person.Supplies [ItemType.Timber]);
+			Assert.AreEqual (10, person.Supplies [ItemType.Wood]);
 		}
 
 		[Test]
@@ -60,7 +60,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
 
-			var needEntry = new NeedEntry (NeedType.Timber, 50, 101);
+			var needEntry = new NeedEntry (ItemType.Timber, 50, 101);
 
 			var activity = new MillTimberActivity (person, needEntry, context.Settings);
 
@@ -72,7 +72,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var foundNeedEntry = person.Needs [0];
 
-			Assert.AreEqual (NeedType.Wood, foundNeedEntry.Type);
+			Assert.AreEqual (ItemType.Wood, foundNeedEntry.Type);
 			Assert.AreEqual (90, foundNeedEntry.Quantity);
 			Assert.AreEqual (102, foundNeedEntry.Priority);
 		}

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace townsim.Engine.Needs
+namespace townsim.Engine.Entities
 {
-	public enum NeedType
+	public enum ItemType
 	{
 		Shelter,
 		Food,

@@ -1,14 +1,14 @@
 ﻿using System;
-using townsim.Entities;
 using datamanager.Entities;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine
 {
 	[Serializable]
-	public class GameEnvironment : BaseGameEntity
+    public class GameEnvironment : BaseGameEntity
 	{
 		public EngineContext Context { get; set; }
 

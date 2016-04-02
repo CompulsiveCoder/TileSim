@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Activities;
 using townsim.Engine.Needs;
 
@@ -13,9 +13,9 @@ namespace townsim.Engine.Tests.Unit.Activities
 		public void Test_Build_StartConstruction()
 		{
 			var person = new Person ();
-			person.AddSupply (NeedType.Timber, 50); // TODO: Get the 50 value from somewhere easier to configures
+			person.AddSupply (ItemType.Timber, 50); // TODO: Get the 50 value from somewhere easier to configures
 
-			var needEntry = new NeedEntry (NeedType.Shelter, 1, 100);
+			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
 			var activity = new BuildShelterActivity (person, needEntry, EngineSettings.DefaultVerbose);
 
@@ -32,7 +32,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			person.Home = new Building (BuildingType.House);
 			person.Home.Timber = 50; // TODO: Get the 50 value from somewhere easier to configures
 
-			var needEntry = new NeedEntry (NeedType.Shelter, 1, 100);
+			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
 			var settings = EngineSettings.DefaultVerbose;
 			settings.ConstructionRate = 1;
@@ -57,7 +57,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			person.Home.Timber = 50; // TODO: Get the 50 value from somewhere easier to configures
 			person.Home.PercentComplete = 99.9;
 
-			var needEntry = new NeedEntry (NeedType.Shelter, 1, 100);
+			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
 			person.AddNeed (needEntry);
 
@@ -77,7 +77,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 		{
 			var person = new Person ();
 
-			var needEntry = new NeedEntry (NeedType.Shelter, 1, 100);
+			var needEntry = new NeedEntry (ItemType.Shelter, 1, 100);
 
 			var activity = new BuildShelterActivity (person, needEntry, EngineSettings.DefaultVerbose);
 
@@ -87,7 +87,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var foundNeedEntry = person.Needs [0];
 
-			Assert.AreEqual (NeedType.Timber, foundNeedEntry.Type);
+			Assert.AreEqual (ItemType.Timber, foundNeedEntry.Type);
 			Assert.AreEqual (50, foundNeedEntry.Quantity);
 			Assert.AreEqual (101, foundNeedEntry.Priority);
 		}

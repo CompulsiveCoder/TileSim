@@ -1,5 +1,5 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using datamanager.Data;
 
 namespace townsim.Engine.Tests

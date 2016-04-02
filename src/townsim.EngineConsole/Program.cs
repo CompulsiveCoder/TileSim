@@ -1,7 +1,7 @@
 ﻿using System;
 using townsim.Data;
 using townsim.Engine;
-using townsim.Entities;
+using townsim.Engine.Entities;
 
 namespace townsim.EngineConsole
 {

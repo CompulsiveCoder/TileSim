@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 using townsim.Engine.Activities;
 
@@ -21,7 +21,7 @@ namespace townsim.Engine.Tests.Integration
 			context.Settings.WoodRequiredForTimber = 1.1m; // Reduce the waste rate to increase the speed of the test
             context.Settings.ConstructionRate = 50; // Increase construction rate to speed up test
 
-			context.World.Logic.AddNeed (new ShelterNeed (context.Settings));
+			context.World.Logic.AddNeed (new ShelterNeedIdentifier (context.Settings));
 			//context.World.Logic.AddDecision (new ShelterDecision ());
 			context.World.Logic.AddActivity (typeof(BuildShelterActivity));
 			context.World.Logic.AddActivity (typeof(MillTimberActivity));

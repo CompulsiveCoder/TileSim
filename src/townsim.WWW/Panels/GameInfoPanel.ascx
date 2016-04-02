@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="townsim.GameInfoPanel" %>
 <%@ Import Namespace="townsim.Data" %>
 <%@ Import Namespace="townsim.Engine" %>
-<%@ Import Namespace="townsim.Entities" %>
+<%@ Import Namespace="townsim.Engine.Entities" %>
 <div class="pnl">
 	<h2>Game</h2>
 	<div>Start Time: <%= CurrentEngine.Clock.StartTime %></div>

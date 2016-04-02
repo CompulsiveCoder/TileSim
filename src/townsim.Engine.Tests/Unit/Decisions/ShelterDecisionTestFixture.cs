@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 using townsim.Engine.Activities;
 using townsim.Data.Tests;
@@ -16,7 +16,7 @@ namespace townsim.Engine.Tests.Unit.Decisions
 		{
 			var person = new Person ();
 
-			person.AddNeed(NeedType.Shelter, 1, 100);
+			person.AddNeed(ItemType.Shelter, 1, 100);
 
 			var decision = new ShelterDecision (EngineSettings.DefaultVerbose);
 

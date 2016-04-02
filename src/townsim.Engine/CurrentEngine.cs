@@ -3,7 +3,7 @@ using townsim.Data;
 using System.Web;
 using System.Collections.Generic;
 using System.Threading;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using datamanager.Data;
 
 namespace townsim.Engine

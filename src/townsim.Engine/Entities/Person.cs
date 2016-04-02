@@ -7,7 +7,7 @@ using townsim.Engine.Activities;
 using townsim.Engine;
 using townsim.Engine.Needs;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	[Serializable]
 	[JsonObject(IsReference = true)]
@@ -26,7 +26,8 @@ namespace townsim.Entities
 		[JsonIgnore]
 		public Town Location { get; set; }
 
-		public Job[] Jobs { get;set; }
+        // TODO
+		//public Job[] Jobs { get;set; }
 
 		[TwoWayAttribute("People")]
 		public Building Home{ get; set; }
@@ -43,11 +44,11 @@ namespace townsim.Entities
 		// TODO: Remove
 		//public Dictionary<PriorityTypes, decimal> Priorities = new Dictionary<PriorityTypes, decimal> ();
 
-		public Dictionary<NeedType, decimal> Supplies = new Dictionary<NeedType, decimal> ();
+		public Dictionary<ItemType, decimal> Supplies = new Dictionary<ItemType, decimal> ();
 
-		public Dictionary<NeedType, decimal> SuppliesMax = new Dictionary<NeedType, decimal> ();
+		public Dictionary<ItemType, decimal> SuppliesMax = new Dictionary<ItemType, decimal> ();
 
-		public List<SupplyDemand> Demands = new List<SupplyDemand>();
+		public List<ItemDemand> Demands = new List<ItemDemand>();
 
 		//public Dictionary<NeedType, decimal> Needs = new Dictionary<NeedType, decimal>();
 		public List<NeedEntry> Needs = new List<NeedEntry>();
@@ -91,16 +92,16 @@ namespace townsim.Entities
 
 		public Person ()
         {
-            Supplies.Add (NeedType.Shelter, 0);
-            SuppliesMax.Add (NeedType.Shelter, 1);
-			Supplies.Add (NeedType.Food, 0);
-			SuppliesMax.Add (NeedType.Food, 1000);
-			Supplies.Add (NeedType.Water, 0);
-			SuppliesMax.Add (NeedType.Water, 1000);
-			Supplies.Add (NeedType.Wood, 0); // Wood is unrefined timber
-			SuppliesMax.Add (NeedType.Wood, 1000);
-			Supplies.Add (NeedType.Timber, 0); // Timber is refine wood
-			SuppliesMax.Add (NeedType.Timber, 1000);
+            Supplies.Add (ItemType.Shelter, 0);
+            SuppliesMax.Add (ItemType.Shelter, 1);
+			Supplies.Add (ItemType.Food, 0);
+			SuppliesMax.Add (ItemType.Food, 1000);
+			Supplies.Add (ItemType.Water, 0);
+			SuppliesMax.Add (ItemType.Water, 1000);
+			Supplies.Add (ItemType.Wood, 0); // Wood is unrefined timber
+			SuppliesMax.Add (ItemType.Wood, 1000);
+			Supplies.Add (ItemType.Timber, 0); // Timber is refine wood
+			SuppliesMax.Add (ItemType.Timber, 1000);
 		}
 
 		public void Assign(ActivityType activityType)
@@ -180,7 +181,7 @@ namespace townsim.Entities
 		}
 
 		#region Supplies
-		public void AddSupply(NeedType needType, decimal amount)
+		public void AddSupply(ItemType needType, decimal amount)
 		{
 			Supplies [needType] = (decimal)Supplies [needType] + amount;
 
@@ -188,7 +189,7 @@ namespace townsim.Entities
 				RemoveDemand (needType, amount);
 		}
 
-		public void RemoveSupply(NeedType needType, decimal amount)
+		public void RemoveSupply(ItemType needType, decimal amount)
 		{
 			if (amount > Supplies[needType])
 				throw new Exception ("There's not enough available. Need " + amount + " but there's only " + Supplies[needType] + ".");
@@ -199,7 +200,7 @@ namespace townsim.Entities
 				Supplies[needType] = 0;
 		}
 
-		public bool Has(NeedType needType, decimal amount)
+		public bool Has(ItemType needType, decimal amount)
 		{
 			var value = Supplies [needType] >= amount;
 			return value;
@@ -207,19 +208,19 @@ namespace townsim.Entities
 		#endregion
 
 		#region Demands
-		public bool HasDemand(NeedType needType)
+		public bool HasDemand(ItemType needType)
 		{
 			var totalDemand = GetDemandAmount(needType);
 
 			return totalDemand > 0;
 		}
 
-		public void AddDemand(NeedType supply, decimal amount)
+		public void AddDemand(ItemType supply, decimal amount)
 		{
-			Demands.Add (new SupplyDemand (this, supply, amount));
+			Demands.Add (new ItemDemand (this, supply, amount));
 		}
 
-		public void RemoveDemand(NeedType supply, decimal amountToRemove)
+		public void RemoveDemand(ItemType supply, decimal amountToRemove)
 		{
 			var totalRemoved = 0.0m;
 
@@ -250,7 +251,7 @@ namespace townsim.Entities
 			}
 		}
 
-		public decimal GetDemandAmount(NeedType needType)
+		public decimal GetDemandAmount(ItemType needType)
 		{
 			return (from demand in Demands
 			        where demand.Supply == needType
@@ -259,7 +260,7 @@ namespace townsim.Entities
 		#endregion
 
 
-		public void AddNeed(NeedType needType, decimal quantity, decimal priority)
+		public void AddNeed(ItemType needType, decimal quantity, decimal priority)
 		{
 			AddNeed(new NeedEntry (needType, quantity, priority));
 		}
@@ -269,14 +270,14 @@ namespace townsim.Entities
 			Needs.Add (needEntry);
 		}
 
-		public bool HasNeed(NeedType need)
+		public bool HasNeed(ItemType need)
 		{
 			return (from n in Needs
 			        where n.Type == need
 			        select n).Count () > 0;
 		}
 
-		public bool HasNeed(NeedType needType, decimal quantity)
+		public bool HasNeed(ItemType needType, decimal quantity)
 		{
 			return (from n in Needs
 				where n.Type == needType

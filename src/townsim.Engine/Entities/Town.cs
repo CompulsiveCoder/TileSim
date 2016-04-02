@@ -6,7 +6,7 @@ using System.Linq;
 using datamanager.Entities;
 using townsim.Engine;
 
-namespace townsim.Entities
+namespace townsim.Engine.Entities
 {
 	[Serializable]
 	[JsonObject(IsReference = true)]

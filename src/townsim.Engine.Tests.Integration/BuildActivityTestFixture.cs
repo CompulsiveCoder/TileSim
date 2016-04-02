@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using townsim.Data;
 using townsim.Data.Tests;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Activities;
 
 namespace townsim.Engine.Tests.Integration.Activities

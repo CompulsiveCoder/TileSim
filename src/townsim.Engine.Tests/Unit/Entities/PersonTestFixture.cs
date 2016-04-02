@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 
 namespace townsim.Engine.Tests.Unit.Entities
@@ -15,11 +15,11 @@ namespace townsim.Engine.Tests.Unit.Entities
 		{
 			var person = new Person ();
 
-			person.AddDemand (NeedType.Timber, 100);
+			person.AddDemand (ItemType.Timber, 100);
 
-			person.RemoveDemand (NeedType.Timber, 100);
+			person.RemoveDemand (ItemType.Timber, 100);
 
-			var remainingAmount = person.GetDemandAmount (NeedType.Timber);
+			var remainingAmount = person.GetDemandAmount (ItemType.Timber);
 
 			Assert.AreEqual (0, remainingAmount);
 		}
@@ -30,13 +30,13 @@ namespace townsim.Engine.Tests.Unit.Entities
 		{
 			var person = new Person ();
 
-			person.AddDemand (NeedType.Timber, 50);
-			person.AddDemand (NeedType.Timber, 25);
-			person.AddDemand (NeedType.Timber, 25);
+			person.AddDemand (ItemType.Timber, 50);
+			person.AddDemand (ItemType.Timber, 25);
+			person.AddDemand (ItemType.Timber, 25);
 
-			person.RemoveDemand (NeedType.Timber, 100);
+			person.RemoveDemand (ItemType.Timber, 100);
 
-			var remainingAmount = person.GetDemandAmount (NeedType.Timber);
+			var remainingAmount = person.GetDemandAmount (ItemType.Timber);
 
 			Assert.AreEqual (0, remainingAmount);
 		}
@@ -47,12 +47,12 @@ namespace townsim.Engine.Tests.Unit.Entities
 		{
 			var person = new Person ();
 
-			person.AddDemand (NeedType.Timber, 50);
-			person.AddDemand (NeedType.Timber, 25);
+			person.AddDemand (ItemType.Timber, 50);
+			person.AddDemand (ItemType.Timber, 25);
 
-			person.RemoveDemand (NeedType.Timber, 50);
+			person.RemoveDemand (ItemType.Timber, 50);
 
-			Assert.AreEqual (25, person.GetDemandAmount (NeedType.Timber));
+			Assert.AreEqual (25, person.GetDemandAmount (ItemType.Timber));
 		}
 	}
 }

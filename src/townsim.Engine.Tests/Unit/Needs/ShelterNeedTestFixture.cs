@@ -1,5 +1,5 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using NUnit.Framework;
 using townsim.Engine.Needs;
 
@@ -13,7 +13,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 		{
 			var person = new Person ();
 
-			var shelterNeed = new ShelterNeed (EngineSettings.DefaultVerbose);
+			var shelterNeed = new ShelterNeedIdentifier (EngineSettings.DefaultVerbose);
 
 			shelterNeed.RegisterIfNeeded (person);
 
@@ -21,7 +21,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
 			var need = person.Needs [0];
 
-			Assert.AreEqual (NeedType.Shelter, need.Type);
+			Assert.AreEqual (ItemType.Shelter, need.Type);
 			Assert.AreEqual (1, need.Quantity);
 			Assert.AreEqual (100, need.Priority);
 		}
@@ -35,7 +35,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 			person.Home = new Building (BuildingType.House);
 			person.Home.PercentComplete = 100;
 
-			var shelterNeed = new ShelterNeed (EngineSettings.DefaultVerbose);
+			var shelterNeed = new ShelterNeedIdentifier (EngineSettings.DefaultVerbose);
 
 			shelterNeed.RegisterIfNeeded (person);
 

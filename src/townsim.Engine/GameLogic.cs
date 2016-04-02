@@ -8,17 +8,17 @@ namespace townsim.Engine
 	public class GameLogic
 	{
 		public ActivityInfo[] Activities { get; set; }
-		public BaseNeed[] Needs { get; set; }
+		public BaseNeedIdentifier[] Needs { get; set; }
 
 		public GameLogic ()
 		{
-			Needs = new BaseNeed[]{ };
+			Needs = new BaseNeedIdentifier[]{ };
 			Activities = new ActivityInfo[]{ };
 		}
 
-		public void AddNeed(BaseNeed need)
+		public void AddNeed(BaseNeedIdentifier need)
 		{
-			var list = new List<BaseNeed> ();
+			var list = new List<BaseNeedIdentifier> ();
 			if (Needs != null)
 				list.AddRange (Needs);
 			list.Add(need);

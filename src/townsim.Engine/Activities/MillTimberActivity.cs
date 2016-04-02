@@ -1,13 +1,13 @@
 ﻿using System;
 using townsim.Engine.Activities;
 using townsim.Data;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-	[Activity(NeedType.Timber)]
+	[Activity(ItemType.Timber)]
 	public class MillTimberActivity : BaseActivity
 	{
 		public decimal TotalTimberMilled = 0;
@@ -32,7 +32,7 @@ namespace townsim.Engine.Activities
 			if (Settings.IsVerbose) {
 				Console.WriteLine ("Starting " + GetType ().Name + " activity");
 				Console.WriteLine ("  Quantity (timber): " + NeedEntry.Quantity);
-				Console.WriteLine ("  Current (timber): " + person.Supplies[NeedType.Timber]);
+				Console.WriteLine ("  Current (timber): " + person.Supplies[ItemType.Timber]);
 			}
 
 			// TODO: Clean up
@@ -87,7 +87,7 @@ namespace townsim.Engine.Activities
 			if (Settings.IsVerbose)
 				Console.WriteLine ("  Registering the need for " + amountOfWoodNeeded + " wood");
 
-			person.AddNeed (NeedType.Wood, amountOfWoodNeeded, 102); // TODO: Figure out a better way to decide priority
+			person.AddNeed (ItemType.Wood, amountOfWoodNeeded, 102); // TODO: Figure out a better way to decide priority
 		}
 
 		public void GetWood(decimal woodRequired)
@@ -111,15 +111,15 @@ namespace townsim.Engine.Activities
 			var woodNeeded = CalculateAmountOfWoodNeeded(amountOfTimber);
 
 			// TODO: Is there a cleaner way to do this?
-            if (actor.Supplies [NeedType.Wood] >= woodNeeded) {
+            if (actor.Supplies [ItemType.Wood] >= woodNeeded) {
                 TotalTimberMilled += amountOfTimber;
                 if (Settings.IsVerbose) {
                     Console.WriteLine ("    Wood: " + woodNeeded);
                     Console.WriteLine ("    Timber: " + amountOfTimber);
                     Console.WriteLine ("    Total timber: " + TotalTimberMilled);
                 }
-                NeedsConsumed[NeedType.Wood] += woodNeeded;
-                NeedsProduced[NeedType.Timber] += amountOfTimber;
+                NeedsConsumed[ItemType.Wood] += woodNeeded;
+                NeedsProduced[ItemType.Timber] += amountOfTimber;
                 //DemandsResolved.Add(NeedType.Timber, // TODO: Remove if not needed. Should be obsolete because the need is removed when the activity is finished.
                 //actor.RemoveDemand (NeedType.Timber, amountOfTimber);
             } else {
@@ -165,7 +165,7 @@ namespace townsim.Engine.Activities
 
 		public bool HasEnoughWood(decimal amountOfWoodNeeded)
 		{	
-			var value = Actor.Has (NeedType.Wood, amountOfWoodNeeded);
+			var value = Actor.Has (ItemType.Wood, amountOfWoodNeeded);
 
 			return value;
 		}

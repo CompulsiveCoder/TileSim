@@ -1,5 +1,5 @@
 ﻿using System;
-using townsim.Entities;
+using townsim.Engine.Entities;
 using townsim.Engine.Decisions;
 using townsim.Engine.Activities;
 

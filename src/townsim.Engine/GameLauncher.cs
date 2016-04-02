@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using townsim.Entities;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine
 {
