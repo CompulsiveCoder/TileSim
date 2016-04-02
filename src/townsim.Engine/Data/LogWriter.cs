@@ -1,19 +1,21 @@
 ﻿using System;
 using Sider;
+using datamanager.Data;
 
 namespace townsim.Data
 {
 	public class LogWriter
 	{
-		public RedisClient Client;
+        public BaseRedisClientWrapper Client;
 
 		public LogKeys Keys;
 
 		public string EngineId;
 
-		public LogWriter (string engineId)
+        public LogWriter (string engineId, BaseRedisClientWrapper client)
 		{
-			Client = new RedisClient ();
+            Client = client;
+            
 			Keys = new LogKeys ("TownSim-" + engineId + "-");
 		}
 

@@ -7,7 +7,7 @@ using townsim.Engine.Activities;
 namespace townsim.Engine.Tests.Integration
 {
     [TestFixture(Category="Integration")]
-	public class BuildShelterIntegrationTestFixture
+	public class BuildShelterIntegrationTestFixture : BaseEngineIntegrationTestFixture
 	{
 		[Test]
 		public void Test_DecideAndBuildShelter()
@@ -16,7 +16,7 @@ namespace townsim.Engine.Tests.Integration
             Console.WriteLine ("Preparing test");
             Console.WriteLine ("");
 
-			var context = EngineContext.New ();
+			var context = MockEngineContext.New ();
 			context.Settings.IsVerbose = true;
 			context.Data.IsVerbose = true;
 

@@ -36,7 +36,7 @@ namespace townsim.Engine
 
 			Info = new EngineInfo (Clock.StartTime, Settings);
 
-			Log = new LogWriter (Settings.EngineId);
+            Log = new LogWriter (Settings.EngineId, data.Client);
 
 			World = new GameEnvironment (this);
 

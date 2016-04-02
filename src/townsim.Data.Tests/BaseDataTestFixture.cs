@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using datamanager.Data;
+using datamanager.Data.Tests;
 
 namespace townsim.Data.Tests
 {
@@ -27,7 +28,7 @@ namespace townsim.Data.Tests
 		public DataManager GetDataManager()
 		{
 			if (data == null) {
-				data = new DataManager ();
+                data = new MockDataManager ();
 				data.Settings.Prefix = "Test-" + Guid.NewGuid ().ToString ();
 			}
 

@@ -38,6 +38,9 @@
     <Reference Include="datamanager.Data">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.dll</HintPath>
     </Reference>
+    <Reference Include="datamanager.Data.Tests">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.Tests.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,6 +51,7 @@
     <Compile Include="InstructionEngineTestFixture.cs" />
     <Compile Include="StarvationAlertTestFixture.cs" />
     <Compile Include="BuildShelterIntegrationTestFixture.cs" />
+    <Compile Include="BaseEngineIntegrationTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
