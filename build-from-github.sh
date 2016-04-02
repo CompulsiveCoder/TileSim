@@ -12,13 +12,13 @@ fi
 
 echo "Branch: $BRANCH"
 
-# If the .tmp/datamanager directory exists then remove it
+# If the .tmp/townsim directory exists then remove it
 if [ -d "$BRANCH" ]; then
-    rm .tmp/datamanager -rf
+    rm .tmp/townsim -rf
 fi
 
-git clone https://github.com/CompulsiveCoder/datamanager.git .tmp/datamanager --branch $BRANCH
-cd .tmp/datamanager && \
+git clone https://github.com/CompulsiveCoder/townsim.git .tmp/townsim --branch $BRANCH
+cd .tmp/townsim && \
 sh init-build.sh && \
 cd $DIR && \
-rm .tmp/datamanager -rf
+rm .tmp/townsim -rf
