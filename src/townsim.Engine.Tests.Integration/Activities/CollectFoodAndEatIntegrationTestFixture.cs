@@ -26,7 +26,7 @@ namespace townsim.Engine.Tests.Integration
             context.World.Logic.AddNeed (new MealNeedIdentifier (context.Settings));
             //context.World.Logic.AddDecision (new ShelterDecision ());
             context.World.Logic.AddActivity (typeof(GatherFoodActivity));
-            context.World.Logic.AddActivity (typeof(EatMealActivity));
+            context.World.Logic.AddActivity (typeof(EatFoodActivity));
 
             var tile = context.World.Tiles [0];
 

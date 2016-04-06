@@ -3,6 +3,7 @@ using NUnit.Framework;
 using townsim.Engine.Entities;
 using townsim.Engine.Needs;
 using townsim.Engine.Activities;
+using townsim.Engine.Effects;
 
 namespace townsim.Engine.Tests.Integration
 {
@@ -21,10 +22,12 @@ namespace townsim.Engine.Tests.Integration
             context.Data.IsVerbose = true;
 
             context.Settings.DefaultCollectWaterRate = 50; // Increase the rate of water collection so the test goes faster
-            context.Settings.DefaultDrinkAmount = 100; // Increase the amount the person drinks so the test goes faster
+            context.Settings.DefaultDrinkAmount = 20; // Increase the amount the person drinks so the test goes faster
+
+            context.World.Logic.AddEffect (new ThirstEffect(context.Settings));
 
             context.World.Logic.AddNeed (new DrinkNeedIdentifier (context.Settings));
-            //context.World.Logic.AddDecision (new ShelterDecision ());
+
             context.World.Logic.AddActivity (typeof(CollectWaterActivity));
             context.World.Logic.AddActivity (typeof(DrinkWaterActivity));
 
@@ -44,7 +47,7 @@ namespace townsim.Engine.Tests.Integration
 
             context.Initialize (); // TODO: Should Start be part of the test? Or part of the preparation before the above console output?
 
-            context.Run (5);
+            context.Run (10);
 
             Console.WriteLine ("");
             Console.WriteLine ("Analysing test");

@@ -82,13 +82,13 @@ namespace townsim.Engine.Decisions
 		public BaseActivity ChooseActivityBasedOnNeed(Person person, NeedEntry needEntry)
 		{
 			if (Context.Settings.IsVerbose) {
-				Console.WriteLine ("    Choosing activity based on need for " + needEntry.Type);
+				Console.WriteLine ("    Choosing activity based on need for " + needEntry.ItemType);
 			}
 
 			var possibleActivities = new List<ActivityInfo> ();
 
 			foreach (var activityInfo in Context.World.Logic.Activities) {
-				if (activityInfo.IsSuited (needEntry.Type)) {
+                if (activityInfo.IsSuited (needEntry.ActionType, needEntry.ItemType)) {
 					possibleActivities.Add (activityInfo);
 				}
 			}
@@ -98,7 +98,7 @@ namespace townsim.Engine.Decisions
 				throw new NotSupportedException ("Multiple activities identified. That's not yet supported.");
 
 			if (possibleActivities.Count == 0)
-				throw new Exception ("No activities found to address the need for " + needEntry.Type + ". Ensure the activities have been added to the environment logic.");
+				throw new Exception ("No activities found to address the need for " + needEntry.ItemType + ". Ensure the activities have been added to the environment logic.");
 			
 
 			if (Context.Settings.IsVerbose) {
@@ -196,7 +196,7 @@ namespace townsim.Engine.Decisions
 
 			if (Context.Settings.IsVerbose) {
 				foreach (var entry in possibleChoices) {
-					Console.WriteLine ("      " + entry.Type + " - " + entry.Priority);
+					Console.WriteLine ("      " + entry.ItemType + " - " + entry.Priority);
 				}
 			}
 

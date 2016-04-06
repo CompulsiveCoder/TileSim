@@ -24,7 +24,8 @@ namespace townsim.Engine.Tests.Unit.Needs
 
             var need = person.Needs [0];
 
-            Assert.AreEqual (ItemType.Drink, need.Type);
+            Assert.AreEqual (ActionType.Drink, need.ActionType);
+            Assert.AreEqual (ItemType.Water, need.ItemType);
             Assert.AreEqual (settings.DefaultDrinkAmount, need.Quantity);
             Assert.AreEqual (settings.DefaultPriorities[ItemType.Water], need.Priority);
         }

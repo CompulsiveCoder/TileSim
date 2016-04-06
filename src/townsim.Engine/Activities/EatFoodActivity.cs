@@ -5,14 +5,14 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
     [Serializable]
-    [Activity(ItemType.Meal)]
-    public class EatMealActivity : BaseActivity
+    [Activity(ActionType.Eat, ItemType.Food)]
+    public class EatFoodActivity : BaseActivity
     {
         public decimal CollectionRate = 50.0m;
 
         public decimal TotalfoodConsumed = 0;
 
-        public EatMealActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
+        public EatFoodActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
         {
         }
 
@@ -64,15 +64,15 @@ namespace townsim.Engine.Activities
 
             if (!foodAvailable && Settings.IsVerbose) {
                 Console.WriteLine ("    No food available.");
-                RegisterNeedForfood ();
+                RegisterNeedToGatherFood ();
             }
 
             return foodAvailable;
         }
 
-        public void RegisterNeedForfood()
+        public void RegisterNeedToGatherFood()
         {
-            AddNeed (ItemType.Food, NeedEntry.Quantity, NeedEntry.Priority + 1);
+            AddNeed (ActionType.Gather, ItemType.Food, NeedEntry.Quantity, NeedEntry.Priority + 1);
         }
     }
 }

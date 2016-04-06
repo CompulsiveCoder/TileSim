@@ -30,7 +30,7 @@ namespace townsim.Engine.Tests.Unit.Activities
             var person = new Person (settings);
             person.Tile = tile;
 
-            var needEntry = new NeedEntry (ItemType.Water, settings.DefaultDrinkAmount, settings.DefaultPriorities[ItemType.Water]);
+            var needEntry = new NeedEntry (ActionType.Gather, ItemType.Water, settings.DefaultDrinkAmount, settings.DefaultPriorities[ItemType.Water]);
 
             var activity = new CollectWaterActivity (person, needEntry, settings);
 

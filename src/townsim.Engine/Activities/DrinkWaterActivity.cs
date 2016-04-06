@@ -5,7 +5,7 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
     [Serializable]
-    [Activity(ItemType.Drink)]
+    [Activity(ActionType.Drink, ItemType.Water)]
     public class DrinkWaterActivity : BaseActivity
     {
         public decimal CollectionRate = 50.0m;
@@ -64,15 +64,15 @@ namespace townsim.Engine.Activities
 
             if (!waterAvailable && Settings.IsVerbose) {
                 Console.WriteLine ("    No water available.");
-                RegisterNeedForWater ();
+                RegisterNeedToCollectWater ();
             }
 
             return waterAvailable;
         }
 
-        public void RegisterNeedForWater()
+        public void RegisterNeedToCollectWater()
         {
-            AddNeed (ItemType.Water, NeedEntry.Quantity, NeedEntry.Priority + 1);
+            AddNeed (ActionType.Gather, ItemType.Water, NeedEntry.Quantity, NeedEntry.Priority + 1);
         }
     }
 }

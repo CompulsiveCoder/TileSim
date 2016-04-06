@@ -58,6 +58,7 @@ namespace townsim.Engine.Entities
 		public void ValidateProperties()
 		{
             throw new NotImplementedException ();
+            // TODO: Remove if not needed
 			/*if (Age < 0)
 				Age = 0;
 			if (Thirst < 0)
@@ -67,9 +68,9 @@ namespace townsim.Engine.Entities
 		}
 
 
-		public void AddNeed(ItemType needType, decimal quantity, decimal priority)
+		public void AddNeed(ActionType actionType, ItemType needType, decimal quantity, decimal priority)
 		{
-			AddNeed(new NeedEntry (needType, quantity, priority));
+			AddNeed(new NeedEntry (actionType, needType, quantity, priority));
 		}
 
 		public void AddNeed(NeedEntry needEntry)
@@ -80,14 +81,15 @@ namespace townsim.Engine.Entities
 		public bool HasNeed(ItemType need)
 		{
 			return (from n in Needs
-			        where n.Type == need
+			        where n.ItemType == need
 			        select n).Count () > 0;
 		}
 
-		public bool HasNeed(ItemType needType, decimal quantity)
+		public bool HasNeed(ActionType actionType, ItemType needType, decimal quantity)
 		{
 			return (from n in Needs
-				where n.Type == needType
+                where n.ActionType == actionType
+                && n.ItemType == needType
 				&& n.Quantity == quantity
 				select n).Count () > 0;
 		}

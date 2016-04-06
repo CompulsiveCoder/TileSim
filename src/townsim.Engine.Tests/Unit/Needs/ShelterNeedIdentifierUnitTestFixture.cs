@@ -15,7 +15,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
 			var person = new Person (settings);
 
-			var shelterNeed = new ShelterNeedIdentifier (settings);
+			var shelterNeed = new BuildShelterNeedIdentifier (settings);
 
 			shelterNeed.RegisterIfNeeded (person);
 
@@ -23,7 +23,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
 			var need = person.Needs [0];
 
-			Assert.AreEqual (ItemType.Shelter, need.Type);
+			Assert.AreEqual (ItemType.Shelter, need.ItemType);
 			Assert.AreEqual (1, need.Quantity);
             Assert.AreEqual (settings.DefaultPriorities[ItemType.Shelter], need.Priority);
 		}
@@ -39,7 +39,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 			person.Home = new Building (BuildingType.House, settings);
 			person.Home.PercentComplete = 100;
 
-			var shelterNeed = new ShelterNeedIdentifier (settings);
+			var shelterNeed = new BuildShelterNeedIdentifier (settings);
 
 			shelterNeed.RegisterIfNeeded (person);
 

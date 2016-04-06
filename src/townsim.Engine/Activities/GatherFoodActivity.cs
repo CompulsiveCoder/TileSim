@@ -5,7 +5,7 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
     [Serializable]
-    [Activity(ItemType.Food)]
+    [Activity(ActionType.Gather, ItemType.Food)]
     public class GatherFoodActivity : BaseActivity
     {
         public decimal GatherionRate = 50.0m;

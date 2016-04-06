@@ -7,7 +7,9 @@ namespace townsim.Engine
 	{
 		public Type ActivityType { get; set; }
 
-		public ItemType[] Items { get; set; }
+        public ActionType ActionType { get; set; }
+
+        public ItemType ItemType { get; set; }
 
 		public ActivityInfo ()
 		{
@@ -17,15 +19,15 @@ namespace townsim.Engine
 		{
 			ActivityType = activityType;
 
-			DetectNeedsFromAttribute (activityType);
+			DetectDetailsFromAttribute (activityType);
 		}
 
-		public bool IsSuited(ItemType need)
+		public bool IsSuited(ActionType actionType, ItemType itemType)
 		{
-			return Array.IndexOf (Items, need) > -1;
+            return ActionType == actionType && ItemType == itemType;
 		}
 
-		public void DetectNeedsFromAttribute(Type activityType)
+		public void DetectDetailsFromAttribute(Type activityType)
 		{
 			var attributes = activityType.GetCustomAttributes (typeof(ActivityAttribute), true);
 
@@ -34,7 +36,8 @@ namespace townsim.Engine
 
 			var attribute = (ActivityAttribute)attributes [0];
 
-			Items = attribute.Needs;
+            ActionType = attribute.ActionType;
+            ItemType = attribute.ItemType;
 		}
 	}
 }

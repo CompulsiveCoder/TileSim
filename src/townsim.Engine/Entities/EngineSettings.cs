@@ -32,7 +32,7 @@ namespace townsim.Engine.Entities
 
         #region Person Settings
         public decimal ThirstThreshold = 50;
-        public decimal DefaultDrinkAmount = 10;
+        public decimal DefaultDrinkAmount = 1;
         public decimal DefaultCollectWaterRate = 10;
         public decimal WaterForThirstRatio = 1;
         public decimal DefaultEatAmount = 10;
@@ -84,10 +84,8 @@ namespace townsim.Engine.Entities
 
 		public EngineSettings()
         {
-            DefaultPriorities.Add (ItemType.Drink, 100);
             DefaultPriorities.Add (ItemType.Water, 100);
             DefaultPriorities.Add (ItemType.Shelter, 90);
-            DefaultPriorities.Add (ItemType.Meal, 80);
             DefaultPriorities.Add (ItemType.Food, 80);
             DefaultPriorities.Add (ItemType.Timber, 0);
             DefaultPriorities.Add (ItemType.Wood, 0);

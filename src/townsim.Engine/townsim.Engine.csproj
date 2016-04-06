@@ -115,7 +115,6 @@
     <Compile Include="Entities\IActivityTarget.cs" />
     <Compile Include="Entities\ItemDemand.cs" />
     <Compile Include="Needs\BaseNeedIdentifier.cs" />
-    <Compile Include="Needs\ShelterNeedIdentifier.cs" />
     <Compile Include="Activities\CollectWaterActivity.cs" />
     <Compile Include="Entities\Inventory.cs" />
     <Compile Include="Entities\DemandList.cs" />
@@ -127,7 +126,6 @@
     <Compile Include="Entities\PersonVital.cs" />
     <Compile Include="Needs\DrinkNeedIdentifier.cs" />
     <Compile Include="Needs\MealNeedIdentifier.cs" />
-    <Compile Include="Activities\EatMealActivity.cs" />
     <Compile Include="Activities\GatherFoodActivity.cs" />
     <Compile Include="Environment\GameEnvironmentPopulator.cs" />
     <Compile Include="Entities\TileCreator.cs" />
@@ -135,6 +133,9 @@
     <Compile Include="Effects\ThirstEffect.cs" />
     <Compile Include="Effects\BaseEffect.cs" />
     <Compile Include="Effects\BasePersonEffect.cs" />
+    <Compile Include="Entities\ActionType.cs" />
+    <Compile Include="Needs\BuildShelterNeedIdentifier.cs" />
+    <Compile Include="Activities\EatFoodActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

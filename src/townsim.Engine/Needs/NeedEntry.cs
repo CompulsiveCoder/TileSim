@@ -5,26 +5,25 @@ namespace townsim.Engine
 {
 	public class NeedEntry
 	{
-		public ItemType Type { get; set; }
+        public ActionType ActionType { get;set; }
+
+		public ItemType ItemType { get; set; }
 
 		public decimal Quantity { get; set; }
 
 		public decimal Priority { get; set; }
 
-		// TODO: Remove if not needed
-		//public BaseNeed Need { get;set; }
-
 		public NeedEntry (
+            ActionType actionType,
 			ItemType needType,
 			decimal quantity,
-			decimal priority//,
-			//BaseNeed need
+			decimal priority
 		)
 		{
-			Type = needType;
+            ActionType = actionType;
+			ItemType = needType;
 			Quantity = quantity;
 			Priority = priority;
-			//Need = need;
 		}
 	}
 }

@@ -7,7 +7,7 @@ using townsim.Engine.Needs;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-	[Activity(ItemType.Timber)]
+    [Activity(ActionType.Mill, ItemType.Timber)]
 	public class MillTimberActivity : BaseActivity
 	{
 		public decimal TotalTimberMilled = 0;
@@ -65,9 +65,9 @@ namespace townsim.Engine.Activities
 			var amountOfWoodNeeded = CalculateAmountOfWoodNeeded (NeedEntry.Quantity);
 
 			if (Settings.IsVerbose)
-				Console.WriteLine ("  Registering the need for " + amountOfWoodNeeded + " wood");
+                Console.WriteLine ("  Registering the need to " + ActionType.Fell + "  " + amountOfWoodNeeded + " wood");
 
-            person.AddNeed (ItemType.Wood, amountOfWoodNeeded, NeedEntry.Priority+1);
+            person.AddNeed (ActionType.Fell, ItemType.Wood, amountOfWoodNeeded, NeedEntry.Priority+1);
 		}
 
 		public void ConvertWoodToTimber(Person actor, decimal amountOfTimber)

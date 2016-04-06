@@ -31,7 +31,7 @@ namespace townsim.Engine.Tests.Unit.Activities
             var person = new Person (settings);
             person.Tile = tile;
 
-            var needEntry = new NeedEntry (ItemType.Food, settings.DefaultEatAmount, settings.DefaultPriorities[ItemType.Food]);
+            var needEntry = new NeedEntry (ActionType.Gather, ItemType.Food, settings.DefaultEatAmount, settings.DefaultPriorities[ItemType.Food]);
 
             var activity = new GatherFoodActivity (person, needEntry, settings);
 

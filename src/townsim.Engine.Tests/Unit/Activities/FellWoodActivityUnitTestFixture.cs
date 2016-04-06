@@ -27,7 +27,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
+            var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, 50, 101);
 
 			var activity = new FellWoodActivity (person, needEntry, settings);
 
@@ -57,7 +57,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
+            var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, 50, 101);
 
 			var activity = new FellWoodActivity (person, needEntry, settings);
 			activity.Target = tile.Trees [0];
@@ -88,7 +88,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-			var needEntry = new NeedEntry (ItemType.Wood, 50, 101);
+            var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, 50, 101);
 
 			person.AddNeed (needEntry);
 

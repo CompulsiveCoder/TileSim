@@ -27,7 +27,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
 
-			var needEntry = new NeedEntry (ItemType.Timber, 50, 101);
+            var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, 50, 101);
 
 			var activity = new MillTimberActivity (person, needEntry, context.Settings);
 
@@ -60,7 +60,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
 
-			var needEntry = new NeedEntry (ItemType.Timber, 50, 101);
+            var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, 50, 101);
 
 			var activity = new MillTimberActivity (person, needEntry, context.Settings);
 
@@ -72,7 +72,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var foundNeedEntry = person.Needs [0];
 
-			Assert.AreEqual (ItemType.Wood, foundNeedEntry.Type);
+			Assert.AreEqual (ItemType.Wood, foundNeedEntry.ItemType);
 			Assert.AreEqual (90, foundNeedEntry.Quantity);
 			Assert.AreEqual (102, foundNeedEntry.Priority);
 		}

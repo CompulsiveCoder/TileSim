@@ -226,7 +226,7 @@ namespace townsim.Engine
 
         public virtual void ConfirmProduced(NeedEntry entry)
         {
-            ItemsProduced [entry.Type] += entry.Quantity;
+            ItemsProduced [entry.ItemType] += entry.Quantity;
         }
 
         public void AddTransfer(IHasInventory source, IHasInventory destination, ItemType itemType, decimal quantity)
@@ -234,12 +234,12 @@ namespace townsim.Engine
             Transfers.Add (new ItemTransfer(source, destination, itemType, quantity));
         }
 
-        public void AddNeed(ItemType needType, decimal quantity, decimal priority)
+        public void AddNeed(ActionType actionType, ItemType itemType, decimal quantity, decimal priority)
         {
             if (Settings.IsVerbose)
-                Console.WriteLine ("    Registering the need for " + quantity + " " + needType + ".");
+                Console.WriteLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");
             
-            Needs.Add (new NeedEntry (needType, quantity, priority));
+            Needs.Add (new NeedEntry (actionType, itemType, quantity, priority));
         }
 	}
 }

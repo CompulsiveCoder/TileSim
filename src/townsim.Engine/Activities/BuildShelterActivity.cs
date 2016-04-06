@@ -4,7 +4,7 @@ using townsim.Engine.Needs;
 
 namespace townsim.Engine.Activities
 {
-	[Activity(ItemType.Shelter)]
+    [Activity(ActionType.Build, ItemType.Shelter)]
 	public class BuildShelterActivity : BaseActivity
 	{
 		public Building Shelter;
@@ -34,7 +34,7 @@ namespace townsim.Engine.Activities
         public override bool CheckRequiredItems (Person person)
         {
             if (ResourcesNeeded (person)) {
-                RegisterNeedForTimber (person, Settings.ShelterTimberCost);
+                RegisterNeedToMillTimber (person, Settings.ShelterTimberCost);
                 return false;
             } else
                 return true;
@@ -108,12 +108,12 @@ namespace townsim.Engine.Activities
             return person.Inventory.Has (ItemType.Timber, Settings.ShelterTimberCost);
 		}
 
-        public void RegisterNeedForTimber(Person person, decimal amountOfTimber)
+        public void RegisterNeedToMillTimber(Person person, decimal amountOfTimber)
 		{
 			if (Settings.IsVerbose)
-                Console.WriteLine ("        Registering the need for " + amountOfTimber + " timber");
+                Console.WriteLine ("        Registering the need to " + ActionType.Mill + " " + amountOfTimber + " timber");
 			
-            AddNeed(ItemType.Timber, amountOfTimber, NeedEntry.Priority+1);
+            AddNeed(ActionType.Mill, ItemType.Timber, amountOfTimber, NeedEntry.Priority+1);
 		}
 
 		public BuildStatus GetBuildStatus(Person person)

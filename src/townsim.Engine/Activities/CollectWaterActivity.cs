@@ -5,7 +5,7 @@ using townsim.Data;
 namespace townsim.Engine.Activities
 {
 	[Serializable]
-    [Activity(ItemType.Water)]
+    [Activity(ActionType.Gather, ItemType.Water)]
 	public class CollectWaterActivity : BaseActivity
 	{
 		public decimal CollectionRate = 50.0m;

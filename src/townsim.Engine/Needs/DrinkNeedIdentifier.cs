@@ -6,7 +6,7 @@ namespace townsim.Engine.Needs
     public class DrinkNeedIdentifier : BaseNeedIdentifier
     {
         public DrinkNeedIdentifier (EngineSettings settings)
-            : base(ItemType.Drink, settings)
+            : base(ActionType.Drink, ItemType.Water, settings)
         {
         }
 
@@ -15,10 +15,10 @@ namespace townsim.Engine.Needs
             return person.Vitals[PersonVital.Thirst] > Settings.ThirstThreshold;
         }
 
-        public override void RegisterNeed(Person person, ItemType needType, decimal quantity, decimal priority)
+        public override void RegisterNeed(Person person, ActionType actionType, ItemType itemType, decimal quantity, decimal priority)
         {
-            if (!NeedIsRegistered (person, needType, quantity)) {
-                person.AddNeed (needType, Settings.DefaultDrinkAmount, priority);
+            if (!NeedIsRegistered (person, actionType, itemType, quantity)) {
+                AddNeed (actionType, itemType, Settings.DefaultDrinkAmount, priority);
             }
         }
     }

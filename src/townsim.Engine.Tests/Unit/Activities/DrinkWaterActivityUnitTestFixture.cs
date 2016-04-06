@@ -21,6 +21,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var settings = context.Settings;
 
+            settings.DefaultDrinkAmount = 10; // Increase the drink rate to speed up test
             settings.IsVerbose = true;
 
             //var tile = context.World.Tiles [0];
@@ -32,7 +33,7 @@ namespace townsim.Engine.Tests.Unit.Activities
             person.Vitals[PersonVital.Thirst] = 80;
             //person.Tile = tile;
 
-            var needEntry = new NeedEntry (ItemType.Water, settings.DefaultDrinkAmount, settings.DefaultPriorities[ItemType.Water]);
+            var needEntry = new NeedEntry (ActionType.Drink, ItemType.Water, settings.DefaultDrinkAmount, settings.DefaultPriorities[ItemType.Water]);
 
             var activity = new DrinkWaterActivity (person, needEntry, settings);
 

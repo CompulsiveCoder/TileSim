@@ -6,7 +6,7 @@ using townsim.Engine.Needs;
 
 namespace townsim.Engine.Activities
 {
-	[Activity(ItemType.Wood)]
+    [Activity(ActionType.Fell, ItemType.Wood)]
 	[Serializable]
 	public class FellWoodActivity : BaseActivity
 	{

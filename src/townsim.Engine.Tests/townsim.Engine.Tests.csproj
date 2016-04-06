@@ -60,8 +60,8 @@
     <Compile Include="Unit\Activities\DrinkWaterActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Needs\DrinkNeedIdentifierUnitTestFixture.cs" />
     <Compile Include="Unit\Needs\MealNeedIdentifierUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\EatMealActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Activities\GatherFoodActivityUnitTestFixture.cs" />
+    <Compile Include="Unit\Activities\EatFoodActivityUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

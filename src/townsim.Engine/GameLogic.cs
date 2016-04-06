@@ -58,14 +58,14 @@ namespace townsim.Engine
 
             logic.AddEffect (new ThirstEffect (settings));
 
-            logic.AddNeed (new ShelterNeedIdentifier (settings));
+            logic.AddNeed (new BuildShelterNeedIdentifier (settings));
             logic.AddNeed (new DrinkNeedIdentifier (settings));
             logic.AddNeed (new MealNeedIdentifier (settings));
 
             logic.AddActivity (typeof(BuildShelterActivity));
             logic.AddActivity (typeof(MillTimberActivity));
             logic.AddActivity (typeof(FellWoodActivity));
-            logic.AddActivity (typeof(EatMealActivity));
+            logic.AddActivity (typeof(EatFoodActivity));
             logic.AddActivity (typeof(GatherFoodActivity));
             logic.AddActivity (typeof(CollectWaterActivity));
             logic.AddActivity (typeof(DrinkWaterActivity));
