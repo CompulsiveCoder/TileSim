@@ -23,23 +23,24 @@ namespace townsim.Engine
 
             var context = EngineContext.New (settings);
 
+            context.Settings.OutputType = ConsoleOutputType.Game;
+
             context.PopulateFromSettings ();
 
-            context.InitializeCompleteLogic ();
+            context.AddCompleteLogic ();
 
 			context.Initialize ();
-			//EngineProcess engine = null;
-			/*try
+			//EngineProcess engine = null; // TODO: Remove if not needed
+			try
 			{
-				using(var engine = new EngineProcess (engineId))
+				using(var engine = new EngineProcess (context))
 				{
-					engine.Settings.OutputType = ConsoleOutputType.GameSummary;
-					engine.Start ();
+                    engine.Run();
 				}
 			}
 			catch (GameException ex) {
 				Console.WriteLine (ex.Message);
-			}*/
+			}
 			//finally {
 			//	if (engine != null)
 			//		engine.Dispose ();

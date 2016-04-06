@@ -87,6 +87,7 @@ namespace townsim.Engine
 			if (Context.Settings.IsVerbose)
 				Console.WriteLine ("Starting engine process");
 
+            throw new NotImplementedException ();
             // TODO: Clean up this function. Most of this code is obsolete
 
 			//EnsureTownsExist ();
@@ -94,8 +95,8 @@ namespace townsim.Engine
 			//if (Context.World.Towns.Length == 0)
 			//	throw new Exception ("No towns have been added. Call the PopulateDefault() function.");
 
-            if (EnableDatabase)
-			    SaveInfo ();
+            //if (EnableDatabase)
+			//    SaveInfo ();
 
 			//RunCycles ();
 
@@ -148,22 +149,6 @@ namespace townsim.Engine
 			//Settings.PlayerId = Player.Id;
 		}
 
-		public void SaveInfo()
-		{
-			Context.Data.Save (Context.Info);
-
-			Context.Data.Save (Context.World.People);
-
-			// TODO: Remove if not needed
-			/*foreach (var town in Context.World.Towns)
-			{
-				if (!Context.Data.Exists(town))
-					Context.Data.Save(town);
-
-				Context.Data.Save (town.Buildings);
-			}*/
-		}
-
 		public void AddTown(Town town)
 		{
 			if (town.People.Length == 0)
@@ -188,7 +173,7 @@ namespace townsim.Engine
 			}
 		}
 
-		void Run()
+		public void Run()
 		{
 			IsRunning = true;
 
@@ -322,10 +307,10 @@ namespace townsim.Engine
 			//if (Context.World.Towns.Length == 0)
 			//	throw new TownlessException ();
 
+            ProcessEffects ();
+
 			// People
-			foreach (var person in Context.World.People) {
-				RunCycleForPerson (person);
-			}
+            ProcessPeople();
 
 			//foreach (var town in Context.World.Towns) {
 			//	RunCycleForTown (town);
@@ -347,6 +332,26 @@ namespace townsim.Engine
 				Console.WriteLine ("");
 			}
 		}
+
+        public void ProcessEffects()
+        {
+            foreach (var effect in Context.World.Logic.Effects) {
+                if (effect is BasePersonEffect) {
+                    foreach (var person in Context.World.People) {
+                        ((BasePersonEffect)effect).Apply (person);
+                    }
+                }
+                else
+                    effect.Apply ();
+            }
+        }
+
+        public void ProcessPeople()
+        {
+            foreach (var person in Context.World.People) {
+                RunCycleForPerson (person);
+            }
+        }
 
 		public void RunCycleForTown(Town town)
 		{

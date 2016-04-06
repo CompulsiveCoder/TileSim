@@ -4,20 +4,33 @@ using System.Collections.Generic;
 using townsim.Engine.Activities;
 using townsim.Engine.Needs;
 using townsim.Engine.Entities;
+using townsim.Engine.Effects;
 
 namespace townsim.Engine
 {
 	[Serializable]
 	public class GameLogic
-	{
-		public ActivityInfo[] Activities { get; set; }
+    {
+        public ActivityInfo[] Activities { get; set; }
+        public BaseEffect[] Effects { get; set; }
 		public BaseNeedIdentifier[] Needs { get; set; }
 
 		public GameLogic ()
 		{
+            Effects = new BaseEffect[]{ };
 			Needs = new BaseNeedIdentifier[]{ };
 			Activities = new ActivityInfo[]{ };
-		}
+        }
+
+        public void AddEffect(BaseEffect effect)
+        {
+            var list = new List<BaseEffect> ();
+            if (Effects != null)
+                list.AddRange (Effects);
+            list.Add(effect);
+            Effects = list.ToArray ();
+        }
+
 
 		public void AddNeed(BaseNeedIdentifier need)
 		{
@@ -42,6 +55,8 @@ namespace townsim.Engine
         static public GameLogic NewComplete(EngineSettings settings)
         {
             var logic = new GameLogic ();
+
+            logic.AddEffect (new ThirstEffect (settings));
 
             logic.AddNeed (new ShelterNeedIdentifier (settings));
             logic.AddNeed (new DrinkNeedIdentifier (settings));

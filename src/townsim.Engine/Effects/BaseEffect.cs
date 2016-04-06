@@ -5,12 +5,23 @@ namespace townsim.Engine
 {
 	public abstract class BaseEffect
 	{
-		public EngineContext Context { get; set; }
+        public EngineSettings Settings { get; set; }
 		
-		public BaseEffect (EngineContext context)
+        public BaseEffect (EngineSettings settings)
 		{
-			Context = context;
+            Settings = settings;
 		}
+
+        public void Apply ()
+        {
+            Execute ();
+
+            Finished ();
+        }
+
+        public abstract void Execute();
+
+        public abstract void Finished ();
 	}
 }
 

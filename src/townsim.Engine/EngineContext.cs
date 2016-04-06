@@ -66,11 +66,14 @@ namespace townsim.Engine
 			if (Engine == null)
 				throw new Exception ("No game engine process has been attached. Use the AttachProcess(engine) function before initializing.");
 
-			Engine.Initialize ();
+			//Engine.Initialize ();
+
+            // TODO: Should this be reimplemented here?
+            //SaveInfo ();
 		}
 		#endregion
 
-        public void InitializeCompleteLogic ()
+        public void AddCompleteLogic ()
         {
             var logic = GameLogic.NewComplete (Settings);
 
@@ -93,6 +96,24 @@ namespace townsim.Engine
 			Engine = process;
 		}
 		#endregion
+
+
+        public void SaveInfo()
+        {
+            Data.Save (Info);
+
+            Data.Save (World.People);
+
+            // TODO: Remove if not needed
+            /*foreach (var town in Context.World.Towns)
+            {
+                if (!Context.Data.Exists(town))
+                    Context.Data.Save(town);
+
+                Context.Data.Save (town.Buildings);
+            }*/
+        }
+
 
 		public static EngineContext New()
 		{

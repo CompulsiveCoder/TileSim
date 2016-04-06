@@ -1,39 +1,33 @@
 ﻿using System;
 using townsim.Engine.Entities;
 using townsim.Data;
+using townsim.Engine.Activities;
 
 namespace townsim.Engine.Effects
 {
-	public class ThirstEffect : BaseEffect
+	public class ThirstEffect : BasePersonEffect
 	{
+        // TODO: Clean up
 		public decimal ThirstRate = 0.3m;//100m / (24*60*60) * 5m; // 100% / seconds in a day * drinks per day
 
 		public EngineInfo Info { get;set; }
 
-		public ThirstEffect (EngineContext context) : base(context)
+        public ThirstEffect (EngineSettings settings) : base(settings)
 		{
 		}
 
-		public void Update(Person person)
-		{
-			if (person.IsAlive)
-			{
-				UpdateThirst (person);
-			}
-		}
+        public override void Execute (Person person)
+        {
+            var personIsDrinking = (person.ActivityName == typeof(DrinkWaterActivity).Name);
+            if (person.IsAlive && !personIsDrinking)
+            {
+                UpdateThirst (person);
+            }
+        }
 
 		public void UpdateThirst(Person person)
 		{
-			person.Thirst += ThirstRate;
-
-			if (person.Thirst > 100) {
-				person.Thirst = 100;
-				//person.Priorities [PriorityTypes.Water] = (int)person.Thirst; // TODO: Clean up
-			}
-			// TODO: Clean up
-			//else if (person.Thirst > 10)
-			//	person.Priorities [PriorityTypes.Water] = person.Thirst;
-			
+            VitalsChange.Add (PersonVital.Thirst, +ThirstRate);
 		}
 	}
 }

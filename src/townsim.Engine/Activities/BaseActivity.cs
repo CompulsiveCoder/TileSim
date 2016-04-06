@@ -101,7 +101,7 @@ namespace townsim.Engine
 
             CommitTransfers ();
 
-            CommitVitalsChange ();
+            CommitVitalsChanges ();
 
             CommitNeeds ();
 		}
@@ -183,7 +183,7 @@ namespace townsim.Engine
             }
         }
 
-        public void CommitVitalsChange()
+        public void CommitVitalsChanges()
         {
             if (Settings.IsVerbose) {
                 Console.WriteLine ("    Committing vitals changes");

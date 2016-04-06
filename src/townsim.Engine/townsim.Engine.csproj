@@ -132,6 +132,9 @@
     <Compile Include="Environment\GameEnvironmentPopulator.cs" />
     <Compile Include="Entities\TileCreator.cs" />
     <Compile Include="Entities\TreeCreator.cs" />
+    <Compile Include="Effects\ThirstEffect.cs" />
+    <Compile Include="Effects\BaseEffect.cs" />
+    <Compile Include="Effects\BasePersonEffect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
