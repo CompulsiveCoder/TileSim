@@ -66,33 +66,5 @@ namespace townsim.Engine.Activities
 
             return waterAvailable;
         }
-
-        // TODO: Clean up
-		/*protected override void ExecuteSingleCycle()
-		{
-			if (Person.ActivityType == ActivityType.CollectingWater) {
-				
-			}
-		}
-
-		public override void Start ()
-		{
-			throw new NotImplementedException ();
-		}
-
-		public override bool CheckComplete ()
-		{
-			return Person.Supplies [SupplyTypes.Water] >= Person.SuppliesMax [SupplyTypes.Water];
-		}
-
-		public override bool CheckImpossible ()
-		{
-			throw new NotImplementedException ();
-		}
-
-		public override void Finish ()
-		{
-			throw new NotImplementedException ();
-		}*/
 	}
 }

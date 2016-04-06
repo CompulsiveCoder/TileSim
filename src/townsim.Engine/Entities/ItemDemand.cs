@@ -21,9 +21,9 @@ namespace townsim.Engine.Entities
         public ItemDemand (Person person, ItemType needType, decimal amount)
         {
             throw new NotImplementedException ();
-            Person = person;
+            /*Person = person;
             Supply = needType;
-            Amount = amount;
+            Amount = amount;*/
         }
     }
 }

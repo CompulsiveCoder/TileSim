@@ -10,6 +10,9 @@ namespace townsim.Engine
 	[Serializable]
     public class GameEnvironment : BaseGameEntity
 	{
+        [XmlIgnore]
+        public GameEnvironmentPopulator Populator { get;set; }
+
 		public EngineContext Context { get; set; }
 
 		[OneWay]
@@ -40,15 +43,17 @@ namespace townsim.Engine
 		public GameLogic Logic { get; set; }
 
 		public GameEnvironment (EngineContext context)
-		{
+        {
+            Context = context;
+
+            Populator = new GameEnvironmentPopulator (this);
             PersonCreator = new PersonCreator (context.Settings);
 			PlantCreator = new PlantCreator (context.Settings);
-			Context = context;
 			Towns = new Town[]{};
 			People = new Person[] {};
 			Plants = new Plant[]{ };
 			Logic = new GameLogic ();
-			Tiles = new GameTile[]{new GameTile(this, context.Settings)};
+			Tiles = new GameTile[]{new GameTile(this)};
 		}
 
 		public void AddPerson(Person person)

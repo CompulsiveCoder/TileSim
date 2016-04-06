@@ -56,9 +56,12 @@
     <Compile Include="Unit\Activities\FellWoodActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Activities\MillTimberActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Needs\ShelterNeedIdentifierUnitTestFixture.cs" />
-    <Compile Include="Unit\Needs\WaterNeedIdentifierUnitTestFixture.cs" />
     <Compile Include="Unit\Activities\CollectWaterActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Activities\DrinkWaterActivityUnitTestFixture.cs" />
+    <Compile Include="Unit\Needs\DrinkNeedIdentifierUnitTestFixture.cs" />
+    <Compile Include="Unit\Needs\MealNeedIdentifierUnitTestFixture.cs" />
+    <Compile Include="Unit\Activities\EatMealActivityUnitTestFixture.cs" />
+    <Compile Include="Unit\Activities\GatherFoodActivityUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -82,17 +82,20 @@ namespace townsim.Engine
 			Context.Data.Settings.Prefix = "TownSim-" + Context.Settings.EngineId;
 		}
 
-		public void Start()
+		public void Initialize()
 		{
 			if (Context.Settings.IsVerbose)
 				Console.WriteLine ("Starting engine process");
+
+            // TODO: Clean up this function. Most of this code is obsolete
 
 			//EnsureTownsExist ();
 
 			//if (Context.World.Towns.Length == 0)
 			//	throw new Exception ("No towns have been added. Call the PopulateDefault() function.");
 
-			SaveInfo ();
+            if (EnableDatabase)
+			    SaveInfo ();
 
 			//RunCycles ();
 
@@ -116,11 +119,11 @@ namespace townsim.Engine
 		public void EnsureTownsExist()
 		{
 			throw new NotImplementedException ();
-			if (Context.World.Towns.Length == 0)
-				CreateTown ();
+			//if (Context.World.Towns.Length == 0)
+			//	CreateTown ();
 		}
 
-		public void Start(Town town)
+		public void Initialize(Town town)
 		{
 			throw new NotImplementedException ();
 			/*Console.WriteLine ("Starting TownSim engine");
@@ -185,16 +188,16 @@ namespace townsim.Engine
 			}
 		}
 
-		void RunCycles()
+		void Run()
 		{
 			IsRunning = true;
 
 			while (IsRunning)
 			{
 				var cycleStartTime = DateTime.Now;
-				throw new NotImplementedException ();
+
 				for (int x = 0; x < Context.Settings.GameSpeed; x++) {
-					RunCycle (0);
+					RunCycle (x+1);
 				}
 
 				if (Context.Settings.OutputType == ConsoleOutputType.Game) // TODO: Move this to settings
@@ -293,24 +296,7 @@ namespace townsim.Engine
 			}*/
 		}
 
-		// TODO: Move to a helper class
-		public void CreateTown()
-		{
-			//var towns = new DataManager().Get<Town> ();
-
-			//if (towns.Length < 1)
-			//{
-			var town = new Town ("Small Town");
-
-			town.Populate (new TownPopulator (Context));
-			//throw new NotImplementedException ();
-			//town.Populate(Context.Settings.DefaultTownPopulation);
-
-			AddTown (town);
-			//}
-		}
-
-		public void RunCycles(int numberOfCycles)
+		public void Run(int numberOfCycles)
 		{
 			if (Context.Settings.IsVerbose)
 				Console.WriteLine ("Running engine for " + numberOfCycles + " cycles.");
@@ -417,7 +403,9 @@ namespace townsim.Engine
 
 		public void Populate()
 		{
-			CreateTown();
+            throw new NotImplementedException ();
+            // TODO: Clean up
+			//CreateTown();
 		}
 
 		public void Dispose()

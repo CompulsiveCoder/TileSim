@@ -12,10 +12,10 @@ namespace townsim.Engine.Tests
 		{
             throw new NotImplementedException ();
 
-			var context = MockEngineContext.New ();
+			/*var context = MockEngineContext.New ();
 
 			var decider = new PersonDecider (context);
-
+*/
 			//decider.
 		}
 	}

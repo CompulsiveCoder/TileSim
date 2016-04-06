@@ -6,7 +6,7 @@ using townsim.Engine.Needs;
 namespace townsim.Engine.Tests.Unit.Needs
 {
     [TestFixture(Category="Unit")]
-    public class WaterNeedIdentifierUnitTestFixture : BaseEngineUnitTestFixture
+    public class DrinkNeedIdentifierUnitTestFixture : BaseEngineUnitTestFixture
     {
         [Test]
         public void Test_RegisterIfNeeded_WaterIsNeeded()

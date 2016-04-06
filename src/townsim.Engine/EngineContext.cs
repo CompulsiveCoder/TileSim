@@ -54,37 +54,42 @@ namespace townsim.Engine
 
 		public void Construct()
 		{
-			//Info = new EngineInfo(
 		}
 		#endregion
 
 		#region Start
-		public void Start()
+		public void Initialize()
 		{
 			if (Settings.IsVerbose)
-				Console.WriteLine ("Starting engine context");
+				Console.WriteLine ("Initializing engine context");
 
 			if (Engine == null)
-				throw new Exception ("No game engine process has been attached. Use the AttachProcess(engine) function before calling start.");
+				throw new Exception ("No game engine process has been attached. Use the AttachProcess(engine) function before initializing.");
 
-			Engine.Start ();
+			Engine.Initialize ();
 		}
 		#endregion
 
-		public void RunCycles(int numberOfCycles)
+        public void InitializeCompleteLogic ()
+        {
+            var logic = GameLogic.NewComplete (Settings);
+
+            World.Logic = logic;
+        }
+
+		public void Run(int numberOfCycles)
 		{
-			Engine.RunCycles (numberOfCycles);
+			Engine.Run (numberOfCycles);
 		}
 
-		public void Populate()
+		public void PopulateFromSettings()
 		{
-			Engine.Populate ();
+            World.Populator.PopulateFromSettings ();
 		}
 
 		#region Attach process
 		public void AttachProcess(EngineProcess process)
 		{
-			// TODO: Should the process be passed in via the constructor?
 			Engine = process;
 		}
 		#endregion
@@ -93,6 +98,11 @@ namespace townsim.Engine
 		{
 			return new GameCreator (EngineSettings.Default).Create ();
 		}
+
+        public static EngineContext New(EngineSettings settings)
+        {
+            return new GameCreator (settings).Create ();
+        }
 	}
 }
 

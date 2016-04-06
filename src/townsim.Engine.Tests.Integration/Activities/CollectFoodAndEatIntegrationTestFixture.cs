@@ -7,10 +7,10 @@ using townsim.Engine.Activities;
 namespace townsim.Engine.Tests.Integration
 {
     [TestFixture(Category="Integration")]
-    public class CollectWaterAndDrinkIntegrationTestFixture : BaseEngineIntegrationTestFixture
+    public class CollectFoodAndEatIntegrationTestFixture : BaseEngineIntegrationTestFixture
     {
         [Test]
-        public void Test_GetThirstyCollectWaterAndDrink()
+        public void Test_GetHungryCollectFoodAndEat()
         {
             Console.WriteLine ("");
             Console.WriteLine ("Preparing test");
@@ -20,21 +20,21 @@ namespace townsim.Engine.Tests.Integration
             context.Settings.IsVerbose = true;
             context.Data.IsVerbose = true;
 
-            context.Settings.DefaultCollectWaterRate = 50; // Increase the rate of water collection so the test goes faster
-            context.Settings.DefaultDrinkAmount = 100; // Increase the amount the person drinks so the test goes faster
+            context.Settings.DefaultGatherFoodRate = 50; // Increase the rate of food gathering so the test goes faster
+            context.Settings.DefaultEatAmount = 100; // Increase the amount the person eats so the test goes faster
 
-            context.World.Logic.AddNeed (new DrinkNeedIdentifier (context.Settings));
+            context.World.Logic.AddNeed (new MealNeedIdentifier (context.Settings));
             //context.World.Logic.AddDecision (new ShelterDecision ());
-            context.World.Logic.AddActivity (typeof(CollectWaterActivity));
-            context.World.Logic.AddActivity (typeof(DrinkWaterActivity));
+            context.World.Logic.AddActivity (typeof(GatherFoodActivity));
+            context.World.Logic.AddActivity (typeof(EatMealActivity));
 
             var tile = context.World.Tiles [0];
 
-            tile.Inventory[ItemType.Water] = 200;
+            tile.Inventory[ItemType.Food] = 200;
 
             var person = new PersonCreator (context.Settings).CreateAdult(); // TODO: Store the PersonCreator object somewhere else
 
-            person.Vitals[PersonVital.Thirst] = 90;
+            person.Vitals[PersonVital.Hunger] = 90;
 
             tile.AddPerson (person);
 
@@ -50,7 +50,7 @@ namespace townsim.Engine.Tests.Integration
             Console.WriteLine ("Analysing test");
             Console.WriteLine ("");
 
-            Assert.AreEqual (0, person.Vitals[PersonVital.Thirst]);
+            Assert.AreEqual (0, person.Vitals[PersonVital.Hunger]);
         }
     }
 }

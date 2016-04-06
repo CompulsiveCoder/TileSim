@@ -21,11 +21,13 @@ namespace townsim.Engine
 			// TODO: Should this be dependent on "verbose" flag?
 			//Console.WriteLine ("Engine ID: " + engineId);
 
-			var context = new GameCreator(settings).Create();
+            var context = EngineContext.New (settings);
 
-			context.Populate ();
+            context.PopulateFromSettings ();
 
-			context.Start ();
+            context.InitializeCompleteLogic ();
+
+			context.Initialize ();
 			//EngineProcess engine = null;
 			/*try
 			{

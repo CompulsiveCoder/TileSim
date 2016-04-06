@@ -9,7 +9,10 @@ namespace townsim.Engine.Entities
 		Water,
 		Wood,
 		Timber,
-        Drink // TODO: Having Drink as well as Water is a hack to get both the DrinkWater and CollectWater activities working together. See if there's a better way to do it.
+
+        // Person specific
+        Drink, // TODO: Having Drink as well as Water is a hack to get both the DrinkWater and CollectWater activities working together. See if there's a better way to do it.
+        Meal
 	}
 }
 

@@ -37,7 +37,7 @@ namespace townsim.Engine.Tests
 
 		public DataManager CreateDataManager()
 		{
-            var dataManager = new DataManager(new MockRedisClientWrapper());
+            var dataManager = new MockDataManager();
 
 			dataManager.IsVerbose = Settings.IsVerbose;
 

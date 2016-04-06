@@ -33,7 +33,7 @@ namespace townsim.Data
 					return Enum.Parse(enumType, value.ToString());
 			}
 			if (property.PropertyType == typeof(bool))
-				return value == "1" || value == "true" || value == "on" || value == "checked";
+                return (string)value == "1" || (string)value == "true" || (string)value == "on" || (string)value == "checked";
 			else if (property.PropertyType == typeof(Uri))
 				return new Uri(Convert.ToString(value));
 			else

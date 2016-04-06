@@ -126,6 +126,12 @@
     <Compile Include="Activities\DrinkWaterActivity.cs" />
     <Compile Include="Entities\PersonVital.cs" />
     <Compile Include="Needs\DrinkNeedIdentifier.cs" />
+    <Compile Include="Needs\MealNeedIdentifier.cs" />
+    <Compile Include="Activities\EatMealActivity.cs" />
+    <Compile Include="Activities\GatherFoodActivity.cs" />
+    <Compile Include="Environment\GameEnvironmentPopulator.cs" />
+    <Compile Include="Entities\TileCreator.cs" />
+    <Compile Include="Entities\TreeCreator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

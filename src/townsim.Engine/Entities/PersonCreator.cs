@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace townsim.Engine.Entities
 {
+    [Serializable]
 	public class PersonCreator
 	{
 		Random Randomiser = new Random();

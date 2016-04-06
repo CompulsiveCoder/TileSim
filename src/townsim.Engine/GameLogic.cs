@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.Remoting.Messaging;
 using System.Collections.Generic;
+using townsim.Engine.Activities;
+using townsim.Engine.Needs;
+using townsim.Engine.Entities;
 
 namespace townsim.Engine
 {
@@ -35,6 +38,25 @@ namespace townsim.Engine
 			list.Add(activityInfo);
 			Activities = list.ToArray ();
 		}
+
+        static public GameLogic NewComplete(EngineSettings settings)
+        {
+            var logic = new GameLogic ();
+
+            logic.AddNeed (new ShelterNeedIdentifier (settings));
+            logic.AddNeed (new DrinkNeedIdentifier (settings));
+            logic.AddNeed (new MealNeedIdentifier (settings));
+
+            logic.AddActivity (typeof(BuildShelterActivity));
+            logic.AddActivity (typeof(MillTimberActivity));
+            logic.AddActivity (typeof(FellWoodActivity));
+            logic.AddActivity (typeof(EatMealActivity));
+            logic.AddActivity (typeof(GatherFoodActivity));
+            logic.AddActivity (typeof(CollectWaterActivity));
+            logic.AddActivity (typeof(DrinkWaterActivity));
+
+            return logic;
+        }
 	}
 }
 

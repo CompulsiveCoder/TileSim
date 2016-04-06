@@ -5,7 +5,7 @@ namespace townsim.Engine.Tests
 {
 	public class MockGameTile : GameTile
 	{
-        public MockGameTile (GameEnvironment world, EngineSettings settings) : base(world, settings)
+        public MockGameTile (GameEnvironment world) : base(world)
 		{
 		}
 	}

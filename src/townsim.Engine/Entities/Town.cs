@@ -52,14 +52,9 @@ namespace townsim.Engine.Entities
 			}
 			set
 			{
-				// TODO: Find a better way to ensure no nulls are in the list
-				var nullFound = false;
 				var list = new List<Person> ();
 				foreach (var p in value) {
-					if (p == null)
-						nullFound = true;
-					else
-						list.Add (p);
+					list.Add (p);
 				}
 				people = list.ToArray();
 			}

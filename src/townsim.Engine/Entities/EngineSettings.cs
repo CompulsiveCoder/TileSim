@@ -14,6 +14,12 @@ namespace townsim.Engine.Entities
 		public int CycleDuration = 1000;
 		#endregion
 
+        #region Environment settings
+        public int DefaultTileQuantity = 1;
+        public int DefaultPeoplePerTile = 5;
+        public int DefaultTreesPerTile = 100;
+        #endregion
+
 		#region Player settings
 		public string PlayerId = "";
 		#endregion
@@ -29,6 +35,10 @@ namespace townsim.Engine.Entities
         public decimal DefaultDrinkAmount = 10;
         public decimal DefaultCollectWaterRate = 10;
         public decimal WaterForThirstRatio = 1;
+        public decimal DefaultEatAmount = 10;
+        public decimal FoodForHungerRatio = 1;
+        public decimal HungerThreshold = 40;
+        public decimal DefaultGatherFoodRate = 10;
         #endregion
 
 		#region Wood Settings
@@ -77,6 +87,7 @@ namespace townsim.Engine.Entities
             DefaultPriorities.Add (ItemType.Drink, 100);
             DefaultPriorities.Add (ItemType.Water, 100);
             DefaultPriorities.Add (ItemType.Shelter, 90);
+            DefaultPriorities.Add (ItemType.Meal, 80);
             DefaultPriorities.Add (ItemType.Food, 80);
             DefaultPriorities.Add (ItemType.Timber, 0);
             DefaultPriorities.Add (ItemType.Wood, 0);

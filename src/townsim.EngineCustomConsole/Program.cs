@@ -8,7 +8,8 @@ namespace townsim.EngineCustomConsole
 	{
 		public static void Main (string[] args)
 		{
-			var town = new Town ();
+            throw new NotImplementedException ();
+			//var town = new Town ();
 
 			/*Console.WriteLine ("Starting custom TownSim...");
 			Console.WriteLine ("You'll be asked to provide some parameters for the simulation to run.");
@@ -65,7 +66,6 @@ namespace townsim.EngineCustomConsole
 				// Ignore and go with default
 			}
 */
-			throw new NotImplementedException ();
 			/*var engine = new EngineProcess ();
 			engine.Start (town);*/
 		}

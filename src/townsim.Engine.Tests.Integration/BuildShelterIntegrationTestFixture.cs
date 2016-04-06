@@ -43,9 +43,9 @@ namespace townsim.Engine.Tests.Integration
             Console.WriteLine ("Executing test");
             Console.WriteLine ("");
 
-			context.Start (); // TODO: Should Start be part of the test? Or part of the preparation before the above console output?
+			context.Initialize (); // TODO: Should Start be part of the test? Or part of the preparation before the above console output?
 
-			context.RunCycles (20);
+			context.Run (20);
 
             Console.WriteLine ("");
             Console.WriteLine ("Analysing test");

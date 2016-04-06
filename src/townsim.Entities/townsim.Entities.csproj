@@ -37,8 +37,8 @@
     <Reference Include="datamanager.Entities">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft">
-      <HintPath>..\..\lib\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

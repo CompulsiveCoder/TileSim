@@ -20,18 +20,18 @@ namespace townsim.Engine
 		[JsonIgnore]
 		[XmlIgnore]
 		[NonSerialized]
-		public GameEnvironment World;
+        public GameEnvironment World;
 
         public Inventory Inventory { get; set; }
 
         public EngineSettings Settings { get;set; }
 
-		public GameTile (GameEnvironment world, EngineSettings settings)
+		public GameTile (GameEnvironment world)
 		{
 			World = world;
 			Plants = new Plant[]{ };
 			People = new Person[]{ };
-            Inventory = new Inventory(this, null, Settings);
+            Inventory = new Inventory(this, null, world.Context.Settings);
 		}
 
 		public void AddPerson(Person person)
@@ -41,7 +41,9 @@ namespace townsim.Engine
 
 		public void AddPeople(params Person[] people)
 		{
-			var list = new List<Person> (People);
+            var list = new List<Person> ();
+            if (People != null)
+                list.AddRange (People);
 			list.AddRange (people);
 			People = list.ToArray ();
 

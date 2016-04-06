@@ -135,11 +135,11 @@ namespace townsim.Engine
 		{
 			throw new NotImplementedException ();
 
-			foreach (var entry in person.Needs) {
+			/*foreach (var entry in person.Needs) {
 				var existingAmount = person.Inventory.Items [entry.Type];
 				if (existingAmount > entry.Quantity)
 					person.Needs.Remove (entry);
-			}
+			}*/
 		}
 	}
 }
