@@ -30,6 +30,7 @@ namespace townsim.Engine
             AddTilesFromSettings ();
             AddPeopleFromSettings ();
             AddTrees ();
+            AddWater ();
         }
 
         public void AddTilesFromSettings()
@@ -90,6 +91,32 @@ namespace townsim.Engine
                 tile.AddTrees (trees);
             }
         }
+
+
+        public void AddWater()
+        {
+            var waterPerTile = World.Context.Settings.DefaultWaterPerTile;
+
+            AddWaterToTiles (waterPerTile);
+        }
+
+        public void AddWaterToTiles(decimal waterPerTile)
+        {
+            foreach (var tile in World.Tiles)
+            {
+                AddWaterToTile (tile, waterPerTile);
+            }
+        }
+
+        public void AddWaterToTile(GameTile tile, decimal amountOfWater)
+        {
+            var randomNumber = Random.Next (2);
+
+            if (randomNumber < amountOfWater) {
+                tile.Inventory [ItemType.Water] += amountOfWater;
+            }
+        }
+
     }
 }
 

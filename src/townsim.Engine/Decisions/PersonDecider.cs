@@ -196,29 +196,12 @@ namespace townsim.Engine.Decisions
 
 			if (Context.Settings.IsVerbose) {
 				foreach (var entry in possibleChoices) {
-					Console.WriteLine ("      " + entry.ItemType + " - " + entry.Priority);
+                    Console.WriteLine ("      " + entry.ActionType + " " + entry.ItemType + ": " + entry.Priority);
 				}
 			}
 
 			return possibleChoices.ToArray ();
 
-/*			var possibleChoices = new List<PriorityTypes> ();
-			var highestValue = 0m;
-
-			foreach (var priority in person.Priorities) {
-				if (priority.Value > 0) {
-					if (priority.Value == highestValue) {
-						possibleChoices.Add (priority.Key);
-					}
-					if (priority.Value > highestValue) {
-						highestValue = priority.Value;
-						possibleChoices.Clear ();
-						possibleChoices.Add (priority.Key);
-					}
-				}
-			}
-
-			return possibleChoices.ToArray ();*/
 		}
 	}
 }

@@ -16,6 +16,7 @@ namespace townsim.Engine.Entities
 
         #region Environment settings
         public int DefaultTileQuantity = 1;
+        public int DefaultWaterPerTile = 50000;
         public int DefaultPeoplePerTile = 5;
         public int DefaultTreesPerTile = 100;
         #endregion
@@ -55,7 +56,7 @@ namespace townsim.Engine.Entities
 		#region Building Settings
 		public decimal TimberNeededForHouse = 50;
 
-		public double ConstructionRate = 0.2;
+		public double ConstructionRate = 1;
 
         public decimal ShelterTimberCost = 50;
 		#endregion
