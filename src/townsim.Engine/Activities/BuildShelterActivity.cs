@@ -9,7 +9,8 @@ namespace townsim.Engine.Activities
 	{
 		public Building Shelter;
 
-		public BuildShelterActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
+        public BuildShelterActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+            : base(actor, needEntry, settings, console)
 		{
 			// TODO
 			//WoodFelling = new FellWoodActivity ();
@@ -47,7 +48,7 @@ namespace townsim.Engine.Activities
 			switch (buildStatus) {
 			//case BuildStatus.PendingResources: // TODO: Remove if not needed. Should be obsolete
 			//	if (Settings.IsVerbose)
-			//		Console.WriteLine ("      The person does not have enough timber.");
+			//		Console.WriteDebugLine ("      The person does not have enough timber.");
 			//	RegisterNeedForTimber (person);
 			//	//GetTimber (person);
 			//	break;
@@ -58,7 +59,7 @@ namespace townsim.Engine.Activities
 				ContinueConstruction (person);
 				break;
 			//case BuildStatus.Completed: // TODO: Remove if not needed. Should be obsolete now
-			//	if (Settings.IsVerbose) Console.WriteLine("Construction is complete.");
+			//	if (Settings.IsVerbose) Console.WriteDebugLine("Construction is complete.");
 			//	break;
 			}
 			/*// TODO: Move this to a better loation
@@ -72,7 +73,7 @@ namespace townsim.Engine.Activities
 		public void StartConstruction(Person person)
 		{
 			if (Settings.IsVerbose)
-				Console.WriteLine ("  Starting shelter construction");
+				Console.WriteDebugLine ("  Starting shelter construction");
 
 			person.Home = new Building (BuildingType.House, Settings);
 
@@ -84,7 +85,7 @@ namespace townsim.Engine.Activities
 		public void ContinueConstruction(Person person)
 		{
 			if (Settings.IsVerbose)
-				Console.WriteLine ("  Continuing shelter construction");
+				Console.WriteDebugLine ("  Continuing shelter construction");
 
 			var home = person.Home;
 
@@ -93,8 +94,8 @@ namespace townsim.Engine.Activities
             home.PercentComplete = PercentageValidator.Validate (home.PercentComplete);
 
             if (Settings.IsVerbose) {
-                Console.WriteLine ("    Increase: " + PercentageValidator.Validate(Settings.ConstructionRate) + "%");
-                Console.WriteLine ("    Total: " + home.PercentComplete + "%");
+                Console.WriteDebugLine ("    Increase: " + PercentageValidator.Validate(Settings.ConstructionRate) + "%");
+                Console.WriteDebugLine ("    Total: " + home.PercentComplete + "%");
             }
 		}
 
@@ -111,7 +112,7 @@ namespace townsim.Engine.Activities
         public void RegisterNeedToMillTimber(Person person, decimal amountOfTimber)
 		{
 			if (Settings.IsVerbose)
-                Console.WriteLine ("        Registering the need to " + ActionType.Mill + " " + amountOfTimber + " timber");
+                Console.WriteDebugLine ("        Registering the need to " + ActionType.Mill + " " + amountOfTimber + " timber");
 			
             AddNeed(ActionType.Mill, ItemType.Timber, amountOfTimber, NeedEntry.Priority+1);
 		}
@@ -143,13 +144,13 @@ namespace townsim.Engine.Activities
 		public void TransferTimber(Person person, Building building)
 		{
 			if (Settings.IsVerbose)
-				Console.WriteLine ("Transferring " + building.TimberPending + " timber from person to building.");
+				Console.WriteDebugLine ("Transferring " + building.TimberPending + " timber from person to building.");
 
 
 			// TODO: Clean up
 			//if (Context.Settings.OutputType == ConsoleOutputType.Debug
 			//	&& Context.Settings.PlayerId == person.Id) {
-			//	Console.WriteLine ("Transferring " + building.TimberPending + " timber from person to building.");
+			//	Console.WriteDebugLine ("Transferring " + building.TimberPending + " timber from person to building.");
 			//}
 
             Transfers.Add (new ItemTransfer (person, building, ItemType.Timber, building.TimberPending));

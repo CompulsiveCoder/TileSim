@@ -27,9 +27,10 @@ namespace townsim.Data
 
 		public void WriteLine(string line)
 		{
-			var key = Keys.GetLogKey (EngineId);
+            throw new NotImplementedException ();
+			/*var key = Keys.GetLogKey (EngineId);
 			Client.Append (key, line + "\n");
-			Console.WriteLine (line);
+            Context.Console.WriteDebugLine (line);*/
 		}
 
 		public string ReadAll(string engineId)

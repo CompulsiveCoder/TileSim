@@ -12,8 +12,8 @@ namespace townsim.Engine.Activities
 	{
 		public decimal TotalTimberMilled = 0;
 
-		public MillTimberActivity (Person person, NeedEntry needEntry, EngineSettings settings)
-			: base(person, needEntry, settings)
+        public MillTimberActivity (Person person, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+			: base(person, needEntry, settings, console)
 		{
 		}
 
@@ -30,9 +30,9 @@ namespace townsim.Engine.Activities
 		public override void Execute (Person person)
 		{
 			if (Settings.IsVerbose) {
-				Console.WriteLine ("Starting " + GetType ().Name + " activity");
-				Console.WriteLine ("  Quantity (timber): " + NeedEntry.Quantity);
-				Console.WriteLine ("  Current (timber): " + person.Inventory.Items[ItemType.Timber]);
+				Console.WriteDebugLine ("Starting " + GetType ().Name + " activity");
+				Console.WriteDebugLine ("  Quantity (timber): " + NeedEntry.Quantity);
+				Console.WriteDebugLine ("  Current (timber): " + person.Inventory.Items[ItemType.Timber]);
 			}
 
 			// TODO: Remove if not needed
@@ -65,7 +65,7 @@ namespace townsim.Engine.Activities
 			var amountOfWoodNeeded = CalculateAmountOfWoodNeeded (NeedEntry.Quantity);
 
 			if (Settings.IsVerbose)
-                Console.WriteLine ("  Registering the need to " + ActionType.Fell + "  " + amountOfWoodNeeded + " wood");
+                Console.WriteDebugLine ("  Registering the need to " + ActionType.Fell + "  " + amountOfWoodNeeded + " wood");
 
             person.AddNeed (ActionType.Fell, ItemType.Wood, amountOfWoodNeeded, NeedEntry.Priority+1);
 		}
@@ -73,7 +73,7 @@ namespace townsim.Engine.Activities
 		public void ConvertWoodToTimber(Person actor, decimal amountOfTimber)
 		{
             if (Settings.IsVerbose)
-                Console.WriteLine ("  Converting wood to timber");
+                Console.WriteDebugLine ("  Converting wood to timber");
             
 			var woodNeeded = CalculateAmountOfWoodNeeded(amountOfTimber);
 
@@ -81,15 +81,15 @@ namespace townsim.Engine.Activities
             if (actor.Inventory.Items [ItemType.Wood] >= woodNeeded) {
                 TotalTimberMilled += amountOfTimber;
                 if (Settings.IsVerbose) {
-                    Console.WriteLine ("    Wood: " + woodNeeded);
-                    Console.WriteLine ("    Timber: " + amountOfTimber);
-                    Console.WriteLine ("    Total timber: " + TotalTimberMilled);
+                    Console.WriteDebugLine ("    Wood: " + woodNeeded);
+                    Console.WriteDebugLine ("    Timber: " + amountOfTimber);
+                    Console.WriteDebugLine ("    Total timber: " + TotalTimberMilled);
                 }
                 ItemsConsumed[ItemType.Wood] += woodNeeded;
                 ItemsProduced[ItemType.Timber] += amountOfTimber;
             } else {
                 if (Settings.IsVerbose) {
-                    Console.WriteLine ("    Not enough wood: " + woodNeeded);
+                    Console.WriteDebugLine ("    Not enough wood: " + woodNeeded);
                 }
             }
 

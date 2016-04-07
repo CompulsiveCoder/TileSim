@@ -32,7 +32,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Gather, ItemType.Water, settings.DefaultDrinkAmount, settings.DefaultPriorities[ItemType.Water]);
 
-            var activity = new CollectWaterActivity (person, needEntry, settings);
+            var activity = new CollectWaterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");

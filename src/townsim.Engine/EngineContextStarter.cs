@@ -25,7 +25,7 @@ namespace townsim.Engine
 				}
 			}
 			catch (GameException ex) {
-				Console.WriteLine (ex.Message);
+				Console.WriteDebugLine (ex.Message);
 			}*/
 		}
 	}

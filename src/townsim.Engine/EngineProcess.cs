@@ -16,20 +16,14 @@ namespace townsim.Engine
 		public bool EnableDatabase = true;
 
 		public EngineContext Context;
-		/*
-		public EngineClock Clock;
-
-		public EngineSettings Settings { get; set; }
-
-		public DataManager Data { get;set; }
-
-		public EngineInfo Info { get; set; }*/
 
 		public bool IsRunning;
 
-		public EffectEngine Effects { get; set; }
+		//public EffectEngine Effects { get; set; }
 
 		public PersonEngine Persons { get; set; }
+
+        public GameConsoleSummarizer Summarizer { get; set; }
 
 		/*public EngineProcess ()
 		{
@@ -64,13 +58,8 @@ namespace townsim.Engine
 			Context = context;
 
 			if (context.Settings.IsVerbose)
-				Console.WriteLine ("Constructing game engine process");
+				context.Console.WriteDebugLine ("Constructing game engine process");
 
-			//Data = data;			
-			//Settings = settings;
-			//Clock = new EngineClock (Context.Settings);
-			//Info = new EngineInfo (Clock.StartTime, Settings);
-			Effects = new EffectEngine (context);
 			Persons = new PersonEngine (context);
 
 			// TODO: Check if needed
@@ -80,12 +69,14 @@ namespace townsim.Engine
 
 			// TODO: The DataConfig.Prefix static singleton should be moved to a normal object property
 			Context.Data.Settings.Prefix = "TownSim-" + Context.Settings.EngineId;
+
+            Summarizer = new GameConsoleSummarizer (Context);
 		}
 
 		public void Initialize()
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("Starting engine process");
+				Context.Console.WriteDebugLine ("Starting engine process");
 
             throw new NotImplementedException ();
             // TODO: Clean up this function. Most of this code is obsolete
@@ -104,7 +95,7 @@ namespace townsim.Engine
 			// TODO: Clean up
 			//throw new NotImplementedException ();
 
-			/*Console.WriteLine ("Starting TownSim engine");
+			/*Console.WriteDebugLine ("Starting TownSim engine");
 
 			Log.AppendLine (Id, "Starting engine");
 
@@ -127,7 +118,7 @@ namespace townsim.Engine
 		public void Initialize(Town town)
 		{
 			throw new NotImplementedException ();
-			/*Console.WriteLine ("Starting TownSim engine");
+			/*Console.WriteDebugLine ("Starting TownSim engine");
 
 			AddTown (town);
 
@@ -186,7 +177,7 @@ namespace townsim.Engine
 				}
 
 				if (Context.Settings.OutputType == ConsoleOutputType.Game) // TODO: Move this to settings
-					ShowSummary ();
+                    Summarizer.WriteSummary ();
 			
 				SleepUntilNextCycle(cycleStartTime);
 			}
@@ -198,93 +189,94 @@ namespace townsim.Engine
 
 			var cycleDuration = cycleCompleteTime.Subtract (cycleStartTime);
 
-			Console.WriteLine ("Duration: " + cycleDuration.Milliseconds + " milliseconds (max " + Context.Settings.CycleDuration + ")");
+			Context.Console.WriteDebugLine ("Duration: " + cycleDuration.Milliseconds + " milliseconds (max " + Context.Settings.CycleDuration + ")");
 
 			var sleepDurationInMilliseconds = Context.Settings.CycleDuration - cycleDuration.Milliseconds;
 			if (sleepDurationInMilliseconds > 0)
 				Thread.Sleep (sleepDurationInMilliseconds);
 		}
 
-		public void ShowSummary()
-		{
-
-			/*
-			 Player.ValidateProperties ();
-			Console.Clear ();
-			Console.WriteLine ("TownSim Engine");
-			Console.WriteLine ("  Id: " + Id + "     Speed: " + Settings.GameSpeed);
-			Console.WriteLine ("  Real clock: " + Clock.GetRealDurationString() + "   Game clock: " + Clock.GetGameDurationString());
+        // TODO: Remove if not needed
+		//public void ShowSummary()
+		//{
+            /*var console = Context.Console;
 			
-			Console.WriteLine ("  Player:");
-			Console.WriteLine ("    Age: " + Convert.ToInt32(Player.Age) + "    Gender:" + Player.Gender + "    Health:" + Player.Health);
-			Console.WriteLine ("    Thirst: " + Convert.ToInt32(Player.Thirst) + "   Hunger:" + Convert.ToInt32(Player.Hunger));
-			Console.WriteLine ("    Activity: " + Player.ActivityType);
-			Console.WriteLine ("    Home: " + (Player.Home != null ? Player.Home.PercentComplete : 0) + "%");
+			// Player.ValidateProperties ();
+            console.ClearGame ();
+            console.WriteGameLine ("TownSim Engine");
+            console.WriteGameLine ("  Engine Id: " + Context.Settings.EngineId + "     Speed: " + Context.Settings.GameSpeed);
+            console.WriteGameLine ("  Real clock: " + Clock.GetRealDurationString() + "   Game clock: " + Clock.GetGameDurationString());
+			
+            console.WriteGameLine ("  Player:");
+            console.WriteGameLine ("    Age: " + Convert.ToInt32(Player.Age) + "    Gender:" + Player.Gender + "    Health:" + Player.Health);
+            console.WriteGameLine ("    Thirst: " + Convert.ToInt32(Player.Thirst) + "   Hunger:" + Convert.ToInt32(Player.Hunger));
+            console.WriteGameLine ("    Activity: " + Player.ActivityType);
+            console.WriteGameLine ("    Home: " + (Player.Home != null ? Player.Home.PercentComplete : 0) + "%");
 
-			Console.WriteLine ();
-			Console.WriteLine ("   Priorities:");
-			Console.WriteLine ("     Water: " + (int)Player.Priorities[PriorityTypes.Water] + "%      Food: " + (int)Player.Priorities[PriorityTypes.Food] + "%     Shelter: " + (int)Player.Priorities[PriorityTypes.Shelter] + "%");
+            console.WriteGameLine ();
+            console.WriteGameLine ("   Priorities:");
+            console.WriteGameLine ("     Water: " + (int)Player.Priorities[PriorityTypes.Water] + "%      Food: " + (int)Player.Priorities[PriorityTypes.Food] + "%     Shelter: " + (int)Player.Priorities[PriorityTypes.Shelter] + "%");
 
-			Console.WriteLine ();
-			Console.WriteLine ("   Supplies:");
-			Console.WriteLine ("     Water: " + (int)Player.Supplies[needTypes.Water] + "ml      Food: " + Player.Supplies[needTypes.Food] + " kgs     Wood: " + (int)Player.Supplies[NeedType.Wood] + "    Timber: " + (int)Player.Supplies[NeedType.Timber]);
+            console.WriteGameLine ();
+            console.WriteGameLine ("   Supplies:");
+            console.WriteGameLine ("     Water: " + (int)Player.Supplies[needTypes.Water] + "ml      Food: " + Player.Supplies[needTypes.Food] + " kgs     Wood: " + (int)Player.Supplies[NeedType.Wood] + "    Timber: " + (int)Player.Supplies[NeedType.Timber]);
 
-			Console.WriteLine ();
-			Console.WriteLine ("   Demands:");
-			Console.WriteLine ("     Water: " + (int)Player.GetDemandAmount(needTypes.Water) + "ml      Food: " + Player.GetDemandAmount(needTypes.Food) + " kgs     Wood: " + (int)Player.GetDemandAmount(NeedType.Wood) + "    Timber: " + (int)Player.GetDemandAmount(NeedType.Timber));
+            console.WriteGameLine ();
+            console.WriteGameLine ("   Demands:");
+            console.WriteGameLine ("     Water: " + (int)Player.GetDemandAmount(needTypes.Water) + "ml      Food: " + Player.GetDemandAmount(needTypes.Food) + " kgs     Wood: " + (int)Player.GetDemandAmount(NeedType.Wood) + "    Timber: " + (int)Player.GetDemandAmount(NeedType.Timber));
 
-			Console.WriteLine ();
-
-			Console.WriteLine ("  Towns:");
+            console.WriteGameLine ();
+*/
+            /*Console.WriteGameLine ("  Towns:");
 
 			foreach (var town in Towns) {
 				town.ValidateProperties ();
-				Console.WriteLine ("    " + town.Name);
-				Console.WriteLine ("     People:");
-				Console.WriteLine ("       Population: " + town.Population + "   Males: " + town.TotalMales + "   Females: " + town.TotalFemales + "   Couples: " + town.TotalCouples + "  Births: " + town.TotalBirths + "   Deaths: " + town.TotalDeaths);
-				Console.WriteLine ("       Immigrants: " + town.TotalImmigrants + "  Emigrants: " + town.TotalEmigrants);
-				Console.WriteLine ("       Average age: " + String.Format("{0:0.##}", town.AverageAge));
-				Console.WriteLine ("       Homeless: " + town.TotalHomelessPeople);
-				Console.WriteLine ();
-				Console.WriteLine ("     Activities:");
-				Console.WriteLine ("       Active: " + town.TotalActive + "   Inactive: " + town.TotalInactive);
-				Console.WriteLine ();
-				Console.WriteLine ("     Forestry:");
-				Console.WriteLine ("       Trees: " + town.Trees.Length + "        Forestry workers: " + town.TotalForestryWorkers);
-				Console.WriteLine ("       Trees planted today: " + town.CountTreesPlantedToday(Clock.GameDuration) + "   Trees planted: " + town.TotalTreesPlanted + "    Trees being planted: " + town.TotalTreesBeingPlanted);
-				Console.WriteLine ("       Average tree size: " + (int)town.AverageTreeSize + "   Average tree age: " + (int)town.AverageTreeAge);
-				Console.WriteLine ();
-				Console.WriteLine ("     Garden:");
-				Console.WriteLine ("       Vegetables: " + town.Vegetables.Length);
-				Console.WriteLine ("       Gardeners: " + town.TotalGardeners);
-				Console.WriteLine ("       Average vegetable size: " + (int)town.AverageVegetableSize);
-				Console.WriteLine ("       Average vegetable age: " + (int)town.AverageVegetableAge);
-				Console.WriteLine ("       Vegetables planted today: " + town.CountVegetablesPlantedToday(Clock.GameDuration));
-				Console.WriteLine ("       Vegetables planted: " + town.TotalVegetablesPlanted);
-				Console.WriteLine ("       Vegetables being planted: " + town.TotalVegetablesBeingPlanted);
-				Console.WriteLine ("       Vegetables harvested today: " + town.CountVegetablesHarvestedToday(Clock.GameDuration));
-				Console.WriteLine ("       Vegetables harvested: " + town.TotalVegetablesHarvested);
-				Console.WriteLine ("       Vegetables being harvested: " + town.TotalVegetablesBeingHarvested);
-				Console.WriteLine ();
-				Console.WriteLine ("     Buildings:");
-				Console.WriteLine ("       Builders: " + town.TotalBuilders);
-				Console.WriteLine ("       Houses (complete): " + town.Buildings.TotalCompletedHouses);
-				Console.WriteLine ("       Houses (under const.): " + town.Buildings.TotalIncompleteHouses);
-				Console.WriteLine ("       Average percent complete: " + (int)town.Buildings.AveragePercentComplete);
+				Console.WriteDebugLine ("    " + town.Name);
+				Console.WriteDebugLine ("     People:");
+				Console.WriteDebugLine ("       Population: " + town.Population + "   Males: " + town.TotalMales + "   Females: " + town.TotalFemales + "   Couples: " + town.TotalCouples + "  Births: " + town.TotalBirths + "   Deaths: " + town.TotalDeaths);
+				Console.WriteDebugLine ("       Immigrants: " + town.TotalImmigrants + "  Emigrants: " + town.TotalEmigrants);
+				Console.WriteDebugLine ("       Average age: " + String.Format("{0:0.##}", town.AverageAge));
+				Console.WriteDebugLine ("       Homeless: " + town.TotalHomelessPeople);
+				Console.WriteDebugLine ();
+				Console.WriteDebugLine ("     Activities:");
+				Console.WriteDebugLine ("       Active: " + town.TotalActive + "   Inactive: " + town.TotalInactive);
+				Console.WriteDebugLine ();
+				Console.WriteDebugLine ("     Forestry:");
+				Console.WriteDebugLine ("       Trees: " + town.Trees.Length + "        Forestry workers: " + town.TotalForestryWorkers);
+				Console.WriteDebugLine ("       Trees planted today: " + town.CountTreesPlantedToday(Clock.GameDuration) + "   Trees planted: " + town.TotalTreesPlanted + "    Trees being planted: " + town.TotalTreesBeingPlanted);
+				Console.WriteDebugLine ("       Average tree size: " + (int)town.AverageTreeSize + "   Average tree age: " + (int)town.AverageTreeAge);
+				Console.WriteDebugLine ();
+				Console.WriteDebugLine ("     Garden:");
+				Console.WriteDebugLine ("       Vegetables: " + town.Vegetables.Length);
+				Console.WriteDebugLine ("       Gardeners: " + town.TotalGardeners);
+				Console.WriteDebugLine ("       Average vegetable size: " + (int)town.AverageVegetableSize);
+				Console.WriteDebugLine ("       Average vegetable age: " + (int)town.AverageVegetableAge);
+				Console.WriteDebugLine ("       Vegetables planted today: " + town.CountVegetablesPlantedToday(Clock.GameDuration));
+				Console.WriteDebugLine ("       Vegetables planted: " + town.TotalVegetablesPlanted);
+				Console.WriteDebugLine ("       Vegetables being planted: " + town.TotalVegetablesBeingPlanted);
+				Console.WriteDebugLine ("       Vegetables harvested today: " + town.CountVegetablesHarvestedToday(Clock.GameDuration));
+				Console.WriteDebugLine ("       Vegetables harvested: " + town.TotalVegetablesHarvested);
+				Console.WriteDebugLine ("       Vegetables being harvested: " + town.TotalVegetablesBeingHarvested);
+				Console.WriteDebugLine ();
+				Console.WriteDebugLine ("     Buildings:");
+				Console.WriteDebugLine ("       Builders: " + town.TotalBuilders);
+				Console.WriteDebugLine ("       Houses (complete): " + town.Buildings.TotalCompletedHouses);
+				Console.WriteDebugLine ("       Houses (under const.): " + town.Buildings.TotalIncompleteHouses);
+				Console.WriteDebugLine ("       Average percent complete: " + (int)town.Buildings.AveragePercentComplete);
 				if (town.Alerts.Length > 0) {
-					Console.WriteLine ("     Alerts:");
+					Console.WriteDebugLine ("     Alerts:");
 					foreach (var alert in town.Alerts) {
-						Console.WriteLine ("       " + alert.Message);
+						Console.WriteDebugLine ("       " + alert.Message);
 					}
 				}
 				
 			}*/
-		}
+		//}
 
 		public void Run(int numberOfCycles)
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("Running engine for " + numberOfCycles + " cycles.");
+				Context.Console.WriteDebugLine ("Running engine for " + numberOfCycles + " cycles.");
 
 			for (int i = 0; i < numberOfCycles; i++)
 			{
@@ -295,9 +287,9 @@ namespace townsim.Engine
 		public void RunCycle(int cycleNumber)
 		{
 			if (Context.Settings.IsVerbose) {
-				Console.WriteLine ("");
-				Console.WriteLine ("Starting game engine cycle... #" + cycleNumber);
-				Console.WriteLine ("");
+                Context.Console.WriteDebugLine ("");
+                Context.Console.WriteDebugLine ("Starting game engine cycle... #" + cycleNumber);
+                Context.Console.WriteDebugLine ("");
 			}
 
 			// TODO: Clean up
@@ -321,15 +313,15 @@ namespace townsim.Engine
 
 			// TODO: Remove
 			/*if (totalPopulation == 0) {
-				Console.WriteLine ("Game over!");
+				Console.WriteDebugLine ("Game over!");
 				Console.ReadLine ();
 				throw new PopulationExpiredException ();
 			}*/
 
 			if (Context.Settings.IsVerbose) {
-				Console.WriteLine ("");
-				Console.WriteLine ("Completed game engine cycle");
-				Console.WriteLine ("");
+                Context.Console.WriteDebugLine ("");
+                Context.Console.WriteDebugLine ("Completed game engine cycle");
+                Context.Console.WriteDebugLine ("");
 			}
 		}
 
@@ -402,8 +394,8 @@ namespace townsim.Engine
 			/*if (Settings.OutputType == ConsoleOutputType.Game)
 				ShowSummary ();
 			
-			Console.WriteLine ("The player died.");
-			Console.WriteLine ("Game Over");*/
+			Console.WriteDebugLine ("The player died.");
+			Console.WriteDebugLine ("Game Over");*/
 		}
 
 		public void Populate()

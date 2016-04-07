@@ -12,7 +12,8 @@ namespace townsim.Engine.Activities
 
         public decimal TotalFoodGathered = 0;
 
-        public GatherFoodActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
+        public GatherFoodActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+            : base(actor, needEntry, settings, console)
         {
         }
 
@@ -24,7 +25,7 @@ namespace townsim.Engine.Activities
         public override void Execute (Person person)
         {
             if (Settings.IsVerbose)
-                Console.WriteLine ("Gathering food");
+                Console.WriteDebugLine ("Gathering food");
 
             var personCanHoldMoreFood = !person.Inventory.IsFull (ItemType.Food);
 
@@ -40,7 +41,7 @@ namespace townsim.Engine.Activities
                 TotalFoodGathered += amountThisCycle;
             } else {
                 if (Settings.IsVerbose)
-                    Console.WriteLine ("  The tile has no food.");
+                    Console.WriteDebugLine ("  The tile has no food.");
             }
         }
 
@@ -62,7 +63,7 @@ namespace townsim.Engine.Activities
             var foodAvailable = actor.Tile.Inventory.Items [ItemType.Food] > 0;
 
             if (!foodAvailable && Settings.IsVerbose)
-                Console.WriteLine ("  No food available.");
+                Console.WriteDebugLine ("  No food available.");
 
             return foodAvailable;
         }

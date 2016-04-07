@@ -33,7 +33,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Gather, ItemType.Food, settings.DefaultEatAmount, settings.DefaultPriorities[ItemType.Food]);
 
-            var activity = new GatherFoodActivity (person, needEntry, settings);
+            var activity = new GatherFoodActivity (person, needEntry, settings, context.Console);
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");

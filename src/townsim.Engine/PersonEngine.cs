@@ -61,7 +61,7 @@ namespace townsim.Engine
 		public void StartSingleCycle(Person person)
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("Starting cycle for person");
+				Context.Console.WriteDebugLine ("Starting cycle for person");
 
 			RegisterNeeds (person);
 
@@ -86,7 +86,7 @@ namespace townsim.Engine
 		public void RegisterNeeds(Person person)
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("  Registering needs for person");
+				Context.Console.WriteDebugLine ("  Registering needs for person");
 
 			foreach (var need in Context.World.Logic.Needs) {
 				need.RegisterIfNeeded (person);
@@ -108,7 +108,7 @@ namespace townsim.Engine
 		public void MakeDecisions(Person person)
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("  Making decisions for person");
+                Context.Console.WriteDebugLine ("  Making decisions for person");
 			
 			var activity = Decider.Decide (person);
 
@@ -125,7 +125,7 @@ namespace townsim.Engine
 			var activity = person.Activity;
 
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("  Performing activity: " + (activity != null ? activity.GetType().Name : "[idle]"));
+                Context.Console.WriteDebugLine ("  Performing activity: " + (activity != null ? activity.GetType().Name : "[idle]"));
 
 			if (activity != null)
 				activity.Act (person);

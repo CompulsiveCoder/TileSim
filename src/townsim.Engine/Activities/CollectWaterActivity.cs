@@ -12,7 +12,8 @@ namespace townsim.Engine.Activities
 
         public decimal TotalWaterCollected = 0;
         		
-        public CollectWaterActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
+        public CollectWaterActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+            : base(actor, needEntry, settings, console)
 		{
 		}
 
@@ -24,7 +25,7 @@ namespace townsim.Engine.Activities
         public override void Execute (Person person)
         {
             if (Settings.IsVerbose)
-                Console.WriteLine ("Collecting water");
+                Console.WriteDebugLine ("Collecting water");
 
             var personCanHoldMoreWater = !person.Inventory.IsFull (ItemType.Water);
 
@@ -40,7 +41,7 @@ namespace townsim.Engine.Activities
                 TotalWaterCollected += amountThisCycle;
             } else {
                 if (Settings.IsVerbose)
-                    Console.WriteLine ("  The tile has no water.");
+                    Console.WriteDebugLine ("  The tile has no water.");
             }
         }
 
@@ -62,7 +63,7 @@ namespace townsim.Engine.Activities
             var waterAvailable = actor.Tile.Inventory.Items [ItemType.Water] > 0;
 
             if (!waterAvailable && Settings.IsVerbose)
-                Console.WriteLine ("  No water available.");
+                Console.WriteDebugLine ("  No water available.");
 
             return waterAvailable;
         }

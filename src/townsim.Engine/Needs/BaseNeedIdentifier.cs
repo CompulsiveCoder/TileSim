@@ -17,17 +17,20 @@ namespace townsim.Engine
 
         public List<NeedEntry> Needs = new List<NeedEntry>();
 
-		public BaseNeedIdentifier(ActionType actionType, ItemType needType, EngineSettings settings)
+        public ConsoleHelper Console { get; set; }
+
+        public BaseNeedIdentifier(ActionType actionType, ItemType needType, EngineSettings settings, ConsoleHelper console)
 		{
             ActionType = actionType;
 			ItemType = needType;
             DefaultPriority = settings.DefaultPriorities[needType];
 			Settings = settings;
+            Console = console;
 		}
 
 		public abstract bool IsNeeded (Person person);
 
-        public abstract void RegisterNeed(Person person, ActionType actionType, ItemType needType, decimal quantity, decimal priority);
+        public abstract void RegisterNeed(Person person, ActionType actionType, ItemType needType, decimal priority);
 
 		public virtual void RegisterIfNeeded(Person person)
 		{            
@@ -38,7 +41,7 @@ namespace townsim.Engine
             var requiresRegistration = (IsNeeded(person) && needIsNotAlreadyRegistered);
 
 			if (requiresRegistration)
-                RegisterNeed(person, ActionType, ItemType, 1, priority);
+                RegisterNeed(person, ActionType, ItemType, priority);
 
             CommitNeeds (person);
 		}
@@ -51,7 +54,7 @@ namespace townsim.Engine
         public void AddNeed(ActionType actionType, ItemType needType, decimal quantity, decimal priority)
         {
             if (Settings.IsVerbose)
-                Console.WriteLine ("    Registering the need to " + actionType + " " + quantity + " " + needType + ".");
+                Console.WriteDebugLine ("    Registering the need to " + actionType + " " + quantity + " " + needType + ".");
 
             Needs.Add (new NeedEntry (actionType, needType, quantity, priority));
         }
@@ -59,7 +62,7 @@ namespace townsim.Engine
         public void CommitNeeds(Person person)
         {
             if (Settings.IsVerbose) {
-                Console.WriteLine ("    Committing needs");
+                Console.WriteDebugLine ("    Committing needs");
             }
 
             while (Needs.Count > 0)

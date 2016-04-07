@@ -7,16 +7,23 @@ namespace townsim.Engine
 	{
         public EngineSettings Settings { get; set; }
 		
-        public BaseEffect (EngineSettings settings)
+        public ConsoleHelper Console { get;set; }
+
+        public BaseEffect (EngineSettings settings, ConsoleHelper console)
 		{
             Settings = settings;
+            Console = console;
 		}
+
+        public abstract bool IsApplicable();
 
         public void Apply ()
         {
-            Execute ();
+            if (IsApplicable ()) {
+                Execute ();
 
-            Finished ();
+                Finished ();
+            }
         }
 
         public abstract void Execute();

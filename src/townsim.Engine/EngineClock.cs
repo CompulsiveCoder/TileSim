@@ -20,25 +20,30 @@ namespace townsim.Engine
 			}
 		}
 
-		public EngineSettings Settings { get; set; }
+        public EngineSettings Settings { get; set; }
 
-		public EngineClock (DateTime startTime, EngineContext context)
+        public ConsoleHelper Console { get; set; }
+
+        // TODO: Remove if not needed
+		/*public EngineClock (DateTime startTime, EngineContext context)
 		{
 			throw new NotImplementedException ();
 			//Context = context;
 			//StartTime = startTime;
-		}
+		}*/
 
-		public EngineClock (EngineSettings settings)
+        public EngineClock (EngineSettings settings, ConsoleHelper console)
 		{
+            Console = console;
+
 			if (settings.IsVerbose)
-				Console.WriteLine ("Constructing game engine clock");
+				Console.WriteDebugLine ("Constructing game engine clock");
 			
 			Settings = settings;
 			StartTime = DateTime.Now;
 
 			if (settings.IsVerbose)
-				Console.WriteLine ("Setting start time to: " + StartTime.ToString());
+				Console.WriteDebugLine ("Setting start time to: " + StartTime.ToString());
 		}
 
 		public string GetTimeSpanString(TimeSpan timeSpan)
@@ -77,7 +82,10 @@ namespace townsim.Engine
 
 		public static EngineClock Default
 		{
-			get { return new EngineClock (EngineSettings.Default); }
+            get
+            {
+                var settings = EngineSettings.Default;
+                return new EngineClock (settings, new ConsoleHelper(settings)); }
 		}
 	}
 }

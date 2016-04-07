@@ -23,7 +23,7 @@ namespace townsim.Engine.Tests.Integration
             context.Settings.DefaultGatherFoodRate = 50; // Increase the rate of food gathering so the test goes faster
             context.Settings.DefaultEatAmount = 100; // Increase the amount the person eats so the test goes faster
 
-            context.World.Logic.AddNeed (new MealNeedIdentifier (context.Settings));
+            context.World.Logic.AddNeed (new EatFoodNeedIdentifier (context.Settings, context.Console));
             //context.World.Logic.AddDecision (new ShelterDecision ());
             context.World.Logic.AddActivity (typeof(GatherFoodActivity));
             context.World.Logic.AddActivity (typeof(EatFoodActivity));

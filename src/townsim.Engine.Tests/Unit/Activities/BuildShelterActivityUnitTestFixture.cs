@@ -23,7 +23,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
 
-			var activity = new BuildShelterActivity (person, needEntry, settings);
+            var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");
@@ -51,8 +51,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
 
-
-			var activity = new BuildShelterActivity (person, needEntry, settings);
+            var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
 			activity.Act (person);
 
@@ -78,7 +77,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			person.AddNeed (needEntry);
 
-			var activity = new BuildShelterActivity (person, needEntry, settings);
+            var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
             activity.Shelter = person.Home;
 
 			activity.Act (person);
@@ -98,7 +97,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
 
-			var activity = new BuildShelterActivity (person, needEntry, settings);
+            var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
 			activity.Act (person);
 

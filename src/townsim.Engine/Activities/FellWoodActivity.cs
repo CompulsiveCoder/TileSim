@@ -20,8 +20,8 @@ namespace townsim.Engine.Activities
 			set { NeedEntry.Quantity = value; }
 		}
 
-		public FellWoodActivity (Person person, NeedEntry needEntry, EngineSettings settings)
-			: base(person, needEntry, settings)
+        public FellWoodActivity (Person person, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+			: base(person, needEntry, settings, console)
 		{
 		}
 
@@ -39,8 +39,8 @@ namespace townsim.Engine.Activities
 		{
 			if (Settings.IsVerbose)
 			{
-				Console.WriteLine ("Starting " + GetType ().Name + " activity.");
-				Console.WriteLine ("  Quantity (wood): " + NeedEntry.Quantity);
+				Console.WriteDebugLine ("Starting " + GetType ().Name + " activity.");
+				Console.WriteDebugLine ("  Quantity (wood): " + NeedEntry.Quantity);
 			}
 			
 			Plant treeBeingFelled = GetTreeToFell ();
@@ -70,7 +70,7 @@ namespace townsim.Engine.Activities
 		public bool FellTreeCycle(Person person, Plant plant)
 		{
 			if (Settings.IsVerbose)
-				Console.WriteLine ("  Felling tree");
+				Console.WriteDebugLine ("  Felling tree");
 
 			plant.PercentHarvested += Settings.FellingRate;
 			TotalWoodFelled += Settings.FellingRate; // TODO: Should this be set here or once the tree is finished?
@@ -79,7 +79,7 @@ namespace townsim.Engine.Activities
 				plant.PercentHarvested = 100;
 
 			if (Settings.OutputType == ConsoleOutputType.Debug) {
-				Console.WriteLine ("  " + plant.PercentHarvested + "% felled");
+				Console.WriteDebugLine ("  " + plant.PercentHarvested + "% felled");
 			}
 
 			if (plant.PercentHarvested > 100) {
@@ -88,7 +88,7 @@ namespace townsim.Engine.Activities
 
 			if (plant.PercentHarvested == 100
 				&& Settings.IsVerbose) {
-				Console.WriteLine ("  Finished felling tree.");
+				Console.WriteDebugLine ("  Finished felling tree.");
 			}
 				
 
@@ -104,8 +104,8 @@ namespace townsim.Engine.Activities
 			ItemsProduced [ItemType.Wood] = amountOfWood;
 
 			if (Settings.IsVerbose) {
-				Console.WriteLine ("  Wood from tree: " + amountOfWood);
-                Console.WriteLine ("  Total wood: " + person.Inventory.Items [ItemType.Wood] + amountOfWood);
+				Console.WriteDebugLine ("  Wood from tree: " + amountOfWood);
+                Console.WriteDebugLine ("  Total wood: " + person.Inventory.Items [ItemType.Wood] + amountOfWood);
 			}
 
 			Target = null;
@@ -125,14 +125,14 @@ namespace townsim.Engine.Activities
 					&& plant.Size > Settings.MinimumTreeSize) {
 
 					if (Settings.IsVerbose)
-						Console.WriteLine (" Found large tree");
+						Console.WriteDebugLine (" Found large tree");
 					
 					return plant;
 				}
 			}
 
 			if (Settings.IsVerbose)
-				Console.WriteLine ("  No large trees available");
+				Console.WriteDebugLine ("  No large trees available");
 			
 			return null;
 		}
@@ -149,7 +149,7 @@ namespace townsim.Engine.Activities
 				Target = tree;
 
 				if (Settings.IsVerbose) {
-					Console.WriteLine ("  Cutting down tree");
+					Console.WriteDebugLine ("  Cutting down tree");
 				}
 			}
 

@@ -19,7 +19,7 @@ namespace townsim.Engine
 
 
 			// TODO: Should this be dependent on "verbose" flag?
-			//Console.WriteLine ("Engine ID: " + engineId);
+			//Console.WriteDebugLine ("Engine ID: " + engineId);
 
             var context = EngineContext.New (settings);
 
@@ -39,7 +39,7 @@ namespace townsim.Engine
 				}
 			}
 			catch (GameException ex) {
-				Console.WriteLine (ex.Message);
+                context.Console.WriteDebugLine (ex.Message);
 			}
 			//finally {
 			//	if (engine != null)

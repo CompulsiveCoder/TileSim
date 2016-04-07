@@ -52,15 +52,18 @@ namespace townsim.Engine
 			Activities = list.ToArray ();
 		}
 
-        static public GameLogic NewComplete(EngineSettings settings)
+        static public GameLogic NewComplete(EngineSettings settings, ConsoleHelper console)
         {
             var logic = new GameLogic ();
 
-            logic.AddEffect (new ThirstEffect (settings));
+            logic.AddEffect (new ThirstEffect (settings, console));
+            logic.AddEffect (new HungerEffect (settings, console));
+            logic.AddEffect (new DehydrationEffect (settings, console));
+            logic.AddEffect (new StarvationEffect (settings, console));
 
-            logic.AddNeed (new BuildShelterNeedIdentifier (settings));
-            logic.AddNeed (new DrinkNeedIdentifier (settings));
-            logic.AddNeed (new MealNeedIdentifier (settings));
+            logic.AddNeed (new BuildShelterNeedIdentifier (settings, console));
+            logic.AddNeed (new DrinkWaterNeedIdentifier (settings, console));
+            logic.AddNeed (new EatFoodNeedIdentifier (settings, console));
 
             logic.AddActivity (typeof(BuildShelterActivity));
             logic.AddActivity (typeof(MillTimberActivity));

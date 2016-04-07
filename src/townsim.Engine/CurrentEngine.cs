@@ -28,7 +28,7 @@ namespace townsim.Engine
 		static public void StartThread(string engineId)
 		{
 			throw new NotImplementedException ();
-			/*Console.WriteLine ("Launching engine thread " + engineId);
+			/*Console.WriteDebugLine ("Launching engine thread " + engineId);
 
 			ThreadStart threadStart = delegate {
 				var engine = new EngineProcess(engineId);

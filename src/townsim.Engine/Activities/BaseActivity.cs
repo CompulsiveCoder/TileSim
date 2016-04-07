@@ -21,16 +21,19 @@ namespace townsim.Engine
         public Dictionary<PersonVital, decimal> VitalsChange = new Dictionary<PersonVital, decimal> ();
         public List<NeedEntry> Needs = new List<NeedEntry>();
 
+        public ConsoleHelper Console { get; set; }
+
 		public string Name
 		{
 			get { return GetType ().Name; }
 		}
 
-		public BaseActivity (Person actor, NeedEntry needEntry, EngineSettings settings)
+        public BaseActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
 		{
 			Actor = actor;
 			NeedEntry = needEntry;
 			Settings = settings;
+            Console = console;
 
             InitializeItemsProduced ();
             InitializeItemsConsumed ();
@@ -79,7 +82,7 @@ namespace townsim.Engine
 		{
             if (!IsFinished) {
                 if (Settings.IsVerbose)
-                    Console.WriteLine ("  Activity finished.");
+                    Console.WriteDebugLine ("  Activity finished.");
 			
                 IsFinished = true;
 
@@ -92,7 +95,7 @@ namespace townsim.Engine
 		public void CommitActivityResults()
 		{
 			if (Settings.IsVerbose) {
-				Console.WriteLine ("  Committing activity results...");
+				Console.WriteDebugLine ("  Committing activity results...");
 			}
 
             CommitProduced ();
@@ -109,7 +112,7 @@ namespace townsim.Engine
         public void CommitProduced()
         {
             if (Settings.IsVerbose)
-                Console.WriteLine ("    Produced:");
+                Console.WriteDebugLine ("    Produced:");
             
             foreach (var itemType in ItemsProduced.Keys)
             {
@@ -117,7 +120,7 @@ namespace townsim.Engine
 
                 if (amountProduced > 0) {
                     if (Settings.IsVerbose)
-                        Console.WriteLine ("      " + itemType + ": " + amountProduced);
+                        Console.WriteDebugLine ("      " + itemType + ": " + amountProduced);
 
                     Actor.Inventory.Items [itemType] += amountProduced;
                 }
@@ -130,7 +133,7 @@ namespace townsim.Engine
         public void CommitConsumed()
         {
             if (Settings.IsVerbose) {
-                Console.WriteLine ("    Consumed:");
+                Console.WriteDebugLine ("    Consumed:");
             }
 
             foreach (var itemType in ItemsConsumed.Keys)
@@ -139,7 +142,7 @@ namespace townsim.Engine
 
                 if (amountConsumed > 0) {
                     if (Settings.IsVerbose)
-                        Console.WriteLine ("      " + itemType + ": " + amountConsumed);
+                        Console.WriteDebugLine ("      " + itemType + ": " + amountConsumed);
 
                     Actor.Inventory.Items [itemType] -= amountConsumed;
                 }
@@ -152,7 +155,7 @@ namespace townsim.Engine
         public void CommitTransfers()
         {
             if (Settings.IsVerbose) {
-                Console.WriteLine ("  Committing transfers");
+                Console.WriteDebugLine ("  Committing transfers");
             }
 
             foreach (var transfer in Transfers) {
@@ -165,11 +168,11 @@ namespace townsim.Engine
         public void CommitTransfer(ItemTransfer transfer)
         {
             if (Settings.IsVerbose) {
-                Console.WriteLine ("    Committing transfer");
-                Console.WriteLine ("      Source: " + transfer.Source.GetType().Name);
-                Console.WriteLine ("      Destination: " + transfer.Destination.GetType().Name);
-                Console.WriteLine ("      Type: " + transfer.Type);
-                Console.WriteLine ("      Quantity: " + transfer.Quantity);
+                Console.WriteDebugLine ("    Committing transfer");
+                Console.WriteDebugLine ("      Source: " + transfer.Source.GetType().Name);
+                Console.WriteDebugLine ("      Destination: " + transfer.Destination.GetType().Name);
+                Console.WriteDebugLine ("      Type: " + transfer.Type);
+                Console.WriteDebugLine ("      Quantity: " + transfer.Quantity);
             }
 
             var type = transfer.Type;
@@ -178,15 +181,15 @@ namespace townsim.Engine
             transfer.Destination.Inventory [type] += transfer.Quantity;      
 
             if (Settings.IsVerbose) {
-                Console.WriteLine ("      Source (" + transfer.Source.GetType().Name + ") total: " + transfer.Source.Inventory[type]);
-                Console.WriteLine ("      Destination (" + transfer.Destination.GetType().Name + ") total: " + transfer.Destination.Inventory[type]);
+                Console.WriteDebugLine ("      Source (" + transfer.Source.GetType().Name + ") total: " + transfer.Source.Inventory[type]);
+                Console.WriteDebugLine ("      Destination (" + transfer.Destination.GetType().Name + ") total: " + transfer.Destination.Inventory[type]);
             }
         }
 
         public void CommitVitalsChanges()
         {
             if (Settings.IsVerbose) {
-                Console.WriteLine ("    Committing vitals changes");
+                Console.WriteDebugLine ("    Committing vitals changes");
             }
 
             foreach (var vital in VitalsChange.Keys) {
@@ -197,10 +200,10 @@ namespace townsim.Engine
                 newValue = PercentageValidator.Validate (newValue);
 
                 if (Settings.IsVerbose) {
-                    Console.WriteLine ("      " + vital);
-                    Console.WriteLine ("        Previous: " + previousValue);
-                    Console.WriteLine ("        Change: " + changeValue);
-                    Console.WriteLine ("        New value: " + newValue);
+                    Console.WriteDebugLine ("      " + vital);
+                    Console.WriteDebugLine ("        Previous: " + previousValue);
+                    Console.WriteDebugLine ("        Change: " + changeValue);
+                    Console.WriteDebugLine ("        New value: " + newValue);
                 }
                 Actor.Vitals [vital] = newValue;
             }
@@ -211,7 +214,7 @@ namespace townsim.Engine
         public void CommitNeeds()
         {
             if (Settings.IsVerbose) {
-                Console.WriteLine ("    Committing needs");
+                Console.WriteDebugLine ("    Committing needs");
             }
 
             while (Needs.Count > 0)
@@ -237,7 +240,7 @@ namespace townsim.Engine
         public void AddNeed(ActionType actionType, ItemType itemType, decimal quantity, decimal priority)
         {
             if (Settings.IsVerbose)
-                Console.WriteLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");
+                Console.WriteDebugLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");
             
             Needs.Add (new NeedEntry (actionType, itemType, quantity, priority));
         }

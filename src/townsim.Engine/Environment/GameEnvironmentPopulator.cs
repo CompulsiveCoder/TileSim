@@ -31,6 +31,7 @@ namespace townsim.Engine
             AddPeopleFromSettings ();
             AddTrees ();
             AddWater ();
+            AddFood ();
         }
 
         public void AddTilesFromSettings()
@@ -117,6 +118,29 @@ namespace townsim.Engine
             }
         }
 
+        public void AddFood()
+        {
+            var foodPerTile = World.Context.Settings.DefaultFoodPerTile;
+
+            AddFoodToTiles (foodPerTile);
+        }
+
+        public void AddFoodToTiles(decimal foodPerTile)
+        {
+            foreach (var tile in World.Tiles)
+            {
+                AddFoodToTile (tile, foodPerTile);
+            }
+        }
+
+        public void AddFoodToTile(GameTile tile, decimal amountOfFood)
+        {
+            var randomNumber = Random.Next (2);
+
+            if (randomNumber < amountOfFood) {
+                tile.Inventory [ItemType.Food] += amountOfFood;
+            }
+        }
     }
 }
 

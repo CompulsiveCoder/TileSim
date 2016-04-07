@@ -23,10 +23,12 @@ namespace townsim.Engine.Tests.Integration
 
             context.Settings.DefaultCollectWaterRate = 50; // Increase the rate of water collection so the test goes faster
             context.Settings.DefaultDrinkAmount = 20; // Increase the amount the person drinks so the test goes faster
+            context.Settings.WaterForThirstRatio = 10;
 
-            context.World.Logic.AddEffect (new ThirstEffect(context.Settings));
+            // Disabled otherwise the thirst vital will never remain at zero
+            //context.World.Logic.AddEffect (new ThirstEffect(context.Settings, context.Console));
 
-            context.World.Logic.AddNeed (new DrinkNeedIdentifier (context.Settings));
+            context.World.Logic.AddNeed (new DrinkWaterNeedIdentifier (context.Settings, context.Console));
 
             context.World.Logic.AddActivity (typeof(CollectWaterActivity));
             context.World.Logic.AddActivity (typeof(DrinkWaterActivity));

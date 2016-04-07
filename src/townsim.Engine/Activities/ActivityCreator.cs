@@ -7,9 +7,12 @@ namespace townsim.Engine
 	{
 		public EngineSettings Settings { get;set; }
 
-		public ActivityCreator (EngineSettings settings)
+        public ConsoleHelper Console { get;set; }
+
+        public ActivityCreator (EngineSettings settings, ConsoleHelper console)
 		{
 			Settings = settings;
+            Console = console;
 		}
 
 		public BaseActivity CreateActivity(Person actor, Type activityType, NeedEntry needEntry)
@@ -17,7 +20,8 @@ namespace townsim.Engine
 			var arguments = new object[] {
 				actor,
 				needEntry,
-				Settings
+				Settings,
+                Console
 			};
 
 			var activity = (BaseActivity)Activator.CreateInstance(activityType, arguments);

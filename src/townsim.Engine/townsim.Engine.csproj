@@ -91,7 +91,6 @@
     <Compile Include="GameLauncher.cs" />
     <Compile Include="GameCreator.cs" />
     <Compile Include="EngineContextStarter.cs" />
-    <Compile Include="EffectEngine.cs" />
     <Compile Include="Data\LogKeys.cs" />
     <Compile Include="Populators\TownPopulator.cs" />
     <Compile Include="Populators\BasePopulator.cs" />
@@ -124,8 +123,6 @@
     <Compile Include="Transfers\TransferManager.cs" />
     <Compile Include="Activities\DrinkWaterActivity.cs" />
     <Compile Include="Entities\PersonVital.cs" />
-    <Compile Include="Needs\DrinkNeedIdentifier.cs" />
-    <Compile Include="Needs\MealNeedIdentifier.cs" />
     <Compile Include="Activities\GatherFoodActivity.cs" />
     <Compile Include="Environment\GameEnvironmentPopulator.cs" />
     <Compile Include="Entities\TileCreator.cs" />
@@ -136,6 +133,13 @@
     <Compile Include="Entities\ActionType.cs" />
     <Compile Include="Needs\BuildShelterNeedIdentifier.cs" />
     <Compile Include="Activities\EatFoodActivity.cs" />
+    <Compile Include="Effects\HungerEffect.cs" />
+    <Compile Include="ConsoleHelper.cs" />
+    <Compile Include="Needs\EatFoodNeedIdentifier.cs" />
+    <Compile Include="Needs\DrinkWaterNeedIdentifier.cs" />
+    <Compile Include="GameConsoleSummarizer.cs" />
+    <Compile Include="Effects\StarvationEffect.cs" />
+    <Compile Include="Effects\DehydrationEffect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

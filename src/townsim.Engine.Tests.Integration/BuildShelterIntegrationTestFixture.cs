@@ -23,8 +23,9 @@ namespace townsim.Engine.Tests.Integration
             context.Settings.MinimumTreeSize = 90; // Increase the size of the trees to speed up test
 			context.Settings.WoodRequiredForTimber = 1.1m; // Reduce the waste rate to increase the speed of the test
             context.Settings.ConstructionRate = 50; // Increase construction rate to speed up test
+            context.Settings.TimberMillingRate = 10;
 
-			context.World.Logic.AddNeed (new BuildShelterNeedIdentifier (context.Settings));
+            context.World.Logic.AddNeed (new BuildShelterNeedIdentifier (context.Settings, context.Console));
 			//context.World.Logic.AddDecision (new ShelterDecision ());
 			context.World.Logic.AddActivity (typeof(BuildShelterActivity));
 			context.World.Logic.AddActivity (typeof(MillTimberActivity));

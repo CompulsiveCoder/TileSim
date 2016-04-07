@@ -27,7 +27,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Eat, ItemType.Food, settings.DefaultEatAmount, settings.DefaultPriorities[ItemType.Food]);
 
-            var activity = new EatFoodActivity (person, needEntry, settings);
+            var activity = new EatFoodActivity (person, needEntry, settings, context.Console);
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");

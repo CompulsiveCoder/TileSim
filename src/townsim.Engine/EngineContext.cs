@@ -25,6 +25,10 @@ namespace townsim.Engine
 
 		public EngineInfo Info;
 
+        public ConsoleHelper Console { get; set; }
+
+        public Person Player { get; set; }
+
 		#region Constructors
 		public EngineContext (EngineSettings settings, DataManager data)
 		{			
@@ -32,7 +36,9 @@ namespace townsim.Engine
 
 			Settings = settings;
 
-			Clock = new EngineClock (Settings);
+            Console = new ConsoleHelper (Settings);
+
+			Clock = new EngineClock (Settings, Console);
 
 			Info = new EngineInfo (Clock.StartTime, Settings);
 
@@ -41,7 +47,7 @@ namespace townsim.Engine
 			World = new GameEnvironment (this);
 
 			if (Settings.IsVerbose)
-				Console.WriteLine ("Constructing engine context");
+				Console.WriteDebugLine ("Constructing engine context");
 		}
 
 		public EngineContext (EngineProcess engine)
@@ -61,7 +67,7 @@ namespace townsim.Engine
 		public void Initialize()
 		{
 			if (Settings.IsVerbose)
-				Console.WriteLine ("Initializing engine context");
+				Console.WriteDebugLine ("Initializing engine context");
 
 			if (Engine == null)
 				throw new Exception ("No game engine process has been attached. Use the AttachProcess(engine) function before initializing.");
@@ -75,7 +81,7 @@ namespace townsim.Engine
 
         public void AddCompleteLogic ()
         {
-            var logic = GameLogic.NewComplete (Settings);
+            var logic = GameLogic.NewComplete (Settings, Console);
 
             World.Logic = logic;
         }
@@ -88,6 +94,10 @@ namespace townsim.Engine
 		public void PopulateFromSettings()
 		{
             World.Populator.PopulateFromSettings ();
+
+            // TODO: Is this the best place and approach to set the player?
+            if (World.People.Length > 0)
+                Player = World.People [0];
 		}
 
 		#region Attach process

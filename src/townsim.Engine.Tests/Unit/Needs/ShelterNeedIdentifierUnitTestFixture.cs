@@ -15,7 +15,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
 			var person = new Person (settings);
 
-			var shelterNeed = new BuildShelterNeedIdentifier (settings);
+            var shelterNeed = new BuildShelterNeedIdentifier (settings, new ConsoleHelper(settings));
 
 			shelterNeed.RegisterIfNeeded (person);
 
@@ -39,7 +39,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 			person.Home = new Building (BuildingType.House, settings);
 			person.Home.PercentComplete = 100;
 
-			var shelterNeed = new BuildShelterNeedIdentifier (settings);
+            var shelterNeed = new BuildShelterNeedIdentifier (settings, new ConsoleHelper(settings));
 
 			shelterNeed.RegisterIfNeeded (person);
 

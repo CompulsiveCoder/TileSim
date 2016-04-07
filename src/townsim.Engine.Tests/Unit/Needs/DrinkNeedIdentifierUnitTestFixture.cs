@@ -16,7 +16,7 @@ namespace townsim.Engine.Tests.Unit.Needs
             var person = new Person (settings);
             person.Vitals[PersonVital.Thirst] = 80;
 
-            var waterNeed = new DrinkNeedIdentifier (settings);
+            var waterNeed = new DrinkWaterNeedIdentifier (settings, new ConsoleHelper(settings));
 
             waterNeed.RegisterIfNeeded (person);
 
@@ -37,7 +37,7 @@ namespace townsim.Engine.Tests.Unit.Needs
 
             var person = new Person (settings);
 
-            var waterNeed = new DrinkNeedIdentifier (settings);
+            var waterNeed = new DrinkWaterNeedIdentifier (settings, new ConsoleHelper(settings));
 
             waterNeed.RegisterIfNeeded (person);
 

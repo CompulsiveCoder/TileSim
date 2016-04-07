@@ -12,7 +12,8 @@ namespace townsim.Engine.Activities
 
         public decimal TotalfoodConsumed = 0;
 
-        public EatFoodActivity (Person actor, NeedEntry needEntry, EngineSettings settings) : base(actor, needEntry, settings)
+        public EatFoodActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+            : base(actor, needEntry, settings, console)
         {
         }
 
@@ -24,8 +25,8 @@ namespace townsim.Engine.Activities
         public override void Execute (Person person)
         {
             if (Settings.IsVerbose) {
-                Console.WriteLine ("Eating food");
-                Console.WriteLine ("  Current hunger: " + person.Vitals[PersonVital.Hunger]);
+                Console.WriteDebugLine ("Eating food");
+                Console.WriteDebugLine ("  Current hunger: " + person.Vitals[PersonVital.Hunger]);
             }
 
             var amount = Settings.DefaultEatAmount;
@@ -34,14 +35,14 @@ namespace townsim.Engine.Activities
                 amount = person.Inventory [ItemType.Food];
 
             if (Settings.IsVerbose)
-                Console.WriteLine ("  Amount: " + amount);
+                Console.WriteDebugLine ("  Amount: " + amount);
 
             ItemsConsumed[ItemType.Food] += amount;
 
             var hungerDecrease = amount * Settings.FoodForHungerRatio;
 
             if (Settings.IsVerbose)
-                Console.WriteLine ("  Decreased hunger by: " + hungerDecrease);
+                Console.WriteDebugLine ("  Decreased hunger by: " + hungerDecrease);
 
             VitalsChange.Add (PersonVital.Hunger, -hungerDecrease);
 
@@ -63,7 +64,7 @@ namespace townsim.Engine.Activities
             var foodAvailable = actor.Inventory.Items [ItemType.Food] > 0;
 
             if (!foodAvailable && Settings.IsVerbose) {
-                Console.WriteLine ("    No food available.");
+                Console.WriteDebugLine ("    No food available.");
                 RegisterNeedToGatherFood ();
             }
 

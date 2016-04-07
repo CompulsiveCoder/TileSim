@@ -19,6 +19,7 @@ namespace townsim.Engine.Entities
         public int DefaultWaterPerTile = 50000;
         public int DefaultPeoplePerTile = 5;
         public int DefaultTreesPerTile = 100;
+        public int DefaultFoodPerTile = 1000;
         #endregion
 
 		#region Player settings
@@ -32,8 +33,10 @@ namespace townsim.Engine.Entities
 		#endregion
 
         #region Person Settings
+        public decimal StarvationThreshold = 90;
+        public decimal DehydrationThreshold = 80;
         public decimal ThirstThreshold = 50;
-        public decimal DefaultDrinkAmount = 1;
+        public decimal DefaultDrinkAmount = 5;
         public decimal DefaultCollectWaterRate = 10;
         public decimal WaterForThirstRatio = 1;
         public decimal DefaultEatAmount = 10;
@@ -43,7 +46,7 @@ namespace townsim.Engine.Entities
         #endregion
 
 		#region Wood Settings
-		public decimal FellingRate = 10m;
+		public decimal FellingRate = 1m;
 
 		public decimal TreeGrowthRate = 0.0000001m;
 		#endregion
@@ -62,7 +65,7 @@ namespace townsim.Engine.Entities
 		#endregion
 
 		#region Milling Settings
-		public decimal TimberMillingRate = 10;
+		public decimal TimberMillingRate = 1;
 		#endregion
 
         public Dictionary<ItemType, int> DefaultPriorities = new Dictionary<ItemType, int> ();

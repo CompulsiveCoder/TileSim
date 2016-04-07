@@ -11,10 +11,10 @@ namespace townsim.EngineCustomConsole
             throw new NotImplementedException ();
 			//var town = new Town ();
 
-			/*Console.WriteLine ("Starting custom TownSim...");
-			Console.WriteLine ("You'll be asked to provide some parameters for the simulation to run.");
-			Console.WriteLine ("");
-			Console.WriteLine ("New Sim");
+			/*Console.WriteDebugLine ("Starting custom TownSim...");
+			Console.WriteDebugLine ("You'll be asked to provide some parameters for the simulation to run.");
+			Console.WriteDebugLine ("");
+			Console.WriteDebugLine ("New Sim");
 			Console.Write("Population (default " + town.Population + "):");
 			var populationEntry = Console.ReadLine ();
 			Console.Write("Forests (default " + town.Forest + "):");

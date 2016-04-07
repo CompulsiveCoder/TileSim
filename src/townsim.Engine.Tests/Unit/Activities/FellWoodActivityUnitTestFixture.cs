@@ -29,7 +29,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, 50, 101);
 
-			var activity = new FellWoodActivity (person, needEntry, settings);
+            var activity = new FellWoodActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
 			Console.WriteLine ("");
 			Console.WriteLine ("Executing target");
@@ -50,6 +50,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			var context = MockEngineContext.New ();
 
             var settings = EngineSettings.DefaultVerbose;
+            settings.FellingRate = 10;
 
 			var person = new PersonCreator (settings).CreateAdult ();
 
@@ -59,12 +60,12 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, 50, 101);
 
-			var activity = new FellWoodActivity (person, needEntry, settings);
+            var activity = new FellWoodActivity (person, needEntry, settings, new ConsoleHelper(settings));
 			activity.Target = tile.Trees [0];
 
-			Console.WriteLine ("");
-			Console.WriteLine ("Executing target");
-			Console.WriteLine ("");
+            Console.WriteLine ("");
+            Console.WriteLine ("Executing target");
+            Console.WriteLine ("");
 
 			activity.Act (person);
 
@@ -73,14 +74,15 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 		[Test]
 		public void Test_Act_FinishedFelling()
-		{
-			Console.WriteLine ("");
-			Console.WriteLine ("Preparing test");
-			Console.WriteLine ("");
+        {
+            Console.WriteLine ("");
+            Console.WriteLine("Preparing test");
+            Console.WriteLine("");
 
 			var context = MockEngineContext.New ();
 
             var settings = EngineSettings.DefaultVerbose;
+            settings.FellingRate = 10;
 
 			var person = new PersonCreator (settings).CreateAdult ();
 
@@ -92,16 +94,16 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			person.AddNeed (needEntry);
 
-			var activity = new FellWoodActivity (person, needEntry, settings);
+            var activity = new FellWoodActivity (person, needEntry, settings, new ConsoleHelper(settings));
 			activity.Target = tile.Trees [0];
 			activity.Target.PercentHarvested = 100;
 			activity.TotalWoodFelled = 40; // Add just enough so the activity can finish
 
 			var totalWoodExpected = activity.Target.Size;
 
-			Console.WriteLine ("");
-			Console.WriteLine ("Executing test");
-			Console.WriteLine ("");
+            Console.WriteLine ("");
+            Console.WriteLine ("Executing test");
+            Console.WriteLine ("");
 
 			activity.Act (person);
 

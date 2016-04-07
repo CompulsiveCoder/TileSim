@@ -17,11 +17,11 @@ namespace townsim.Engine.Transfers
                 throw new Exception ("Parent property is null");
 
             if (Settings.IsVerbose) {
-                Console.WriteLine ("Executing transfer between inventories.");
-                Console.WriteLine ("  Source type: " + Parent.GetType().Name);
-                Console.WriteLine ("  Target type: " + target.GetType().Name);
-                Console.WriteLine ("  Item type: " + itemType);
-                Console.WriteLine ("  Amount: " + amount);
+                Console.WriteDebugLine ("Executing transfer between inventories.");
+                Console.WriteDebugLine ("  Source type: " + Parent.GetType().Name);
+                Console.WriteDebugLine ("  Target type: " + target.GetType().Name);
+                Console.WriteDebugLine ("  Item type: " + itemType);
+                Console.WriteDebugLine ("  Amount: " + amount);
             }
 
             target.Inventory.Items [itemType] += amount;

@@ -17,13 +17,13 @@ namespace townsim.Engine.Decisions
 		public PersonDecider (EngineContext context)
 		{
 			Context = context;
-			Creator = new ActivityCreator(Context.Settings);
+            Creator = new ActivityCreator(Context.Settings, Context.Console);
 		}
 
 		public BaseActivity Decide(Person person)
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("    Deciding");
+                Context.Console.WriteDebugLine ("    Deciding");
 			
 			var previousActivityName = person.ActivityName;
 
@@ -32,16 +32,16 @@ namespace townsim.Engine.Decisions
             if (currentActivity != null) {
                 if (previousActivityName != currentActivity.GetType ().Name) {
                     if (Context.Settings.OutputType == ConsoleOutputType.Debug) {
-                        Console.WriteLine ("    Player chose activity: " + currentActivity);
+                        Context.Console.WriteDebugLine ("    Player chose activity: " + currentActivity);
                     }
                 }
             } else {
                 if (Context.Settings.IsVerbose)
-                    Console.WriteLine ("    Player is idle");
+                    Context.Console.WriteDebugLine ("    Player is idle");
             }
 
             if (currentActivity == null)
-                Console.WriteLine ("Activity: null");
+                Context.Console.WriteDebugLine ("Activity: null");
 
 			return currentActivity;
 		}
@@ -55,7 +55,7 @@ namespace townsim.Engine.Decisions
 		public BaseActivity ChooseActivityBasedOnNeeds(Person person)
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("    Choosing activity based on needs");
+                Context.Console.WriteDebugLine ("    Choosing activity based on needs");
 			
 			var entries = GetHighestPriorities (person);
 
@@ -64,7 +64,7 @@ namespace townsim.Engine.Decisions
 			if (noEntriesFound)
 			{
 				if (Context.Settings.IsVerbose)
-					Console.WriteLine ("    No needs found. Doing nothing.");
+                    Context.Console.WriteDebugLine ("    No needs found. Doing nothing.");
 				
 				//person.ClearActivity(); // TODO: Should a random activity be chosen?
 
@@ -82,7 +82,7 @@ namespace townsim.Engine.Decisions
 		public BaseActivity ChooseActivityBasedOnNeed(Person person, NeedEntry needEntry)
 		{
 			if (Context.Settings.IsVerbose) {
-				Console.WriteLine ("    Choosing activity based on need for " + needEntry.ItemType);
+                Context.Console.WriteDebugLine ("    Choosing activity based on need for " + needEntry.ItemType);
 			}
 
 			var possibleActivities = new List<ActivityInfo> ();
@@ -102,7 +102,7 @@ namespace townsim.Engine.Decisions
 			
 
 			if (Context.Settings.IsVerbose) {
-				Console.WriteLine ("    Activity chosen: " + possibleActivities [0].ActivityType.Name);
+                Context.Console.WriteDebugLine ("    Activity chosen: " + possibleActivities [0].ActivityType.Name);
 			}
 
 			var activity = Creator.CreateActivity(person, possibleActivities[0].ActivityType, needEntry);
@@ -115,7 +115,7 @@ namespace townsim.Engine.Decisions
 
 			if (Context.Settings.OutputType == ConsoleOutputType.Debug
 				&& person.Id == Context.Settings.PlayerId) {
-				Console.WriteLine ("Need: " + needType.ToString ());
+				Console.WriteDebugLine ("Need: " + needType.ToString ());
 			}
 
 			if (needType == NeedType.Shelter) {
@@ -175,7 +175,7 @@ namespace townsim.Engine.Decisions
 		public NeedEntry[] GetHighestPriorities(Person person)
 		{
 			if (Context.Settings.IsVerbose)
-				Console.WriteLine ("      Getting highest priorities");
+                Context.Console.WriteDebugLine ("      Getting highest priorities");
 
 
 			var possibleChoices = new List<NeedEntry> ();
@@ -196,7 +196,7 @@ namespace townsim.Engine.Decisions
 
 			if (Context.Settings.IsVerbose) {
 				foreach (var entry in possibleChoices) {
-                    Console.WriteLine ("      " + entry.ActionType + " " + entry.ItemType + ": " + entry.Priority);
+                    Context.Console.WriteDebugLine ("      " + entry.ActionType + " " + entry.ItemType + ": " + entry.Priority);
 				}
 			}
 

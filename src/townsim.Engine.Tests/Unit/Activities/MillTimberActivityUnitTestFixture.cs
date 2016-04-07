@@ -19,7 +19,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
 			var context = MockEngineContext.New ();
 			context.Settings.IsVerbose = true;
-			context.Settings.TimberMillingRate = context.Settings.TimberMillingRate * 10;
+			context.Settings.TimberMillingRate = 50;
 
             var person = new Person(context.Settings);
             person.Inventory.Items[ItemType.Wood] = 100;
@@ -29,7 +29,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, 50, 101);
 
-			var activity = new MillTimberActivity (person, needEntry, context.Settings);
+            var activity = new MillTimberActivity (person, needEntry, context.Settings, context.Console);
 
 			Console.WriteLine ("");
 			Console.WriteLine ("Executing test");
@@ -62,7 +62,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, 50, 101);
 
-			var activity = new MillTimberActivity (person, needEntry, context.Settings);
+            var activity = new MillTimberActivity (person, needEntry, context.Settings, context.Console);
 
 			Console.WriteLine ("");
 			Console.WriteLine ("Executing test");

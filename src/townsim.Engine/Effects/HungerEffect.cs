@@ -1,38 +1,26 @@
 ﻿using System;
 using townsim.Engine.Entities;
 using townsim.Data;
+using townsim.Engine.Activities;
 
 namespace townsim.Engine.Effects
 {
-	public class HungerEffect : BaseEffect
+	public class HungerEffect : BasePersonEffect
 	{
-		public HungerEffect (EngineContext context) : base(context)
+        public HungerEffect (EngineSettings settings, ConsoleHelper console) : base(settings, console)
 		{
 		}
 
-		public void Update(Person person)
-		{
-			if (person.IsAlive) {
-				UpdateHunger (person);
-			}
-		}
+        public override bool IsApplicable (Person person)
+        {
+            var personIsEating = (person.ActivityName == typeof(EatFoodActivity).Name);
+            return person.IsAlive && !personIsEating;
+        }
 
-		public void UpdateHunger(Person person)
-		{
-			var increase = Context.Settings.HungerRate;
-
-			person.Hunger += increase;
-
-			// TODO: Clean up
-			if (person.Hunger > 100) {
-				person.Hunger = 100;
-				//person.Priorities [PriorityTypes.Food] = person.Hunger;
-			} //else if (person.Hunger > 10)
-				//person.Priorities [PriorityTypes.Food] = person.Hunger;
-			//else
-				//erson.Priorities [PriorityTypes.Food] = new Random ().Next (20, 80);
-			
-		}
+        public override void Execute (Person person)
+        {
+            VitalsChange.Add (PersonVital.Hunger, +Settings.HungerRate);
+        }
 	}
 }
 
