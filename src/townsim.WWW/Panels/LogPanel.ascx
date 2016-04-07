@@ -3,7 +3,7 @@
 <div class="pnl">
 	<h2>Log</h2>
 	<div id="log" style="overflow:auto;height:300px;">
-	<%= LogWriter.Current.ReadAll(EngineId).Replace("\n", "<br/>").Replace("\r", "<br/>") %>
+	<%= "" %>
 	</div>
 	<script language="javascript">
 		var objDiv = document.getElementById("log");

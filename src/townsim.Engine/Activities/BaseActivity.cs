@@ -23,6 +23,11 @@ namespace townsim.Engine
 
         public ConsoleHelper Console { get; set; }
 
+        public string Text
+        {
+            get { return NeedEntry.ActionType + " " + NeedEntry.ItemType; }
+        }
+
 		public string Name
 		{
 			get { return GetType ().Name; }

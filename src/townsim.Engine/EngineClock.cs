@@ -76,8 +76,7 @@ namespace townsim.Engine
 
 		public string GetSpeedComparisonString()
 		{
-			throw new NotImplementedException ();
-			//return GetTimeSpanString (TimeSpan.FromSeconds (Settings.GameSpeed));
+			return GetTimeSpanString (TimeSpan.FromSeconds (Settings.GameSpeed));
 		}
 
 		public static EngineClock Default

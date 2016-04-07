@@ -61,10 +61,10 @@
     <Content Include="default.js" />
     <Content Include="Test.aspx" />
     <Content Include="Panels\PlayerPanel.ascx" />
-    <Content Include="Panels\TownPanel.ascx" />
     <Content Include="Panels\GameInfoPanel.ascx" />
     <Content Include="Panels\LogPanel.ascx" />
     <Content Include="Panels\MapPanel.ascx" />
+    <Content Include="Panels\TilePanel.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -81,12 +81,6 @@
     </Compile>
     <Compile Include="Panels\PlayerPanel.ascx.designer.cs">
       <DependentUpon>PlayerPanel.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Panels\TownPanel.ascx.cs">
-      <DependentUpon>TownPanel.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Panels\TownPanel.ascx.designer.cs">
-      <DependentUpon>TownPanel.ascx</DependentUpon>
     </Compile>
     <Compile Include="Panels\GameInfoPanel.ascx.cs">
       <DependentUpon>GameInfoPanel.ascx</DependentUpon>
@@ -105,6 +99,12 @@
     </Compile>
     <Compile Include="Panels\MapPanel.ascx.designer.cs">
       <DependentUpon>MapPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\TilePanel.ascx.cs">
+      <DependentUpon>TilePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\TilePanel.ascx.designer.cs">
+      <DependentUpon>TilePanel.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

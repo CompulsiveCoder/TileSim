@@ -99,13 +99,6 @@ namespace townsim.Engine.Entities
 			set;
 		}
 
-		[JsonIgnore]
-		public int TotalGardeners {
-			get {
-				return PeopleDoing(ActivityType.Gardening);
-			}
-		}
-
 		public int TotalVegetablesPlanted {
 			get;
 			set;
@@ -297,19 +290,6 @@ namespace townsim.Engine.Entities
 				}
 			}
 			return list.ToArray ();
-		}
-
-		public int PeopleDoing(ActivityType activity)
-		{
-
-			throw new NotImplementedException ();
-			/*var matchingPeople = (from person in People
-			                      where
-			                          person != null
-			                          && person.ActivityType == activity
-			                      select person).ToArray ();
-
-			return matchingPeople.Length;*/
 		}
 
 		public Plant FindRipeUnassignedVegetable ()

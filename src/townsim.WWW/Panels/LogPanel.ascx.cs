@@ -12,7 +12,7 @@ namespace townsim
 
 		public void Page_Load(object sender, EventArgs e)
 		{
-			EngineId = CurrentEngine.Id;
+			//EngineId = CurrentEngine.Id;
 		}
 	}
 }

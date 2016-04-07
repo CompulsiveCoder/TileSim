@@ -8,7 +8,7 @@ using datamanager.Data;
 namespace townsim
 {
 
-	public partial class TownPanel : System.Web.UI.UserControl
+	public partial class TilePanel2 : System.Web.UI.UserControl
 	{
 		public Town Town { get;set; }
 

@@ -132,9 +132,7 @@ namespace townsim.Engine
 
 		void Attach()
 		{
-			CurrentEngine.Add (this);
-
-			CurrentEngine.Attach (Context.Info);
+            CurrentEngine.Attach (Context);
 
 			throw new NotImplementedException ();
 			//Settings.PlayerId = Player.Id;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace townsim.Engine
+namespace townsim.Engine.Entities
 {
     public enum PersonVital
     {

@@ -4,6 +4,7 @@ using System.Web.UI;
 using townsim.Engine.Entities;
 using townsim.Data;
 using datamanager.Data;
+using townsim.Engine;
 
 namespace townsim
 {
@@ -15,13 +16,14 @@ namespace townsim
 
 		public void Page_Load(object sender, EventArgs e)
 		{
-			var towns = new DataManager().Get<Town>();
+            Player = CurrentEngine.Context.Player;
+			/*var towns = new DataManager().Get<Town>();
 			if (towns.Length > 0)
 			{
 				Town = towns[0];
 				if (Town.People.Length > 0)
 					Player = Town.People[0];
-			}
+			}*/
 		}
 	}
 }

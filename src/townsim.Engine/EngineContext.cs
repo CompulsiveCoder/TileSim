@@ -75,7 +75,7 @@ namespace townsim.Engine
 			//Engine.Initialize ();
 
             // TODO: Should this be reimplemented here?
-            //SaveInfo ();
+            SaveInfo ();
 		}
 		#endregion
 
@@ -84,6 +84,11 @@ namespace townsim.Engine
             var logic = GameLogic.NewComplete (Settings, Console);
 
             World.Logic = logic;
+        }
+
+        public void Run()
+        {
+            Engine.Run ();
         }
 
 		public void Run(int numberOfCycles)

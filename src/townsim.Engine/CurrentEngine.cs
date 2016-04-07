@@ -10,39 +10,56 @@ namespace townsim.Engine
 {
 	public static class CurrentEngine
 	{
-		static public string Id { get; set; }
+		/*static public string Id { get; set; }
 
 		static public EngineInfo Info { get;set; }
 
 		static public EngineClock Clock { get;set; }
 
-		static public EngineProcess[] CurrentEngines = new EngineProcess[]{ };
+		static public EngineProcess Process = new EngineProcess{ };
+*/
 
-		static public Thread[] EngineThreads;
+        static public EngineContext Context { get;set; }
+
+		static public Thread EngineThread;
 
 		// TODO: Remove if not needed
     	//static public string PlayerId { get; set; }
 
-		static public bool IsStarted { get { return !String.IsNullOrEmpty (Id); } }
+        static public bool IsStarted { get { return Context != null; } }
 
 		static public void StartThread(string engineId)
 		{
-			throw new NotImplementedException ();
-			/*Console.WriteDebugLine ("Launching engine thread " + engineId);
+            if (engineId == String.Empty)
+                engineId = Guid.NewGuid ().ToString ();
+
+			Console.WriteLine ("Launching engine thread " + engineId);
+
+            var context = EngineContext.New();
+            context.PopulateFromSettings();
+            context.AddCompleteLogic();
+
+            context.Initialize();
+
+            Attach(context);
 
 			ThreadStart threadStart = delegate {
-				var engine = new EngineProcess(engineId);
+
+                context.Run();
+
+                // TODO: Remove if not needed
+				/*var engine = new EngineProcess(engineId);
 
 				engine.CreateTown();
-				engine.Start();
-
-				Attach(engine.Info);
+				engine.Start();*/
+                
 			};
 
 			var engineThread = new Thread(threadStart);
 
 			engineThread.IsBackground = true;
-			engineThread.Start();*/
+			engineThread.Start();
+
 		}
 
 		static public void StartGame()
@@ -52,30 +69,15 @@ namespace townsim.Engine
 
 		static public void Attach(string engineId)
 		{
-			throw new NotImplementedException ();
 			/*Id = engineId;
 			DataConfig.Prefix = "TownSim-" + engineId.ToString();
 			Info = new DataManager ().Get<EngineInfo>(Id);
 			Clock = new EngineClock (Context);*/
 		}
 
-		static public void Attach(EngineInfo info)
+        static public void Attach(EngineContext context)
 		{
-
-			throw new NotImplementedException ();
-			/*
-			Id = info.Id;
-			DataConfig.Prefix = "TownSim-" + info.Id.ToString();
-			Info = info;
-			Clock = new EngineClock (Info.StartTime, Info.Settings);*/
-		}
-
-		static public void Add(EngineProcess engine)
-		{
-			var list = new List<EngineProcess> (CurrentEngines);
-			if (!list.Contains (engine))
-				list.Add (engine);
-			CurrentEngines = list.ToArray ();
+            Context = context;
 		}
 	}
 }

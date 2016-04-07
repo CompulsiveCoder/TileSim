@@ -61,7 +61,6 @@
     <Compile Include="Prioritizers\WaterPrioritizer.cs" />
     <Compile Include="Prioritizers\FoodPrioritizer.cs" />
     <Compile Include="PersonEngine.cs" />
-    <Compile Include="Entities\Activity.cs" />
     <Compile Include="Entities\BaseInstruction.cs" />
     <Compile Include="Entities\Building.cs" />
     <Compile Include="Entities\BuildingCollection.cs" />
