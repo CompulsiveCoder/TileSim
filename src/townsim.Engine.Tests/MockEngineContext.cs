@@ -16,15 +16,13 @@ namespace townsim.Engine.Tests
 			
 		}
 
-		// TODO: Remove if not needed
-		/*public MockEngineContext ()
-		{
-			base(new MockEngineProcess(this));
-		}*/
-
 		public new static EngineContext New()
 		{
-			return new MockGameCreator (EngineSettings.DefaultVerbose).Create ();
+            var settings = EngineSettings.DefaultVerbose;
+
+            settings.CycleDuration = 1; // Set the duration to 1 millisecond so there's no delay during tests
+
+			return new MockGameCreator (settings).Create ();
 		}
 	}
 }
