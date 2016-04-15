@@ -69,6 +69,8 @@ namespace townsim.Engine.Activities
 
 		public bool FellTreeCycle(Person person, Plant plant)
 		{
+            Status = "Chopping down tree " + (int)plant.PercentHarvested + "%";
+
 			if (Settings.IsVerbose)
 				Console.WriteDebugLine ("  Felling tree");
 
@@ -97,6 +99,8 @@ namespace townsim.Engine.Activities
 
 		public void FinishedFellingSingleTree(Person person, Plant tree)
 		{
+            Status = "Finished felling tree";
+
 			person.Tile.RemovePlant (tree);
 
 			var amountOfWood = tree.Size;
@@ -116,8 +120,11 @@ namespace townsim.Engine.Activities
 
 		public Plant FindLargeTree()
 		{
+            // TODO: Is this check required?
 			if (Actor.Tile == null)
 				throw new Exception ("The Actor.Tile property is null. Set a tile first.");
+
+            Status = "Selecting tree";
 
 			// TODO: Use linq
 			foreach (var plant in Actor.Tile.Plants) {

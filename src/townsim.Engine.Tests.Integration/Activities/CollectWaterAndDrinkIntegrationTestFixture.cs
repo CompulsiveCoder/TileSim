@@ -18,7 +18,6 @@ namespace townsim.Engine.Tests.Integration
             Console.WriteLine ("");
 
             var context = MockEngineContext.New ();
-            context.Settings.IsVerbose = true;
             context.Data.IsVerbose = true;
 
             context.Settings.DefaultCollectWaterRate = 50; // Increase the rate of water collection so the test goes faster
@@ -42,6 +41,8 @@ namespace townsim.Engine.Tests.Integration
             person.Vitals[PersonVital.Thirst] = 90;
 
             tile.AddPerson (person);
+
+            context.Player = person;
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");

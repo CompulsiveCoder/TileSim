@@ -24,6 +24,8 @@ namespace townsim.Engine.Activities
 
         public override void Execute (Person person)
         {
+            Status = "Drinking water";
+
             if (Settings.IsVerbose) {
                 Console.WriteDebugLine ("Drinking water");
                 Console.WriteDebugLine ("  Current thirst: " + person.Vitals[PersonVital.Thirst]);
@@ -63,8 +65,14 @@ namespace townsim.Engine.Activities
         {
             var waterAvailable = actor.Inventory.Items [ItemType.Water] > 0;
 
-            if (!waterAvailable && Settings.IsVerbose) {
-                Console.WriteDebugLine ("    No water available.");
+            if (!waterAvailable)
+            {
+                Status = "No water available";
+
+                if (Settings.IsVerbose) {
+                    Console.WriteDebugLine ("    No water available.");
+                }
+
                 RegisterNeedToCollectWater ();
             }
 

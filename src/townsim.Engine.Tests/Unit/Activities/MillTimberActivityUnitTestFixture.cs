@@ -17,8 +17,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			Console.WriteLine ("Preparing test");
 			Console.WriteLine ("");
 
-			var context = MockEngineContext.New ();
-			context.Settings.IsVerbose = true;
+            var context = MockEngineContext.New (EngineSettings.DefaultVerbose);
 			context.Settings.TimberMillingRate = 50;
 
             var person = new Person(context.Settings);
@@ -52,8 +51,7 @@ namespace townsim.Engine.Tests.Unit.Activities
 			Console.WriteLine ("Preparing test");
 			Console.WriteLine ("");
 
-			var context = MockEngineContext.New ();
-			context.Settings.IsVerbose = true;
+            var context = MockEngineContext.New (EngineSettings.DefaultVerbose);
 
             var person = new Person (context.Settings);
 

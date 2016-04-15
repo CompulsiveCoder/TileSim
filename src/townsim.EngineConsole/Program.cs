@@ -11,6 +11,9 @@ namespace townsim.EngineConsole
 		{
 			var settings = SettingsParser.GetSettings (args);
 
+            settings.OutputType = ConsoleOutputType.Game;
+            settings.GameSpeed = 10;
+
 			LaunchGame (settings);
 		}
 

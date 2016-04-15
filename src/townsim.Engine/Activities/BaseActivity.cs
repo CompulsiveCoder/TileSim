@@ -33,6 +33,8 @@ namespace townsim.Engine
 			get { return GetType ().Name; }
 		}
 
+        public string Status { get;set; }
+
         public BaseActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
 		{
 			Actor = actor;
@@ -248,6 +250,13 @@ namespace townsim.Engine
                 Console.WriteDebugLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");
             
             Needs.Add (new NeedEntry (actionType, itemType, quantity, priority));
+        }
+
+        public override string ToString ()
+        {
+            var quantityToProduce = NeedEntry.Quantity;
+
+            return string.Format ("{0} {1} ({2}) {3}", NeedEntry.ActionType, NeedEntry.ItemType, (int)quantityToProduce, Status);
         }
 	}
 }

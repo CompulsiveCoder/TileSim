@@ -6,7 +6,7 @@
     <ProjectGuid>{8A38BB92-4D97-4FC0-ABFC-3635D5131567}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>townsim.EngineConsole</RootNamespace>
-    <AssemblyName>townsimEngine</AssemblyName>
+    <AssemblyName>townsimConsole</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>townsim.EngineConsole.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>

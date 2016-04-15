@@ -24,6 +24,8 @@ namespace townsim.Engine.Activities
 
         public override void Execute (Person person)
         {
+            Status = "Eating food";
+
             if (Settings.IsVerbose) {
                 Console.WriteDebugLine ("Eating food");
                 Console.WriteDebugLine ("  Current hunger: " + person.Vitals[PersonVital.Hunger]);

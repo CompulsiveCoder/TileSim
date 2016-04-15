@@ -13,8 +13,8 @@ namespace townsim.EngineConsole
 
 			settings.EngineId = GetEngineId (arguments);
 
-			if (arguments.ContainsAny ("v", "verbose"))
-				settings.IsVerbose = true;
+            if (arguments.ContainsAny ("v", "verbose"))
+                settings.OutputType = townsim.Engine.ConsoleOutputType.Debug;
 
 			if (arguments.ContainsAny ("speed"))
 				settings.GameSpeed = arguments.GetInt("speed");

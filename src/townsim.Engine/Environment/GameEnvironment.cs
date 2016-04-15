@@ -18,8 +18,8 @@ namespace townsim.Engine
 		[OneWay]
 		public Town[] Towns { get; set; }
 
-		[OneWay]
-		public Person Player { get; set; }
+		/*[OneWay]
+		public Person Player { get; set; }*/
 
 		[OneWay]
 		public Person[] People { get;set; }

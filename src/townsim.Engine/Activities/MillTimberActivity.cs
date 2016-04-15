@@ -72,6 +72,8 @@ namespace townsim.Engine.Activities
 
 		public void ConvertWoodToTimber(Person actor, decimal amountOfTimber)
 		{
+            Status = "Milling wood into timber " + TotalTimberMilled;
+
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("  Converting wood to timber");
             

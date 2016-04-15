@@ -15,13 +15,11 @@ namespace townsim.Engine.Tests.Unit.Activities
             Console.WriteLine ("Preparing test");
             Console.WriteLine ("");
 
-            var context = MockEngineContext.New ();
+            var context = MockEngineContext.New (EngineSettings.DefaultVerbose);
 
             context.World.Logic.AddActivity (typeof(CollectWaterActivity));
 
             var settings = context.Settings;
-
-            settings.IsVerbose = true;
 
             var tile = context.World.Tiles [0];
 

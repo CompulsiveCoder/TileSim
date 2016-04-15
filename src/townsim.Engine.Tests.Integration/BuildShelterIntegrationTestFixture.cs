@@ -17,13 +17,13 @@ namespace townsim.Engine.Tests.Integration
             Console.WriteLine ("");
 
 			var context = MockEngineContext.New ();
-			context.Settings.IsVerbose = true;
 			context.Data.IsVerbose = true;
 
             context.Settings.MinimumTreeSize = 90; // Increase the size of the trees to speed up test
 			context.Settings.WoodRequiredForTimber = 1.1m; // Reduce the waste rate to increase the speed of the test
             context.Settings.ConstructionRate = 50; // Increase construction rate to speed up test
-            context.Settings.TimberMillingRate = 10;
+            context.Settings.TimberMillingRate = 50;
+            context.Settings.FellingRate = 50;
 
             context.World.Logic.AddNeed (new BuildShelterNeedIdentifier (context.Settings, context.Console));
 			//context.World.Logic.AddDecision (new ShelterDecision ());
@@ -38,7 +38,7 @@ namespace townsim.Engine.Tests.Integration
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (10)); // TODO: Should this PlantCreator object be stored somewhere better?
 
-			context.Settings.FellingRate = 50;
+            context.Player = person;
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");
@@ -46,7 +46,7 @@ namespace townsim.Engine.Tests.Integration
 
 			context.Initialize (); // TODO: Should Start be part of the test? Or part of the preparation before the above console output?
 
-			context.Run (20);
+			context.Run (10);
 
             Console.WriteLine ("");
             Console.WriteLine ("Analysing test");

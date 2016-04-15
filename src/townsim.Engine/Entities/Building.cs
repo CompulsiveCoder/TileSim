@@ -6,7 +6,7 @@ namespace townsim.Engine.Entities
 {
 	[Serializable]
 	[JsonObject("Building", IsReference=true)]
-    public class Building : BaseGameEntity, IActivityTarget, IHasInventory
+    public class Building : BaseGameEntity, IHasInventory
 	{
         public bool IsCompleted { get { return PercentComplete == 100; } }
 

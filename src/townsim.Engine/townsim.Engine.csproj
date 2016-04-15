@@ -56,7 +56,6 @@
     <Compile Include="EngineLog.cs" />
     <Compile Include="CurrentEngine.cs" />
     <Compile Include="EngineClock.cs" />
-    <Compile Include="InstructionEngine.cs" />
     <Compile Include="Prioritizers\ShelterPrioritizer.cs" />
     <Compile Include="Prioritizers\WaterPrioritizer.cs" />
     <Compile Include="Prioritizers\FoodPrioritizer.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Entities\PlantType.cs" />
     <Compile Include="Entities\Town.cs" />
     <Compile Include="Entities\TownStatistics.cs" />
-    <Compile Include="Data\EditInstructionReader.cs" />
     <Compile Include="Data\InstructionApplier.cs" />
     <Compile Include="Data\LogWriter.cs" />
     <Compile Include="Data\Parser.cs" />
@@ -110,7 +108,6 @@
     <Compile Include="Needs\NeedEntry.cs" />
     <Compile Include="PercentageValidator.cs" />
     <Compile Include="Entities\ItemType.cs" />
-    <Compile Include="Entities\IActivityTarget.cs" />
     <Compile Include="Entities\ItemDemand.cs" />
     <Compile Include="Needs\BaseNeedIdentifier.cs" />
     <Compile Include="Activities\CollectWaterActivity.cs" />
@@ -139,6 +136,7 @@
     <Compile Include="GameConsoleSummarizer.cs" />
     <Compile Include="Effects\StarvationEffect.cs" />
     <Compile Include="Effects\DehydrationEffect.cs" />
+    <Compile Include="Effects\PlayerDeathEffect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

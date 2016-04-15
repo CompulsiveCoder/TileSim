@@ -19,8 +19,6 @@ namespace townsim.Engine.Tests.Unit.Activities
 
             var settings = context.Settings;
 
-            settings.IsVerbose = true;
-
             var person = new Person (settings);
             person.Inventory [ItemType.Food] = 100;
             person.Vitals[PersonVital.Hunger] = 80;

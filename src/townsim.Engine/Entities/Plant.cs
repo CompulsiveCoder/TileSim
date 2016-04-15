@@ -5,7 +5,7 @@ using townsim.Engine;
 namespace townsim.Engine.Entities
 {
 	[Serializable]
-	public class Plant : IActivityTarget
+	public class Plant// : IActivityTarget // TODO: Remove
 	{
 		public decimal Age { get;set; }
 		public decimal Size { get;set; }

@@ -10,7 +10,7 @@ namespace townsim.Engine.Entities
 		#region Engine settings
 		public string EngineId = "";
 
-		public int GameSpeed = 10;
+		public int GameSpeed = 1;
 		public int CycleDuration = 1000;
 		#endregion
 
@@ -26,12 +26,6 @@ namespace townsim.Engine.Entities
 		public string PlayerId = "";
 		#endregion
 
-		#region Town settings
-		// TODO: Remove if not needed
-		//public int DefaultTownPopulation = 5;
-		//public int DefaultTownTreeCount = 100;
-		#endregion
-
         #region Person Settings
         public decimal StarvationThreshold = 90;
         public decimal DehydrationThreshold = 80;
@@ -43,10 +37,13 @@ namespace townsim.Engine.Entities
         public decimal FoodForHungerRatio = 1;
         public decimal HungerThreshold = 40;
         public decimal DefaultGatherFoodRate = 10;
+
+        public decimal ThirstRate = 0.03m;
+        public decimal HungerRate = 0.02m;
         #endregion
 
 		#region Wood Settings
-		public decimal FellingRate = 1m;
+		public decimal FellingRate = 0.1m;
 
 		public decimal TreeGrowthRate = 0.0000001m;
 		#endregion
@@ -57,33 +54,30 @@ namespace townsim.Engine.Entities
 		#endregion
 
 		#region Building Settings
-		public decimal TimberNeededForHouse = 50;
+		public decimal TimberNeededForHouse = 50; // TODO: Remove if not needed
 
-		public double ConstructionRate = 1;
+		public double ConstructionRate = 0.01;
 
         public decimal ShelterTimberCost = 50;
 		#endregion
 
 		#region Milling Settings
-		public decimal TimberMillingRate = 1;
+		public decimal TimberMillingRate = 0.01m;
 		#endregion
 
         public Dictionary<ItemType, int> DefaultPriorities = new Dictionary<ItemType, int> ();
 
-		public double AgingRate = 0.1;
-		public int BirthOdds = 25; // 1 in 25
-
-
-		public decimal HungerRate = 0.1m;//100m / (24*60*60) * 3m; // 100% / seconds in a day * meals per day
-
-
-		//public int ConstructionCountLimitBase = 3;
-		//public double ConstructionCountLimit = 0.1;
-
 		#region Console settings
 		public ConsoleOutputType OutputType = ConsoleOutputType.Debug;
 
-		public bool IsVerbose = false;
+        /// <summary>
+        /// Set the OutputType property to change this.
+        /// </summary>
+        /// <value></value>
+		public bool IsVerbose
+        {
+            get { return OutputType == ConsoleOutputType.Debug; }
+        }
 		#endregion
 
 		public EngineSettings()
@@ -109,7 +103,7 @@ namespace townsim.Engine.Entities
 		{
 			get {
 				var settings = new EngineSettings ();
-				settings.IsVerbose = true;
+                settings.OutputType = ConsoleOutputType.Debug;
 				return settings;
 			}
 		}

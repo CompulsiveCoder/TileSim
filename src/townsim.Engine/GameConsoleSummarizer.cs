@@ -15,27 +15,28 @@ namespace townsim.Engine
 
         public void WriteSummary()
         {
-            var console = Context.Console;
+            if (Context.Settings.OutputType == ConsoleOutputType.Game) {
+                var console = Context.Console;
 
-            // Player.ValidateProperties ();
-            console.ClearGame ();
-            console.WriteGameLine ("TownSim Engine");
-            console.WriteGameLine ("  Engine Id: " + Context.Settings.EngineId + "     Speed: " + Context.Settings.GameSpeed);
-            console.WriteGameLine ("  Real clock: " + Context.Clock.GetRealDurationString() + "   Game clock: " + Context.Clock.GetGameDurationString());
+                // Player.ValidateProperties ();
+                console.ClearGame ();
+                console.WriteGameLine ("TownSim Engine");
+                console.WriteGameLine ("  Engine Id: " + Context.Settings.EngineId + "     Speed: " + Context.Settings.GameSpeed);
+                console.WriteGameLine ("  Real clock: " + Context.Clock.GetRealDurationString () + "   Game clock: " + Context.Clock.GetGameDurationString ());
 
-            console.WriteGameLine ("  Player:");
-            console.WriteGameLine ("    Age: " + Convert.ToInt32(Context.Player.Age) + "    Gender:" + Context.Player.Gender + "    Health:" + Context.Player.Vitals[PersonVital.Health]);
-            console.WriteGameLine ("    Thirst: " + Convert.ToInt32(Context.Player.Vitals[PersonVital.Thirst]) + "   Hunger:" + Convert.ToInt32(Context.Player.Vitals[PersonVital.Hunger]));
-            console.WriteGameLine ("    Activity: " + Context.Player.ActivityName);
-            console.WriteGameLine ("    Home: " + (Context.Player.Home != null ? Context.Player.Home.PercentComplete : 0) + "%");
-            console.WriteGameLine ("    Inventory");
-            console.WriteGameLine ("      Water: " + (int)Context.Player.Inventory[ItemType.Water] + "  Food: " + (int)Context.Player.Inventory[ItemType.Food] + "   Timber: " + (int)Context.Player.Inventory[ItemType.Timber] + "    Wood: " + (int)Context.Player.Inventory[ItemType.Wood] + " ");
-            console.WriteGameLine ("    Needs");
-            foreach (var need in Context.Player.Needs) {
-                console.WriteGameLine ("      " + need.ActionType + " " + need.ItemType + ": " + need.Quantity + " (" + need.Priority + ")");
-            }
+                console.WriteGameLine ("  Player:");
+                console.WriteGameLine ("    Age: " + Convert.ToInt32 (Context.Player.Age) + "    Gender:" + Context.Player.Gender + "    Health:" + Context.Player.Vitals [PersonVital.Health]);
+                console.WriteGameLine ("    Thirst: " + Convert.ToInt32 (Context.Player.Vitals [PersonVital.Thirst]) + "   Hunger:" + Convert.ToInt32 (Context.Player.Vitals [PersonVital.Hunger]));
+                console.WriteGameLine ("    Home: " + (Context.Player.Home != null ? (int)Context.Player.Home.PercentComplete : 0) + "%");
+                console.WriteGameLine ("    Activity: " + (Context.Player.Activity != null ? Context.Player.Activity.ToString() : "[idle]"));
+                console.WriteGameLine ("    Inventory");
+                console.WriteGameLine ("      Water: " + (int)Context.Player.Inventory [ItemType.Water] + "  Food: " + (int)Context.Player.Inventory [ItemType.Food] + "   Timber: " + (int)Context.Player.Inventory [ItemType.Timber] + "    Wood: " + (int)Context.Player.Inventory [ItemType.Wood] + " ");
+                console.WriteGameLine ("    Needs");
+                foreach (var need in Context.Player.Needs) {
+                    console.WriteGameLine ("      " + need.ActionType + " " + need.ItemType + ": " + need.Quantity + " (" + need.Priority + ")");
+                }
 
-            /*console.WriteGameLine ("   Priorities:");
+                /*console.WriteGameLine ("   Priorities:");
             console.WriteGameLine ("     Water: " + (int)Context.Player.Priorities[PriorityTypes.Water] + "%      Food: " + (int)Context.Player.Priorities[PriorityTypes.Food] + "%     Shelter: " + (int)Player.Priorities[PriorityTypes.Shelter] + "%");
 
             console.WriteGameLine ();
@@ -46,9 +47,23 @@ namespace townsim.Engine
             console.WriteGameLine ("   Demands:");
             console.WriteGameLine ("     Water: " + (int)Context.Player.GetDemandAmount(needTypes.Water) + "ml      Food: " + Context.Player.GetDemandAmount(needTypes.Food) + " kgs     Wood: " + (int)Player.GetDemandAmount(NeedType.Wood) + "    Timber: " + (int)Player.GetDemandAmount(NeedType.Timber));
 */
-            console.WriteGameLine ();
+                console.WriteGameLine ();
 
-            /*Console.WriteGameLine ("  Towns:");
+                var tile = Context.Player.Tile;
+
+                console.WriteGameLine ("  Current tile:");
+                console.WriteGameLine ("     People:");
+                console.WriteGameLine ("       Population: " + tile.People.Length);
+                console.WriteGameLine ("       Items:");
+
+                var inventoryString = "";
+
+                foreach (var itemType in tile.Inventory.Items.Keys) {
+                    inventoryString += itemType + ": " + tile.Inventory[itemType] + "  ";
+                }
+
+                console.WriteGameLine ("         " + inventoryString);
+                /*Console.WriteGameLine ("  Towns:");
 
             foreach (var town in Towns) {
                 town.ValidateProperties ();
@@ -92,6 +107,7 @@ namespace townsim.Engine
                 }
                 
             }*/
+            }
         }
     }
 }

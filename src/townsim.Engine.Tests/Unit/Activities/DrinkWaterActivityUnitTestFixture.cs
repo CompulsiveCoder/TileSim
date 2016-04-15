@@ -22,7 +22,6 @@ namespace townsim.Engine.Tests.Unit.Activities
             var settings = context.Settings;
 
             settings.DefaultDrinkAmount = 10; // Increase the drink rate to speed up test
-            settings.IsVerbose = true;
 
             var person = new Person (settings);
             person.Inventory [ItemType.Water] = 100;

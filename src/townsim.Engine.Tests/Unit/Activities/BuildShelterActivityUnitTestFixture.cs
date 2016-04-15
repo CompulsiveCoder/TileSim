@@ -67,11 +67,12 @@ namespace townsim.Engine.Tests.Unit.Activities
             Console.WriteLine ("");
 
             var settings = EngineSettings.DefaultVerbose;
+            settings.ConstructionRate = 10;
 
 			var person = new Person (settings);
             person.Home = new Building (BuildingType.Shelter, settings);
-            person.Home.Inventory.Items[ItemType.Timber] = 50; // TODO: Get the 50 value from somewhere easier to configures
-			person.Home.PercentComplete = 99.9;
+            person.Home.Inventory.Items [ItemType.Timber] = settings.ShelterTimberCost;
+			person.Home.PercentComplete = 99;
 
             var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
 

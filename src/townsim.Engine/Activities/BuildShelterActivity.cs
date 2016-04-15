@@ -72,6 +72,8 @@ namespace townsim.Engine.Activities
 
 		public void StartConstruction(Person person)
 		{
+            Status = "Starting construction";
+
 			if (Settings.IsVerbose)
 				Console.WriteDebugLine ("  Starting shelter construction");
 
@@ -88,6 +90,8 @@ namespace townsim.Engine.Activities
 				Console.WriteDebugLine ("  Continuing shelter construction");
 
 			var home = person.Home;
+
+            Status = "Building " + home.PercentComplete + "%";
 
             home.PercentComplete += PercentageValidator.Validate (Settings.ConstructionRate);
 

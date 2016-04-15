@@ -24,7 +24,7 @@ namespace townsim.Engine.Tests
 
 		public new static EngineContext New()
 		{
-			return new MockGameCreator (EngineSettings.Default).Create ();
+			return new MockGameCreator (EngineSettings.DefaultVerbose).Create ();
 		}
 	}
 }
