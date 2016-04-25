@@ -16,5 +16,6 @@ if [ ! -f "$INIT_FILE" ]; then
 else
   echo "datamanager submodule found"
   sh init.sh
-  cd $DIR
 fi
+
+cd $DIR
