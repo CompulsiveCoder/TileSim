@@ -15,14 +15,14 @@ fi
 echo "  Branch: $BRANCH"
 
 # If the .tmp/datamanager directory exists then remove it
-if [ -d ".tmp/townsim" ]; then
-    rm .tmp/townsim -rf
+if [ -d ".tmp/tilesim" ]; then
+    rm .tmp/tilesim -rf
 fi
 
 DIR=$PWD
 
-git clone https://github.com/CompulsiveCoder/townsim.git .tmp/townsim --branch $BRANCH
-cd .tmp/townsim && \
+git clone https://github.com/CompulsiveCoder/tilesim.git .tmp/tilesim --branch $BRANCH
+cd .tmp/tilesim && \
 sh init-build-test.sh && \
 cd $DIR && \
-rm .tmp/townsim -rf
+rm .tmp/tilesim -rf

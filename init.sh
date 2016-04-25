@@ -1,6 +1,6 @@
 DIR=$PWD
 
-echo "Initializing townsim project"
+echo "Initializing tilesim project"
 echo "Dir: $PWD"
 
 git submodule update --init --recursive

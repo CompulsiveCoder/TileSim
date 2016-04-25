@@ -1,4 +1,4 @@
-echo "Preparing for townsim project"
+echo "Preparing for tilesim project"
 echo "Dir: $PWD"
 
 sudo apt-get update

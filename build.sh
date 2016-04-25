@@ -7,4 +7,4 @@ cd mod/datamanager/
 sh build.sh
 cd $DIR
 
-xbuild src/townsim.sln /p:Configuration=Release
+xbuild src/tilesim.sln /p:Configuration=Release
