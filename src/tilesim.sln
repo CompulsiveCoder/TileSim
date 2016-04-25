@@ -1,0 +1,92 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.WWW", "tilesim.WWW\tilesim.WWW.csproj", "{94560C32-AFBD-4DD1-8347-79FE1995137D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Data", "tilesim.Data\tilesim.Data.csproj", "{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.EngineConsole", "tilesim.EngineConsole\tilesim.EngineConsole.csproj", "{8A38BB92-4D97-4FC0-ABFC-3635D5131567}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Data.Tests", "tilesim.Data.Tests\tilesim.Data.Tests.csproj", "{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Engine", "tilesim.Engine\tilesim.Engine.csproj", "{365EB32E-85CD-482F-8329-1660455D7E9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Engine.Tests", "tilesim.Engine.Tests\tilesim.Engine.Tests.csproj", "{A7FEDC8F-CE70-4002-BDDB-37514D64342C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Entities", "tilesim.Entities\tilesim.Entities.csproj", "{440222A1-E669-451C-AF43-D6BF7FFAADF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.EngineCustomConsole", "tilesim.EngineCustomConsole\tilesim.EngineCustomConsole.csproj", "{AE4FDE0B-9341-43B3-9F0F-70142BDEA268}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Alerts", "tilesim.Alerts\tilesim.Alerts.csproj", "{85972657-52CF-4C7D-A6E4-DEF232F28C91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Base", "tilesim.Base\tilesim.Base.csproj", "{FB1138A7-129A-4A5C-B069-E8491616257A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Data.Tests.Integration", "tilesim.Data.Tests.Integration\tilesim.Data.Tests.Integration.csproj", "{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tilesim.Engine.Tests.Integration", "tilesim.Engine.Tests.Integration\tilesim.Engine.Tests.Integration.csproj", "{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{365EB32E-85CD-482F-8329-1660455D7E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{365EB32E-85CD-482F-8329-1660455D7E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{365EB32E-85CD-482F-8329-1660455D7E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{365EB32E-85CD-482F-8329-1660455D7E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40CA482C-9A7D-4EFE-B7D7-497F971BFD1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85972657-52CF-4C7D-A6E4-DEF232F28C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85972657-52CF-4C7D-A6E4-DEF232F28C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85972657-52CF-4C7D-A6E4-DEF232F28C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85972657-52CF-4C7D-A6E4-DEF232F28C91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A38BB92-4D97-4FC0-ABFC-3635D5131567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A38BB92-4D97-4FC0-ABFC-3635D5131567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A38BB92-4D97-4FC0-ABFC-3635D5131567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A38BB92-4D97-4FC0-ABFC-3635D5131567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94560C32-AFBD-4DD1-8347-79FE1995137D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94560C32-AFBD-4DD1-8347-79FE1995137D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94560C32-AFBD-4DD1-8347-79FE1995137D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94560C32-AFBD-4DD1-8347-79FE1995137D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A70B60D6-C164-44F4-ACC9-37EFB6A3AA88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FEDC8F-CE70-4002-BDDB-37514D64342C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FEDC8F-CE70-4002-BDDB-37514D64342C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FEDC8F-CE70-4002-BDDB-37514D64342C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FEDC8F-CE70-4002-BDDB-37514D64342C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE4FDE0B-9341-43B3-9F0F-70142BDEA268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE4FDE0B-9341-43B3-9F0F-70142BDEA268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE4FDE0B-9341-43B3-9F0F-70142BDEA268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE4FDE0B-9341-43B3-9F0F-70142BDEA268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB1138A7-129A-4A5C-B069-E8491616257A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 120
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/plain
+		StartupItem = tilesim.EngineConsole\tilesim.EngineConsole.csproj
+	EndGlobalSection
+EndGlobal
