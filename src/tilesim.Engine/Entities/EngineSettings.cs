@@ -62,7 +62,7 @@ namespace tilesim.Engine.Entities
 		#endregion
 
 		#region Milling Settings
-		public decimal TimberMillingRate = 0.01m;
+		public decimal TimberMillingRate = 0.1m;
 		#endregion
 
         public Dictionary<ItemType, int> DefaultPriorities = new Dictionary<ItemType, int> ();
@@ -83,8 +83,8 @@ namespace tilesim.Engine.Entities
 		public EngineSettings()
         {
             DefaultPriorities.Add (ItemType.Water, 100);
-            DefaultPriorities.Add (ItemType.Shelter, 90);
-            DefaultPriorities.Add (ItemType.Food, 80);
+            DefaultPriorities.Add (ItemType.Shelter, 80);
+            DefaultPriorities.Add (ItemType.Food, 90);
             DefaultPriorities.Add (ItemType.Timber, 0);
             DefaultPriorities.Add (ItemType.Wood, 0);
 		}

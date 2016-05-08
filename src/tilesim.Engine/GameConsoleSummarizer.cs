@@ -1,5 +1,7 @@
 using System;
 using tilesim.Engine.Entities;
+using tilesim.Engine;
+using System.Linq;
 
 namespace tilesim.Engine
 {
@@ -31,9 +33,9 @@ namespace tilesim.Engine
                 console.WriteGameLine ("    Activity: " + (Context.Player.Activity != null ? Context.Player.Activity.ToString() : "[idle]"));
                 console.WriteGameLine ("    Inventory");
                 console.WriteGameLine ("      Water: " + (int)Context.Player.Inventory [ItemType.Water] + "  Food: " + (int)Context.Player.Inventory [ItemType.Food] + "   Timber: " + (int)Context.Player.Inventory [ItemType.Timber] + "    Wood: " + (int)Context.Player.Inventory [ItemType.Wood] + " ");
-                console.WriteGameLine ("    Needs");
-                foreach (var need in Context.Player.Needs) {
-                    console.WriteGameLine ("      " + need.ActionType + " " + need.ItemType + ": " + need.Quantity + " (" + need.Priority + ")");
+                console.WriteGameLine ("    Needs:\t\t\tamount\t(priority)");
+                foreach (var need in Context.Player.Needs.OrderByDescending(o=>o.Priority)) {
+                    console.WriteGameLine ("      " + need.ActionType + " " + need.ItemType + ":\t\t" + (int)need.Quantity + "\t(" + need.Priority + ")");
                 }
 
                 /*console.WriteGameLine ("   Priorities:");
@@ -54,6 +56,7 @@ namespace tilesim.Engine
                 console.WriteGameLine ("  Current tile:");
                 console.WriteGameLine ("     People:");
                 console.WriteGameLine ("       Population: " + tile.People.Length);
+                console.WriteGameLine ("       Trees: " + tile.Trees.Length);
                 console.WriteGameLine ("       Items:");
 
                 var inventoryString = "";
