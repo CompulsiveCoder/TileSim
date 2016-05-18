@@ -19,7 +19,7 @@ namespace tilesim.Engine
 		public Dictionary<ItemType, decimal> ItemsProduced = new Dictionary<ItemType, decimal>();
         public Dictionary<ItemType, decimal> ItemsConsumed = new Dictionary<ItemType, decimal>();
         public List<ItemTransfer> Transfers = new List<ItemTransfer>();
-        public Dictionary<PersonVital, decimal> VitalsChange = new Dictionary<PersonVital, decimal> ();
+        public Dictionary<PersonVitalType, decimal> VitalsChange = new Dictionary<PersonVitalType, decimal> ();
         public List<NeedEntry> Needs = new List<NeedEntry>();
 
         public ConsoleHelper Console { get; set; }
@@ -67,8 +67,8 @@ namespace tilesim.Engine
 
 		public void Act(Person person)
 		{
-            var hasSupplies = CheckRequiredItems (person);
-            if (hasSupplies)
+            var canAct = CanAct (person);
+            if (canAct)
                 Execute (person);
             
             CommitActivityResults ();
@@ -84,7 +84,7 @@ namespace tilesim.Engine
 
 		public abstract bool CheckFinished();
 
-        public abstract bool CheckRequiredItems (Person actor);
+        public abstract bool CanAct (Person actor);
 
 		public virtual void Finish()
 		{
@@ -245,19 +245,23 @@ namespace tilesim.Engine
             Transfers.Add (new ItemTransfer(source, destination, itemType, quantity));
         }
 
-        public void AddNeed(ActionType actionType, ItemType itemType, decimal quantity, decimal priority)
+        public void AddNeed(ActionType actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
         {
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");
             
-            Needs.Add (new NeedEntry (actionType, itemType, quantity, priority));
+            Needs.Add (new NeedEntry (actionType, itemType, vitalType, quantity, priority));
         }
 
         public override string ToString ()
         {
             var quantityToProduce = NeedEntry.Quantity;
 
-            return string.Format ("{0} {1} ({2}) {3}", NeedEntry.ActionType, NeedEntry.ItemType, (int)quantityToProduce, Status);
+            return string.Format ("{0} {1} ({2}) {3}",
+                NeedEntry.ActionType,
+                (NeedEntry.ItemType != ItemType.NotSet ? NeedEntry.ItemType.ToString() : ""),
+                (int)quantityToProduce,
+                Status);
         }
 	}
 }

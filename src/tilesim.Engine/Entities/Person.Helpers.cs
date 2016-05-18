@@ -24,7 +24,7 @@ namespace tilesim.Engine.Entities
 			get { return Activity != null; }
 		}
 
-		public bool IsHomeless { get { return Home == null || !Home.IsCompleted; } }
+		public bool HasShelter { get { return Home != null && Home.IsCompleted; } }
 	}
 }
 

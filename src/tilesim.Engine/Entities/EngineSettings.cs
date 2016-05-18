@@ -37,6 +37,7 @@ namespace tilesim.Engine.Entities
         public decimal FoodForHungerRatio = 1;
         public decimal HungerThreshold = 40;
         public decimal DefaultGatherFoodRate = 10;
+        public decimal PersonEnergyConsumptionRate = 0.1m;
 
         public decimal ThirstRate = 0.03m;
         public decimal HungerRate = 0.02m;
@@ -65,7 +66,13 @@ namespace tilesim.Engine.Entities
 		public decimal TimberMillingRate = 0.1m;
 		#endregion
 
-        public Dictionary<ItemType, int> DefaultPriorities = new Dictionary<ItemType, int> ();
+        #region Sleep settings
+        public decimal EnergyFromSleepRate = 1m;
+        public decimal EnergySleepThreshold = 3;
+        #endregion
+
+        public Dictionary<ItemType, int> DefaultItemPriorities = new Dictionary<ItemType, int> ();
+        public Dictionary<PersonVitalType, int> DefaultVitalPriorities = new Dictionary<PersonVitalType, int> ();
 
 		#region Console settings
 		public ConsoleOutputType OutputType = ConsoleOutputType.Debug;
@@ -82,11 +89,16 @@ namespace tilesim.Engine.Entities
 
 		public EngineSettings()
         {
-            DefaultPriorities.Add (ItemType.Water, 100);
-            DefaultPriorities.Add (ItemType.Shelter, 80);
-            DefaultPriorities.Add (ItemType.Food, 90);
-            DefaultPriorities.Add (ItemType.Timber, 0);
-            DefaultPriorities.Add (ItemType.Wood, 0);
+            // TODO: Item priorities should be obsolete. Use vital priorities instead.
+            DefaultItemPriorities.Add (ItemType.Water, 100);
+            DefaultItemPriorities.Add (ItemType.Shelter, 80);
+            DefaultItemPriorities.Add (ItemType.Food, 90);
+            DefaultItemPriorities.Add (ItemType.Timber, 0);
+            DefaultItemPriorities.Add (ItemType.Wood, 0);
+
+            DefaultVitalPriorities.Add (PersonVitalType.Thirst, 100);
+            DefaultVitalPriorities.Add (PersonVitalType.Energy, 95);
+            DefaultVitalPriorities.Add (PersonVitalType.Hunger, 90);
 		}
 
 		public EngineSettings(int gameSpeed)

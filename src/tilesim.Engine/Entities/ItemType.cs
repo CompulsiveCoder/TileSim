@@ -4,6 +4,7 @@ namespace tilesim.Engine.Entities
 {
 	public enum ItemType
 	{
+        NotSet,
 		Shelter,
 		Food,
 		Water,

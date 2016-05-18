@@ -5,7 +5,7 @@ using tilesim.Engine.Needs;
 
 namespace tilesim.Engine.Activities
 {
-    [Activity(ActionType.Fell, ItemType.Wood)]
+    [Activity(ActionType.Fell, ItemType.Wood, PersonVitalType.NotSet)]
 	[Serializable]
 	public class FellWoodActivity : BaseActivity
 	{
@@ -55,7 +55,7 @@ namespace tilesim.Engine.Activities
 				throw new Exception ("Can't fell wood when no trees are available.");
 		}
 
-        public override bool CheckRequiredItems (Person actor)
+        public override bool CanAct (Person actor)
         {
             // TODO: Implement the need for an axe
             return true;

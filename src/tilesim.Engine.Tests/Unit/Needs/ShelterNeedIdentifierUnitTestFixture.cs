@@ -25,7 +25,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
 
 			Assert.AreEqual (ItemType.Shelter, need.ItemType);
 			Assert.AreEqual (1, need.Quantity);
-            Assert.AreEqual (settings.DefaultPriorities[ItemType.Shelter], need.Priority);
+            Assert.AreEqual (settings.DefaultItemPriorities[ItemType.Shelter], need.Priority);
 		}
 
 		[Test]

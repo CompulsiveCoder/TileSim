@@ -4,7 +4,7 @@ using tilesim.Engine.Entities;
 namespace tilesim.Engine.Activities
 {
     [Serializable]
-    [Activity(ActionType.Eat, ItemType.Food)]
+    [Activity(ActionType.Eat, ItemType.Food, PersonVitalType.Hunger)]
     public class EatFoodActivity : BaseActivity
     {
         public decimal CollectionRate = 50.0m;
@@ -27,7 +27,7 @@ namespace tilesim.Engine.Activities
 
             if (Settings.IsVerbose) {
                 Console.WriteDebugLine ("Eating food");
-                Console.WriteDebugLine ("  Current hunger: " + person.Vitals[PersonVital.Hunger]);
+                Console.WriteDebugLine ("  Current hunger: " + person.Vitals[PersonVitalType.Hunger]);
             }
 
             var amount = Settings.DefaultEatAmount;
@@ -45,7 +45,7 @@ namespace tilesim.Engine.Activities
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("  Decreased hunger by: " + hungerDecrease);
 
-            VitalsChange.Add (PersonVital.Hunger, -hungerDecrease);
+            VitalsChange.Add (PersonVitalType.Hunger, -hungerDecrease);
 
             TotalfoodConsumed += amount;
         }
@@ -60,12 +60,13 @@ namespace tilesim.Engine.Activities
             throw new NotImplementedException ();
         }
 
-        public override bool CheckRequiredItems (Person actor)
+        public override bool CanAct (Person actor)
         {
             var foodAvailable = actor.Inventory.Items [ItemType.Food] > 0;
 
-            if (!foodAvailable && Settings.IsVerbose) {
-                Console.WriteDebugLine ("    No food available.");
+            if (!foodAvailable) {
+                if (Settings.IsVerbose)
+                    Console.WriteDebugLine ("    No food available.");
                 RegisterNeedToGatherFood ();
             }
 
@@ -74,7 +75,7 @@ namespace tilesim.Engine.Activities
 
         public void RegisterNeedToGatherFood()
         {
-            AddNeed (ActionType.Gather, ItemType.Food, NeedEntry.Quantity, NeedEntry.Priority + 1);
+            AddNeed (ActionType.Gather, ItemType.Food, PersonVitalType.Hunger, NeedEntry.Quantity, NeedEntry.Priority + 1);
         }
     }
 }

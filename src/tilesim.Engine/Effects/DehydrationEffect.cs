@@ -13,7 +13,7 @@ namespace tilesim.Engine.Effects
         public override bool IsApplicable (Person person)
         {
             var personIsDrinking = (person.ActivityText == typeof(DrinkWaterActivity).Name);
-            var personIsDehydrated = person.Vitals [PersonVital.Thirst] > Settings.DehydrationThreshold;
+            var personIsDehydrated = person.Vitals [PersonVitalType.Thirst] > Settings.DehydrationThreshold;
             return person.IsAlive
                 && personIsDehydrated
                 && !personIsDrinking;
@@ -21,9 +21,9 @@ namespace tilesim.Engine.Effects
 
         public override void Execute (Person person)
         {
-            var difference = person.Vitals [PersonVital.Thirst] - Settings.DehydrationThreshold;
+            var difference = person.Vitals [PersonVitalType.Thirst] - Settings.DehydrationThreshold;
 
-            VitalsChange.Add (PersonVital.Health, -difference);
+            VitalsChange.Add (PersonVitalType.Health, -difference);
         }
     }
 }

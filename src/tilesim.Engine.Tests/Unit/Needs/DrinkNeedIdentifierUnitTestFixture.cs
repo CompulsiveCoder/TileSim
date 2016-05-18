@@ -14,7 +14,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
             var settings = EngineSettings.DefaultVerbose;
 
             var person = new Person (settings);
-            person.Vitals[PersonVital.Thirst] = 80;
+            person.Vitals[PersonVitalType.Thirst] = 80;
 
             var waterNeed = new DrinkWaterNeedIdentifier (settings, new ConsoleHelper(settings));
 
@@ -27,7 +27,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
             Assert.AreEqual (ActionType.Drink, need.ActionType);
             Assert.AreEqual (ItemType.Water, need.ItemType);
             Assert.AreEqual (settings.DefaultDrinkAmount, need.Quantity);
-            Assert.AreEqual (settings.DefaultPriorities[ItemType.Water], need.Priority);
+            Assert.AreEqual (settings.DefaultItemPriorities[ItemType.Water], need.Priority);
         }
 
         [Test]

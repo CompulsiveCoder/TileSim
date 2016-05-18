@@ -13,7 +13,7 @@ namespace tilesim.Engine.Effects
         public override bool IsApplicable (Person person)
         {
             var personIsEating = (person.ActivityText == typeof(EatFoodActivity).Name);
-            var personIsStarving = person.Vitals [PersonVital.Hunger] > Settings.StarvationThreshold;
+            var personIsStarving = person.Vitals [PersonVitalType.Hunger] > Settings.StarvationThreshold;
             return person.IsAlive
                 && personIsStarving
                 && !personIsEating;
@@ -21,9 +21,9 @@ namespace tilesim.Engine.Effects
 
         public override void Execute (Person person)
         {
-            var difference = person.Vitals [PersonVital.Hunger] - Settings.StarvationThreshold;
+            var difference = person.Vitals [PersonVitalType.Hunger] - Settings.StarvationThreshold;
 
-            VitalsChange.Add (PersonVital.Health, -difference);
+            VitalsChange.Add (PersonVitalType.Health, -difference);
         }
     }
 }

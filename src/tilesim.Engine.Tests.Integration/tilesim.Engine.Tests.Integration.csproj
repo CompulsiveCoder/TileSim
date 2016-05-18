@@ -48,6 +48,7 @@
     <Compile Include="BaseEngineIntegrationTestFixture.cs" />
     <Compile Include="Activities\CollectWaterAndDrinkIntegrationTestFixture.cs" />
     <Compile Include="Activities\CollectFoodAndEatIntegrationTestFixture.cs" />
+    <Compile Include="Activities\GetTiredAndSleepIntegrationTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

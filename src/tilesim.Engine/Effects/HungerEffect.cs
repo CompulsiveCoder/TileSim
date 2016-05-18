@@ -18,7 +18,7 @@ namespace tilesim.Engine.Effects
 
         public override void Execute (Person person)
         {
-            VitalsChange.Add (PersonVital.Hunger, +Settings.HungerRate);
+            VitalsChange.Add (PersonVitalType.Hunger, +Settings.HungerRate);
         }
 	}
 }

@@ -6,7 +6,7 @@ namespace tilesim.Engine
 {
     public abstract class BasePersonEffect : BaseEffect
     {
-        public Dictionary<PersonVital, decimal> VitalsChange = new Dictionary<PersonVital, decimal> ();
+        public Dictionary<PersonVitalType, decimal> VitalsChange = new Dictionary<PersonVitalType, decimal> ();
 
         public BasePersonEffect (EngineSettings settings, ConsoleHelper console)
             : base(settings, console)

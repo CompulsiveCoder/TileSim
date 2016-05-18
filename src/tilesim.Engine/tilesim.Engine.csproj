@@ -132,6 +132,9 @@
     <Compile Include="EngineHolder.cs" />
     <Compile Include="Log\LogWriter.cs" />
     <Compile Include="Log\LogKeys.cs" />
+    <Compile Include="Activities\SleepActivity.cs" />
+    <Compile Include="Effects\PersonEnergyEffect.cs" />
+    <Compile Include="Needs\SleepNeedIdentifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

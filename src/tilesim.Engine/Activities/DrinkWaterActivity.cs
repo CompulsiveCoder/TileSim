@@ -4,7 +4,7 @@ using tilesim.Engine.Entities;
 namespace tilesim.Engine.Activities
 {
     [Serializable]
-    [Activity(ActionType.Drink, ItemType.Water)]
+    [Activity(ActionType.Drink, ItemType.Water, PersonVitalType.Thirst)]
     public class DrinkWaterActivity : BaseActivity
     {
         public decimal CollectionRate = 50.0m;
@@ -27,7 +27,7 @@ namespace tilesim.Engine.Activities
 
             if (Settings.IsVerbose) {
                 Console.WriteDebugLine ("Drinking water");
-                Console.WriteDebugLine ("  Current thirst: " + person.Vitals[PersonVital.Thirst]);
+                Console.WriteDebugLine ("  Current thirst: " + person.Vitals[PersonVitalType.Thirst]);
             }
 
             var amount = Settings.DefaultDrinkAmount;
@@ -45,7 +45,7 @@ namespace tilesim.Engine.Activities
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("  Decreased thirst by: " + thirstDecrease);
 
-            VitalsChange.Add (PersonVital.Thirst, -thirstDecrease);
+            VitalsChange.Add (PersonVitalType.Thirst, -thirstDecrease);
 
             TotalWaterConsumed += amount;
         }
@@ -60,7 +60,7 @@ namespace tilesim.Engine.Activities
             throw new NotImplementedException ();
         }
 
-        public override bool CheckRequiredItems (Person actor)
+        public override bool CanAct (Person actor)
         {
             var waterAvailable = actor.Inventory.Items [ItemType.Water] > 0;
 
@@ -80,7 +80,7 @@ namespace tilesim.Engine.Activities
 
         public void RegisterNeedToCollectWater()
         {
-            AddNeed (ActionType.Gather, ItemType.Water, NeedEntry.Quantity, NeedEntry.Priority + 1);
+            AddNeed (ActionType.Gather, ItemType.Water, PersonVitalType.Thirst, NeedEntry.Quantity, NeedEntry.Priority + 1);
         }
     }
 }

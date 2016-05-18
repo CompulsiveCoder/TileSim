@@ -38,7 +38,7 @@ namespace tilesim.Engine.Tests.Integration
 
             var person = new PersonCreator (context.Settings).CreateAdult(); // TODO: Store the PersonCreator object somewhere else
 
-            person.Vitals[PersonVital.Thirst] = 90;
+            person.Vitals[PersonVitalType.Thirst] = 90;
 
             tile.AddPerson (person);
 
@@ -56,7 +56,7 @@ namespace tilesim.Engine.Tests.Integration
             Console.WriteLine ("Analysing test");
             Console.WriteLine ("");
 
-            Assert.AreEqual (0, person.Vitals[PersonVital.Thirst]);
+            Assert.AreEqual (0, person.Vitals[PersonVitalType.Thirst]);
         }
     }
 }

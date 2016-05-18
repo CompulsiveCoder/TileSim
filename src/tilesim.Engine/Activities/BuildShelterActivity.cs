@@ -4,7 +4,7 @@ using tilesim.Engine.Needs;
 
 namespace tilesim.Engine.Activities
 {
-    [Activity(ActionType.Build, ItemType.Shelter)]
+    [Activity(ActionType.Build, ItemType.Shelter, PersonVitalType.NotSet)]
 	public class BuildShelterActivity : BaseActivity
 	{
 		public Building Shelter;
@@ -32,7 +32,7 @@ namespace tilesim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-        public override bool CheckRequiredItems (Person person)
+        public override bool CanAct (Person person)
         {
             if (ResourcesNeeded (person)) {
                 RegisterNeedToMillTimber (person, Settings.ShelterTimberCost);
@@ -91,7 +91,7 @@ namespace tilesim.Engine.Activities
 
 			var home = person.Home;
 
-            Status = "Building " + home.PercentComplete + "%";
+            Status = "Building " + (int)home.PercentComplete + "%";
 
             home.PercentComplete += PercentageValidator.Validate (Settings.ConstructionRate);
 
@@ -118,7 +118,7 @@ namespace tilesim.Engine.Activities
 			if (Settings.IsVerbose)
                 Console.WriteDebugLine ("        Registering the need to " + ActionType.Mill + " " + amountOfTimber + " timber");
 			
-            AddNeed(ActionType.Mill, ItemType.Timber, amountOfTimber, NeedEntry.Priority+1);
+            AddNeed(ActionType.Mill, ItemType.Timber, PersonVitalType.NotSet, amountOfTimber, NeedEntry.Priority+1);
 		}
 
 		public BuildStatus GetBuildStatus(Person person)

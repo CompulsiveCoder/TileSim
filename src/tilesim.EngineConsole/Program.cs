@@ -11,7 +11,7 @@ namespace tilesim.EngineConsole
 			var settings = SettingsParser.GetSettings (args);
 
             settings.OutputType = ConsoleOutputType.Game;
-            settings.GameSpeed = 20;
+            settings.GameSpeed = 50;
 
 			LaunchGame (settings);
 		}

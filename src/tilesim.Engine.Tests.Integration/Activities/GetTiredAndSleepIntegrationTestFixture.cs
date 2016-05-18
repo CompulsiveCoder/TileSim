@@ -1,16 +1,14 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using tilesim.Engine.Entities;
-using tilesim.Engine.Needs;
-using tilesim.Engine.Activities;
 
 namespace tilesim.Engine.Tests.Integration
 {
-    [TestFixture(Category="Integration")]
-    public class CollectFoodAndEatIntegrationTestFixture : BaseEngineIntegrationTestFixture
+    [TestFixtureAttribute(Category="Integration")]
+    public class GetTiredAndSleepIntegrationTestFixture : BaseEngineIntegrationTestFixture
     {
         [Test]
-        public void Test_GetHungryCollectFoodAndEat()
+        public void Test_GetTiredAndSleep()
         {
             Console.WriteLine ("");
             Console.WriteLine ("Preparing test");
@@ -21,17 +19,14 @@ namespace tilesim.Engine.Tests.Integration
             context.Settings.DefaultGatherFoodRate = 50; // Increase the rate of food gathering so the test goes faster
             context.Settings.DefaultEatAmount = 100; // Increase the amount the person eats so the test goes faster
 
-            context.World.Logic.AddNeed (new EatFoodNeedIdentifier (context.Settings, context.Console));
-            context.World.Logic.AddActivity (typeof(GatherFoodActivity));
-            context.World.Logic.AddActivity (typeof(EatFoodActivity));
+            context.World.Logic.AddNeed (new SleepNeedIdentifier (context.Settings, context.Console));
+            context.World.Logic.AddActivity (typeof(SleepActivity));
 
             var tile = context.World.Tiles [0];
 
-            tile.Inventory[ItemType.Food] = 200;
+            var person = context.World.PersonCreator.CreateAdult();
 
-            var person = new PersonCreator (context.Settings).CreateAdult(); // TODO: Store the PersonCreator object somewhere else
-
-            person.Vitals[PersonVitalType.Hunger] = 90;
+            person.Vitals[PersonVitalType.Energy] = 0;
 
             tile.AddPerson (person);
 
@@ -43,13 +38,17 @@ namespace tilesim.Engine.Tests.Integration
 
             context.Initialize (); // TODO: Should Start be part of the test? Or part of the preparation before the above console output?
 
-            context.Run (5);
+            var numberOfCycles = 5;
+
+            context.Run (numberOfCycles);
 
             Console.WriteLine ("");
             Console.WriteLine ("Analysing test");
             Console.WriteLine ("");
 
-            Assert.AreEqual (0, person.Vitals[PersonVitalType.Hunger]);
+            var expectedEnergy = context.Settings.EnergyFromSleepRate * numberOfCycles / 2; // Divide by 2 because the person has no shelter.
+
+            Assert.AreEqual (expectedEnergy, person.Vitals[PersonVitalType.Energy]);
         }
     }
 }

@@ -27,8 +27,8 @@ namespace tilesim.Engine
                 console.WriteGameLine ("  Real clock: " + Context.Clock.GetRealDurationString () + "   Game clock: " + Context.Clock.GetGameDurationString ());
 
                 console.WriteGameLine ("  Player:");
-                console.WriteGameLine ("    Age: " + Convert.ToInt32 (Context.Player.Age) + "    Gender:" + Context.Player.Gender + "    Health:" + Context.Player.Vitals [PersonVital.Health]);
-                console.WriteGameLine ("    Thirst: " + Convert.ToInt32 (Context.Player.Vitals [PersonVital.Thirst]) + "   Hunger:" + Convert.ToInt32 (Context.Player.Vitals [PersonVital.Hunger]));
+                console.WriteGameLine ("    Age: " + Convert.ToInt32 (Context.Player.Age) + "    Gender:" + Context.Player.Gender + "    Health:" + Context.Player.Vitals [PersonVitalType.Health]);
+                console.WriteGameLine ("    Energy: " + Convert.ToInt32 (Context.Player.Vitals [PersonVitalType.Energy]) + "   Thirst: " + Convert.ToInt32 (Context.Player.Vitals [PersonVitalType.Thirst]) + "   Hunger:" + Convert.ToInt32 (Context.Player.Vitals [PersonVitalType.Hunger]));
                 console.WriteGameLine ("    Home: " + (Context.Player.Home != null ? (int)Context.Player.Home.PercentComplete : 0) + "%");
                 console.WriteGameLine ("    Activity: " + (Context.Player.Activity != null ? Context.Player.Activity.ToString() : "[idle]"));
                 console.WriteGameLine ("    Inventory");

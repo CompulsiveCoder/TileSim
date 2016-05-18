@@ -62,6 +62,7 @@
     <Compile Include="Unit\Needs\MealNeedIdentifierUnitTestFixture.cs" />
     <Compile Include="Unit\Activities\GatherFoodActivityUnitTestFixture.cs" />
     <Compile Include="Unit\Activities\EatFoodActivityUnitTestFixture.cs" />
+    <Compile Include="Unit\Activities\SleepActivityUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

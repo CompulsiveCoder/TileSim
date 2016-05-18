@@ -56,11 +56,13 @@ namespace tilesim.Engine
         {
             var logic = new GameLogic ();
 
+            logic.AddEffect (new PersonEnergyEffect (settings, console));
             logic.AddEffect (new ThirstEffect (settings, console));
             logic.AddEffect (new HungerEffect (settings, console));
             logic.AddEffect (new DehydrationEffect (settings, console));
             logic.AddEffect (new StarvationEffect (settings, console));
 
+            logic.AddNeed (new SleepNeedIdentifier (settings, console));
             logic.AddNeed (new BuildShelterNeedIdentifier (settings, console));
             logic.AddNeed (new DrinkWaterNeedIdentifier (settings, console));
             logic.AddNeed (new EatFoodNeedIdentifier (settings, console));
@@ -72,6 +74,7 @@ namespace tilesim.Engine
             logic.AddActivity (typeof(GatherFoodActivity));
             logic.AddActivity (typeof(CollectWaterActivity));
             logic.AddActivity (typeof(DrinkWaterActivity));
+            logic.AddActivity (typeof(SleepActivity));
 
             return logic;
         }

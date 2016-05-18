@@ -87,7 +87,7 @@ namespace tilesim.Engine.Decisions
 			var possibleActivities = new List<ActivityInfo> ();
 
 			foreach (var activityInfo in Context.World.Logic.Activities) {
-                if (activityInfo.IsSuited (needEntry.ActionType, needEntry.ItemType)) {
+                if (activityInfo.IsSuited (needEntry.ActionType, needEntry.ItemType, needEntry.VitalType)) {
 					possibleActivities.Add (activityInfo);
 				}
 			}

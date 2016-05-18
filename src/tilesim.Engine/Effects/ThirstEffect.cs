@@ -20,7 +20,7 @@ namespace tilesim.Engine.Effects
 
         public override void Execute (Person person)
         {
-            VitalsChange.Add (PersonVital.Thirst, +Settings.ThirstRate);
+            VitalsChange.Add (PersonVitalType.Thirst, +Settings.ThirstRate);
 		}
 	}
 }

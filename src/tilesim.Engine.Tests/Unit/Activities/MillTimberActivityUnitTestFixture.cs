@@ -26,7 +26,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
 
-            var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, 50, 101);
+            var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, PersonVitalType.NotSet, 50, 101);
 
             var activity = new MillTimberActivity (person, needEntry, context.Settings, context.Console);
 
@@ -58,7 +58,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
 
-            var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, 50, 101);
+            var needEntry = new NeedEntry (ActionType.Mill, ItemType.Timber, PersonVitalType.NotSet, 50, 101);
 
             var activity = new MillTimberActivity (person, needEntry, context.Settings, context.Console);
 

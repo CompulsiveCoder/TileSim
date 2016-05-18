@@ -8,6 +8,8 @@ namespace tilesim.Engine
 	{
         public ActionType ActionType { get;set; }
 
+        public PersonVitalType VitalType { get;set; }
+
 		public ItemType ItemType { get; set; }
 
 		public decimal Quantity { get; set; }
@@ -16,13 +18,15 @@ namespace tilesim.Engine
 
 		public NeedEntry (
             ActionType actionType,
-			ItemType needType,
+            ItemType itemType,
+            PersonVitalType vitalType,
 			decimal quantity,
 			decimal priority
 		)
 		{
             ActionType = actionType;
-			ItemType = needType;
+			ItemType = itemType;
+            VitalType = vitalType;
 			Quantity = quantity;
 			Priority = priority;
 		}

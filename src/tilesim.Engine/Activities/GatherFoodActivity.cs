@@ -4,7 +4,7 @@ using tilesim.Engine.Entities;
 namespace tilesim.Engine.Activities
 {
     [Serializable]
-    [Activity(ActionType.Gather, ItemType.Food)]
+    [Activity(ActionType.Gather, ItemType.Food, PersonVitalType.NotSet)]
     public class GatherFoodActivity : BaseActivity
     {
         public decimal GatherionRate = 50.0m;
@@ -54,7 +54,7 @@ namespace tilesim.Engine.Activities
             base.ConfirmProduced (entry);
         }
 
-        public override bool CheckRequiredItems (Person actor)
+        public override bool CanAct (Person actor)
         {
             if (actor.Tile == null)
                 throw new Exception ("actor.Tile property is null.");

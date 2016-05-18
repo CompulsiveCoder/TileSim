@@ -14,7 +14,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
             var settings = EngineSettings.DefaultVerbose;
 
             var person = new Person (settings);
-            person.Vitals[PersonVital.Hunger] = 80;
+            person.Vitals[PersonVitalType.Hunger] = 80;
 
             var mealNeed = new EatFoodNeedIdentifier (settings, new ConsoleHelper(settings));
 
@@ -27,7 +27,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
             Assert.AreEqual (ActionType.Eat, need.ActionType);
             Assert.AreEqual (ItemType.Food, need.ItemType);
             Assert.AreEqual (settings.DefaultEatAmount, need.Quantity);
-            Assert.AreEqual (settings.DefaultPriorities[ItemType.Food], need.Priority);
+            Assert.AreEqual (settings.DefaultItemPriorities[ItemType.Food], need.Priority);
         }
 
         [Test]

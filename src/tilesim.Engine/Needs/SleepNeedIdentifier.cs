@@ -1,23 +1,23 @@
-using System;
+﻿using System;
 using tilesim.Engine.Entities;
 
-namespace tilesim.Engine.Needs
+namespace tilesim.Engine
 {
-    public class DrinkWaterNeedIdentifier : BaseNeedIdentifier
+    public class SleepNeedIdentifier : BaseNeedIdentifier
     {
-        public DrinkWaterNeedIdentifier (EngineSettings settings, ConsoleHelper console)
-            : base(ActionType.Drink, ItemType.Water, PersonVitalType.Thirst, settings, console)
+        public SleepNeedIdentifier (EngineSettings settings, ConsoleHelper console)
+            : base(ActionType.Sleep, ItemType.NotSet, PersonVitalType.Energy, settings, console)
         {
         }
 
         public override bool IsNeeded (Person person)
         {
-            return person.Vitals[PersonVitalType.Thirst] > Settings.ThirstThreshold;
+            return person.Vitals[PersonVitalType.Energy] < Settings.EnergySleepThreshold;
         }
 
         public override void RegisterNeed(Person person, ActionType actionType, ItemType itemType, PersonVitalType vitalType, decimal priority)
         {
-            var quantity = Settings.DefaultDrinkAmount;
+            var quantity = 100 - person.Vitals[PersonVitalType.Energy];
 
             if (!NeedIsRegistered (person, actionType, itemType, vitalType, quantity)) {
                 AddNeed (actionType, itemType, vitalType, quantity, priority);
@@ -25,3 +25,4 @@ namespace tilesim.Engine.Needs
         }
     }
 }
+

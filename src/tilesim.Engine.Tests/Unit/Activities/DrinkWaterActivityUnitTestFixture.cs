@@ -25,9 +25,15 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
             var person = new Person (settings);
             person.Inventory [ItemType.Water] = 100;
-            person.Vitals[PersonVital.Thirst] = 80;
+            person.Vitals[PersonVitalType.Thirst] = 80;
 
-            var needEntry = new NeedEntry (ActionType.Drink, ItemType.Water, settings.DefaultDrinkAmount, settings.DefaultPriorities[ItemType.Water]);
+            var needEntry = new NeedEntry (
+                ActionType.Drink,
+                ItemType.Water,
+                PersonVitalType.Thirst,
+                settings.DefaultDrinkAmount,
+                settings.DefaultItemPriorities[ItemType.Water]
+            );
 
             var activity = new DrinkWaterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
@@ -41,7 +47,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             Console.WriteLine ("Analysing test");
             Console.WriteLine ("");
 
-            Assert.AreEqual(70, person.Vitals[PersonVital.Thirst]);
+            Assert.AreEqual(70, person.Vitals[PersonVitalType.Thirst]);
 
         }
     }

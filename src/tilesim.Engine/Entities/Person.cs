@@ -29,16 +29,17 @@ namespace tilesim.Engine.Entities
 
 		public List<NeedEntry> Needs = new List<NeedEntry>();
 
-        public Dictionary<PersonVital, decimal> Vitals = new Dictionary<PersonVital, decimal> ();
+        public Dictionary<PersonVitalType, decimal> Vitals = new Dictionary<PersonVitalType, decimal> ();
 
         public Person (EngineSettings settings)
         {
             Demands = new DemandList (this);
             Inventory = new Inventory (this, Demands, settings);
 
-            Vitals.Add (PersonVital.Health, 100);
-            Vitals.Add (PersonVital.Thirst, 0);
-            Vitals.Add (PersonVital.Hunger, 0);
+            Vitals.Add (PersonVitalType.Energy, 100);
+            Vitals.Add (PersonVitalType.Health, 100);
+            Vitals.Add (PersonVitalType.Thirst, 0);
+            Vitals.Add (PersonVitalType.Hunger, 0);
 		}
 
 		public void IncreaseAge(double amount)
@@ -46,9 +47,9 @@ namespace tilesim.Engine.Entities
 			Age += amount;
 		}
 
-		public void AddNeed(ActionType actionType, ItemType needType, decimal quantity, decimal priority)
+        public void AddNeed(ActionType actionType, PersonVitalType vitalType, ItemType needType, decimal quantity, decimal priority)
 		{
-			AddNeed(new NeedEntry (actionType, needType, quantity, priority));
+            AddNeed(new NeedEntry (actionType, needType, vitalType, quantity, priority));
 		}
 
 		public void AddNeed(NeedEntry needEntry)
@@ -63,12 +64,12 @@ namespace tilesim.Engine.Entities
 			        select n).Count () > 0;
 		}
 
-		public bool HasNeed(ActionType actionType, ItemType needType, decimal quantity)
+		public bool HasNeed(ActionType actionType, ItemType needType, PersonVitalType vitalType, decimal quantity)
 		{
 			return (from n in Needs
                 where n.ActionType == actionType
-                && n.ItemType == needType
-				&& n.Quantity == quantity
+                && (n.ItemType == needType
+                    || n.VitalType == vitalType)
 				select n).Count () > 0;
 		}
 	}

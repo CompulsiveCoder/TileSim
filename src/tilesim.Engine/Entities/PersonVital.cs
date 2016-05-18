@@ -2,11 +2,13 @@ using System;
 
 namespace tilesim.Engine.Entities
 {
-    public enum PersonVital
+    public enum PersonVitalType
     {
+        NotSet,
         Thirst,
         Hunger,
-        Health
+        Health,
+        Energy
     }
 }
 

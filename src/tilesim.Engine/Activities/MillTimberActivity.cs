@@ -6,7 +6,7 @@ using tilesim.Engine.Needs;
 namespace tilesim.Engine.Activities
 {
 	[Serializable]
-    [Activity(ActionType.Mill, ItemType.Timber)]
+    [Activity(ActionType.Mill, ItemType.Timber, PersonVitalType.NotSet)]
 	public class MillTimberActivity : BaseActivity
 	{
 		public decimal TotalTimberMilled = 0;
@@ -49,7 +49,7 @@ namespace tilesim.Engine.Activities
 			ConvertWoodToTimber (person, amountOfTimberToMillThisCycle);
 		}
 
-        public override bool CheckRequiredItems(Person actor)
+        public override bool CanAct(Person actor)
 		{
             if (!HasEnoughWood (NeedEntry.Quantity)) {
                 RegisterNeedForWood (Actor, NeedEntry.Quantity);
@@ -66,12 +66,12 @@ namespace tilesim.Engine.Activities
 			if (Settings.IsVerbose)
                 Console.WriteDebugLine ("  Registering the need to " + ActionType.Fell + "  " + amountOfWoodNeeded + " wood");
 
-            person.AddNeed (ActionType.Fell, ItemType.Wood, amountOfWoodNeeded, NeedEntry.Priority+1);
+            person.AddNeed (ActionType.Fell, PersonVitalType.NotSet, ItemType.Wood, amountOfWoodNeeded, NeedEntry.Priority+1);
 		}
 
 		public void ConvertWoodToTimber(Person actor, decimal amountOfTimber)
 		{
-            Status = "Milling wood into timber " + TotalTimberMilled;
+            Status = "Milling wood into timber " + (int)TotalTimberMilled;
 
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("  Converting wood to timber");

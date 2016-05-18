@@ -21,7 +21,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			var person = new Person (settings);
             person.Inventory.AddItem (ItemType.Timber, 50); // TODO: Get the 50 value from somewhere easier to configures
 
-            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
+            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, PersonVitalType.NotSet, 1, 100);
 
             var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
@@ -49,7 +49,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			person.Home = new Building (BuildingType.House, settings);
             person.Home.Inventory.Items[ItemType.Timber] = 50; // TODO: Get the 50 value from somewhere easier to configures
 
-            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
+            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, PersonVitalType.NotSet, 1, 100);
 
             var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
@@ -74,7 +74,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             person.Home.Inventory.Items [ItemType.Timber] = settings.ShelterTimberCost;
 			person.Home.PercentComplete = 99;
 
-            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
+            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, PersonVitalType.NotSet, 1, 100);
 
 			person.AddNeed (needEntry);
 
@@ -96,7 +96,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
 			var person = new Person (settings);
 
-            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, 1, 100);
+            var needEntry = new NeedEntry (ActionType.Build, ItemType.Shelter, PersonVitalType.NotSet, 1, 100);
 
             var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 

@@ -13,7 +13,7 @@ namespace tilesim.Engine
         {
             var personIsPlayer = (Settings.PlayerId == person.Id);
 
-            var personIsDead = person.Vitals [PersonVital.Health] <= 0;
+            var personIsDead = person.Vitals [PersonVitalType.Health] <= 0;
 
             return personIsPlayer
                 && personIsDead;

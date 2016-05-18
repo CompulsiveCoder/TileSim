@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using tilesim.Engine.Activities;
 using tilesim.Engine.Entities;
@@ -6,10 +6,10 @@ using tilesim.Engine.Entities;
 namespace tilesim.Engine.Tests.Unit.Activities
 {
     [TestFixture(Category="Unit")]
-    public class EatFoodActivityUnitTestFixture : BaseEngineUnitTestFixture
+    public class SleepActivityUnitTestFixture : BaseEngineUnitTestFixture
     {
         [Test]
-        public void Test_EatFood_FoodAvailable()
+        public void Test_Sleep_ShelterAvailable()
         {
             Console.WriteLine ("");
             Console.WriteLine ("Preparing test");
@@ -17,15 +17,19 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
             var context = MockEngineContext.New ();
 
+            context.World.Logic.AddActivity (typeof(DrinkWaterActivity));
+
             var settings = context.Settings;
 
             var person = new Person (settings);
-            person.Inventory [ItemType.Food] = 100;
-            person.Vitals[PersonVitalType.Hunger] = 80;
+            person.Vitals[PersonVitalType.Energy] = 0;
 
-            var needEntry = new NeedEntry (ActionType.Eat, ItemType.Food, PersonVitalType.NotSet, settings.DefaultEatAmount, settings.DefaultItemPriorities[ItemType.Food]);
+            person.Home = new Building (BuildingType.Shelter, settings);
+            person.Home.PercentComplete = 100;
 
-            var activity = new EatFoodActivity (person, needEntry, settings, context.Console);
+            var needEntry = new NeedEntry (ActionType.Sleep, ItemType.NotSet, PersonVitalType.Energy, 100, settings.DefaultVitalPriorities[PersonVitalType.Energy]);
+
+            var activity = new SleepActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");
@@ -37,7 +41,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             Console.WriteLine ("Analysing test");
             Console.WriteLine ("");
 
-            Assert.AreEqual(70, person.Vitals[PersonVitalType.Hunger]);
+            Assert.AreEqual(settings.EnergyFromSleepRate, person.Vitals[PersonVitalType.Energy]);
 
         }
     }

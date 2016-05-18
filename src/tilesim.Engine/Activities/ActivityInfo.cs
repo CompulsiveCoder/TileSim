@@ -11,6 +11,8 @@ namespace tilesim.Engine
 
         public ItemType ItemType { get; set; }
 
+        public PersonVitalType VitalType { get; set; }
+
 		public ActivityInfo ()
 		{
 		}
@@ -22,9 +24,11 @@ namespace tilesim.Engine
 			DetectDetailsFromAttribute (activityType);
 		}
 
-		public bool IsSuited(ActionType actionType, ItemType itemType)
+        public bool IsSuited(ActionType actionType, ItemType itemType, PersonVitalType vitalType)
 		{
-            return ActionType == actionType && ItemType == itemType;
+            return ActionType == actionType
+                && (ItemType == itemType
+                    || VitalType == vitalType);
 		}
 
 		public void DetectDetailsFromAttribute(Type activityType)
@@ -38,7 +42,13 @@ namespace tilesim.Engine
 
             ActionType = attribute.ActionType;
             ItemType = attribute.ItemType;
+            VitalType = attribute.VitalType;
 		}
+
+        public override string ToString ()
+        {
+            return string.Format ("[{0}, {1} {2} ({3})]", ActivityType, ActionType, ItemType, VitalType);
+        }
 	}
 }
 
