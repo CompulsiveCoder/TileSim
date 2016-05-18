@@ -17,47 +17,6 @@ namespace tilesim.Engine
 			Decider = new PersonDecider (context);
 		}
 
-		public void Start(Person person)
-		{
-			throw new NotImplementedException ();
-
-			/*switch (person.ActivityType) {
-			case ActivityType.Drinking:
-				new DrinkActivity (person, Context).Start ();
-				break;
-			case ActivityType.CollectingWater:
-				new CollectWaterActivity (person, Context).Start ();
-				break;
-			case ActivityType.Builder:
-				new BuildActivity (person, Context).Start ();
-				break;
-			case ActivityType.Eating:
-				new EatActivity (person, Context).Start ();
-				break;
-			case ActivityType.Harvesting:
-				new HarvestActivity (person, Context).Start ();
-				break;
-			case ActivityType.Gardening:
-				new GardenActivity (person, Context).Start ();
-				break;
-			case ActivityType.FellWood:
-				throw new NotImplementedException ();
-				//new FellWoodActivity (person, Context).Start ();
-				break;
-			case ActivityType.MillTimber:
-				new MillTimberActivity (person, Context).Start ();
-				break;
-			case ActivityType.PlantTrees:
-				new PlantTreesActivity (person, Context).Start ();
-				break;
-			case ActivityType.Inactive:
-				// Don't do anything
-				break;
-			default:
-				throw new Exception ("Unsupported activity: " + person.ActivityType);
-			}*/
-		}
-
 		public void StartSingleCycle(Person person)
 		{
 			if (Context.Settings.IsVerbose)
@@ -68,19 +27,6 @@ namespace tilesim.Engine
 			ChooseActivity (person);
 
 			PerformActivity (person);
-
-			// TODO
-			//RemoveObsoleteNeeds (person);
-
-			/*SetPriorities (person);
-
-			MakeDecisions (person);
-
-			if (person.Activity == null)
-				Start (person);
-
-			if (person.Activity != null)
-				person.Activity.StartSingleCycle ();*/
 		}
 
 		public void RegisterNeeds(Person person)
@@ -117,17 +63,6 @@ namespace tilesim.Engine
 
 			if (activity != null)
 				activity.Act (person);
-		}
-
-		public void RemoveObsoleteNeeds(Person person)
-		{
-			throw new NotImplementedException ();
-
-			/*foreach (var entry in person.Needs) {
-				var existingAmount = person.Inventory.Items [entry.Type];
-				if (existingAmount > entry.Quantity)
-					person.Needs.Remove (entry);
-			}*/
 		}
 	}
 }

@@ -46,19 +46,6 @@ namespace tilesim.Engine.Entities
 			Age += amount;
 		}
 
-		public void ValidateProperties()
-		{
-            throw new NotImplementedException ();
-            // TODO: Remove if not needed
-			/*if (Age < 0)
-				Age = 0;
-			if (Thirst < 0)
-				Thirst = 0;
-			if (Health < 0)
-				Health = 0;*/
-		}
-
-
 		public void AddNeed(ActionType actionType, ItemType needType, decimal quantity, decimal priority)
 		{
 			AddNeed(new NeedEntry (actionType, needType, quantity, priority));

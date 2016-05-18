@@ -159,7 +159,7 @@ namespace tilesim.Engine
 			Persons.StartSingleCycle (person);
 
 
-			// TODO: Remove. Obsolete
+			// TODO: Ensure all the following activities have been reimplemented then remove this code
 			/*var decideActivity = new DecideActivity ();
 			var collectWaterActivity = new CollectWaterActivity (Settings);
 			var drinkActivity = new DrinkActivity (Settings);
@@ -185,6 +185,7 @@ namespace tilesim.Engine
 
 		public void PlayerDied()
 		{
+            // TODO: Reimplement
 			throw new NotImplementedException ();
 
 			// TODO: Move to player engine
@@ -193,13 +194,6 @@ namespace tilesim.Engine
 			
 			Console.WriteDebugLine ("The player died.");
 			Console.WriteDebugLine ("Game Over");*/
-		}
-
-		public void Populate()
-		{
-            throw new NotImplementedException ();
-            // TODO: Clean up
-			//CreateTile();
 		}
 
 		public void Dispose()
