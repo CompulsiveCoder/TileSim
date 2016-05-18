@@ -1,6 +1,5 @@
 using System;
 using tilesim.Engine.Entities;
-using tilesim.Data;
 using tilesim.Engine.Activities;
 
 namespace tilesim.Engine.Effects
@@ -13,7 +12,7 @@ namespace tilesim.Engine.Effects
 
         public override bool IsApplicable (Person person)
         {
-            var personIsEating = (person.ActivityName == typeof(EatFoodActivity).Name);
+            var personIsEating = (person.ActivityText == typeof(EatFoodActivity).Name);
             return person.IsAlive && !personIsEating;
         }
 

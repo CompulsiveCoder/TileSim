@@ -85,10 +85,6 @@
       <Project>{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}</Project>
       <Name>tilesim.Data.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\tilesim.Entities\tilesim.Entities.csproj">
-      <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
-      <Name>tilesim.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\tilesim.Alerts\tilesim.Alerts.csproj">
       <Project>{85972657-52CF-4C7D-A6E4-DEF232F28C91}</Project>
       <Name>tilesim.Alerts</Name>

@@ -4,10 +4,11 @@ using tilesim.Engine.Entities;
 
 namespace tilesim.Data.Tests.Unit
 {
-	[TestFixture]
+	//[TestFixture]
 	public class InstructionApplierTestFixture
 	{
-		[Test]
+        // TODO: Remove or reimplement
+		//[Test]
 		public void Test_Apply_EditInstruction()
 		{
 			// TODO: Use a test entity rather than the tile entity to reduce processing cost

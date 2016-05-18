@@ -2,8 +2,9 @@ using System;
 using Sider;
 using datamanager.Data;
 
-namespace tilesim.Data
+namespace tilesim.Log
 {
+    // TODO Overhaul
 	public class LogWriter
 	{
         public BaseRedisClientWrapper Client;
@@ -18,12 +19,6 @@ namespace tilesim.Data
             
 			Keys = new LogKeys ("TileSim-" + engineId + "-");
 		}
-
-		/*public LogWriter (string prefix)
-		{
-			Client = new RedisClient ();
-			Keys = new LogKeys (prefix);
-		}*/
 
 		public void WriteLine(string line)
 		{

@@ -1,7 +1,6 @@
 using System;
 using tilesim.Engine;
 using datamanager.Data;
-using tilesim.Data;
 using Newtonsoft.Json;
 
 namespace tilesim.Engine.Entities
@@ -23,18 +22,9 @@ namespace tilesim.Engine.Entities
 		
     	public EngineInfo (DateTime startTime, EngineSettings settings)
 		{
-		//	throw new NotImplementedException ();
 			Settings = settings;
 			StartTime = startTime;
 		}
-
-		/*public EngineInfo(EngineSettings settings, EngineClock clock, DataManager data, LogWriter log)
-		{
-			Settings = settings;
-			Clock = clock;
-			Data = data;
-			Log = log;
-		}*/
 	}
 }
 

@@ -7,7 +7,8 @@
 	<script runat="server">
 	void Page_Load()
 	{
-		CurrentEngine.StartGame();
+        var speed = Convert.ToInt32(Request.QueryString["speed"]);
+		EngineHolder.StartGame(speed);
 		Response.Redirect("Default.aspx");
 	}
 	</script>

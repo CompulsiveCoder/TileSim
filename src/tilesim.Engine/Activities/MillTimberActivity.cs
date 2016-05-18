@@ -1,6 +1,5 @@
 using System;
 using tilesim.Engine.Activities;
-using tilesim.Data;
 using tilesim.Engine.Entities;
 using tilesim.Engine.Needs;
 
@@ -38,8 +37,8 @@ namespace tilesim.Engine.Activities
 			// TODO: Remove if not needed
 			/*if (Settings.PlayerId == Person.Id
 			    && Settings.OutputType == ConsoleOutputType.General) {
-				PlayerLog.WriteLine (CurrentEngine.Id, "The player has started milling timber.");
-				PlayerLog.WriteLine (CurrentEngine.Id, "Timber needed: " + amountOfTimber);
+				PlayerLog.WriteLine (EngineHolder.Id, "The player has started milling timber.");
+				PlayerLog.WriteLine (EngineHolder.Id, "Timber needed: " + amountOfTimber);
 			}*/
 
 			var amountOfTimberToMillThisCycle = Settings.TimberMillingRate;
@@ -95,10 +94,11 @@ namespace tilesim.Engine.Activities
                 }
             }
 
+            // TODO: Remove or reimplement
 			/*if (Settings.PlayerId == Person.Id
 				&& Settings.OutputType == ConsoleOutputType.General) {
-				PlayerLog.WriteLine (CurrentEngine.Id, "The player has started milling timber.");
-				PlayerLog.WriteLine (CurrentEngine.Id, TotalTimberMilled + " timber");
+				PlayerLog.WriteLine (EngineHolder.Id, "The player has started milling timber.");
+				PlayerLog.WriteLine (EngineHolder.Id, TotalTimberMilled + " timber");
 			}*/
 		}
 

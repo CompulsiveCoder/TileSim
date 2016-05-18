@@ -54,7 +54,6 @@
     <Compile Include="TilelessException.cs" />
     <Compile Include="PlayerDiedException.cs" />
     <Compile Include="EngineLog.cs" />
-    <Compile Include="CurrentEngine.cs" />
     <Compile Include="EngineClock.cs" />
     <Compile Include="Prioritizers\ShelterPrioritizer.cs" />
     <Compile Include="Prioritizers\WaterPrioritizer.cs" />
@@ -73,10 +72,6 @@
     <Compile Include="Entities\PersonCreator.cs" />
     <Compile Include="Entities\Plant.cs" />
     <Compile Include="Entities\PlantType.cs" />
-    <Compile Include="Data\InstructionApplier.cs" />
-    <Compile Include="Data\LogWriter.cs" />
-    <Compile Include="Data\Parser.cs" />
-    <Compile Include="Data\PersonSummary.cs" />
     <Compile Include="Activities\MillTimberActivity.cs" />
     <Compile Include="ConsoleOutputType.cs" />
     <Compile Include="Activities\FellWoodActivity.cs" />
@@ -86,7 +81,6 @@
     <Compile Include="GameLauncher.cs" />
     <Compile Include="GameCreator.cs" />
     <Compile Include="EngineContextStarter.cs" />
-    <Compile Include="Data\LogKeys.cs" />
     <Compile Include="Populators\TilePopulator.cs" />
     <Compile Include="Populators\BasePopulator.cs" />
     <Compile Include="Environment\GameEnvironment.cs" />
@@ -135,16 +129,15 @@
     <Compile Include="Effects\DehydrationEffect.cs" />
     <Compile Include="Effects\PlayerDeathEffect.cs" />
     <Compile Include="Entities\TileCreator.cs" />
+    <Compile Include="EngineHolder.cs" />
+    <Compile Include="Log\LogWriter.cs" />
+    <Compile Include="Log\LogKeys.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\tilesim.Data\tilesim.Data.csproj">
       <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
       <Name>tilesim.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\tilesim.Entities\tilesim.Entities.csproj">
-      <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
-      <Name>tilesim.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\tilesim.Alerts\tilesim.Alerts.csproj">
       <Project>{85972657-52CF-4C7D-A6E4-DEF232F28C91}</Project>
@@ -159,10 +152,10 @@
     <Folder Include="Decisions\" />
     <Folder Include="Prioritizers\" />
     <Folder Include="Entities\" />
-    <Folder Include="Data\" />
     <Folder Include="Populators\" />
     <Folder Include="Environment\" />
     <Folder Include="Needs\" />
     <Folder Include="Transfers\" />
+    <Folder Include="Log\" />
   </ItemGroup>
 </Project>

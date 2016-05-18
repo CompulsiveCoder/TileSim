@@ -14,7 +14,8 @@
 	<form id="form1" runat="server">
 		<link rel="stylesheet" type="text/css" href="default.css">
 		<h1>Tile Sim</h1>
-		<div id="newGame" onclick="newGame();">New Game</div>
+        <div>Speed: <input type="text" id="GameSpeed" value="10"/></div>
+        <div id="newGame" onclick="newGame();">New Game</div>
 		<div id="gameCont"></div>
     
         <div id="rightCol">

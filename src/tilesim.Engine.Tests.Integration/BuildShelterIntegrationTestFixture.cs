@@ -46,7 +46,7 @@ namespace tilesim.Engine.Tests.Integration
 
 			context.Initialize (); // TODO: Should Start be part of the test? Or part of the preparation before the above console output?
 
-			context.Run (10);
+			context.Run (20);
 
             Console.WriteLine ("");
             Console.WriteLine ("Analysing test");

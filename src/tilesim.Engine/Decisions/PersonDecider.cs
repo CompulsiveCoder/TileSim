@@ -1,7 +1,6 @@
 using System;
 using tilesim.Engine.Entities;
 using System.Collections.Generic;
-using tilesim.Data;
 using tilesim.Engine.Needs;
 
 namespace tilesim.Engine.Decisions
@@ -25,7 +24,7 @@ namespace tilesim.Engine.Decisions
 			if (Context.Settings.IsVerbose)
                 Context.Console.WriteDebugLine ("    Deciding");
 			
-			var previousActivityName = person.ActivityName;
+			var previousActivityName = person.ActivityText;
 
 			var currentActivity = ChooseActivityBasedOnNeeds (person);
 
@@ -105,59 +104,19 @@ namespace tilesim.Engine.Decisions
                 Context.Console.WriteDebugLine ("    Activity chosen: " + possibleActivities [0].ActivityType.Name);
 			}
 
-			var activity = Creator.CreateActivity(person, possibleActivities[0].ActivityType, needEntry);
+            var activity = GetActivity (person, possibleActivities [0].ActivityType, needEntry);
 
 			return activity;
-
-
-			// TODO: Remove if not needed
-		/*	var previousActivity = person.ActivityType;
-
-			if (Context.Settings.OutputType == ConsoleOutputType.Debug
-				&& person.Id == Context.Settings.PlayerId) {
-				Console.WriteDebugLine ("Need: " + needType.ToString ());
-			}
-
-			if (needType == NeedType.Shelter) {
-
-				if (person.HasDemand(NeedType.Timber))
-				{
-					if (person.HasDemand(NeedType.Wood))
-						new WoodDecision (Context).Decide (person);
-					else
-						new TimberDecision (Context).Decide (person);
-				}
-				else
-					new ShelterDecision ().Decide (person);
-			}
-			else if (needType == NeedType.Water)
-			{
-				new WaterDecision (Context).Decide (person);
-			}
-			else if (needType == NeedType.Food)
-			{
-				new FoodDecision (Context).Decide (person);
-			}
-
-			var activityHasChanged = previousActivity != person.ActivityType;
-
-			if (activityHasChanged && Context.Settings.PlayerId == person.Id) {
-				switch (person.ActivityType) {
-				case ActivityType.CollectingWater:
-					Context.Log.WriteLine ("The player has started collecting water.");
-					break;
-				case ActivityType.Drinking:
-					Context.Log.WriteLine("The player has started drinking water.");
-					break;
-				case ActivityType.FellWood:
-					Context.Log.WriteLine ("The player has started felling wood.");
-					break;
-				case ActivityType.MillTimber:
-					Context.Log.WriteLine ("The player has started milling timber.");
-					break;
-				}
-			}*/
 		}
+
+        public BaseActivity GetActivity(Person person, Type activityType, NeedEntry needEntry)
+        {
+            var activity = person.GetActivity (activityType);
+            if (activity == null)
+                activity = Creator.CreateActivity(person, activityType, needEntry);
+
+            return activity;
+        }
 
 		public int RandomlySelectEntryIndex(int length)
 		{

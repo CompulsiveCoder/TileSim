@@ -65,7 +65,7 @@ namespace tilesim.Engine
 
 			RegisterNeeds (person);
 
-			MakeDecisions (person);
+			ChooseActivity (person);
 
 			PerformActivity (person);
 
@@ -93,19 +93,7 @@ namespace tilesim.Engine
 			}
 		}
 
-		// TODO: Remove if not needed
-		/*public void SetPriorities(Person person)
-		{
-			var shelterPrioritizer = new ShelterPrioritizer ();
-			var foodPrioritizer = new FoodPrioritizer ();
-			var waterPrioritizer = new WaterPrioritizer ();
-
-			waterPrioritizer.Prioritize (person);
-			shelterPrioritizer.Prioritize (person);
-			foodPrioritizer.Prioritize (person);
-		}*/
-
-		public void MakeDecisions(Person person)
+		public void ChooseActivity(Person person)
 		{
 			if (Context.Settings.IsVerbose)
                 Context.Console.WriteDebugLine ("  Making decisions for person");

@@ -1,7 +1,7 @@
 using System;
 using tilesim.Engine.Entities;
-using tilesim.Data;
 using datamanager.Data;
+using tilesim.Log;
 
 namespace tilesim.Engine
 {
@@ -12,16 +12,13 @@ namespace tilesim.Engine
 
 		public EngineProcess Engine { get;set; }
 
-		// TODO: Remove if not needed
-		//public LogWriter PlayerLog { get;set; }
-
 		public EngineClock Clock { get; set; }
 
 		public EngineSettings Settings { get; set; }
 
 		public DataManager Data { get;set; }
 
-		public LogWriter Log;
+        public LogWriter Log;
 
 		public EngineInfo Info;
 

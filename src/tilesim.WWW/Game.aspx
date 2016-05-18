@@ -15,7 +15,7 @@
 <body>
 	<form id="form1" runat="server">
 		<div id="body">
-			<% if (CurrentEngine.IsStarted) { %>
+			<% if (EngineHolder.IsStarted) { %>
 				<div id="leftCol">
 					<uc:GameInfo id="GameInfo" runat="server" />
 					<uc:Player id="Player" runat="server" />

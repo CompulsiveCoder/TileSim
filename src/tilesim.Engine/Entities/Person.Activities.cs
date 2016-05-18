@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace tilesim.Engine.Entities
 {
@@ -16,6 +17,15 @@ namespace tilesim.Engine.Entities
             }
         }
 
+        public string ActivityText {
+            get {
+                if (Activity == null)
+                    return String.Empty;
+                else
+                    return Activity.ToString ();
+            }
+        }
+
         public BaseActivity Activity {
             get {
                 if (ActivityQueue.Count == 0)
@@ -24,6 +34,25 @@ namespace tilesim.Engine.Entities
                     return ActivityQueue [0];   
             }
         }
+
+        public bool HasActivity(Type activityType)
+        {
+            var hasActivity = (from a in ActivityQueue
+                                        where a.GetType () == activityType
+                                        select a).Count () > 0;
+
+            return hasActivity;
+        }
+
+        public BaseActivity GetActivity(Type activityType)
+        {
+            var activity = (from a in ActivityQueue
+                where a.GetType () == activityType
+                select a).SingleOrDefault();
+
+            return activity;
+        }
+
 
         public void RushActivity(BaseActivity activity)
         {

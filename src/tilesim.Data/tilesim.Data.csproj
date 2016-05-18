@@ -50,10 +50,4 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\tilesim.Entities\tilesim.Entities.csproj">
-      <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
-      <Name>tilesim.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

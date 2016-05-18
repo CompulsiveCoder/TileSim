@@ -12,7 +12,7 @@ namespace tilesim
 
         void Page_Load(object sender, EventArgs e)
         {
-            Tile = CurrentEngine.Context.Player.Tile;
+            Tile = EngineHolder.Context.Player.Tile;
         }
     }
 }

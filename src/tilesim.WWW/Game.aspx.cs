@@ -11,13 +11,14 @@ namespace tilesim
 		public string EngineId = String.Empty;
 
 		public void Page_Load(object sender, EventArgs e)
-		{
-			var id = Request.QueryString["engineId"];
+        {
+            /*var id = Request.QueryString["engineId"];
+            var speed = Convert.ToInt32(Request.QueryString["speed"]);
 			if (!String.IsNullOrEmpty(id))
 			{
 				EngineId = id;	
-				CurrentEngine.StartThread(EngineId);
-			}
+				EngineHolder.StartThread(EngineId, speed);
+			}*/
 		}
 	}
 }
