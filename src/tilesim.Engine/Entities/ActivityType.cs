@@ -1,22 +1,17 @@
 using System;
-using Newtonsoft.Json;
 
-namespace tilesim.Engine.Entities
+namespace tilesim.Engine
 {
-	public enum ActivityType
-	{
-		Inactive = 0,
-		Eating,
-		Drinking,
-		Builder,
-		Forestry,
-		Gardening,
-		Harvesting,
-		CollectingWater,
-		FellWood,
-		PlantTrees,
-		MillTimber
-	}
-
+    public enum ActivityType
+    {
+        NotSet,
+        Sleep,
+        Build,
+        Eat,
+        Drink,
+        Gather,
+        Fell,
+        Mill
+    }
 }
 

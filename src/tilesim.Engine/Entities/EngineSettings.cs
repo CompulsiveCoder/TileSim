@@ -37,14 +37,14 @@ namespace tilesim.Engine.Entities
         public decimal FoodForHungerRatio = 1;
         public decimal HungerThreshold = 40;
         public decimal DefaultGatherFoodRate = 10;
-        public decimal PersonEnergyConsumptionRate = 0.1m;
+        public decimal PersonEnergyConsumptionRate = 0.001m;
 
         public decimal ThirstRate = 0.03m;
         public decimal HungerRate = 0.02m;
         #endregion
 
 		#region Wood Settings
-		public decimal FellingRate = 0.1m;
+		public decimal FellingRate = 0.05m;
 
 		public decimal TreeGrowthRate = 0.0000001m;
 		#endregion
@@ -57,18 +57,18 @@ namespace tilesim.Engine.Entities
 		#region Building Settings
 		public decimal TimberNeededForHouse = 50; // TODO: Remove if not needed
 
-		public double ConstructionRate = 0.01;
+		public double ConstructionRate = 0.005;
 
         public decimal ShelterTimberCost = 50;
 		#endregion
 
 		#region Milling Settings
-		public decimal TimberMillingRate = 0.1m;
+		public decimal TimberMillingRate = 0.05m;
 		#endregion
 
         #region Sleep settings
-        public decimal EnergyFromSleepRate = 1m;
-        public decimal EnergySleepThreshold = 3;
+        public decimal EnergyFromSleepRate = 0.2m;
+        public decimal EnergySleepThreshold = 5;
         #endregion
 
         public Dictionary<ItemType, int> DefaultItemPriorities = new Dictionary<ItemType, int> ();

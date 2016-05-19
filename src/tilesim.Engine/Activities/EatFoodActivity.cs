@@ -4,7 +4,7 @@ using tilesim.Engine.Entities;
 namespace tilesim.Engine.Activities
 {
     [Serializable]
-    [Activity(ActionType.Eat, ItemType.Food, PersonVitalType.Hunger)]
+    [Activity(ActivityType.Eat, ItemType.Food, PersonVitalType.Hunger)]
     public class EatFoodActivity : BaseActivity
     {
         public decimal CollectionRate = 50.0m;
@@ -75,7 +75,7 @@ namespace tilesim.Engine.Activities
 
         public void RegisterNeedToGatherFood()
         {
-            AddNeed (ActionType.Gather, ItemType.Food, PersonVitalType.Hunger, NeedEntry.Quantity, NeedEntry.Priority + 1);
+            AddNeed (ActivityType.Gather, ItemType.Food, PersonVitalType.Hunger, NeedEntry.Quantity, NeedEntry.Priority + 1);
         }
     }
 }

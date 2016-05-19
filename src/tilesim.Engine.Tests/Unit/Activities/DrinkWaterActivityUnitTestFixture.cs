@@ -28,7 +28,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             person.Vitals[PersonVitalType.Thirst] = 80;
 
             var needEntry = new NeedEntry (
-                ActionType.Drink,
+                ActivityType.Drink,
                 ItemType.Water,
                 PersonVitalType.Thirst,
                 settings.DefaultDrinkAmount,

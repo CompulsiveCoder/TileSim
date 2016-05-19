@@ -81,8 +81,6 @@
     <Compile Include="GameLauncher.cs" />
     <Compile Include="GameCreator.cs" />
     <Compile Include="EngineContextStarter.cs" />
-    <Compile Include="Populators\TilePopulator.cs" />
-    <Compile Include="Populators\BasePopulator.cs" />
     <Compile Include="Environment\GameEnvironment.cs" />
     <Compile Include="Entities\BaseGameEntity.cs" />
     <Compile Include="Entities\Person.Helpers.cs" />
@@ -117,7 +115,6 @@
     <Compile Include="Effects\ThirstEffect.cs" />
     <Compile Include="Effects\BaseEffect.cs" />
     <Compile Include="Effects\BasePersonEffect.cs" />
-    <Compile Include="Entities\ActionType.cs" />
     <Compile Include="Needs\BuildShelterNeedIdentifier.cs" />
     <Compile Include="Activities\EatFoodActivity.cs" />
     <Compile Include="Effects\HungerEffect.cs" />
@@ -135,6 +132,7 @@
     <Compile Include="Activities\SleepActivity.cs" />
     <Compile Include="Effects\PersonEnergyEffect.cs" />
     <Compile Include="Needs\SleepNeedIdentifier.cs" />
+    <Compile Include="Entities\ActivityType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -148,14 +146,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Alerts\" />
     <Folder Include="Effects\" />
     <Folder Include="Activities\" />
     <Folder Include="Utilities\" />
     <Folder Include="Decisions\" />
     <Folder Include="Prioritizers\" />
     <Folder Include="Entities\" />
-    <Folder Include="Populators\" />
     <Folder Include="Environment\" />
     <Folder Include="Needs\" />
     <Folder Include="Transfers\" />

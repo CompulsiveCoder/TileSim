@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace tilesim.Engine.Entities
 {
+    // TODO: Should any of these be reimplemented?
 	public partial class Tile
 	{
 		[JsonIgnore]

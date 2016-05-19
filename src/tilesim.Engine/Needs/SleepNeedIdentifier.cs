@@ -6,16 +6,16 @@ namespace tilesim.Engine
     public class SleepNeedIdentifier : BaseNeedIdentifier
     {
         public SleepNeedIdentifier (EngineSettings settings, ConsoleHelper console)
-            : base(ActionType.Sleep, ItemType.NotSet, PersonVitalType.Energy, settings, console)
+            : base(ActivityType.Sleep, ItemType.NotSet, PersonVitalType.Energy, settings, console)
         {
         }
 
         public override bool IsNeeded (Person person)
         {
-            return person.Vitals[PersonVitalType.Energy] < Settings.EnergySleepThreshold;
+            return person.Vitals[PersonVitalType.Energy] <= Settings.EnergySleepThreshold;
         }
 
-        public override void RegisterNeed(Person person, ActionType actionType, ItemType itemType, PersonVitalType vitalType, decimal priority)
+        public override void RegisterNeed(Person person, ActivityType actionType, ItemType itemType, PersonVitalType vitalType, decimal priority)
         {
             var quantity = 100 - person.Vitals[PersonVitalType.Energy];
 

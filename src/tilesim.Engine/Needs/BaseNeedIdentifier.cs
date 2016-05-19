@@ -7,7 +7,7 @@ namespace tilesim.Engine
 {
 	public abstract class BaseNeedIdentifier
 	{
-        public ActionType ActionType { get;set; }
+        public ActivityType ActionType { get;set; }
 
 		public ItemType ItemType { get; set; }
 
@@ -21,7 +21,7 @@ namespace tilesim.Engine
 
         public ConsoleHelper Console { get; set; }
 
-        public BaseNeedIdentifier(ActionType actionType, ItemType itemType, PersonVitalType vitalType, EngineSettings settings, ConsoleHelper console)
+        public BaseNeedIdentifier(ActivityType actionType, ItemType itemType, PersonVitalType vitalType, EngineSettings settings, ConsoleHelper console)
 		{
             ActionType = actionType;
 			ItemType = itemType;
@@ -37,7 +37,7 @@ namespace tilesim.Engine
 
 		public abstract bool IsNeeded (Person person);
 
-        public abstract void RegisterNeed(Person person, ActionType actionType, ItemType needType, PersonVitalType vitalType, decimal priority);
+        public abstract void RegisterNeed(Person person, ActivityType actionType, ItemType needType, PersonVitalType vitalType, decimal priority);
 
 		public virtual void RegisterIfNeeded(Person person)
 		{            
@@ -53,12 +53,12 @@ namespace tilesim.Engine
             CommitNeeds (person);
 		}
 
-        public virtual bool NeedIsRegistered (Person person, ActionType actionType, ItemType needType, PersonVitalType vitalType, decimal quantity)
+        public virtual bool NeedIsRegistered (Person person, ActivityType actionType, ItemType needType, PersonVitalType vitalType, decimal quantity)
         {
             return person.HasNeed (actionType, needType, vitalType, quantity);
         }
 
-        public void AddNeed(ActionType actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
+        public void AddNeed(ActivityType actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
         {
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("    Registering the need to " + actionType + " " + quantity + " " + itemType + ".");

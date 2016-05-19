@@ -123,6 +123,7 @@ namespace tilesim.Engine
                 // People
                 ProcessPeople ();
 
+                EnsurePlayerIsAlive ();
             }
 
             Context.Console.WriteDebugLine ("");
@@ -154,6 +155,13 @@ namespace tilesim.Engine
             }
         }
 
+        public void EnsurePlayerIsAlive()
+        {
+            if (!Context.Player.IsAlive)
+                PlayerDied ();
+        }
+
+
 		public void RunCycleForPerson(Person person)
 		{
 			Persons.StartSingleCycle (person);
@@ -184,16 +192,9 @@ namespace tilesim.Engine
 		}
 
 		public void PlayerDied()
-		{
-            // TODO: Reimplement
-			throw new NotImplementedException ();
-
-			// TODO: Move to player engine
-			/*if (Settings.OutputType == ConsoleOutputType.Game)
-				ShowSummary ();
-			
-			Console.WriteDebugLine ("The player died.");
-			Console.WriteDebugLine ("Game Over");*/
+		{			
+			Context.Console.WriteDebugLine ("The player died.");
+            Context.Console.WriteDebugLine ("Game Over");
 		}
 
 		public void Dispose()

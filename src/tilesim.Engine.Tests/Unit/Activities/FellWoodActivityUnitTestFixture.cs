@@ -27,7 +27,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-            var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
+            var needEntry = new NeedEntry (ActivityType.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
 
             var activity = new FellWoodActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
@@ -58,7 +58,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-            var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
+            var needEntry = new NeedEntry (ActivityType.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
 
             var activity = new FellWoodActivity (person, needEntry, settings, new ConsoleHelper(settings));
 			activity.Target = tile.Trees [0];
@@ -90,7 +90,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
-            var needEntry = new NeedEntry (ActionType.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
+            var needEntry = new NeedEntry (ActivityType.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
 
 			person.AddNeed (needEntry);
 

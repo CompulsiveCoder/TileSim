@@ -6,7 +6,7 @@ namespace tilesim.Engine.Needs
     public class DrinkWaterNeedIdentifier : BaseNeedIdentifier
     {
         public DrinkWaterNeedIdentifier (EngineSettings settings, ConsoleHelper console)
-            : base(ActionType.Drink, ItemType.Water, PersonVitalType.Thirst, settings, console)
+            : base(ActivityType.Drink, ItemType.Water, PersonVitalType.Thirst, settings, console)
         {
         }
 
@@ -15,7 +15,7 @@ namespace tilesim.Engine.Needs
             return person.Vitals[PersonVitalType.Thirst] > Settings.ThirstThreshold;
         }
 
-        public override void RegisterNeed(Person person, ActionType actionType, ItemType itemType, PersonVitalType vitalType, decimal priority)
+        public override void RegisterNeed(Person person, ActivityType actionType, ItemType itemType, PersonVitalType vitalType, decimal priority)
         {
             var quantity = Settings.DefaultDrinkAmount;
 

@@ -4,7 +4,7 @@ using tilesim.Engine.Entities;
 namespace tilesim.Engine
 {
     [Serializable]
-    [Activity(ActionType.Sleep, ItemType.NotSet, PersonVitalType.Energy)]
+    [Activity(ActivityType.Sleep, ItemType.NotSet, PersonVitalType.Energy)]
     public class SleepActivity : BaseActivity
     {
         public decimal TotalEnergyRecovered = 0;
@@ -41,7 +41,11 @@ namespace tilesim.Engine
 
             VitalsChange.Add (PersonVitalType.Energy, amountOfEnergyThisCycle);
 
-            Status = String.Format ("Sleeping ({0}/{1})", TotalEnergyRecovered, NeedEntry.Quantity);
+            var fraction = NeedEntry.Quantity / 100;
+
+            var percentComplete = fraction * TotalEnergyRecovered;
+
+            Status = String.Format ("Sleeping {0}%", percentComplete);
         }
 
         public override bool CanAct(Person actor)

@@ -245,7 +245,7 @@ namespace tilesim.Engine
             Transfers.Add (new ItemTransfer(source, destination, itemType, quantity));
         }
 
-        public void AddNeed(ActionType actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
+        public void AddNeed(ActivityType actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
         {
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");

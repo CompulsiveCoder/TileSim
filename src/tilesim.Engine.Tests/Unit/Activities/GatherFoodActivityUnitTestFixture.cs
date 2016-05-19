@@ -29,7 +29,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             var person = new Person (settings);
             person.Tile = tile;
 
-            var needEntry = new NeedEntry (ActionType.Gather, ItemType.Food, PersonVitalType.Hunger, settings.DefaultEatAmount, settings.DefaultItemPriorities[ItemType.Food]);
+            var needEntry = new NeedEntry (ActivityType.Gather, ItemType.Food, PersonVitalType.Hunger, settings.DefaultEatAmount, settings.DefaultItemPriorities[ItemType.Food]);
 
             var activity = new GatherFoodActivity (person, needEntry, settings, context.Console);
 

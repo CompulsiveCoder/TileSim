@@ -6,7 +6,7 @@ namespace tilesim.Engine.Needs
     public class EatFoodNeedIdentifier : BaseNeedIdentifier
     {
         public EatFoodNeedIdentifier (EngineSettings settings, ConsoleHelper console)
-            : base(ActionType.Eat, ItemType.Food, PersonVitalType.Hunger, settings, console)
+            : base(ActivityType.Eat, ItemType.Food, PersonVitalType.Hunger, settings, console)
         {
         }
 
@@ -15,7 +15,7 @@ namespace tilesim.Engine.Needs
             return person.Vitals[PersonVitalType.Hunger] > Settings.HungerThreshold;
         }
 
-        public override void RegisterNeed(Person person, ActionType actionType, ItemType needType, PersonVitalType vitalType, decimal priority)
+        public override void RegisterNeed(Person person, ActivityType actionType, ItemType needType, PersonVitalType vitalType, decimal priority)
         {
             var quantity = Settings.DefaultEatAmount;
 

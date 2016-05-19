@@ -7,7 +7,7 @@ namespace tilesim.Engine
 	{
 		public Type ActivityType { get; set; }
 
-        public ActionType ActionType { get; set; }
+        public ActivityType ActionType { get; set; }
 
         public ItemType ItemType { get; set; }
 
@@ -24,7 +24,7 @@ namespace tilesim.Engine
 			DetectDetailsFromAttribute (activityType);
 		}
 
-        public bool IsSuited(ActionType actionType, ItemType itemType, PersonVitalType vitalType)
+        public bool IsSuited(ActivityType actionType, ItemType itemType, PersonVitalType vitalType)
 		{
             return ActionType == actionType
                 && (ItemType == itemType

@@ -6,7 +6,7 @@ namespace tilesim.Engine
     [Serializable]
 	public class NeedEntry
 	{
-        public ActionType ActionType { get;set; }
+        public ActivityType ActionType { get;set; }
 
         public PersonVitalType VitalType { get;set; }
 
@@ -17,7 +17,7 @@ namespace tilesim.Engine
 		public decimal Priority { get; set; }
 
 		public NeedEntry (
-            ActionType actionType,
+            ActivityType actionType,
             ItemType itemType,
             PersonVitalType vitalType,
 			decimal quantity,

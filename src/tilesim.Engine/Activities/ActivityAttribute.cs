@@ -5,11 +5,11 @@ namespace tilesim.Engine
 {
 	public class ActivityAttribute : Attribute
     {
-        public ActionType ActionType { get; set; }
+        public ActivityType ActionType { get; set; }
         public ItemType ItemType { get; set; }
         public PersonVitalType VitalType { get; set; }
 
-        public ActivityAttribute (ActionType actionType, ItemType itemType, PersonVitalType vitalType)
+        public ActivityAttribute (ActivityType actionType, ItemType itemType, PersonVitalType vitalType)
 		{
             ActionType = actionType;
             ItemType = itemType;

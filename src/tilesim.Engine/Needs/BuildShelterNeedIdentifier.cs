@@ -6,7 +6,7 @@ namespace tilesim.Engine.Needs
     public class BuildShelterNeedIdentifier : BaseNeedIdentifier
     {
         public BuildShelterNeedIdentifier (EngineSettings settings, ConsoleHelper console)
-            : base(ActionType.Build, ItemType.Shelter, PersonVitalType.NotSet, settings, console)
+            : base(ActivityType.Build, ItemType.Shelter, PersonVitalType.NotSet, settings, console)
         {
         }
 
@@ -15,7 +15,7 @@ namespace tilesim.Engine.Needs
             return !person.HasShelter;
         }
 
-        public override void RegisterNeed(Person person, ActionType actionType, ItemType itemType, PersonVitalType vitalType, decimal priority)
+        public override void RegisterNeed(Person person, ActivityType actionType, ItemType itemType, PersonVitalType vitalType, decimal priority)
         {
             if (!NeedIsRegistered (person, actionType, itemType, vitalType, 1)) {
                 AddNeed (actionType, itemType, vitalType, 1, priority);

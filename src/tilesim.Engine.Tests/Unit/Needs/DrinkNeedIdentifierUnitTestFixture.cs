@@ -24,7 +24,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
 
             var need = person.Needs [0];
 
-            Assert.AreEqual (ActionType.Drink, need.ActionType);
+            Assert.AreEqual (ActivityType.Drink, need.ActionType);
             Assert.AreEqual (ItemType.Water, need.ItemType);
             Assert.AreEqual (settings.DefaultDrinkAmount, need.Quantity);
             Assert.AreEqual (settings.DefaultItemPriorities[ItemType.Water], need.Priority);
