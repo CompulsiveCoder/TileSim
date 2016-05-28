@@ -19,7 +19,7 @@ namespace tilesim.Engine.Entities
         public int DefaultWaterPerTile = 50000;
         public int DefaultPeoplePerTile = 5;
         public int DefaultTreesPerTile = 100;
-        public int DefaultFoodPerTile = 1000;
+        public int DefaultFoodPerTile = 10000;
         #endregion
 
 		#region Player settings
@@ -34,7 +34,7 @@ namespace tilesim.Engine.Entities
         public decimal DefaultCollectWaterRate = 10;
         public decimal WaterForThirstRatio = 1;
         public decimal DefaultEatAmount = 10;
-        public decimal FoodForHungerRatio = 1;
+        public decimal FoodForHungerRatio = 0.5m;
         public decimal HungerThreshold = 40;
         public decimal DefaultGatherFoodRate = 10;
         public decimal PersonEnergyConsumptionRate = 0.001m;

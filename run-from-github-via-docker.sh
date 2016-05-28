@@ -10,4 +10,4 @@ fi
 
 echo "Branch: $BRANCH"
 
-docker run -t -p 8082:8082 compulsivecoder/ubuntu-mono-redis /bin/bash -c "curl https://raw.githubusercontent.com/CompulsiveCoder/TileSim/$BRANCH/run-from-github.sh | sh -s $BRANCH"
+docker run -t -p 8083:8082 compulsivecoder/ubuntu-mono-redis /bin/bash -c "curl https://raw.githubusercontent.com/CompulsiveCoder/TileSim/$BRANCH/run-from-github.sh | sh -s $BRANCH"

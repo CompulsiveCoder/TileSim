@@ -37,7 +37,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             Console.WriteLine ("Analysing test");
             Console.WriteLine ("");
 
-            Assert.AreEqual(70, person.Vitals[PersonVitalType.Hunger]);
+            Assert.AreEqual(75, person.Vitals[PersonVitalType.Hunger]);
 
         }
     }

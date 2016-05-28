@@ -49,7 +49,7 @@ namespace tilesim.Engine.Tests.Integration
             Console.WriteLine ("Analysing test");
             Console.WriteLine ("");
 
-            Assert.AreEqual (0, person.Vitals[PersonVitalType.Hunger]);
+            Assert.AreEqual (40, person.Vitals[PersonVitalType.Hunger]);
         }
     }
 }

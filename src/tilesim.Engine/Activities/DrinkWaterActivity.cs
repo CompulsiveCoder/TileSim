@@ -7,8 +7,6 @@ namespace tilesim.Engine.Activities
     [Activity(ActivityType.Drink, ItemType.Water, PersonVitalType.Thirst)]
     public class DrinkWaterActivity : BaseActivity
     {
-        public decimal CollectionRate = 50.0m;
-
         public decimal TotalWaterConsumed = 0;
 
         public DrinkWaterActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
