@@ -1,8 +1,8 @@
 using System;
 
-namespace tilesim.Engine
+namespace tilesim.Engine.Activities
 {
-    public enum ActivityType
+    public enum ActivityVerb
     {
         NotSet,
         Sleep,
@@ -11,7 +11,8 @@ namespace tilesim.Engine
         Drink,
         Gather,
         Fell,
-        Mill
+        Mill,
+        Flee
     }
 }
 

@@ -1,12 +1,13 @@
 using System;
 using tilesim.Engine.Entities;
+using tilesim.Engine.Activities;
 
 namespace tilesim.Engine
 {
     [Serializable]
 	public class NeedEntry
 	{
-        public ActivityType ActionType { get;set; }
+        public ActivityVerb ActionType { get;set; }
 
         public PersonVitalType VitalType { get;set; }
 
@@ -17,7 +18,7 @@ namespace tilesim.Engine
 		public decimal Priority { get; set; }
 
 		public NeedEntry (
-            ActivityType actionType,
+            ActivityVerb actionType,
             ItemType itemType,
             PersonVitalType vitalType,
 			decimal quantity,

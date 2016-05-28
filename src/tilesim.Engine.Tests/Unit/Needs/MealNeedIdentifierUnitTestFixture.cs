@@ -2,6 +2,7 @@ using System;
 using tilesim.Engine.Entities;
 using NUnit.Framework;
 using tilesim.Engine.Needs;
+using tilesim.Engine.Activities;
 
 namespace tilesim.Engine.Tests.Unit.Needs
 {
@@ -24,7 +25,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
 
             var need = person.Needs [0];
 
-            Assert.AreEqual (ActivityType.Eat, need.ActionType);
+            Assert.AreEqual (ActivityVerb.Eat, need.ActionType);
             Assert.AreEqual (ItemType.Food, need.ItemType);
             Assert.AreEqual (settings.DefaultEatAmount, need.Quantity);
             Assert.AreEqual (settings.DefaultItemPriorities[ItemType.Food], need.Priority);

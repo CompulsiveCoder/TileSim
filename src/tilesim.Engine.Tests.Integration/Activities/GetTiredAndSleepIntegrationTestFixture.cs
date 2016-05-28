@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using tilesim.Engine.Entities;
+using tilesim.Engine.Activities;
 
 namespace tilesim.Engine.Tests.Integration
 {

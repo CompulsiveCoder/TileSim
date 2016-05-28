@@ -1,7 +1,7 @@
 using System;
 using tilesim.Engine.Entities;
 
-namespace tilesim.Engine
+namespace tilesim.Engine.Activities
 {
 	public class ActivityCreator
 	{

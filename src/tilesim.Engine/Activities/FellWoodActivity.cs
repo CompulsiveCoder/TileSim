@@ -5,7 +5,7 @@ using tilesim.Engine.Needs;
 
 namespace tilesim.Engine.Activities
 {
-    [Activity(ActivityType.Fell, ItemType.Wood, PersonVitalType.NotSet)]
+    [Activity(ActivityVerb.Fell, ItemType.Wood, PersonVitalType.NotSet)]
 	[Serializable]
 	public class FellWoodActivity : BaseActivity
 	{

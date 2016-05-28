@@ -4,7 +4,7 @@ using tilesim.Engine.Entities;
 namespace tilesim.Engine.Activities
 {
     [Serializable]
-    [Activity(ActivityType.Gather, ItemType.Food, PersonVitalType.NotSet)]
+    [Activity(ActivityVerb.Gather, ItemType.Food, PersonVitalType.NotSet)]
     public class GatherFoodActivity : BaseActivity
     {
         public decimal GatherionRate = 50.0m;

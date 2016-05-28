@@ -23,7 +23,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             person.Inventory [ItemType.Food] = 100;
             person.Vitals[PersonVitalType.Hunger] = 80;
 
-            var needEntry = new NeedEntry (ActivityType.Eat, ItemType.Food, PersonVitalType.NotSet, settings.DefaultEatAmount, settings.DefaultItemPriorities[ItemType.Food]);
+            var needEntry = new NeedEntry (ActivityVerb.Eat, ItemType.Food, PersonVitalType.NotSet, settings.DefaultEatAmount, settings.DefaultItemPriorities[ItemType.Food]);
 
             var activity = new EatFoodActivity (person, needEntry, settings, context.Console);
 

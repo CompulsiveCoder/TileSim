@@ -3,7 +3,7 @@ using tilesim.Engine.Entities;
 using tilesim.Engine.Needs;
 using System.Collections.Generic;
 
-namespace tilesim.Engine
+namespace tilesim.Engine.Activities
 {
     [Serializable]
 	public abstract class BaseActivity
@@ -245,7 +245,7 @@ namespace tilesim.Engine
             Transfers.Add (new ItemTransfer(source, destination, itemType, quantity));
         }
 
-        public void AddNeed(ActivityType actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
+        public void AddNeed(ActivityVerb actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
         {
             if (Settings.IsVerbose)
                 Console.WriteDebugLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");

@@ -28,7 +28,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             var person = new Person (settings);
             person.Tile = tile;
 
-            var needEntry = new NeedEntry (ActivityType.Gather, ItemType.Water, PersonVitalType.Thirst, settings.DefaultDrinkAmount, settings.DefaultItemPriorities[ItemType.Water]);
+            var needEntry = new NeedEntry (ActivityVerb.Gather, ItemType.Water, PersonVitalType.Thirst, settings.DefaultDrinkAmount, settings.DefaultItemPriorities[ItemType.Water]);
 
             var activity = new CollectWaterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 

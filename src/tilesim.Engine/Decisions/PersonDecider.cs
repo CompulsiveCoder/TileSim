@@ -2,6 +2,7 @@ using System;
 using tilesim.Engine.Entities;
 using System.Collections.Generic;
 using tilesim.Engine.Needs;
+using tilesim.Engine.Activities;
 
 namespace tilesim.Engine.Decisions
 {
@@ -11,7 +12,7 @@ namespace tilesim.Engine.Decisions
 
 		public EngineContext Context { get; set; }
 
-		public ActivityCreator Creator { get;set; }
+        public ActivityCreator Creator { get;set; }
 
 		public PersonDecider (EngineContext context)
 		{

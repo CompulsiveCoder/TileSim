@@ -132,7 +132,9 @@
     <Compile Include="Activities\SleepActivity.cs" />
     <Compile Include="Effects\PersonEnergyEffect.cs" />
     <Compile Include="Needs\SleepNeedIdentifier.cs" />
-    <Compile Include="Entities\ActivityType.cs" />
+    <Compile Include="Activities\FightActivity.cs" />
+    <Compile Include="Activities\FleeActivity.cs" />
+    <Compile Include="Activities\ActivityVerb.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

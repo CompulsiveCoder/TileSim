@@ -47,7 +47,7 @@ namespace tilesim.Engine.Entities
 			Age += amount;
 		}
 
-        public void AddNeed(ActivityType actionType, PersonVitalType vitalType, ItemType needType, decimal quantity, decimal priority)
+        public void AddNeed(ActivityVerb actionType, PersonVitalType vitalType, ItemType needType, decimal quantity, decimal priority)
 		{
             AddNeed(new NeedEntry (actionType, needType, vitalType, quantity, priority));
 		}
@@ -64,7 +64,7 @@ namespace tilesim.Engine.Entities
 			        select n).Count () > 0;
 		}
 
-		public bool HasNeed(ActivityType actionType, ItemType needType, PersonVitalType vitalType, decimal quantity)
+		public bool HasNeed(ActivityVerb actionType, ItemType needType, PersonVitalType vitalType, decimal quantity)
 		{
 			return (from n in Needs
                 where n.ActionType == actionType

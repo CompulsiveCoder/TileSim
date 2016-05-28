@@ -1,10 +1,10 @@
 ﻿using System;
 using tilesim.Engine.Entities;
 
-namespace tilesim.Engine
+namespace tilesim.Engine.Activities
 {
     [Serializable]
-    [Activity(ActivityType.Sleep, ItemType.NotSet, PersonVitalType.Energy)]
+    [Activity(ActivityVerb.Sleep, ItemType.NotSet, PersonVitalType.Energy)]
     public class SleepActivity : BaseActivity
     {
         public decimal TotalEnergyRecovered = 0;

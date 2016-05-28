@@ -1,6 +1,6 @@
 using System;
 
-namespace tilesim.Engine
+namespace tilesim.Engine.Activities
 {
 	public enum BuildStatus
 	{

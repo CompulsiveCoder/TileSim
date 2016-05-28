@@ -1,7 +1,8 @@
 ﻿using System;
 using tilesim.Engine.Entities;
+using tilesim.Engine.Activities;
 
-namespace tilesim.Engine
+namespace tilesim.Engine.Effects
 {
     public class PersonEnergyEffect : BasePersonEffect
     {

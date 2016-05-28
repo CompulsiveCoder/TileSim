@@ -4,7 +4,7 @@ using tilesim.Engine.Needs;
 
 namespace tilesim.Engine.Activities
 {
-    [Activity(ActivityType.Build, ItemType.Shelter, PersonVitalType.NotSet)]
+    [Activity(ActivityVerb.Build, ItemType.Shelter, PersonVitalType.NotSet)]
 	public class BuildShelterActivity : BaseActivity
 	{
 		public Building Shelter;
@@ -116,9 +116,9 @@ namespace tilesim.Engine.Activities
         public void RegisterNeedToMillTimber(Person person, decimal amountOfTimber)
 		{
 			if (Settings.IsVerbose)
-                Console.WriteDebugLine ("        Registering the need to " + ActivityType.Mill + " " + amountOfTimber + " timber");
+                Console.WriteDebugLine ("        Registering the need to " + ActivityVerb.Mill + " " + amountOfTimber + " timber");
 			
-            AddNeed(ActivityType.Mill, ItemType.Timber, PersonVitalType.NotSet, amountOfTimber, NeedEntry.Priority+1);
+            AddNeed(ActivityVerb.Mill, ItemType.Timber, PersonVitalType.NotSet, amountOfTimber, NeedEntry.Priority+1);
 		}
 
 		public BuildStatus GetBuildStatus(Person person)
