@@ -14,6 +14,6 @@ if [ -z "$TEST_CATEGORY" ]; then
 fi
 
 echo "Branch: $BRANCH"
-echo "Tests: $TEST_CATEGORY"
+#echo "Tests: $TEST_CATEGORY"  # TODO: Reimplement or remove support for specifying test type
 
 docker run -it compulsivecoder/ubuntu-mono /bin/bash -c "curl https://raw.githubusercontent.com/CompulsiveCoder/TileSim/$BRANCH/test-from-github.sh | sh -s $BRANCH"
