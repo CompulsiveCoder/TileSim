@@ -16,7 +16,7 @@ namespace tilesim.Engine.Tests
 			
 		}
 
-		public new static EngineContext New()
+		public new static MockEngineContext New()
 		{
             var settings = EngineSettings.DefaultVerbose;
 
@@ -24,6 +24,11 @@ namespace tilesim.Engine.Tests
 
 			return new MockGameCreator (settings).Create ();
 		}
+
+        public static MockEngineContext New(EngineSettings settings)
+        {
+            return new MockGameCreator (settings).Create ();
+        }
 	}
 }
 

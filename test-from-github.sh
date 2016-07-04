@@ -23,6 +23,6 @@ DIR=$PWD
 
 git clone https://github.com/CompulsiveCoder/tilesim.git .tmp/tilesim --branch $BRANCH
 cd .tmp/tilesim && \
-sh init-build-test.sh && \
+sh init-build-test-all.sh && \
 cd $DIR && \
 rm .tmp/tilesim -rf
