@@ -1,0 +1,17 @@
+{
+  "name": "TileSim",
+  "description": "",
+  "scripts": {
+    "postdeploy": "sh init.sh"
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
