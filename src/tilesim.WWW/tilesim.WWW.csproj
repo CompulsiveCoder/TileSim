@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{94560C32-AFBD-4DD1-8347-79FE1995137D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>tilesim</RootNamespace>
+    <AssemblyName>tilesim</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="datamanager.Entities">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="datamanager.Data">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Sider">
+      <HintPath>..\..\lib\Sider.0.10.0\lib\Sider.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="web.config" />
+    <Content Include="Tiles.css" />
+    <Content Include="tiles.js" />
+    <Content Include="default.css" />
+    <Content Include="Log.aspx" />
+    <Content Include="NewGame.aspx" />
+    <Content Include="GameInfo.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Game.aspx" />
+    <Content Include="default2.js" />
+    <Content Include="default.js" />
+    <Content Include="Test.aspx" />
+    <Content Include="Panels\PlayerPanel.ascx" />
+    <Content Include="Panels\GameInfoPanel.ascx" />
+    <Content Include="Panels\LogPanel.ascx" />
+    <Content Include="Panels\MapPanel.ascx" />
+    <Content Include="Panels\TilePanel.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Game.aspx.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game.aspx.designer.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PlayerPanel.ascx.cs">
+      <DependentUpon>PlayerPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PlayerPanel.ascx.designer.cs">
+      <DependentUpon>PlayerPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\GameInfoPanel.ascx.cs">
+      <DependentUpon>GameInfoPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\GameInfoPanel.ascx.designer.cs">
+      <DependentUpon>GameInfoPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\LogPanel.ascx.cs">
+      <DependentUpon>LogPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\LogPanel.ascx.designer.cs">
+      <DependentUpon>LogPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\MapPanel.ascx.cs">
+      <DependentUpon>MapPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\MapPanel.ascx.designer.cs">
+      <DependentUpon>MapPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\TilePanel.ascx.cs">
+      <DependentUpon>TilePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\TilePanel.ascx.designer.cs">
+      <DependentUpon>TilePanel.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <XspParameters Port="8084" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="..\tilesim.Data\tilesim.Data.csproj">
+      <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
+      <Name>tilesim.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tilesim.Engine\tilesim.Engine.csproj">
+      <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
+      <Name>tilesim.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tilesim.EngineConsole\tilesim.EngineConsole.csproj">
+      <Project>{8A38BB92-4D97-4FC0-ABFC-3635D5131567}</Project>
+      <Name>tilesim.EngineConsole</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Panels\" />
+  </ItemGroup>
+</Project>
