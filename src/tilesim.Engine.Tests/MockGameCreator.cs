@@ -14,7 +14,7 @@ namespace tilesim.Engine.Tests
 			Settings = settings;
 		}
 
-		public EngineContext Create()
+		public MockEngineContext Create()
 		{
 			var data = CreateDataManager ();
 
