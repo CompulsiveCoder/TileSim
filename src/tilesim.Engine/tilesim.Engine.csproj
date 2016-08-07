@@ -126,7 +126,6 @@
     <Compile Include="Effects\DehydrationEffect.cs" />
     <Compile Include="Effects\PlayerDeathEffect.cs" />
     <Compile Include="Entities\TileCreator.cs" />
-    <Compile Include="EngineHolder.cs" />
     <Compile Include="Log\LogWriter.cs" />
     <Compile Include="Log\LogKeys.cs" />
     <Compile Include="Activities\SleepActivity.cs" />

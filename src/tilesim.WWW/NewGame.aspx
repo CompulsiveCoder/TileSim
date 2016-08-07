@@ -1,5 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" %>
 <%@ Import Namespace="tilesim.Engine" %>
+<%@ Import Namespace="tilesim.Web" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -8,7 +9,7 @@
 	void Page_Load()
 	{
         var speed = Convert.ToInt32(Request.QueryString["speed"]);
-		EngineHolder.StartGame(speed);
+		EngineWebHolder.Current.StartGame(speed);
 		Response.Redirect("Default.aspx");
 	}
 	</script>

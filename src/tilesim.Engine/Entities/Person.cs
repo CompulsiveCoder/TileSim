@@ -72,6 +72,12 @@ namespace tilesim.Engine.Entities
                     || n.VitalType == vitalType)
 				select n).Count () > 0;
 		}
+
+        public override string ToString ()
+        {
+            return string.Format ("{0} {1} {2}", Gender, Age, ActivityText);
+
+        }
 	}
 }
 

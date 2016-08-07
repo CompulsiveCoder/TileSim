@@ -1,5 +1,6 @@
 <%@ Page Language="C#" Inherits="tilesim.Game" EnableViewState="false" %>
 <%@ Import namespace="tilesim.Engine" %>
+<%@ Import namespace="tilesim.Web" %>
 <%@ Register TagPrefix="uc" TagName="GameInfo" Src="~/Panels/GameInfoPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Player" Src="~/Panels/PlayerPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Tile" Src="~/Panels/TilePanel.ascx" %>
@@ -11,11 +12,12 @@
 	<title>Game</title>
 	<script runat="server">
 	</script>
+    <link rel="stylesheet" type="text/css" href="default.css"/>
 </head>
 <body>
 	<form id="form1" runat="server">
 		<div id="body">
-			<% if (EngineHolder.IsStarted) { %>
+			<% if (EngineWebHolder.Current.IsStarted) { %>
 				<div id="leftCol">
 					<uc:GameInfo id="GameInfo" runat="server" />
 					<uc:Player id="Player" runat="server" />

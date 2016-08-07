@@ -12,7 +12,7 @@ namespace tilesim
 
 		public void Page_Load(object sender, EventArgs e)
 		{
-			//EngineId = EngineHolder.Id;
+			//EngineId = EngineWebHolder.Current.Id;
 		}
 	}
 }

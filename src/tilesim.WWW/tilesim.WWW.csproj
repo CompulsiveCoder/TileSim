@@ -56,7 +56,6 @@
     <Content Include="NewGame.aspx" />
     <Content Include="GameInfo.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Game.aspx" />
     <Content Include="default2.js" />
     <Content Include="default.js" />
     <Content Include="Test.aspx" />
@@ -65,16 +64,11 @@
     <Content Include="Panels\LogPanel.ascx" />
     <Content Include="Panels\MapPanel.ascx" />
     <Content Include="Panels\TilePanel.ascx" />
+    <Content Include="Game.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Game.aspx.cs">
-      <DependentUpon>Game.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Game.aspx.designer.cs">
-      <DependentUpon>Game.aspx</DependentUpon>
     </Compile>
     <Compile Include="Panels\PlayerPanel.ascx.cs">
       <DependentUpon>PlayerPanel.ascx</DependentUpon>
@@ -106,6 +100,12 @@
     <Compile Include="Panels\TilePanel.ascx.designer.cs">
       <DependentUpon>TilePanel.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Game.aspx.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game.aspx.designer.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -127,6 +127,10 @@
     <ProjectReference Include="..\tilesim.EngineConsole\tilesim.EngineConsole.csproj">
       <Project>{8A38BB92-4D97-4FC0-ABFC-3635D5131567}</Project>
       <Name>tilesim.EngineConsole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tilesim.Web\tilesim.Web.csproj">
+      <Project>{03F878D0-9AC5-460D-BFDD-17C47B2B3B5F}</Project>
+      <Name>tilesim.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

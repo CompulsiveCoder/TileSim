@@ -17,7 +17,7 @@ namespace tilesim
 			if (!String.IsNullOrEmpty(id))
 			{
 				EngineId = id;	
-				EngineHolder.StartThread(EngineId, speed);
+				EngineWebHolder.Current.StartThread(EngineId, speed);
 			}*/
 		}
 	}

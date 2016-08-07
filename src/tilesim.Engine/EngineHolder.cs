@@ -49,6 +49,7 @@ namespace tilesim.Engine
 
 		static public void Attach(string engineId)
 		{
+            // TODO: Remove or reimplement
             throw new NotImplementedException ();
 			/*Id = engineId;
 			DataConfig.Prefix = "TileSim-" + engineId.ToString();

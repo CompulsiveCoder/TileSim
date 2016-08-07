@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 using tilesim.Engine;
+using tilesim.Web;
 
 namespace tilesim
 {
@@ -12,7 +13,7 @@ namespace tilesim
 
         void Page_Load(object sender, EventArgs e)
         {
-            Tile = EngineHolder.Context.Player.Tile;
+            Tile = EngineWebHolder.Current.Context.Player.Tile;
         }
     }
 }

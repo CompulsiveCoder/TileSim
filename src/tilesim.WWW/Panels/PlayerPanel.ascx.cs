@@ -4,6 +4,7 @@ using System.Web.UI;
 using tilesim.Engine.Entities;
 using datamanager.Data;
 using tilesim.Engine;
+using tilesim.Web;
 
 namespace tilesim
 {
@@ -15,10 +16,10 @@ namespace tilesim
 
 		public void Page_Load(object sender, EventArgs e)
 		{
-            Player = EngineHolder.Context.Player;
+            Player = EngineWebHolder.Current.Context.Player;
 
             if (Player == null)
-                throw new Exception("Player not assigned; (EngineHolder.Context.Player == null)");
+                throw new Exception("Player not assigned; (EngineWebHolder.Current.Context.Player == null)");
 		}
 	}
 }
