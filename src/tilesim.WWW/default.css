@@ -1,0 +1,109 @@
+﻿/* Pages General */
+body
+{
+    background-color: #28313E;
+    font-size: 11px;
+    font-family: Verdana;
+}
+
+#outer
+{
+    margin: 20px;
+    padding: 20px;
+    height: 100%;
+    width: auto;
+
+    background-color: #808DA0;
+    overflow: auto;
+}
+
+/* Headings */
+h1
+{
+    margin-top: 0px;
+    font-size: 13px;
+}
+
+h2
+{
+    font-size: 12px;
+}
+
+
+/* Game Page */
+#game
+{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    float: left;
+}
+
+#leftCol, #midCol, #rightCol
+{
+    float: left;
+    width: 320px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#midCol
+{
+    width: 800px;
+}
+
+.bar
+{
+	height: 8px;
+    padding: 0px;
+}
+
+.pnl
+{
+	width: 300px;
+	border: solid 1px lightgray;
+	padding: 5px;
+	margin: 0px;
+
+    background-color: #808DA0;
+}
+
+div
+{
+	padding: 4px;
+	margin: 0px;
+}
+
+.logOut
+{
+    /*overflow-x:hidden;
+    overflow-y:visible;
+    height:500px;*/
+    background-color: gray;
+
+    width: 150px;
+    height: 150px;
+    overflow: scroll;
+}
+
+
+#map
+{
+    width: 100%;
+    border: solid 1px black;
+}
+
+#mapTable
+{
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+
+}
+
+td.tile
+{
+    border: 1px solid lightgray;
+    width: 20px;
+    height: 20px;
+}
