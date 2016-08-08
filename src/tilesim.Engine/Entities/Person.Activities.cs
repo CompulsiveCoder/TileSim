@@ -21,7 +21,7 @@ namespace tilesim.Engine.Entities
         public string ActivityText {
             get {
                 if (Activity == null)
-                    return String.Empty;
+                    return "Idle";
                 else
                     return Activity.ToString ();
             }

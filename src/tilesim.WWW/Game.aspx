@@ -3,6 +3,7 @@
 <%@ Import namespace="tilesim.Web" %>
 <%@ Register TagPrefix="uc" TagName="GameInfo" Src="~/Panels/GameInfoPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Player" Src="~/Panels/PlayerPanel.ascx" %>
+<%@ Register TagPrefix="uc" TagName="Activity" Src="~/Panels/ActivityPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Tile" Src="~/Panels/TilePanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Log" Src="~/Panels/LogPanel.ascx" %>
 <%@ Register TagPrefix="uc" TagName="Map" Src="~/Panels/MapPanel.ascx" %>
@@ -19,14 +20,15 @@
 		<div id="game">
 			<% if (EngineWebHolder.Current.IsStarted) { %>
 				<div id="leftCol">
-					<uc:GameInfo id="GameInfo" runat="server" />
-					<uc:Player id="Player" runat="server" />
+                    <uc:Activity id="Activity" runat="server" />
+                    <uc:Player id="Player" runat="server" />
 					<uc:Log id="Log" runat="server" />
 				</div>
 				<div id="midCol">
 					<uc:Map id="Map" runat="server" />
 				</div>
 				<div id="rightCol">
+                    <uc:GameInfo id="GameInfo" runat="server" />
 					<uc:Tile id="CurrentTile" runat="server" />
 				</div>
 			<% } else { %>

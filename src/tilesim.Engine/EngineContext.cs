@@ -98,8 +98,10 @@ namespace tilesim.Engine
             World.Populator.PopulateFromSettings ();
 
             // TODO: Is this the best place and approach to set the player?
-            if (World.People.Length > 0)
+            if (World.People.Length > 0) {
                 Player = World.People [0];
+                Player.Settings = Settings.PlayerSettings;
+            }
 		}
 
 		#region Attach process
