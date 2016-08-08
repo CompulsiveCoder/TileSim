@@ -100,14 +100,19 @@ namespace tilesim.Engine.Decisions
 			if (possibleActivities.Count == 0)
 				throw new Exception ("No activities found to address the need for " + needEntry.ItemType + ". Ensure the activities have been added to the environment logic.");
 			
+            var topActivity = possibleActivities [0].ActivityType;
+
 
 			if (Context.Settings.IsVerbose) {
-                Context.Console.WriteDebugLine ("    Activity chosen: " + possibleActivities [0].ActivityType.Name);
+                Context.Console.WriteDebugLine ("    Activity chosen: " + topActivity.Name);
 			}
 
-            var activity = GetActivity (person, possibleActivities [0].ActivityType, needEntry);
+            if (DecisionAllowedBySettings (person, topActivity)) {
+                var activity = GetActivity (person, topActivity, needEntry);
 
-			return activity;
+                return activity;
+            } else
+                return null;
 		}
 
         public BaseActivity GetActivity(Person person, Type activityType, NeedEntry needEntry)
@@ -163,6 +168,14 @@ namespace tilesim.Engine.Decisions
 			return possibleChoices.ToArray ();
 
 		}
+
+        public bool DecisionAllowedBySettings(Person person, Type activityType)
+        {
+            if (!person.Settings.AllowAutomatic.ContainsKey (activityType.Name))
+                throw new Exception ("Activity not found: " + activityType.Name);
+            
+            return person.Settings.AllowAutomatic [activityType.Name];
+        }
 	}
 }
 

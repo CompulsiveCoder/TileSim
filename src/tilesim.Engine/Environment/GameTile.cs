@@ -11,6 +11,10 @@ namespace tilesim.Engine
 	[JsonObject(IsReference = true)]
     public partial class GameTile : BaseGameEntity, IHasInventory
 	{
+        public int PositionX { get; set; }
+
+        public int PositionY { get; set; }
+
 		[TwoWay("Tile")]
 		public Plant[] Plants { get; set; }
 

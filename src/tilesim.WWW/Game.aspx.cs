@@ -8,10 +8,9 @@ namespace tilesim
 	
 	public partial class Game : System.Web.UI.Page
 	{
-		public string EngineId = String.Empty;
-
 		public void Page_Load(object sender, EventArgs e)
         {
+            // TODO: Remove if not needed
             /*var id = Request.QueryString["engineId"];
             var speed = Convert.ToInt32(Request.QueryString["speed"]);
 			if (!String.IsNullOrEmpty(id))

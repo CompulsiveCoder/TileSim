@@ -31,15 +31,23 @@ namespace tilesim.Engine.Entities
 
         public Dictionary<PersonVitalType, decimal> Vitals = new Dictionary<PersonVitalType, decimal> ();
 
-        public Person (EngineSettings settings)
+        public PersonSettings Settings { get; set; }
+
+        public Person()
+        {
+        }
+
+        public Person (EngineSettings engineSettings)
         {
             Demands = new DemandList (this);
-            Inventory = new Inventory (this, Demands, settings);
+            Inventory = new Inventory (this, Demands, engineSettings);
 
             Vitals.Add (PersonVitalType.Energy, 100);
             Vitals.Add (PersonVitalType.Health, 100);
             Vitals.Add (PersonVitalType.Thirst, 0);
             Vitals.Add (PersonVitalType.Hunger, 0);
+
+            Settings = engineSettings.PersonSettings;
 		}
 
 		public void IncreaseAge(double amount)

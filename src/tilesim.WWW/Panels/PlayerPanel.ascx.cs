@@ -16,10 +16,12 @@ namespace tilesim
 
 		public void Page_Load(object sender, EventArgs e)
 		{
-            Player = EngineWebHolder.Current.Context.Player;
+            if (EngineWebHolder.Current.IsStarted) {
+                Player = EngineWebHolder.Current.Context.Player;
 
-            if (Player == null)
-                throw new Exception("Player not assigned; (EngineWebHolder.Current.Context.Player == null)");
+                if (Player == null)
+                    throw new Exception ("Player not assigned; (EngineWebHolder.Current.Context.Player == null)");
+            }
 		}
 	}
 }

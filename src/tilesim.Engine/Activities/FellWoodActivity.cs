@@ -77,6 +77,9 @@ namespace tilesim.Engine.Activities
 			plant.PercentHarvested += Settings.FellingRate;
 			TotalWoodFelled += Settings.FellingRate; // TODO: Should this be set here or once the tree is finished?
 
+            var pointValue = AmountOfWoodToFell / 100;
+            PercentComplete = TotalWoodFelled * pointValue;
+
 			if (plant.PercentHarvested > 100)
 				plant.PercentHarvested = 100;
 
@@ -100,6 +103,7 @@ namespace tilesim.Engine.Activities
 		public void FinishedFellingSingleTree(Person person, Plant tree)
 		{
             Status = "Finished felling tree";
+            PercentComplete = 100;
 
 			person.Tile.RemovePlant (tree);
 

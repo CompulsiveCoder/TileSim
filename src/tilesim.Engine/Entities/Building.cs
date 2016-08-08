@@ -10,7 +10,7 @@ namespace tilesim.Engine.Entities
 	{
         public bool IsCompleted { get { return PercentComplete == 100; } }
 
-		public double PercentComplete { get; set; }
+		public decimal PercentComplete { get; set; }
 		public BuildingType Type { get; set; }
 		public decimal TimberPending
 		{

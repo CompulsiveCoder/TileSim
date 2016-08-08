@@ -29,6 +29,8 @@ namespace tilesim.Engine.Activities
             get { return NeedEntry.ActionType + " " + NeedEntry.ItemType; }
         }
 
+        public decimal PercentComplete { get; set; }
+
 		public string Name
 		{
 			get { return GetType ().Name; }

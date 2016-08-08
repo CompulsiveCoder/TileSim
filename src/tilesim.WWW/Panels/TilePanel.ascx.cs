@@ -13,7 +13,9 @@ namespace tilesim
 
         void Page_Load(object sender, EventArgs e)
         {
-            Tile = EngineWebHolder.Current.Context.Player.Tile;
+            if (EngineWebHolder.Current.IsStarted) {
+                Tile = EngineWebHolder.Current.Context.Player.Tile;
+            }
         }
     }
 }

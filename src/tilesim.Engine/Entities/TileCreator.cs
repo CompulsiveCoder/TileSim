@@ -14,14 +14,18 @@ namespace tilesim.Engine
             World = world;
         }
 
-        public GameTile[] Create(int numberOfTiles)
+        public GameTile[] Create(int horizontalTileCount, int verticalTileCount)
         {
             var list = new List<GameTile> ();
 
-            for (int i = 0; i < numberOfTiles; i++) {
-                var tile = CreateTile ();
+            for (int x = 0; x < horizontalTileCount; x++) {
+                for (int y = 0; y < verticalTileCount; y++) {
+                    var tile = CreateTile ();
+                    tile.PositionX = x;
+                    tile.PositionY = y;
 
-                list.Add (tile);
+                    list.Add (tile);
+                }
             }
 
             return list.ToArray ();

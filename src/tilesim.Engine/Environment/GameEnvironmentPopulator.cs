@@ -36,7 +36,7 @@ namespace tilesim.Engine
 
         public void AddTilesFromSettings()
         {
-            var tiles = TileCreator.Create (World.Context.Settings.DefaultTileQuantity);
+            var tiles = TileCreator.Create (World.Context.Settings.HorizontalTileCount, World.Context.Settings.VerticalTileCount);
 
             World.Tiles = tiles;
         }

@@ -16,7 +16,7 @@
 </head>
 <body>
 	<form id="form1" runat="server">
-		<div id="body">
+		<div id="game">
 			<% if (EngineWebHolder.Current.IsStarted) { %>
 				<div id="leftCol">
 					<uc:GameInfo id="GameInfo" runat="server" />

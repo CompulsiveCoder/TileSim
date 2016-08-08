@@ -8,7 +8,7 @@ namespace tilesim.Web
     public class EngineWebHolder
     {
         public Thread EngineThread;
-        
+
         public EngineContext Context
         {
             get {

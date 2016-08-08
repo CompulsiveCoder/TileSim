@@ -15,7 +15,8 @@ namespace tilesim.Engine.Entities
 		#endregion
 
         #region Environment settings
-        public int DefaultTileQuantity = 1;
+        public int HorizontalTileCount = 5;
+        public int VerticalTileCount = 5;
         public int DefaultWaterPerTile = 50000;
         public int DefaultPeoplePerTile = 5;
         public int DefaultTreesPerTile = 100;
@@ -24,6 +25,8 @@ namespace tilesim.Engine.Entities
 
 		#region Player settings
 		public string PlayerId = "";
+
+        public PersonSettings PlayerSettings { get; set; }
 		#endregion
 
         #region Person Settings
@@ -41,6 +44,8 @@ namespace tilesim.Engine.Entities
 
         public decimal ThirstRate = 0.03m;
         public decimal HungerRate = 0.02m;
+
+        public PersonSettings PersonSettings { get; set; }
         #endregion
 
 		#region Wood Settings
@@ -57,7 +62,7 @@ namespace tilesim.Engine.Entities
 		#region Building Settings
 		public decimal TimberNeededForHouse = 50; // TODO: Remove if not needed
 
-		public double ConstructionRate = 0.005;
+		public decimal ConstructionRate = 0.005m;
 
         public decimal ShelterTimberCost = 50;
 		#endregion
@@ -89,6 +94,18 @@ namespace tilesim.Engine.Entities
 
 		public EngineSettings()
         {
+            Construct ();
+		}
+
+		public EngineSettings(int gameSpeed)
+		{
+			GameSpeed = gameSpeed;
+
+            Construct ();
+		}
+
+        public void Construct()
+        {
             // TODO: Item priorities should be obsolete. Use vital priorities instead.
             DefaultItemPriorities.Add (ItemType.Water, 100);
             DefaultItemPriorities.Add (ItemType.Shelter, 80);
@@ -99,12 +116,10 @@ namespace tilesim.Engine.Entities
             DefaultVitalPriorities.Add (PersonVitalType.Thirst, 100);
             DefaultVitalPriorities.Add (PersonVitalType.Energy, 95);
             DefaultVitalPriorities.Add (PersonVitalType.Hunger, 90);
-		}
 
-		public EngineSettings(int gameSpeed)
-		{
-			GameSpeed = gameSpeed;
-		}
+            PlayerSettings = PersonSettings.SemiAutonomous;
+            PersonSettings = PersonSettings.Autonomous;
+        }
 
 		public static EngineSettings Default
 		{

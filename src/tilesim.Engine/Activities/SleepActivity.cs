@@ -43,9 +43,9 @@ namespace tilesim.Engine.Activities
 
             var fraction = NeedEntry.Quantity / 100;
 
-            var percentComplete = fraction * TotalEnergyRecovered;
+            PercentComplete = fraction * TotalEnergyRecovered;
 
-            Status = String.Format ("Sleeping {0}%", percentComplete);
+            Status = String.Format ("Sleeping {0}%", PercentComplete);
         }
 
         public override bool CanAct(Person actor)

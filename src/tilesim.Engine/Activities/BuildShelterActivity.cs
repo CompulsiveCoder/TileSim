@@ -92,6 +92,7 @@ namespace tilesim.Engine.Activities
 			var home = person.Home;
 
             Status = "Building " + (int)home.PercentComplete + "%";
+            PercentComplete = home.PercentComplete;
 
             home.PercentComplete += PercentageValidator.Validate (Settings.ConstructionRate);
 
