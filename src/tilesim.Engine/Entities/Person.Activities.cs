@@ -47,14 +47,21 @@ namespace tilesim.Engine.Entities
 
         public BaseActivity GetActivity(Type activityType)
         {
-            var activity = (from a in ActivityQueue
+            var activities = (from a in ActivityQueue
                 where a.GetType () == activityType
-                select a).SingleOrDefault();
+                select a).ToArray();
 
-            return activity;
+            return activities.Length != 0 ? activities[0] : null;
         }
 
+        // TODO: Should this function have a better name? "Rush" refers to putting the activity at the top of the list
+        public void RushActivity(string activityName)
+        {
+            throw new NotImplementedException ();
+        //    ActivityQueue.Insert(0, activity);
+        }
 
+        // TODO: Should this function have a better name? "Rush" refers to putting the activity at the top of the list
         public void RushActivity(BaseActivity activity)
         {
             ActivityQueue.Insert(0, activity);

@@ -5,7 +5,7 @@ using datamanager.Data;
 
 namespace tilesim.Data.Tests.Integration
 {
-	[TestFixture]
+    [TestFixture(Category="Integration")]
 	public class DataManagerIntegrationTest : BaseDataTestFixture
 	{
 		[Test]

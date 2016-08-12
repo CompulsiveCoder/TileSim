@@ -7,7 +7,8 @@ using tilesim.Engine.Entities;
 
 namespace tilesim.Engine
 {
-	[Serializable]
+    [Serializable]
+    [JsonObject("GameEnvironment", IsReference=true)]
     public class GameEnvironment : BaseGameEntity
 	{
         [XmlIgnore]

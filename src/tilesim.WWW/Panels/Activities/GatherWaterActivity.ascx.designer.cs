@@ -11,16 +11,6 @@
 namespace tilesim {
 	
 	
-	public partial class StartActivityPanel {
-		
-		protected System.Web.UI.WebControls.DropDownList ActionSelect;
-		
-		protected tilesim.FindWaterActivity FindWaterActivity;
-		
-		protected tilesim.GatherWaterActivity GatherWaterActivity;
-		
-		protected tilesim.Panels.Activities.DrinkWaterActivity DrinkWaterActivity;
-		
-		protected tilesim.FellWoodActivity FellWoodActivity;
+	public partial class GatherWaterActivity {
 	}
 }

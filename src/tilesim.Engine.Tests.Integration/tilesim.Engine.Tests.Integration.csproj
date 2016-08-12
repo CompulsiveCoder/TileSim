@@ -18,6 +18,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp mod/datamanager/bin/Release/*.mdb bin/Debug" workingdir="../.." externalConsole="True" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -49,11 +54,13 @@
     <Compile Include="Activities\CollectWaterAndDrinkIntegrationTestFixture.cs" />
     <Compile Include="Activities\CollectFoodAndEatIntegrationTestFixture.cs" />
     <Compile Include="Activities\GetTiredAndSleepIntegrationTestFixture.cs" />
+    <Compile Include="Orders\StartActivityOrderIntegrationTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Needs\" />
     <Folder Include="Activities\" />
+    <Folder Include="Orders\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tilesim.Data\tilesim.Data.csproj">

@@ -14,7 +14,7 @@
     		<div>&nbsp;</div>
     		<div><b>Inventory</b></div>
     		<div>Food: <%= (int)Player.Inventory[ItemType.Food] %>kg<div class="bar" style="width: <%= (int)Player.Inventory[ItemType.Food]*2.5 %>px; background-color: brown;"></div></div>
-    		<div>Water: <%= (int)Player.Inventory[ItemType.Water] %>ml<div class="bar" style="width: <%= (int)Player.Inventory[ItemType.Water]/3 %>px; background-color: lightblue;"></div></div>
+    		<div>Water: <%= (int)Player.Inventory[ItemType.Water] %>ml<div class="bar" style="width: <%= (int)Player.Inventory[ItemType.Water]/30 %>px; background-color: lightblue;"></div></div>
             <div>Wood: <%= (int)Player.Inventory[ItemType.Wood] %><div class="bar" style="width: <%= (int)Player.Inventory[ItemType.Wood]/10 %>px; background-color: lightblue;"></div></div>
             <div>Timber: <%= (int)Player.Inventory[ItemType.Timber] %><div class="bar" style="width: <%= (int)Player.Inventory[ItemType.Timber]*2.5 %>px; background-color: lightblue;"></div></div>
     		<div>&nbsp;</div>

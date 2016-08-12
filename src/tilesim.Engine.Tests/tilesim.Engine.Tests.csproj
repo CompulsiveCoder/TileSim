@@ -41,6 +41,9 @@
     <Reference Include="datamanager.Data.Tests">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.Tests.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

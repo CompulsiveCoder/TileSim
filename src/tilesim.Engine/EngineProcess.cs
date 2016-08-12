@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using datamanager.Data;
 using tilesim.Engine.Activities;
+using Newtonsoft.Json;
 
 namespace tilesim.Engine
 {
@@ -21,6 +22,8 @@ namespace tilesim.Engine
 		public PersonEngine Persons { get; set; }
 
         public GameConsoleSummarizer Summarizer { get; set; }
+
+        public OrderProcessor OrderProcessor;
 
         public int CycleNumber = 0;
 
@@ -46,6 +49,8 @@ namespace tilesim.Engine
 			Context.Data.Settings.Prefix = "TileSim-" + Context.Settings.EngineId;
 
             Summarizer = new GameConsoleSummarizer (Context);
+
+            OrderProcessor = new OrderProcessor (Context, Context.Data);
 		}
 
 		public void Run()
@@ -96,6 +101,7 @@ namespace tilesim.Engine
 			{
 				RunCycle ();
 
+                // TODO: Is this IsAlive check needed? It's checked during RunCycle via EnsurePlayerIsAlive function
                 if (!Context.Player.IsAlive)
                     PlayerDied ();
                 else {
@@ -118,6 +124,8 @@ namespace tilesim.Engine
                 Context.Console.WriteDebugLine ("Starting game engine sub-cycle... #" + CycleNumber + "." + (i+1));
                 Context.Console.WriteDebugLine ("");
 
+                ProcessOrders ();
+
                 ProcessEffects ();
 
                 // People
@@ -134,6 +142,12 @@ namespace tilesim.Engine
 
             CycleNumber++;
 		}
+
+        public void ProcessOrders()
+        {
+            OrderProcessor.ProcessAll ();
+        }
+           
 
         public void ProcessEffects()
         {
@@ -157,6 +171,8 @@ namespace tilesim.Engine
 
         public void EnsurePlayerIsAlive()
         {
+            if (Context.Player == null)
+                throw new Exception ("Context.Player == null");
             if (!Context.Player.IsAlive)
                 PlayerDied ();
         }
@@ -204,6 +220,7 @@ namespace tilesim.Engine
 
 		public event EventHandler Disposed;
 
+        [JsonIgnore]
 		public ISite Site {
 			get {
 				throw new NotImplementedException ();

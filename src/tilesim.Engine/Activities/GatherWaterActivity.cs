@@ -5,13 +5,13 @@ namespace tilesim.Engine.Activities
 {
 	[Serializable]
     [Activity(ActivityVerb.Gather, ItemType.Water, PersonVitalType.NotSet)]
-	public class CollectWaterActivity : BaseActivity
+	public class GatherWaterActivity : BaseActivity
 	{
 		public decimal CollectionRate = 50.0m;
 
         public decimal TotalWaterCollected = 0;
         		
-        public CollectWaterActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+        public GatherWaterActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
             : base(actor, needEntry, settings, console)
 		{
 		}

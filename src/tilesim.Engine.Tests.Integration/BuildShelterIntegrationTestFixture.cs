@@ -23,7 +23,7 @@ namespace tilesim.Engine.Tests.Integration
 			context.Settings.WoodRequiredForTimber = 1.1m; // Reduce the waste rate to increase the speed of the test
             context.Settings.ConstructionRate = 50; // Increase construction rate to speed up test
             context.Settings.TimberMillingRate = 50;
-            context.Settings.FellingRate = 50;
+            context.Settings.TimberFellingRate = 50;
 
             context.World.Logic.AddNeed (new BuildShelterNeedIdentifier (context.Settings, context.Console));
 			//context.World.Logic.AddDecision (new ShelterDecision ());

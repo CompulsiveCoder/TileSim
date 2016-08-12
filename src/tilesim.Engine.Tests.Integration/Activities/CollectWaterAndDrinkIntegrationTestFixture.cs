@@ -29,7 +29,7 @@ namespace tilesim.Engine.Tests.Integration
 
             context.World.Logic.AddNeed (new DrinkWaterNeedIdentifier (context.Settings, context.Console));
 
-            context.World.Logic.AddActivity (typeof(CollectWaterActivity));
+            context.World.Logic.AddActivity (typeof(GatherWaterActivity));
             context.World.Logic.AddActivity (typeof(DrinkWaterActivity));
 
             var tile = context.World.Tiles [0];

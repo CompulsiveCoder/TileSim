@@ -100,7 +100,6 @@
     <Compile Include="Entities\ItemType.cs" />
     <Compile Include="Entities\ItemDemand.cs" />
     <Compile Include="Needs\BaseNeedIdentifier.cs" />
-    <Compile Include="Activities\CollectWaterActivity.cs" />
     <Compile Include="Entities\Inventory.cs" />
     <Compile Include="Entities\DemandList.cs" />
     <Compile Include="Entities\IHasInventory.cs" />
@@ -136,6 +135,10 @@
     <Compile Include="Activities\ActivityVerb.cs" />
     <Compile Include="Entities\PersonSettings.cs" />
     <Compile Include="Activities\FindWaterActivity.cs" />
+    <Compile Include="Orders\BaseOrder.cs" />
+    <Compile Include="Orders\StartActivityOrder.cs" />
+    <Compile Include="Orders\OrderProcessor.cs" />
+    <Compile Include="Activities\GatherWaterActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -159,5 +162,6 @@
     <Folder Include="Needs\" />
     <Folder Include="Transfers\" />
     <Folder Include="Log\" />
+    <Folder Include="Orders\" />
   </ItemGroup>
 </Project>

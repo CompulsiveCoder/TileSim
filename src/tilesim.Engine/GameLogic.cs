@@ -72,7 +72,7 @@ namespace tilesim.Engine
             logic.AddActivity (typeof(FellWoodActivity));
             logic.AddActivity (typeof(EatFoodActivity));
             logic.AddActivity (typeof(GatherFoodActivity));
-            logic.AddActivity (typeof(CollectWaterActivity));
+            logic.AddActivity (typeof(GatherWaterActivity));
             logic.AddActivity (typeof(DrinkWaterActivity));
             logic.AddActivity (typeof(SleepActivity));
 

@@ -69,6 +69,8 @@
     <Content Include="Panels\CurrentActivityPanel.ascx" />
     <Content Include="Panels\StartActivityPanel.ascx" />
     <Content Include="Panels\Activities\FindWaterActivity.ascx" />
+    <Content Include="Panels\Activities\GatherWaterActivity.ascx" />
+    <Content Include="Panels\Activities\FellWoodActivity.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -139,6 +141,18 @@
     </Compile>
     <Compile Include="Panels\Activities\FindWaterActivity.ascx.designer.cs">
       <DependentUpon>FindWaterActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Activities\GatherWaterActivity.ascx.cs">
+      <DependentUpon>GatherWaterActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Activities\GatherWaterActivity.ascx.designer.cs">
+      <DependentUpon>GatherWaterActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Activities\FellWoodActivity.ascx.cs">
+      <DependentUpon>FellWoodActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Activities\FellWoodActivity.ascx.designer.cs">
+      <DependentUpon>FellWoodActivity.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

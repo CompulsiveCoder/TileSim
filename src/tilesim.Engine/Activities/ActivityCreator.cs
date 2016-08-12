@@ -15,19 +15,25 @@ namespace tilesim.Engine.Activities
             Console = console;
 		}
 
-		public BaseActivity CreateActivity(Person actor, Type activityType, NeedEntry needEntry)
-		{
-			var arguments = new object[] {
-				actor,
-				needEntry,
-				Settings,
+        // TODO
+       /* public BaseActivity CreateActivity(Person actor, Type activityType)
+        {
+            return CreateActivity (actor, activityType, null);
+        }*/
+
+        public BaseActivity CreateActivity(Person actor, Type activityType, NeedEntry needEntry)
+        {
+            var arguments = new object[] {
+                actor,
+                needEntry,
+                Settings,
                 Console
-			};
+            };
 
-			var activity = (BaseActivity)Activator.CreateInstance(activityType, arguments);
+            var activity = (BaseActivity)Activator.CreateInstance (activityType, arguments);
 
-			return activity;
-		}
+            return activity;
+        }
 	}
 }
 

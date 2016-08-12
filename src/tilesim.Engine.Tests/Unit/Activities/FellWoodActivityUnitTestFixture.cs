@@ -50,7 +50,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			var context = MockEngineContext.New ();
 
             var settings = EngineSettings.DefaultVerbose;
-            settings.FellingRate = 10;
+            settings.TimberFellingRate = 10;
 
 			var person = new PersonCreator (settings).CreateAdult ();
 
@@ -82,7 +82,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			var context = MockEngineContext.New ();
 
             var settings = EngineSettings.DefaultVerbose;
-            settings.FellingRate = 10;
+            settings.TimberFellingRate = 10;
 
 			var person = new PersonCreator (settings).CreateAdult ();
 

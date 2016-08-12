@@ -17,7 +17,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
             var context = MockEngineContext.New (EngineSettings.DefaultVerbose);
 
-            context.World.Logic.AddActivity (typeof(CollectWaterActivity));
+            context.World.Logic.AddActivity (typeof(GatherWaterActivity));
 
             var settings = context.Settings;
 
@@ -30,7 +30,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActivityVerb.Gather, ItemType.Water, PersonVitalType.Thirst, settings.DefaultDrinkAmount, settings.DefaultItemPriorities[ItemType.Water]);
 
-            var activity = new CollectWaterActivity (person, needEntry, settings, new ConsoleHelper(settings));
+            var activity = new GatherWaterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");

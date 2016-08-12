@@ -87,6 +87,7 @@ Global
 		$1.inheritsSet = VisualStudio
 		$1.inheritsScope = text/plain
 		$1.scope = text/plain
+		outputpath = ..\bin
 		StartupItem = tilesim.EngineConsole\tilesim.EngineConsole.csproj
 	EndGlobalSection
 EndGlobal

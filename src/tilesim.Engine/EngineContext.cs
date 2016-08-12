@@ -2,15 +2,19 @@ using System;
 using tilesim.Engine.Entities;
 using datamanager.Data;
 using tilesim.Log;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace tilesim.Engine
 {
-	[Serializable]
+    [Serializable]
+    [JsonObject("EngineContext", IsReference=true)]
 	public class EngineContext
 	{
 		public GameEnvironment World { get; set; }
 
-		public EngineProcess Engine { get;set; }
+        [NonSerialized]
+        public EngineProcess Engine;
 
 		public EngineClock Clock { get; set; }
 
@@ -25,6 +29,8 @@ namespace tilesim.Engine
         public ConsoleHelper Console { get; set; }
 
         public Person Player { get; set; }
+
+        public Queue<BaseOrder> Orders = new Queue<BaseOrder>();
 
 		#region Constructors
 		public EngineContext (EngineSettings settings, DataManager data)
@@ -137,6 +143,12 @@ namespace tilesim.Engine
         public static EngineContext New(EngineSettings settings)
         {
             return new GameCreator (settings).Create ();
+        }
+
+        public void AddOrder(BaseOrder order)
+        {
+            Orders.Enqueue (order);
+            //Data.Save (order);
         }
 	}
 }

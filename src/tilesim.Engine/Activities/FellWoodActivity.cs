@@ -74,8 +74,8 @@ namespace tilesim.Engine.Activities
 			if (Settings.IsVerbose)
 				Console.WriteDebugLine ("  Felling tree");
 
-			plant.PercentHarvested += Settings.FellingRate;
-			TotalWoodFelled += Settings.FellingRate; // TODO: Should this be set here or once the tree is finished?
+			plant.PercentHarvested += Settings.TimberFellingRate;
+			TotalWoodFelled += Settings.TimberFellingRate; // TODO: Should this be set here or once the tree is finished?
 
             var pointValue = AmountOfWoodToFell / 100;
             PercentComplete = TotalWoodFelled * pointValue;

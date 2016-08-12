@@ -42,14 +42,14 @@ namespace tilesim.Engine.Entities
         public decimal DefaultGatherFoodRate = 10;
         public decimal PersonEnergyConsumptionRate = 0.001m;
 
-        public decimal ThirstRate = 0.03m;
-        public decimal HungerRate = 0.02m;
+        public decimal ThirstRate = 0.003m;
+        public decimal HungerRate = 0.002m;
 
         public PersonSettings PersonSettings { get; set; }
         #endregion
 
 		#region Wood Settings
-		public decimal FellingRate = 0.05m;
+		public decimal TimberFellingRate = 0.2m;
 
 		public decimal TreeGrowthRate = 0.0000001m;
 		#endregion

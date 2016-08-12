@@ -1,9 +1,12 @@
 using System;
 using tilesim.Engine.Entities;
 using datamanager.Data;
+using Newtonsoft.Json;
 
 namespace tilesim.Engine.Tests
 {
+    [Serializable]
+    [JsonObject("EngineContext", IsReference=true)]
 	public class MockEngineContext : EngineContext
 	{
 		public MockEngineContext (EngineProcess process) : base(process)

@@ -41,6 +41,7 @@ namespace tilesim.Web
 
             var context = EngineContext.New();
             context.Settings.GameSpeed = gameSpeed;
+            context.Settings.DefaultPeoplePerTile = 1;
             context.PopulateFromSettings();
             context.AddCompleteLogic();
 

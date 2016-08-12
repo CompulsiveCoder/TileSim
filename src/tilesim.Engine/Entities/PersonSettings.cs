@@ -14,7 +14,7 @@ namespace tilesim.Engine
             AllowAutomatic.Add (typeof(MillTimberActivity).Name, true);
             AllowAutomatic.Add (typeof(FellWoodActivity).Name, true);
             AllowAutomatic.Add (typeof(DrinkWaterActivity).Name, true);
-            AllowAutomatic.Add (typeof(CollectWaterActivity).Name, true);
+            AllowAutomatic.Add (typeof(GatherWaterActivity).Name, true);
             AllowAutomatic.Add (typeof(EatFoodActivity).Name, true);
             AllowAutomatic.Add (typeof(GatherFoodActivity).Name, true);
             AllowAutomatic.Add (typeof(SleepActivity).Name, true);
@@ -29,7 +29,7 @@ namespace tilesim.Engine
                 settings.AllowAutomatic[typeof(MillTimberActivity).Name] = true;
                 settings.AllowAutomatic[typeof(FellWoodActivity).Name] = true;
                 settings.AllowAutomatic[typeof(DrinkWaterActivity).Name] = true;
-                settings.AllowAutomatic[typeof(CollectWaterActivity).Name] = true;
+                settings.AllowAutomatic[typeof(GatherWaterActivity).Name] = true;
                 settings.AllowAutomatic[typeof(EatFoodActivity).Name] = true;
                 settings.AllowAutomatic[typeof(GatherFoodActivity).Name] = true;
                 settings.AllowAutomatic[typeof(SleepActivity).Name] = true;
@@ -48,7 +48,7 @@ namespace tilesim.Engine
                 settings.AllowAutomatic[typeof(MillTimberActivity).Name] = false;
                 settings.AllowAutomatic[typeof(FellWoodActivity).Name] = false;
                 settings.AllowAutomatic[typeof(DrinkWaterActivity).Name] = true;
-                settings.AllowAutomatic[typeof(CollectWaterActivity).Name] = true;
+                settings.AllowAutomatic[typeof(GatherWaterActivity).Name] = true;
                 settings.AllowAutomatic[typeof(EatFoodActivity).Name] = true;
                 settings.AllowAutomatic[typeof(GatherFoodActivity).Name] = true;
                 settings.AllowAutomatic[typeof(SleepActivity).Name] = true;
@@ -66,7 +66,7 @@ namespace tilesim.Engine
                 settings.AllowAutomatic[typeof(MillTimberActivity).Name] = false;
                 settings.AllowAutomatic[typeof(FellWoodActivity).Name] = false;
                 settings.AllowAutomatic[typeof(DrinkWaterActivity).Name] = false;
-                settings.AllowAutomatic[typeof(CollectWaterActivity).Name] = false;
+                settings.AllowAutomatic[typeof(GatherWaterActivity).Name] = false;
                 settings.AllowAutomatic[typeof(EatFoodActivity).Name] = false;
                 settings.AllowAutomatic[typeof(GatherFoodActivity).Name] = false;
                 settings.AllowAutomatic[typeof(SleepActivity).Name] = false;
