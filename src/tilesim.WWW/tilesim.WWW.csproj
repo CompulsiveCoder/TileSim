@@ -65,7 +65,10 @@
     <Content Include="Panels\TilePanel.ascx" />
     <Content Include="Game.aspx" />
     <Content Include="NewGame.aspx" />
-    <Content Include="Panels\ActivityPanel.ascx" />
+    <Content Include="Panels\Activities\DrinkWaterActivity.ascx" />
+    <Content Include="Panels\CurrentActivityPanel.ascx" />
+    <Content Include="Panels\StartActivityPanel.ascx" />
+    <Content Include="Panels\Activities\FindWaterActivity.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -113,11 +116,29 @@
     <Compile Include="NewGame.aspx.designer.cs">
       <DependentUpon>NewGame.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Panels\ActivityPanel.ascx.cs">
-      <DependentUpon>ActivityPanel.ascx</DependentUpon>
+    <Compile Include="Panels\Activities\DrinkWaterActivity.ascx.cs">
+      <DependentUpon>DrinkWaterActivity.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Panels\ActivityPanel.ascx.designer.cs">
-      <DependentUpon>ActivityPanel.ascx</DependentUpon>
+    <Compile Include="Panels\Activities\DrinkWaterActivity.ascx.designer.cs">
+      <DependentUpon>DrinkWaterActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\CurrentActivityPanel.ascx.cs">
+      <DependentUpon>CurrentActivityPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\CurrentActivityPanel.ascx.designer.cs">
+      <DependentUpon>CurrentActivityPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\StartActivityPanel.ascx.cs">
+      <DependentUpon>StartActivityPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\StartActivityPanel.ascx.designer.cs">
+      <DependentUpon>StartActivityPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Activities\FindWaterActivity.ascx.cs">
+      <DependentUpon>FindWaterActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Activities\FindWaterActivity.ascx.designer.cs">
+      <DependentUpon>FindWaterActivity.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -148,5 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Panels\" />
+    <Folder Include="Panels\Activities\" />
   </ItemGroup>
 </Project>

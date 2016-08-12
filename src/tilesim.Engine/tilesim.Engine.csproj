@@ -135,6 +135,7 @@
     <Compile Include="Activities\FleeActivity.cs" />
     <Compile Include="Activities\ActivityVerb.cs" />
     <Compile Include="Entities\PersonSettings.cs" />
+    <Compile Include="Activities\FindWaterActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

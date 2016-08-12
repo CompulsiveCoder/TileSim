@@ -1,6 +1,6 @@
 <%@ Control Language="C#" Inherits="tilesim.PlayerPanel" %>
 <%@ Import namespace="tilesim.Engine.Entities" %>
-<div class="pnl">
+<div class="pnl" id="PlayerPanel">
 	<h2>Player</h2>
 	<% if (Player != null){ %>
 		<% if (!Player.IsAlive){ %>

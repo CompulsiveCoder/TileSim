@@ -8,7 +8,7 @@ using tilesim.Web;
 namespace tilesim
 {
 
-    public partial class ActivityPanel : System.Web.UI.UserControl
+    public partial class CurrentActivityPanel : System.Web.UI.UserControl
     {
         public Person Player;
         public GameTile Tile;

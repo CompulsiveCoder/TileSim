@@ -1,7 +1,7 @@
-﻿<%@ Control Language="C#" Inherits="tilesim.ActivityPanel" %>
+﻿<%@ Control Language="C#" Inherits="tilesim.CurrentActivityPanel" %>
 <%@ Import namespace="tilesim.Engine.Entities" %>
 <div class="pnl">
-    <h2>Activity</h2>
+    <h2>Current Activity</h2>
     <% if (Player != null){ %>
         <% if (Player.IsAlive){ %>
             <div>Activity: <%= Player.ActivityText %></div>

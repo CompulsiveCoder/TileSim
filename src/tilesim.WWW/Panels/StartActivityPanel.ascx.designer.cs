@@ -11,22 +11,12 @@
 namespace tilesim {
 	
 	
-	public partial class Game {
+	public partial class StartActivityPanel {
 		
-		protected System.Web.UI.HtmlControls.HtmlForm form1;
+		protected System.Web.UI.WebControls.DropDownList ActionSelect;
 		
-		protected tilesim.CurrentActivityPanel CurrentActivity;
+		protected tilesim.FindWaterActivity FindWaterActivity;
 		
-		protected tilesim.StartActivityPanel StartActivity;
-		
-		protected tilesim.PlayerPanel Player;
-		
-		protected tilesim.LogPanel Log;
-		
-		protected tilesim.MapPanel Map;
-		
-		protected tilesim.GameInfoPanel GameInfo;
-		
-		protected tilesim.TilePanel CurrentTile;
+		protected tilesim.Panels.Activities.DrinkWaterActivity DrinkWaterActivity;
 	}
 }

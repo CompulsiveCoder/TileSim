@@ -2,7 +2,7 @@
 <%@ Import Namespace="tilesim.Engine" %>
 <%@ Import Namespace="tilesim.Engine.Entities" %>
 <%@ Import Namespace="tilesim.Web" %>
-<div class="pnl">
+<div class="pnl" id="GameInfoPanel">
 	<h2>Game</h2>
 	<div>Start Time: <%= EngineWebHolder.Current.Context.Clock.StartTime %></div>
 	<div>Real Time: <%= EngineWebHolder.Current.Context.Clock.GetRealDurationString() %></div>

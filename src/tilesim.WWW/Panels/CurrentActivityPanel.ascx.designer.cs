@@ -11,22 +11,6 @@
 namespace tilesim {
 	
 	
-	public partial class Game {
-		
-		protected System.Web.UI.HtmlControls.HtmlForm form1;
-		
-		protected tilesim.CurrentActivityPanel CurrentActivity;
-		
-		protected tilesim.StartActivityPanel StartActivity;
-		
-		protected tilesim.PlayerPanel Player;
-		
-		protected tilesim.LogPanel Log;
-		
-		protected tilesim.MapPanel Map;
-		
-		protected tilesim.GameInfoPanel GameInfo;
-		
-		protected tilesim.TilePanel CurrentTile;
+	public partial class CurrentActivityPanel {
 	}
 }

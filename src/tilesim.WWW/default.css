@@ -21,10 +21,15 @@ body
 h1
 {
     margin-top: 0px;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 h2
+{
+    font-size: 14px;
+}
+
+h3
 {
     font-size: 12px;
 }
@@ -106,4 +111,10 @@ td.tile
     border: 1px solid lightgray;
     width: 20px;
     height: 20px;
+}
+
+/* Activity */
+.activity
+{
+    margin: 0px;
 }
