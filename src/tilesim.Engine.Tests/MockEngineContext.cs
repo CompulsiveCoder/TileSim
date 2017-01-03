@@ -25,6 +25,8 @@ namespace tilesim.Engine.Tests
 
             settings.CycleDuration = 1; // Set the duration to 1 millisecond so there's no delay during tests
 
+            settings.PlayerSettings = PersonSettings.Autonomous; // Set to autonomous so all automatic functionality is executed during the test
+
 			return new MockGameCreator (settings).Create ();
 		}
 

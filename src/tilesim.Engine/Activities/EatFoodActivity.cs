@@ -60,14 +60,18 @@ namespace tilesim.Engine.Activities
             throw new NotImplementedException ();
         }
 
-        public override bool CanAct (Person actor)
+        public override void RegisterNeeds (Person actor)
+        {
+            RegisterNeedToGatherFood ();
+        }
+
+        public override bool IsActorAbleToAct (Person actor)
         {
             var foodAvailable = actor.Inventory.Items [ItemType.Food] > 0;
 
             if (!foodAvailable) {
                 if (Settings.IsVerbose)
                     Console.WriteDebugLine ("    No food available.");
-                RegisterNeedToGatherFood ();
             }
 
             return foodAvailable;

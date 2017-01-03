@@ -63,7 +63,7 @@ namespace tilesim.Engine
 			People = list.ToArray ();
 		}
 
-		public void AddTrees(Plant[] trees)
+		public void AddTrees(params Plant[] trees)
 		{
 			var list = new List<Plant> (Plants);
 			list.AddRange (trees);

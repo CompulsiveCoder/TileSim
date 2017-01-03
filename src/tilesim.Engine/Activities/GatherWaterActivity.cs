@@ -54,7 +54,7 @@ namespace tilesim.Engine.Activities
             base.ConfirmProduced (entry);
         }
 
-        public override bool CanAct (Person actor)
+        public override bool IsActorAbleToAct (Person actor)
         {
             if (actor.Tile == null)
                 throw new Exception ("actor.Tile property is null.");
@@ -65,6 +65,11 @@ namespace tilesim.Engine.Activities
                 Console.WriteDebugLine ("  No water available.");
 
             return waterAvailable;
+        }
+
+        public override void RegisterNeeds (Person actor)
+        {
+            throw new NotImplementedException ();
         }
 	}
 }

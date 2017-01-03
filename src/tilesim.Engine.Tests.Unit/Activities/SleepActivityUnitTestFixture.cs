@@ -25,7 +25,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             person.Vitals[PersonVitalType.Energy] = 0;
 
             person.Home = new Building (BuildingType.Shelter, settings);
-            person.Home.PercentComplete = 100;
+            person.Home.SetPercentComplete(100);
 
             var needEntry = new NeedEntry (ActivityVerb.Sleep, ItemType.NotSet, PersonVitalType.Energy, 100, settings.DefaultVitalPriorities[PersonVitalType.Energy]);
 

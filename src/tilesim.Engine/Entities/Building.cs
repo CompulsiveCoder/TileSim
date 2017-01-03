@@ -10,7 +10,12 @@ namespace tilesim.Engine.Entities
 	{
         public bool IsCompleted { get { return PercentComplete == 100; } }
 
-		public decimal PercentComplete { get; set; }
+        private decimal percentComplete;
+		public decimal PercentComplete
+        {
+            get { return percentComplete; }
+        }
+
 		public BuildingType Type { get; set; }
 		public decimal TimberPending
 		{
@@ -60,6 +65,26 @@ namespace tilesim.Engine.Entities
             Inventory = new Inventory (this, settings);
             Settings = settings;
 		}
+
+        public void SetPercentComplete(decimal percentComplete)
+        {
+            var validatedPercentComplete = PercentageValidator.Validate (percentComplete);
+
+            // TODO: See if this can be implemented. Console is not currently available here.
+            //Console.WriteDebugLine ("    Setting \"Percent Complete\" to " + validatedPercentComplete);
+
+            this.percentComplete = validatedPercentComplete;
+        }
+
+        public void IncreasePercentComplete(decimal percentageIncrease)
+        {
+            // TODO: See if this can be implemented. Console is not currently available here.
+            //Console.WriteDebugLine ("    Increasing \"Percent Complete\" by " + percentageIncrease);
+
+            percentComplete += percentageIncrease;
+
+            percentComplete = PercentageValidator.Validate (percentComplete);
+        }
 	}
 }
 

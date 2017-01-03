@@ -57,5 +57,9 @@
       <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
       <Name>tilesim.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\tilesim.Tests\tilesim.Tests.csproj">
+      <Project>{E553F220-5E0B-4141-9CB8-5A0643457511}</Project>
+      <Name>tilesim.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

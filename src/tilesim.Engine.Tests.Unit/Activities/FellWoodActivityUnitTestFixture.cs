@@ -2,13 +2,13 @@ using System;
 using NUnit.Framework;
 using tilesim.Engine.Entities;
 using tilesim.Engine.Activities;
-using tilesim.Data.Tests;
+using tilesim.Tests;
 using tilesim.Engine.Needs;
 
 namespace tilesim.Engine.Tests.Unit.Activities
 {
     [TestFixture(Category="Unit")]
-    public class FellWoodActivityUnitTestFixture : BaseDataTestFixture
+    public class FellWoodActivityUnitTestFixture : BaseTestFixture
 	{
 		[Test]
 		public void Test_Act_StartFelling()
@@ -21,11 +21,15 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
             var settings = EngineSettings.DefaultVerbose;
 
+            // TODO: Streamline the process of adding people and trees
 			var person = new PersonCreator (settings).CreateAdult ();
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
+
+            tile.Trees [0].Height = 10;
+            tile.Trees [1].Height = 10;
 
             var needEntry = new NeedEntry (ActivityVerb.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
 
@@ -37,7 +41,10 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
 			activity.Act (person);
 
-			Assert.IsNotNull (activity.Target);
+            Assert.IsNotNull (activity.TreesToFell);
+            Assert.AreEqual (5, activity.TreesToFell.Length);
+            // TODO: Reimplement. This functionality isn't full implemented
+            //Assert.AreEqual (0.1m, activity.PercentComplete);
 		}
 
 		[Test]
@@ -56,12 +63,15 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
-			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
+			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (3));
+
+            foreach (var tree in tile.Trees)
+                tree.Height = 10;
 
             var needEntry = new NeedEntry (ActivityVerb.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
 
             var activity = new FellWoodActivity (person, needEntry, settings, new ConsoleHelper(settings));
-			activity.Target = tile.Trees [0];
+            activity.TreesToFell = new Plant[]{tile.Trees [0],tile.Trees [1],tile.Trees [2]};
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing target");
@@ -69,7 +79,9 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
 			activity.Act (person);
 
-			Assert.AreEqual(10, activity.Target.PercentHarvested);
+            // TODO: Implement check. Percentage calculation not yet working.
+            //Assert.AreEqual (5, activity.PercentComplete);
+            Assert.AreEqual(10, activity.TreesToFell[0].PercentHarvested);
 		}
 
 		[Test]
@@ -90,78 +102,34 @@ namespace tilesim.Engine.Tests.Unit.Activities
 			tile.AddPerson (person);
 			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
 
+            foreach (var tree in tile.Trees)
+                tree.Height = 10;
+
             var needEntry = new NeedEntry (ActivityVerb.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
 
 			person.AddNeed (needEntry);
 
             var activity = new FellWoodActivity (person, needEntry, settings, new ConsoleHelper(settings));
-			activity.Target = tile.Trees [0];
-			activity.Target.PercentHarvested = 100;
+            activity.TreesToFell = new Plant[]{tile.Trees [0]};
+			activity.TreesToFell[0].PercentHarvested = 99;
 			activity.TotalWoodFelled = 40; // Add just enough so the activity can finish
+            activity.IncreasePercentComplete(99);
 
-			var totalWoodExpected = activity.Target.Size;
+            var totalWoodExpected = activity.TreesToFell[0].Height;
 
             Console.WriteLine ("");
             Console.WriteLine ("Executing test");
             Console.WriteLine ("");
 
-			activity.Act (person);
+ 			activity.Act (person);
 
-			Assert.IsTrue (activity.IsFinished);
-			Assert.IsNull(activity.Target);
+            Assert.IsTrue (activity.IsFinished);
+
             Assert.AreEqual (totalWoodExpected, person.Inventory.Items [ItemType.Wood]);
+            Assert.AreEqual (0, activity.TreesToFell.Length);
+
 
 			Assert.AreEqual (0, person.Needs.Count);
-		}
-
-		// TODO: Overhaul and re-enable
-		//[Test]
-		public void Test_Act_1step_PersonHasDemandForWood_TileDoesHaveEnoughTrees()
-		{
-			throw new NotImplementedException ();
-			/*var context = EngineContext.New();
-			context.Settings.DefaultTilePopulation = 1;
-			context.Populate ();
-
-			var person = context.World.People [0];
-
-			var woodNeeded = 150;
-
-			person.AddDemand (NeedType.Wood, woodNeeded);
-
-			var activity = new FellWoodActivity (person, context);
-
-			activity.AssignPerson (person);
-
-			activity.StartSingleCycle ();
-
-			Assert.IsNotNull (person.Activity.Target);
-
-			Assert.AreNotEqual (0, ((Plant)person.Activity.Target).PercentHarvested);*/
-		}
-
-		// TODO: Overhaul and re-enable
-		//[Test]
-		public void Test_Act_100steps_PersonHasDemandForWood_TileDoesHaveEnoughTrees()
-		{
-			throw new NotImplementedException ();
-
-			/*var context = EngineContext.New();
-			context.Settings.DefaultTilePopulation = 1;
-			context.Populate ();
-
-			var person = context.World.People [0];
-
-			// Add demand for wood
-			var woodNeeded = 200;
-			person.AddDemand (NeedType.Wood, woodNeeded);
-
-			// Create the fell wood activity
-			var activity = new FellWoodActivity (person, context);
-
-			activity.RunCycles (100);
-
-			Assert.AreEqual (woodNeeded, person.Supplies [NeedType.Wood]);*/
 		}
 	}
 }

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}</ProjectGuid>
+    <ProjectGuid>{5F6836BE-DDC0-4EAF-B0F4-751799E57A93}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>tilesim.Data.Tests</RootNamespace>
-    <AssemblyName>tilesim.Data.Tests</AssemblyName>
+    <RootNamespace>tilesim.Engine.Tests.Unit</RootNamespace>
+    <AssemblyName>tilesim.Engine.Tests.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,30 +35,46 @@
     <Reference Include="datamanager.Entities">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="datamanager.Data">
-      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="datamanager.Data.Tests">
-      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.Tests.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BaseDataTestFixture.cs" />
+    <Compile Include="BaseEngineUnitTestFixture.cs" />
+    <Compile Include="Activities\BuildShelterActivityUnitTestFixture.cs" />
+    <Compile Include="Activities\CollectWaterActivityUnitTestFixture.cs" />
+    <Compile Include="Activities\DrinkWaterActivityUnitTestFixture.cs" />
+    <Compile Include="Activities\EatFoodActivityUnitTestFixture.cs" />
+    <Compile Include="Activities\FellWoodActivityUnitTestFixture.cs" />
+    <Compile Include="Activities\GatherFoodActivityUnitTestFixture.cs" />
+    <Compile Include="Activities\MillTimberActivityUnitTestFixture.cs" />
+    <Compile Include="Activities\SleepActivityUnitTestFixture.cs" />
+    <Compile Include="Decisions\PersonDeciderUnitTestFixture.cs" />
+    <Compile Include="Entities\PersonTestFixture.cs" />
+    <Compile Include="Needs\DrinkNeedIdentifierUnitTestFixture.cs" />
+    <Compile Include="Needs\MealNeedIdentifierUnitTestFixture.cs" />
+    <Compile Include="Needs\ShelterNeedIdentifierUnitTestFixture.cs" />
+    <Compile Include="Activities\FellWoodActivityCalculatorUnitTestFixture.cs" />
+    <Compile Include="Activities\AvailableTreeIdentifierUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\tilesim.Data\tilesim.Data.csproj">
-      <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
-      <Name>tilesim.Data</Name>
+    <Folder Include="Activities\" />
+    <Folder Include="Decisions\" />
+    <Folder Include="Effects\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Needs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tilesim.Tests\tilesim.Tests.csproj">
+      <Project>{E553F220-5E0B-4141-9CB8-5A0643457511}</Project>
+      <Name>tilesim.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\tilesim.Engine\tilesim.Engine.csproj">
       <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
       <Name>tilesim.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\tilesim.Tests\tilesim.Tests.csproj">
-      <Project>{E553F220-5E0B-4141-9CB8-5A0643457511}</Project>
-      <Name>tilesim.Tests</Name>
+    <ProjectReference Include="..\tilesim.Engine.Tests\tilesim.Engine.Tests.csproj">
+      <Project>{A7FEDC8F-CE70-4002-BDDB-37514D64342C}</Project>
+      <Name>tilesim.Engine.Tests</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

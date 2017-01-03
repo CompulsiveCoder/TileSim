@@ -39,7 +39,7 @@ namespace tilesim.Engine.Tests
 		{
             var dataManager = new MockDataManager();
 
-			dataManager.IsVerbose = Settings.IsVerbose;
+			dataManager.Settings.IsVerbose = Settings.IsVerbose;
 
 			return dataManager;
 		}

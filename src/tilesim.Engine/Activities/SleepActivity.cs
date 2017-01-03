@@ -43,14 +43,21 @@ namespace tilesim.Engine.Activities
 
             var fraction = NeedEntry.Quantity / 100;
 
-            PercentComplete = fraction * TotalEnergyRecovered;
+            var increase = fraction * TotalEnergyRecovered;
+
+            IncreasePercentComplete (increase);
 
             Status = String.Format ("Sleeping {0}%", PercentComplete);
         }
 
-        public override bool CanAct(Person actor)
+        public override bool IsActorAbleToAct (Person actor)
         {
+            // TODO: Should shelter be needed? Or should it just help improve sleep?
             return true;
+        }
+
+        public override void RegisterNeeds(Person actor)
+        {
         }
     }
 }

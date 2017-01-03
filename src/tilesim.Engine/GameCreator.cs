@@ -39,7 +39,7 @@ namespace tilesim.Engine
 		{
 			var dataManager = new DataManager();
 
-			dataManager.IsVerbose = Settings.IsVerbose;
+            dataManager.Settings.IsVerbose = Settings.IsVerbose;
 
 			return dataManager;
 		}

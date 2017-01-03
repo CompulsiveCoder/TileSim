@@ -19,7 +19,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
             var settings = EngineSettings.DefaultVerbose;
 
 			var person = new Person (settings);
-            person.Inventory.AddItem (ItemType.Timber, 50); // TODO: Get the 50 value from somewhere easier to configures
+            person.Inventory.AddItem (ItemType.Timber, 50); // TODO: Get the 50 value from somewhere easier to configure
 
             var needEntry = new NeedEntry (ActivityVerb.Build, ItemType.Shelter, PersonVitalType.NotSet, 1, 100);
 
@@ -69,10 +69,13 @@ namespace tilesim.Engine.Tests.Unit.Activities
             var settings = EngineSettings.DefaultVerbose;
             settings.ConstructionRate = 10;
 
+            // New person
 			var person = new Person (settings);
+
+            // New home for the person
             person.Home = new Building (BuildingType.Shelter, settings);
             person.Home.Inventory.Items [ItemType.Timber] = settings.ShelterTimberCost;
-			person.Home.PercentComplete = 99;
+            person.Home.SetPercentComplete(99);
 
             var needEntry = new NeedEntry (ActivityVerb.Build, ItemType.Shelter, PersonVitalType.NotSet, 1, 100);
 
@@ -98,17 +101,21 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
             var needEntry = new NeedEntry (ActivityVerb.Build, ItemType.Shelter, PersonVitalType.NotSet, 1, 100);
 
+            person.AddNeed (needEntry);
+
             var activity = new BuildShelterActivity (person, needEntry, settings, new ConsoleHelper(settings));
 
 			activity.Act (person);
 
-			Assert.AreEqual (1, person.Needs.Count);
+			Assert.AreEqual (2, person.Needs.Count);
 
 			var foundNeedEntry = person.Needs [0];
 
-			Assert.AreEqual (ItemType.Timber, foundNeedEntry.ItemType);
-			Assert.AreEqual (50, foundNeedEntry.Quantity);
-			Assert.AreEqual (101, foundNeedEntry.Priority);
+            Assert.AreEqual (ItemType.Shelter, person.Needs [0].ItemType);
+
+            Assert.AreEqual (ItemType.Timber, person.Needs [1].ItemType);
+            Assert.AreEqual (50, person.Needs [1].Quantity);
+            Assert.AreEqual (101, person.Needs [1].Priority);
 		}
 	}
 }

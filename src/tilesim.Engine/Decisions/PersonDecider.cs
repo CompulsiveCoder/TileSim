@@ -111,8 +111,10 @@ namespace tilesim.Engine.Decisions
                 var activity = GetActivity (person, topActivity, needEntry);
 
                 return activity;
-            } else
+            } else {
+                Console.WriteLine ("Decision disabled by person settings. The decision must be made manually, or the person settings must be changed to autonomous.");
                 return null;
+            }
 		}
 
         public BaseActivity GetActivity(Person person, Type activityType, NeedEntry needEntry)

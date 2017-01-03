@@ -18,7 +18,7 @@ namespace tilesim.Engine.Tests.Integration
             Console.WriteLine ("");
 
             var context = MockEngineContext.New ();
-            context.Data.IsVerbose = true;
+            context.Data.Settings.IsVerbose = true;
 
             context.Settings.DefaultCollectWaterRate = 50; // Increase the rate of water collection so the test goes faster
             context.Settings.DefaultDrinkAmount = 20; // Increase the amount the person drinks so the test goes faster

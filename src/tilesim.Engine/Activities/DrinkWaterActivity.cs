@@ -58,7 +58,12 @@ namespace tilesim.Engine.Activities
             throw new NotImplementedException ();
         }
 
-        public override bool CanAct (Person actor)
+        public override void RegisterNeeds (Person actor)
+        {
+            RegisterNeedToCollectWater ();
+        }
+
+        public override bool IsActorAbleToAct (Person actor)
         {
             var waterAvailable = actor.Inventory.Items [ItemType.Water] > 0;
 
@@ -69,8 +74,6 @@ namespace tilesim.Engine.Activities
                 if (Settings.IsVerbose) {
                     Console.WriteDebugLine ("    No water available.");
                 }
-
-                RegisterNeedToCollectWater ();
             }
 
             return waterAvailable;

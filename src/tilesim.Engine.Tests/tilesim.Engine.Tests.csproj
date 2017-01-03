@@ -47,34 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unit\Entities\PersonTestFixture.cs" />
-    <Compile Include="Unit\Activities\BuildShelterActivityUnitTestFixture.cs" />
     <Compile Include="MockGameTile.cs" />
     <Compile Include="MockGameEnvironment.cs" />
     <Compile Include="MockEngineProcess.cs" />
     <Compile Include="MockEngineContext.cs" />
     <Compile Include="MockGameCreator.cs" />
-    <Compile Include="BaseEngineUnitTestFixture.cs" />
-    <Compile Include="Unit\Decisions\PersonDeciderUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\FellWoodActivityUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\MillTimberActivityUnitTestFixture.cs" />
-    <Compile Include="Unit\Needs\ShelterNeedIdentifierUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\CollectWaterActivityUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\DrinkWaterActivityUnitTestFixture.cs" />
-    <Compile Include="Unit\Needs\DrinkNeedIdentifierUnitTestFixture.cs" />
-    <Compile Include="Unit\Needs\MealNeedIdentifierUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\GatherFoodActivityUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\EatFoodActivityUnitTestFixture.cs" />
-    <Compile Include="Unit\Activities\SleepActivityUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Unit\" />
-    <Folder Include="Unit\Decisions\" />
-    <Folder Include="Unit\Effects\" />
-    <Folder Include="Unit\Activities\" />
-    <Folder Include="Unit\Entities\" />
-    <Folder Include="Unit\Needs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tilesim.Engine\tilesim.Engine.csproj">

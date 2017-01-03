@@ -8,7 +8,11 @@ namespace tilesim.Engine.Activities
     [Serializable]
 	public abstract class BaseActivity
 	{
-		public bool IsFinished { get;set; }
+        private bool isFinished;
+		public bool IsFinished
+        {
+            get { return isFinished; }
+        }
 
 		public EngineSettings Settings { get;set; }
 
@@ -29,7 +33,11 @@ namespace tilesim.Engine.Activities
             get { return NeedEntry.ActionType + " " + NeedEntry.ItemType; }
         }
 
-        public decimal PercentComplete { get; set; }
+        private decimal percentComplete;
+        public decimal PercentComplete
+        {
+            get { return percentComplete; }
+        }
 
 		public string Name
 		{
@@ -40,14 +48,20 @@ namespace tilesim.Engine.Activities
 
         public BaseActivity (Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
 		{
-			Actor = actor;
-			NeedEntry = needEntry;
-			Settings = settings;
+            Construct (actor, needEntry, settings, console);
+		}
+
+        public void Construct(Person actor, NeedEntry needEntry, EngineSettings settings, ConsoleHelper console)
+        {
+            Actor = actor;
+            NeedEntry = needEntry;
+            Settings = settings;
             Console = console;
 
             InitializeItemsProduced ();
             InitializeItemsConsumed ();
-		}
+
+        }
 
         public void InitializeItemsProduced()
         {
@@ -69,16 +83,39 @@ namespace tilesim.Engine.Activities
 
 		public void Act(Person person)
 		{
-            var canAct = CanAct (person);
-            if (canAct)
+            Console.WriteDebugLine ("Starting action: " + Name + "   BaseActivity.Act(Person)");
+
+            var canAct = IsActorAbleToAct (person);
+            if (canAct) {
+                Console.WriteDebugLine ("  User is able to act");
+
+                WriteNeedDebugConsoleOutput ();
+
                 Execute (person);
             
-            CommitActivityResults ();
+                // Does this function need to include a call to CommitNeeds as well? It shouldn't be necessary. It's called if the person can't act.
+                CommitActivityResults ();
 
-			var isFinished = CheckFinished ();
-			if (isFinished)
-				Finish ();
+                var isFinished = CheckFinished ();
+                if (isFinished)
+                    Finish ();
+            } else {
+                Console.WriteDebugLine ("  Unable to act");
+
+                RegisterNeeds (person);
+
+                // IMPORTANT: Commit the person's needs at the end of the activity
+                CommitNeeds ();
+            }
 		}
+
+        protected void WriteNeedDebugConsoleOutput()
+        {
+            Console.WriteDebugLine ("  Need:");
+            Console.WriteDebugLine ("    Item: " + NeedEntry.ItemType);
+            Console.WriteDebugLine ("    Quantity: " + NeedEntry.Quantity);
+            Console.WriteDebugLine ("    Vital: " + NeedEntry.VitalType);
+        }
 
 		public abstract void Prepare(Person person);
 
@@ -86,7 +123,9 @@ namespace tilesim.Engine.Activities
 
 		public abstract bool CheckFinished();
 
-        public abstract bool CanAct (Person actor);
+        public abstract void RegisterNeeds (Person actor);
+
+        public abstract bool IsActorAbleToAct (Person actor);
 
 		public virtual void Finish()
 		{
@@ -94,7 +133,7 @@ namespace tilesim.Engine.Activities
                 if (Settings.IsVerbose)
                     Console.WriteDebugLine ("  Activity finished.");
 			
-                IsFinished = true;
+                MarkAsFinished();
 
                 Actor.Needs.Remove (NeedEntry);
 
@@ -121,20 +160,26 @@ namespace tilesim.Engine.Activities
 
         public void CommitProduced()
         {
-            if (Settings.IsVerbose)
-                Console.WriteDebugLine ("    Produced:");
-            
+            Console.WriteDebugLine ("    Produced:");
+
+            var wasZeroProduced = true;
+
             foreach (var itemType in ItemsProduced.Keys)
             {
                 var amountProduced = ItemsProduced [itemType];
 
                 if (amountProduced > 0) {
+                    wasZeroProduced = false;
+
                     if (Settings.IsVerbose)
                         Console.WriteDebugLine ("      " + itemType + ": " + amountProduced);
 
                     Actor.Inventory.Items [itemType] += amountProduced;
                 }
             }
+
+            if (wasZeroProduced)
+                Console.WriteDebugLine ("      [nothing]");
 
             ItemsProduced.Clear ();
             InitializeItemsProduced ();
@@ -146,17 +191,23 @@ namespace tilesim.Engine.Activities
                 Console.WriteDebugLine ("    Consumed:");
             }
 
+            var wasZeroConsumed = true;
+
             foreach (var itemType in ItemsConsumed.Keys)
             {
                 var amountConsumed = ItemsConsumed [itemType];
 
                 if (amountConsumed > 0) {
+                    wasZeroConsumed = false;
                     if (Settings.IsVerbose)
                         Console.WriteDebugLine ("      " + itemType + ": " + amountConsumed);
 
                     Actor.Inventory.Items [itemType] -= amountConsumed;
                 }
             }
+
+            if (wasZeroConsumed)
+                Console.WriteDebugLine ("      [nothing]");
 
             ItemsConsumed.Clear ();
             InitializeItemsConsumed ();
@@ -249,10 +300,36 @@ namespace tilesim.Engine.Activities
 
         public void AddNeed(ActivityVerb actionType, ItemType itemType, PersonVitalType vitalType, decimal quantity, decimal priority)
         {
-            if (Settings.IsVerbose)
-                Console.WriteDebugLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");
+            Console.WriteDebugLine ("    Registering the need to " + actionType + "  " + quantity + " " + itemType + ".");
             
             Needs.Add (new NeedEntry (actionType, itemType, vitalType, quantity, priority));
+
+            Console.WriteDebugLine ("    Total needs (after): " + Needs.Count);
+        }
+
+        public void MarkAsFinished()
+        {
+            Console.WriteDebugLine ("    Marking activity as finished");
+            percentComplete = 100;
+            isFinished = true;
+        }
+
+        public void SetPercentComplete(decimal percentComplete)
+        {
+            var validatedPercentComplete = PercentageValidator.Validate (percentComplete);
+
+            Console.WriteDebugLine ("    Setting \"Percent Complete\" to " + validatedPercentComplete);
+
+            this.percentComplete = validatedPercentComplete;
+        }
+
+        public void IncreasePercentComplete(decimal percentageIncrease)
+        {
+            Console.WriteDebugLine ("    Increasing \"Percent Complete\" by " + percentageIncrease);
+
+            percentComplete += percentageIncrease;
+
+            percentComplete = PercentageValidator.Validate (percentComplete);
         }
 
         public override string ToString ()

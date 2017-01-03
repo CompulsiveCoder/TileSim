@@ -8,7 +8,7 @@ namespace tilesim.Engine.Entities
 	public class Plant// : IActivityTarget // TODO: Remove
 	{
 		public decimal Age { get;set; }
-		public decimal Size { get;set; }
+		public decimal Height { get;set; }
 		public PlantType Type { get;set; }
 		public bool WasPlanted { get;set; }
 		public bool WasHarvested { get; set; }
@@ -29,7 +29,7 @@ namespace tilesim.Engine.Entities
 		{
 			get {
 				if (Type == PlantType.Tree)
-					return Size;
+					return Height;
 				else
 					return 0;
 			}
@@ -50,7 +50,7 @@ namespace tilesim.Engine.Entities
 		public Plant(PlantType type, decimal age, decimal size)
 		{
 			Type = type;
-			Size = size;
+			Height = size;
 			Age = age;
 
 			Construct ();

@@ -17,7 +17,7 @@ namespace tilesim.Engine.Tests.Integration
             Console.WriteLine ("");
 
 			var context = MockEngineContext.New ();
-			context.Data.IsVerbose = true;
+			context.Data.Settings.IsVerbose = true;
 
             context.Settings.MinimumTreeSize = 90; // Increase the size of the trees to speed up test
 			context.Settings.WoodRequiredForTimber = 1.1m; // Reduce the waste rate to increase the speed of the test

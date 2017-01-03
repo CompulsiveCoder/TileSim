@@ -17,7 +17,7 @@ namespace tilesim.Engine.Tests.Integration
             Console.WriteLine ("");
 
             var context = MockEngineContext.New ();
-            context.Data.IsVerbose = true;
+            context.Data.Settings.IsVerbose = true;
             context.PopulateFromSettings ();
             context.AddCompleteLogic ();
 

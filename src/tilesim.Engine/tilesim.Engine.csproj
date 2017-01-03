@@ -63,7 +63,6 @@
     <Compile Include="Entities\Building.cs" />
     <Compile Include="Entities\BuildingCollection.cs" />
     <Compile Include="Entities\BuildingType.cs" />
-    <Compile Include="Entities\EditInstruction.cs" />
     <Compile Include="Entities\EngineInfo.cs" />
     <Compile Include="Entities\EngineSettings.cs" />
     <Compile Include="Entities\Gender.cs" />
@@ -130,8 +129,6 @@
     <Compile Include="Activities\SleepActivity.cs" />
     <Compile Include="Effects\PersonEnergyEffect.cs" />
     <Compile Include="Needs\SleepNeedIdentifier.cs" />
-    <Compile Include="Activities\FightActivity.cs" />
-    <Compile Include="Activities\FleeActivity.cs" />
     <Compile Include="Activities\ActivityVerb.cs" />
     <Compile Include="Entities\PersonSettings.cs" />
     <Compile Include="Activities\FindWaterActivity.cs" />
@@ -139,6 +136,11 @@
     <Compile Include="Orders\StartActivityOrder.cs" />
     <Compile Include="Orders\OrderProcessor.cs" />
     <Compile Include="Activities\GatherWaterActivity.cs" />
+    <Compile Include="Activities\FellWoodActivityCalculator.cs" />
+    <Compile Include="Activities\FellWoodActivityStatus.cs" />
+    <Compile Include="Activities\PercentageTracker.cs" />
+    <Compile Include="Activities\PercentageCalculator.cs" />
+    <Compile Include="Activities\AvailableTreeIdentifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

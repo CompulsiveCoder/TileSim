@@ -58,9 +58,14 @@ namespace tilesim.Engine
             throw new NotImplementedException ();
         }
 
-        public override bool CanAct (Person actor)
+        public override bool IsActorAbleToAct (Person actor)
         {
-            return true;
+            throw new NotImplementedException ();
+        }
+
+        public override void RegisterNeeds (Person actor)
+        {
+            throw new NotImplementedException ();
         }
     }
 }

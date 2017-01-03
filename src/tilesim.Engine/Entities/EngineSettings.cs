@@ -49,9 +49,11 @@ namespace tilesim.Engine.Entities
         #endregion
 
 		#region Wood Settings
-		public decimal TimberFellingRate = 0.2m;
+		public decimal TimberFellingRate = 10m;
 
 		public decimal TreeGrowthRate = 0.0000001m;
+
+        public decimal TreeHeightToWoodAmountRatio = 1;
 		#endregion
 
 		#region Timber Settings

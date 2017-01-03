@@ -49,14 +49,15 @@ namespace tilesim.Engine.Activities
 			ConvertWoodToTimber (person, amountOfTimberToMillThisCycle);
 		}
 
-        public override bool CanAct(Person actor)
-		{
-            if (!HasEnoughWood (NeedEntry.Quantity)) {
-                RegisterNeedForWood (Actor, NeedEntry.Quantity);
+        public override bool IsActorAbleToAct (Person actor)
+        {
+            return HasEnoughWood (NeedEntry.Quantity);
+        }
 
-                return false;
-            } else
-                return true;
+        public override void RegisterNeeds(Person actor)
+		{
+            if (!HasEnoughWood (NeedEntry.Quantity))
+                RegisterNeedForWood (Actor, NeedEntry.Quantity);
 		}
 
         public void RegisterNeedForWood(Person person, decimal quantity)

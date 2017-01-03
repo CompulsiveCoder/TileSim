@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}</ProjectGuid>
+    <ProjectGuid>{066BEB78-61AB-47D2-9F66-9696C9886C5F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>tilesim.Data.Tests</RootNamespace>
-    <AssemblyName>tilesim.Data.Tests</AssemblyName>
+    <RootNamespace>tilesim.Data.Tests.Unit</RootNamespace>
+    <AssemblyName>tilesim.Data.Tests.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,11 +32,11 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="datamanager.Entities">
-      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
-    </Reference>
     <Reference Include="datamanager.Data">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="datamanager.Entities">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
     </Reference>
     <Reference Include="datamanager.Data.Tests">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.Tests.dll</HintPath>
@@ -52,9 +52,9 @@
       <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
       <Name>tilesim.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\tilesim.Engine\tilesim.Engine.csproj">
-      <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
-      <Name>tilesim.Engine</Name>
+    <ProjectReference Include="..\tilesim.Data.Tests\tilesim.Data.Tests.csproj">
+      <Project>{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}</Project>
+      <Name>tilesim.Data.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\tilesim.Tests\tilesim.Tests.csproj">
       <Project>{E553F220-5E0B-4141-9CB8-5A0643457511}</Project>

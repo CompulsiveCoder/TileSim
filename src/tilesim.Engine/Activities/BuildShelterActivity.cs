@@ -32,18 +32,30 @@ namespace tilesim.Engine.Activities
 			throw new NotImplementedException ();
 		}
 
-        public override bool CanAct (Person person)
+        public override bool IsActorAbleToAct (Person actor)
         {
-            if (ResourcesNeeded (person)) {
+            var isAble = !ResourcesNeeded (actor);
+
+            if (!isAble)
+                Console.WriteDebugLine ("  Actor doesn't have enough timber to build a shelter.");
+
+            return isAble;
+        }
+
+        public override void RegisterNeeds (Person person)
+        {
+            if (ResourcesNeeded (person))
                 RegisterNeedToMillTimber (person, Settings.ShelterTimberCost);
-                return false;
-            } else
-                return true;
         }
 
 		public override void Execute(Person person)
 		{
+            Actor = person;
+            Console.WriteDebugLine ("Executing BuildShelterActivity");
+
 			var buildStatus = GetBuildStatus (person);
+
+            Console.WriteDebugLine ("  Build status: " + buildStatus);
 
 			switch (buildStatus) {
 			//case BuildStatus.PendingResources: // TODO: Remove if not needed. Should be obsolete
@@ -62,7 +74,7 @@ namespace tilesim.Engine.Activities
 			//	if (Settings.IsVerbose) Console.WriteDebugLine("Construction is complete.");
 			//	break;
 			}
-			/*// TODO: Move this to a better loation
+			/*// TODO: Move this to a better location or remove
 
 			if (HasEnoughTimber (person)) {
 				ExecuteBuild (person);
@@ -92,11 +104,12 @@ namespace tilesim.Engine.Activities
 			var home = person.Home;
 
             Status = "Building " + (int)home.PercentComplete + "%";
-            PercentComplete = home.PercentComplete;
 
-            home.PercentComplete += PercentageValidator.Validate (Settings.ConstructionRate);
+            var constructionPercentageIncrease = Settings.ConstructionRate;
 
-            home.PercentComplete = PercentageValidator.Validate (home.PercentComplete);
+            home.IncreasePercentComplete(constructionPercentageIncrease);
+
+            SetPercentComplete(home.PercentComplete);
 
             if (Settings.IsVerbose) {
                 Console.WriteDebugLine ("    Increase: " + PercentageValidator.Validate(Settings.ConstructionRate) + "%");
@@ -116,8 +129,7 @@ namespace tilesim.Engine.Activities
 
         public void RegisterNeedToMillTimber(Person person, decimal amountOfTimber)
 		{
-			if (Settings.IsVerbose)
-                Console.WriteDebugLine ("        Registering the need to " + ActivityVerb.Mill + " " + amountOfTimber + " timber");
+            Console.WriteDebugLine ("        Registering the need to " + ActivityVerb.Mill + " " + amountOfTimber + " timber");
 			
             AddNeed(ActivityVerb.Mill, ItemType.Timber, PersonVitalType.NotSet, amountOfTimber, NeedEntry.Priority+1);
 		}
@@ -140,6 +152,7 @@ namespace tilesim.Engine.Activities
 
 		public bool ResourcesNeeded(Person person)
 		{
+            // TODO: Does the timber need to be assigned to both the person and the build? Shouldnt
 			var personHasTimber = PersonHasEnoughTimber (person);
 			var buildingHasTimber = person.Home != null && !BuildingHasEnoughTimber (person.Home);
 

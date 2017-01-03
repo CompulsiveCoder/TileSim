@@ -29,7 +29,7 @@ namespace tilesim.Engine.Entities
 		{
 			var tree = new Plant (PlantType.Tree);
 
-			tree.Size = RandomGenerator.Next ((int)Settings.MinimumTreeSize, 100);
+			tree.Height = RandomGenerator.Next ((int)Settings.MinimumTreeSize, 100);
 
 			return tree;
 

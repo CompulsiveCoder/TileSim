@@ -37,7 +37,7 @@ namespace tilesim.Engine.Tests.Unit.Needs
 
 			// TODO: Should there be a helper function somewhere for creating a completed home?
 			person.Home = new Building (BuildingType.House, settings);
-			person.Home.PercentComplete = 100;
+            person.Home.SetPercentComplete(100);
 
             var shelterNeed = new BuildShelterNeedIdentifier (settings, new ConsoleHelper(settings));
 

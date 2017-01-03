@@ -8,4 +8,4 @@ if [ -z "$BRANCH" ]; then
     BRANCH="master"
 fi
 
-docker run -it -p 8085:8085 -v $PWD:/tilesim compulsivecoder/ubuntu-mono-redis /bin/bash -c "cd /tilesim && sh build.sh && sh run-www.sh"
+docker run -it -p 8085:8085 -v $PWD:/tilesim compulsivecoder/ubuntu-mono-redis /bin/bash -c "cd /tilesim && sh build.sh && sh run.sh"
