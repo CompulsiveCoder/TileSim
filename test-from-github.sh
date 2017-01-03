@@ -1,4 +1,4 @@
-echo "Testing datamanager project from github"
+echo "Testing project from github"
 echo "  Current directory:"
 echo "  $PWD"
 
@@ -14,7 +14,7 @@ fi
 
 echo "  Branch: $BRANCH"
 
-# If the .tmp/datamanager directory exists then remove it
+# If the .tmp/tilesim directory exists then remove it
 if [ -d ".tmp/tilesim" ]; then
     rm .tmp/tilesim -rf
 fi

@@ -1,4 +1,4 @@
-echo "Starting build for towmsim project"
+echo "Starting build for tilesim project"
 echo "Dir: $PWD"
 
 DIR=$PWD
