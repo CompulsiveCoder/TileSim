@@ -3,13 +3,22 @@
 <%@ Register TagPrefix="uc" TagName="GatherWaterActivity" Src="~/Panels/Activities/GatherWaterActivity.ascx" %>
 <%@ Register TagPrefix="uc" TagName="DrinkWaterActivity" Src="~/Panels/Activities/DrinkWaterActivity.ascx" %>
 <%@ Register TagPrefix="uc" TagName="FellWoodActivity" Src="~/Panels/Activities/FellWoodActivity.ascx" %>
+<%@ Register TagPrefix="uc" TagName="MillTimberActivity" Src="~/Panels/Activities/MillTimberActivity.ascx" %>
+<%@ Register TagPrefix="uc" TagName="BuildShelterActivity" Src="~/Panels/Activities/BuildShelterActivity.ascx" %>
 <div class="pnl" id="StartActivityPanel">
     <script language="javascript">
+        var previousActivity = "";
+
         function showActivityForm()
         {
             var activity = $("#<%= ActionSelect.ClientID %>").val();
 
+            if (previousActivity != "")
+                $("#" + previousActivity + "Activity").hide();
+                
             $("#" + activity + "Activity").show();
+
+            previousActivity = activity;
         }
     </script>
     <h2>Start Activity</h2>
@@ -28,4 +37,6 @@
     <uc:GatherWaterActivity id="GatherWaterActivity" runat="server" />
     <uc:DrinkWaterActivity id="DrinkWaterActivity" runat="server" />
     <uc:FellWoodActivity id="FellWoodActivity" runat="server" />
+    <uc:MillTimberActivity id="MillTimberActivity" runat="server" />
+    <uc:MillTimberActivity id="BuildShelterActivity" runat="server" />
 </div>
