@@ -8,9 +8,9 @@
 <div class="pnl" id="TilePanel">
     <h1>Current Tile</h1>
     <h2>Resources</h2>
-    <div>Timber: <%= (int)Tile.Inventory[ItemType.Timber] %><div class="bar" style="width: <%= (int)Tile.Inventory[ItemType.Timber] / 10 %>px; background-color: brown;"></div></div>
-    <div>Water sources: <%= (int)Tile.Inventory[ItemType.Water] %>l<div class="bar" style="width: <%= (int)(Tile.Inventory[ItemType.Water] / 1000) %>px; background-color: lightblue;"></div></div>
-    <div>Food sources: <%= (int)Tile.Inventory[ItemType.Food] %> kgs<div class="bar" style="width: <%= (int)(Tile.Inventory[ItemType.Food] / 1000) %>px; background-color: lightgreen;"></div></div>
+    <div>Trees: <%= Tile.Trees.Length %><div class="bar" style="width: <%= (int)Tile.Inventory[ItemType.Timber] / 10 %>px; background-color: brown;"></div></div>
+    <div>Water: <%= (int)Tile.Inventory[ItemType.Water] %>l<div class="bar" style="width: <%= (int)(Tile.Inventory[ItemType.Water] / 1000) %>px; background-color: lightblue;"></div></div>
+    <div>Food: <%= (int)Tile.Inventory[ItemType.Food] %> kgs<div class="bar" style="width: <%= (int)(Tile.Inventory[ItemType.Food] / 1000) %>px; background-color: lightgreen;"></div></div>
     <h2>People</h2>
     <div>Population: <%= Tile.People.Length %><div class="bar" style="width: <%= Tile.People.Length %>px; background-color: lightgray;"></div></div>
     <div>

@@ -26,7 +26,7 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
             var percentageIncrease = calculator.GetTreePercentageIncreaseThisCycle(context.Player, tree);
 
-            Assert.AreEqual (10, percentageIncrease);
+            Assert.AreEqual (1, percentageIncrease);
         }
 
         [Test]

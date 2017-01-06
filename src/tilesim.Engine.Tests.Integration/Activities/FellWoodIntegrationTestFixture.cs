@@ -18,7 +18,7 @@ namespace tilesim.Engine.Tests.Integration
             var context = MockEngineContext.New ();
             //context.PopulateFromSettings ();
 
-            //context.Settings.DefaultGatherFoodRate = 50; // Increase the rate of food gathering so the test goes faster
+            context.Settings.TimberFellingRate = 20; // Increase the rate of food gathering so the test goes faster
             //context.Settings.DefaultEatAmount = 100; // Increase the amount the person eats so the test goes faster
 
             //context.World.Logic.AddNeed (new SleepNeedIdentifier (context.Settings, context.Console));
@@ -36,7 +36,7 @@ namespace tilesim.Engine.Tests.Integration
             person.AddNeed(new NeedEntry(ActivityVerb.Fell, ItemType.Wood, PersonVitalType.NotSet, 100, 100));
             person.Settings = PersonSettings.Autonomous;
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 10; i++) {
                 var tree = new PlantCreator (context.Settings).CreateTree ();
 
                 tree.Height = 10;

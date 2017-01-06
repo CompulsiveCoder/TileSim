@@ -26,10 +26,10 @@ namespace tilesim.Engine.Tests.Unit.Activities
 
 			var tile = context.World.Tiles[0];
 			tile.AddPerson (person);
-			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (2));
+			tile.AddTrees (new PlantCreator (context.Settings).CreateTrees (5));
 
-            tile.Trees [0].Height = 10;
-            tile.Trees [1].Height = 10;
+            foreach (var tree in tile.Trees)
+                tree.Height = 10;
 
             var needEntry = new NeedEntry (ActivityVerb.Fell, ItemType.Wood, PersonVitalType.NotSet, 50, 101);
 

@@ -64,7 +64,7 @@ namespace tilesim.Engine.Entities
 		#region Building Settings
 		public decimal TimberNeededForHouse = 50; // TODO: Remove if not needed
 
-		public decimal ConstructionRate = 0.005m;
+		public decimal ConstructionRate = 0.05m;
 
         public decimal ShelterTimberCost = 50;
 		#endregion

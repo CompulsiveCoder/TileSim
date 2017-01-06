@@ -2,7 +2,7 @@
 
 <div class="activity" id="BuildShelterActivity" style="display:none;">
     <script language="javascript">
-    function millTimber()
+    function buildShelter()
     {
         var path = 'Game.aspx?newactivity=Build-Shelter';
 
@@ -15,5 +15,5 @@
     }
     </script>
     <h3>Build Shelter</h3>
-    <div><input type="button" value="Start" onclick="millTimber();" /></div>
+    <div><input type="button" value="Start" onclick="buildShelter();" /></div>
 </div>

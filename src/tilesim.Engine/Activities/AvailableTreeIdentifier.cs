@@ -29,41 +29,42 @@ namespace tilesim.Engine.Activities
             return treesToBeCutDown.ToArray();
         }
 
-        public void SelectMoreAvailableTreesIfNeeded(List<Plant> trees)
+        public void SelectMoreAvailableTreesIfNeeded(List<Plant> selectedTrees)
         {
             // TODO: Can this function be improved?
 
             Console.WriteDebugLine ("   Selecting more trees (if needed)");
 
 
-            var isEnoughTrees = IsEnoughTreesSelected (trees);
+            var isEnoughTrees = IsEnoughTreesSelected (selectedTrees);
 
-            Console.WriteDebugLine ("    Total trees selected: " + trees.Count + "");
-            Console.WriteDebugLine ("    Total wood: " + CalculateTotalWood(trees) + "");
+            Console.WriteDebugLine ("    Total trees selected: " + selectedTrees.Count + "");
+            Console.WriteDebugLine ("    Total wood: " + CalculateTotalWood(selectedTrees) + "");
 
             if (!isEnoughTrees) {
                 Console.WriteDebugLine ("   More trees need to be selected.");
 
-                var tree = FindAvailableTree ();
+                var tree = FindAvailableTree (selectedTrees);
 
                 if (tree != null) {
-                    trees.Add (tree);
+                    selectedTrees.Add (tree);
 
-                    SelectMoreAvailableTreesIfNeeded (trees);
+                    SelectMoreAvailableTreesIfNeeded (selectedTrees);
                 }
             } else {
                 Console.WriteDebugLine ("    Enough trees have been selected.");
             }
         }
 
-        public Plant FindAvailableTree()
+        public Plant FindAvailableTree(List<Plant> selectedTrees)
         {
             Activity.Status = "Selecting tree";
 
             // TODO: Use linq
             foreach (var plant in Activity.Actor.Tile.Plants) {
                 if (plant.Type == PlantType.Tree
-                    && plant.Height >= Activity.Settings.MinimumTreeSize) {
+                    && plant.Height >= Activity.Settings.MinimumTreeSize
+                    && !selectedTrees.Contains(plant)) {
 
                     Console.WriteDebugLine ("    Found large tree");
 

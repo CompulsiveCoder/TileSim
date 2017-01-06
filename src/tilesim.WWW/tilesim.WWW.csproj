@@ -73,6 +73,8 @@
     <Content Include="Panels\Activities\FellWoodActivity.ascx" />
     <Content Include="Panels\Activities\MillTimberActivity.ascx" />
     <Content Include="Panels\Activities\BuildShelterActivity.ascx" />
+    <Content Include="Testing\StartEmptyEngine2.aspx" />
+    <Content Include="Testing\StartEmptyEngine.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -168,6 +170,12 @@
     <Compile Include="Panels\Activities\BuildShelterActivity.ascx.designer.cs">
       <DependentUpon>BuildShelterActivity.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Testing\StartEmptyEngine.aspx.cs">
+      <DependentUpon>StartEmptyEngine.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Testing\StartEmptyEngine.aspx.designer.cs">
+      <DependentUpon>StartEmptyEngine.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -198,5 +206,6 @@
   <ItemGroup>
     <Folder Include="Panels\" />
     <Folder Include="Panels\Activities\" />
+    <Folder Include="Testing\" />
   </ItemGroup>
 </Project>

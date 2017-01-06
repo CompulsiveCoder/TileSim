@@ -38,5 +38,5 @@
     <uc:DrinkWaterActivity id="DrinkWaterActivity" runat="server" />
     <uc:FellWoodActivity id="FellWoodActivity" runat="server" />
     <uc:MillTimberActivity id="MillTimberActivity" runat="server" />
-    <uc:MillTimberActivity id="BuildShelterActivity" runat="server" />
+    <uc:BuildShelterActivity id="BuildShelterActivity" runat="server" />
 </div>

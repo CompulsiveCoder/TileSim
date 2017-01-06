@@ -25,6 +25,6 @@ namespace tilesim {
 		
 		protected tilesim.MillTimberActivity MillTimberActivity;
 		
-		protected tilesim.MillTimberActivity BuildShelterActivity;
+		protected tilesim.BuildShelterActivity BuildShelterActivity;
 	}
 }

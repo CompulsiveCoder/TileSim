@@ -9,14 +9,16 @@ namespace tilesim.Web
     {
         public Thread EngineThread;
 
+        private EngineContext context;
         public EngineContext Context
         {
             get {
-                return (EngineContext)HttpContext.Current.Application["EngineContext"];
+                // TODO: Clean up
+                return context;//(EngineContext)HttpContext.Current.Application["EngineContext"];
             }
-            set { // TODO: Should this property be read-only?
-                HttpContext.Current.Application["EngineContext"] = value;
-            }
+            //set { // TODO: Should this property be read-only?
+            //    HttpContext.Current.Application["EngineContext"] = value;
+            //}
         }
 
         public bool IsStarted
@@ -61,7 +63,9 @@ namespace tilesim.Web
 
         public void Attach(EngineContext context)
         {
-            Context = context;
+            // TODO: Clean up
+            this.context = context;
+            //HttpContext.Current.Application["EngineContext"] = context;
         }
 
         static private EngineWebHolder current;
