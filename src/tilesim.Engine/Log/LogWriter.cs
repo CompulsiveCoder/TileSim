@@ -1,21 +1,22 @@
 using System;
 using Sider;
 using datamanager.Data;
+using datamanager.Data.Providers;
 
 namespace tilesim.Log
 {
     // TODO Overhaul
 	public class LogWriter
 	{
-        public BaseRedisClientWrapper Client;
+        public BaseDataProvider Provider;
 
 		public LogKeys Keys;
 
 		public string EngineId;
 
-        public LogWriter (string engineId, BaseRedisClientWrapper client)
+        public LogWriter (string engineId, BaseDataProvider provider)
 		{
-            Client = client;
+            Provider = provider;
             
 			Keys = new LogKeys ("TileSim-" + engineId + "-");
 		}
@@ -31,7 +32,7 @@ namespace tilesim.Log
 		public string ReadAll(string engineId)
 		{
 			var key = Keys.GetLogKey (engineId);
-			return Client.Get (key);
+			return Provider.Get (key);
 		}
 	}
 }

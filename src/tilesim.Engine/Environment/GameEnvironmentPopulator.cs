@@ -27,6 +27,8 @@ namespace tilesim.Engine
 
         public void PopulateFromSettings()
         {
+            World.Context.Console.WriteDebugLine ("Populating world from settings");
+
             AddTilesFromSettings ();
             AddPeopleFromSettings ();
             AddTrees ();

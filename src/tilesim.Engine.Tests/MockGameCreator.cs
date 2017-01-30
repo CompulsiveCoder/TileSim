@@ -37,7 +37,7 @@ namespace tilesim.Engine.Tests
 
 		public DataManager CreateDataManager()
 		{
-            var dataManager = new MockDataManager();
+            var dataManager = new DataManager();
 
 			dataManager.Settings.IsVerbose = Settings.IsVerbose;
 

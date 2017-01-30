@@ -2,6 +2,7 @@
 using tilesim.Engine;
 using System.Web;
 using System.Threading;
+using tilesim.Engine.Entities;
 
 namespace tilesim.Web
 {
@@ -31,25 +32,50 @@ namespace tilesim.Web
 
         public void StartGame(int gameSpeed)
         {
-            StartThread(Guid.NewGuid().ToString(), gameSpeed);
+            var settings = EngineSettings.Default;
+
+            settings.EngineId = Guid.NewGuid ().ToString ();
+            settings.GameSpeed = gameSpeed;
+
+            StartThread(settings);
         }
 
-        public void StartThread(string engineId, int gameSpeed)
+        public void StartGame(EngineSettings settings)
         {
-            if (engineId == String.Empty)
-                engineId = Guid.NewGuid ().ToString ();
+            if (String.IsNullOrEmpty (settings.EngineId))
+                settings.EngineId = Guid.NewGuid ().ToString ();
 
-            Console.WriteLine ("Launching engine thread " + engineId);
+            if (settings.IsVerbose) {
+                Console.WriteLine ("Starting game");
+                Console.WriteLine ("  Engine ID: " + settings.EngineId);
+                Console.WriteLine ("  Speed: " + settings.GameSpeed);
+            }
 
-            var context = EngineContext.New();
-            context.Settings.GameSpeed = gameSpeed;
-            context.Settings.DefaultPeoplePerTile = 1;
-            context.PopulateFromSettings();
-            context.AddCompleteLogic();
+            StartThread(settings);
+        }
 
-            context.Initialize();
+        public void ContinueGame(string gameId)
+        {
+            throw new NotImplementedException ();
+            /*if (settings.IsVerbose) {
+                Console.WriteLine ("Starting game");
+                Console.WriteLine ("  Engine ID: " + settings.EngineId);
+                Console.WriteLine ("  Speed: " + settings.GameSpeed);
+            }
 
-            Attach(context);
+            ContinueThread(settings);*/
+        }
+
+        public void StartThread(EngineSettings settings)
+        {
+            if (settings.EngineId == String.Empty)
+                settings.EngineId = Guid.NewGuid ().ToString ();
+
+            Console.WriteLine ("Launching engine thread " + settings.EngineId);
+
+            var context = CreateEngineContext (settings);
+
+            AttachEngineContext(context);
 
             ThreadStart threadStart = delegate {
                 context.Run();                
@@ -61,7 +87,29 @@ namespace tilesim.Web
             engineThread.Start();
         }
 
-        public void Attach(EngineContext context)
+        public EngineContext CreateEngineContext(EngineSettings settings)
+        {
+            if (settings.IsVerbose) {
+                Console.WriteLine ("Creating engine context");
+            }
+
+            var context = EngineContext.New(settings);
+
+            // TODO: Remove if not needed
+            /*context.Settings.EngineId = engineId;
+            context.Settings.EnableDataSaving = true;
+            context.Settings.GameSpeed = gameSpeed;
+            context.Settings.DefaultPeoplePerTile = 1;*/
+
+            context.PopulateFromSettings();
+            context.AddCompleteLogic();
+
+            context.Initialize();
+
+            return context;
+        }
+
+        public void AttachEngineContext(EngineContext context)
         {
             // TODO: Clean up
             this.context = context;

@@ -59,24 +59,6 @@ namespace tilesim.Engine
 
             while (IsRunning)
                 Run (1);
-            
-            // TODO: Remove if not needed
-            //Run(
-			/*IsRunning = true;
-
-			while (IsRunning)
-			{
-				var cycleStartTime = DateTime.Now;
-
-				for (int x = 0; x < Context.Settings.GameSpeed; x++) {
-					RunCycle (x+1);
-				}
-
-				if (Context.Settings.OutputType == ConsoleOutputType.Game) // TODO: Move this to settings
-                    Summarizer.WriteSummary ();
-			
-				SleepUntilNextCycle(cycleStartTime);
-			}*/
 		}
 
 		public void SleepUntilNextCycle(DateTime cycleStartTime)
@@ -124,6 +106,7 @@ namespace tilesim.Engine
                 Context.Console.WriteDebugLine ("Starting game engine sub-cycle... #" + CycleNumber + "." + (i+1));
                 Context.Console.WriteDebugLine ("");
 
+                // Environment
                 ProcessOrders ();
 
                 ProcessEffects ();

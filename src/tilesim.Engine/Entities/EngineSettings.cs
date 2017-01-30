@@ -94,6 +94,10 @@ namespace tilesim.Engine.Entities
         }
 		#endregion
 
+        #region Data settings
+        public bool EnableDataSaving = false;
+        #endregion
+
 		public EngineSettings()
         {
             Construct ();

@@ -8,12 +8,14 @@
     <RootNamespace>tilesim.Engine</RootNamespace>
     <AssemblyName>tilesim.Engine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>tilesim.Engine.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug</OutputPath>
+    <OutputPath>..\..\bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -22,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release</OutputPath>
+    <OutputPath>..\..\bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -45,6 +47,9 @@
     </Reference>
     <Reference Include="datamanager.Entities">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="datamanager.Data.Providers.Redis">
+      <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.Providers.Redis.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -141,18 +146,9 @@
     <Compile Include="Activities\PercentageTracker.cs" />
     <Compile Include="Activities\PercentageCalculator.cs" />
     <Compile Include="Activities\AvailableTreeIdentifier.cs" />
+    <Compile Include="Data\GameLister.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\tilesim.Data\tilesim.Data.csproj">
-      <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
-      <Name>tilesim.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\tilesim.Alerts\tilesim.Alerts.csproj">
-      <Project>{85972657-52CF-4C7D-A6E4-DEF232F28C91}</Project>
-      <Name>tilesim.Alerts</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\" />
     <Folder Include="Activities\" />
@@ -165,5 +161,6 @@
     <Folder Include="Transfers\" />
     <Folder Include="Log\" />
     <Folder Include="Orders\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 </Project>

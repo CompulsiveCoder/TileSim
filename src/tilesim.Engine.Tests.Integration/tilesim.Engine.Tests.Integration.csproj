@@ -65,14 +65,6 @@
     <Folder Include="ActivityGroups\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\tilesim.Data\tilesim.Data.csproj">
-      <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
-      <Name>tilesim.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\tilesim.Data.Tests\tilesim.Data.Tests.csproj">
-      <Project>{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}</Project>
-      <Name>tilesim.Data.Tests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\tilesim.Engine\tilesim.Engine.csproj">
       <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
       <Name>tilesim.Engine</Name>

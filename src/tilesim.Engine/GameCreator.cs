@@ -1,6 +1,7 @@
 using System;
 using tilesim.Engine.Entities;
 using datamanager.Data;
+using datamanager.Data.Providers.Redis;
 
 namespace tilesim.Engine
 {
@@ -20,6 +21,8 @@ namespace tilesim.Engine
 
 			var context = new EngineContext (Settings, data);
 
+            context.Console.WriteDebugLine ("Creating game engine context");
+
 			var process = CreateProcess (context);
 
 			// Attach the process to the context
@@ -29,7 +32,9 @@ namespace tilesim.Engine
 		}
 
 		public EngineProcess CreateProcess(EngineContext context)
-		{
+        {
+            context.Console.WriteDebugLine ("Creating game engine process");
+
 			var process = new EngineProcess (context);
 
 			return process;
@@ -37,7 +42,9 @@ namespace tilesim.Engine
 
 		public DataManager CreateDataManager()
 		{
-			var dataManager = new DataManager();
+            var provider = new RedisDataProvider ();
+
+            var dataManager = new DataManager(provider);
 
             dataManager.Settings.IsVerbose = Settings.IsVerbose;
 

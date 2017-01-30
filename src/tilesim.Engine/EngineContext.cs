@@ -45,7 +45,7 @@ namespace tilesim.Engine
 
 			Info = new EngineInfo (Clock.StartTime, Settings);
 
-            Log = new LogWriter (Settings.EngineId, data.Client);
+            Log = new LogWriter (Settings.EngineId, data.Provider);
 
 			World = new GameEnvironment (this);
 
@@ -69,8 +69,7 @@ namespace tilesim.Engine
 		#region Start
 		public void Initialize()
 		{
-			if (Settings.IsVerbose)
-				Console.WriteDebugLine ("Initializing engine context");
+		    Console.WriteDebugLine ("Initializing engine context");
 
 			if (Engine == null)
 				throw new Exception ("No game engine process has been attached. Use the AttachProcess(engine) function before initializing.");
@@ -101,18 +100,24 @@ namespace tilesim.Engine
 
 		public void PopulateFromSettings()
 		{
+            Console.WriteDebugLine ("Populating game engine from settings");
+
             World.Populator.PopulateFromSettings ();
 
             // TODO: Is this the best place and approach to set the player?
             if (World.People.Length > 0) {
                 Player = World.People [0];
+
+                Console.WriteDebugLine ("Selecting player: " + Player.Id);
                 Player.Settings = Settings.PlayerSettings;
             }
 		}
 
 		#region Attach process
 		public void AttachProcess(EngineProcess process)
-		{
+        {
+            process.Context.Console.WriteDebugLine ("Attaching game engine process to context");
+
 			Engine = process;
 		}
 		#endregion
@@ -120,6 +125,8 @@ namespace tilesim.Engine
 
         public void SaveInfo()
         {
+            Console.WriteDebugLine ("Saving game engine info");
+            
             Data.Save (Info);
 
             Data.Save (World.People);

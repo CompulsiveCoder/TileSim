@@ -5,10 +5,11 @@ using datamanager.Data;
 
 namespace tilesim.Data.Tests.Integration
 {
-    [TestFixture(Category="Integration")]
+    // TODO: Remove or reimplement
+    //[TestFixture(Category="Integration")]
 	public class DataManagerIntegrationTest : BaseDataTestFixture
 	{
-		[Test]
+		//[Test]
 		public void Test_GeneralFunctions()
 		{
 			var data = GetDataManager();

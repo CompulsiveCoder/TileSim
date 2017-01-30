@@ -1,1 +1,1 @@
-<%@ Application Inherits="tilesim.Global" %>
+<%@ Application Inherits="tilesim.WWW.Global" %>

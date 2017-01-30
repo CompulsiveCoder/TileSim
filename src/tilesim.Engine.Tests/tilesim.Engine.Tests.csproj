@@ -62,17 +62,5 @@
       <Project>{365EB32E-85CD-482F-8329-1660455D7E9E}</Project>
       <Name>tilesim.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\tilesim.Data\tilesim.Data.csproj">
-      <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
-      <Name>tilesim.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\tilesim.Data.Tests\tilesim.Data.Tests.csproj">
-      <Project>{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}</Project>
-      <Name>tilesim.Data.Tests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\tilesim.Alerts\tilesim.Alerts.csproj">
-      <Project>{85972657-52CF-4C7D-A6E4-DEF232F28C91}</Project>
-      <Name>tilesim.Alerts</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>

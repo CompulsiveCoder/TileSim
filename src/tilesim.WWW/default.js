@@ -10,6 +10,23 @@ function startGame()
     $.get(path, function(result){
         $result = $(result);
         $('#startPanel').hide();
+        $('#continuePanel').hide();
+        // TODO: Add output
+    }, 'html');
+
+    hasStarted=true;
+}
+
+function continueGame()
+{
+    var gameId = $('#existingGameList').val();
+    var path = "ContinueGame.aspx?id=" + gameId;
+    //alert(path);
+
+    $.get(path, function(result){
+        $result = $(result);
+        $('#startPanel').hide();
+        $('#continuePanel').hide();
         // TODO: Add output
     }, 'html');
 

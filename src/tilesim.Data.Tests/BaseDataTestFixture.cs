@@ -23,13 +23,13 @@ namespace tilesim.Data.Tests
         public void Finish()
         {
             if (data != null)
-                data.Client.FlushAll ();
+                data.Provider.DeleteAll ();
         }
 
         public DataManager GetDataManager()
         {
             if (data == null) {
-                data = new MockDataManager ();
+                data = new DataManager ();
                 data.Settings.Prefix = "Test-" + Guid.NewGuid ().ToString ();
             }
 

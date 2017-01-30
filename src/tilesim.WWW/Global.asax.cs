@@ -6,7 +6,7 @@ using System.Web.SessionState;
 using tilesim.Engine;
 using System.Threading;
 
-namespace tilesim
+namespace tilesim.WWW
 {
 	public class Global : System.Web.HttpApplication
 	{
@@ -37,12 +37,11 @@ namespace tilesim
 
 		protected void Application_Error (Object sender, EventArgs e)
 		{
-
+            Console.WriteLine (Server.GetLastError().ToString());
 		}
 
 		protected void Session_End (Object sender, EventArgs e)
 		{
-
             Console.WriteLine ("  Session_End");
 		}
 
