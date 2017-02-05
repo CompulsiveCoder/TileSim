@@ -33,18 +33,16 @@ namespace tilesim.Engine
 		}*/
 
         public EngineClock (EngineSettings settings, ConsoleHelper console)
-		{
+        {
             Console = console;
 
-			if (settings.IsVerbose)
-				Console.WriteDebugLine ("Constructing game engine clock");
+            Console.WriteDebugLine ("    Constructing game engine clock");
 			
-			Settings = settings;
-			StartTime = DateTime.Now;
+            Settings = settings;
+            StartTime = DateTime.Now;
 
-			if (settings.IsVerbose)
-				Console.WriteDebugLine ("Setting start time to: " + StartTime.ToString());
-		}
+            Console.WriteDebugLine ("      Start time: " + StartTime.ToString ());
+        }
 
 		public string GetTimeSpanString(TimeSpan timeSpan)
 		{

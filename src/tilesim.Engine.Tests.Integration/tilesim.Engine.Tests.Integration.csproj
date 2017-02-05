@@ -46,6 +46,9 @@
     <Reference Include="datamanager.Data.Tests">
       <HintPath>..\..\mod\datamanager\bin\Release\datamanager.Data.Tests.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +59,7 @@
     <Compile Include="Orders\StartActivityOrderIntegrationTestFixture.cs" />
     <Compile Include="Activities\FellWoodIntegrationTestFixture.cs" />
     <Compile Include="ActivityGroups\BuildShelterIntegrationTestFixture.cs" />
+    <Compile Include="EngineClientIntegrationTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

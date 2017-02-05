@@ -5,23 +5,23 @@ using datamanager.Data.Providers.Redis;
 
 namespace tilesim.Engine
 {
-	public class GameCreator
+	public class GameContextCreator
 	{
 		public EngineSettings Settings { get;set; }
 
-		public GameCreator (EngineSettings settings)
+        public DataManager Data { get;set; }
+
+        public GameContextCreator (EngineSettings settings, DataManager data)
 		{
 			Settings = settings;
+            Data = data;
 		}
 
 		public EngineContext Create()
 		{
-			// Create the required objects
-			var data = CreateDataManager ();
+			var context = new EngineContext (Settings, Data);
 
-			var context = new EngineContext (Settings, data);
-
-            context.Console.WriteDebugLine ("Creating game engine context");
+            context.Console.WriteDebugLine ("    Creating game engine context");
 
 			var process = CreateProcess (context);
 
@@ -33,22 +33,11 @@ namespace tilesim.Engine
 
 		public EngineProcess CreateProcess(EngineContext context)
         {
-            context.Console.WriteDebugLine ("Creating game engine process");
+            context.Console.WriteDebugLine ("    Creating game engine process");
 
 			var process = new EngineProcess (context);
 
 			return process;
-		}
-
-		public DataManager CreateDataManager()
-		{
-            var provider = new RedisDataProvider ();
-
-            var dataManager = new DataManager(provider);
-
-            dataManager.Settings.IsVerbose = Settings.IsVerbose;
-
-			return dataManager;
 		}
 	}
 }

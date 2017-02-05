@@ -16,12 +16,13 @@ namespace tilesim.Engine
 			Console.WriteLine ("Launching Game Engine");
 			Console.WriteLine ("=====================");
 
+            throw new NotImplementedException ();
 
 
 			// TODO: Should this be dependent on "verbose" flag?
 			//Console.WriteDebugLine ("Engine ID: " + engineId);
 
-            var context = EngineContext.New (settings);
+            /*var context = EngineContext.New (settings);
 
             context.Settings.OutputType = ConsoleOutputType.Game;
 
@@ -43,7 +44,7 @@ namespace tilesim.Engine
 			}
 			//finally {
 			//	if (engine != null)
-			//		engine.Dispose ();
+			//		engine.Dispose ();*/
 
 		}
 

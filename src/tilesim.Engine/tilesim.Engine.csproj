@@ -147,6 +147,7 @@
     <Compile Include="Activities\PercentageCalculator.cs" />
     <Compile Include="Activities\AvailableTreeIdentifier.cs" />
     <Compile Include="Data\GameLister.cs" />
+    <Compile Include="EngineClient.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

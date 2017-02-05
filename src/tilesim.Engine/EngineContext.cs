@@ -41,6 +41,8 @@ namespace tilesim.Engine
 
             Console = new ConsoleHelper (Settings);
 
+            Console.WriteDebugLine ("    Constructing engine context");
+
 			Clock = new EngineClock (Settings, Console);
 
 			Info = new EngineInfo (Clock.StartTime, Settings);
@@ -49,8 +51,6 @@ namespace tilesim.Engine
 
 			World = new GameEnvironment (this);
 
-			if (Settings.IsVerbose)
-				Console.WriteDebugLine ("Constructing engine context");
 		}
 
 		public EngineContext (EngineProcess engine)
@@ -74,10 +74,7 @@ namespace tilesim.Engine
 			if (Engine == null)
 				throw new Exception ("No game engine process has been attached. Use the AttachProcess(engine) function before initializing.");
 
-			//Engine.Initialize ();
-
-            // TODO: Should this be reimplemented here?
-            SaveInfo ();
+            // TODO: Does anything else need to happen here? If not should this function be removed?
 		}
 		#endregion
 
@@ -100,7 +97,7 @@ namespace tilesim.Engine
 
 		public void PopulateFromSettings()
 		{
-            Console.WriteDebugLine ("Populating game engine from settings");
+            Console.WriteDebugLine ("    Populating game engine from settings");
 
             World.Populator.PopulateFromSettings ();
 
@@ -108,7 +105,7 @@ namespace tilesim.Engine
             if (World.People.Length > 0) {
                 Player = World.People [0];
 
-                Console.WriteDebugLine ("Selecting player: " + Player.Id);
+                Console.WriteDebugLine ("      Selecting player: " + Player.Id);
                 Player.Settings = Settings.PlayerSettings;
             }
 		}
@@ -116,7 +113,7 @@ namespace tilesim.Engine
 		#region Attach process
 		public void AttachProcess(EngineProcess process)
         {
-            process.Context.Console.WriteDebugLine ("Attaching game engine process to context");
+            process.Context.Console.WriteDebugLine ("   Attaching game engine process to context");
 
 			Engine = process;
 		}
@@ -125,8 +122,11 @@ namespace tilesim.Engine
 
         public void SaveInfo()
         {
-            Console.WriteDebugLine ("Saving game engine info");
-            
+            Console.WriteDebugLine ("  Saving game engine info");
+
+            // IMPORTANT: The ID of the engine must be set to the ID of the engine info
+            Info.Id = Settings.EngineId;
+
             Data.Save (Info);
 
             Data.Save (World.People);
@@ -144,12 +144,12 @@ namespace tilesim.Engine
 
 		public static EngineContext New()
 		{
-			return new GameCreator (EngineSettings.Default).Create ();
+            return new GameContextCreator (EngineSettings.Default, new DataManager()).Create ();
 		}
 
-        public static EngineContext New(EngineSettings settings)
+        public static EngineContext New(EngineSettings settings, DataManager data)
         {
-            return new GameCreator (settings).Create ();
+            return new GameContextCreator (settings, data).Create ();
         }
 
         public void AddOrder(BaseOrder order)

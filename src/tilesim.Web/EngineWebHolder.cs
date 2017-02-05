@@ -93,20 +93,21 @@ namespace tilesim.Web
                 Console.WriteLine ("Creating engine context");
             }
 
-            var context = EngineContext.New(settings);
+            throw new NotImplementedException ();
+           /* var context = EngineContext.New(settings);
 
             // TODO: Remove if not needed
-            /*context.Settings.EngineId = engineId;
-            context.Settings.EnableDataSaving = true;
-            context.Settings.GameSpeed = gameSpeed;
-            context.Settings.DefaultPeoplePerTile = 1;*/
+            //context.Settings.EngineId = engineId;
+            //context.Settings.EnableDataSaving = true;
+            //context.Settings.GameSpeed = gameSpeed;
+            //context.Settings.DefaultPeoplePerTile = 1;
 
             context.PopulateFromSettings();
             context.AddCompleteLogic();
 
             context.Initialize();
 
-            return context;
+            return context;*/
         }
 
         public void AttachEngineContext(EngineContext context)

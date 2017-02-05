@@ -37,7 +37,7 @@ namespace tilesim.Engine
 			Context = context;
 
 			if (context.Settings.IsVerbose)
-				context.Console.WriteDebugLine ("Constructing game engine process");
+				context.Console.WriteDebugLine ("    Constructing game engine process");
 
 			Persons = new PersonEngine (context);
 
