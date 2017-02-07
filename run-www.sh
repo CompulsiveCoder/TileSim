@@ -2,4 +2,4 @@ cd src/tilesim.WWW/
 
 redis-server &
 
-xsp4 --port 8085
+xsp4 --port 8081
